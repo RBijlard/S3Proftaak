@@ -7,6 +7,7 @@ package s3proftaak;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import javafx.application.Application;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
@@ -15,20 +16,25 @@ import org.newdawn.slick.SlickException;
  * @author Berry-PC
  */
 public class Main {
-    public static void main(String[] args) throws SlickException{
-		//System.setProperty("org.lwjgl.librarypath", new File( new File( System.getProperty("user.dir") , "native") , LWJGLUtil.getPlatformName() ).getAbsolutePath() );
-                AppGameContainer app = new AppGameContainer( new S3Proftaak("Game") );
+
+    public static void main(String[] args) throws SlickException {
+        //System.setProperty("org.lwjgl.librarypath", new File( new File( System.getProperty("user.dir") , "native") , LWJGLUtil.getPlatformName() ).getAbsolutePath() );
+        AppGameContainer app = new AppGameContainer(new S3Proftaak("Game"));
                 //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                //double width = screenSize.getWidth();
-                //double height = screenSize.getHeight();
-                GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-                int width = gd.getDisplayMode().getWidth();
-                int height = gd.getDisplayMode().getHeight();
-                System.out.println(width);
-                System.out.println(height);
-                app.setDisplayMode(width, height, true);
-                app.setShowFPS(false);
-                app.setVSync(true);
-                app.start();
-	}
+        //double width = screenSize.getWidth();
+        //double height = screenSize.getHeight();
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+        System.out.println(width);
+        System.out.println(height);
+        app.setDisplayMode(width, height, true);
+        app.setShowFPS(false);
+        app.setTargetFrameRate(60);
+        app.start();
+    }
+
+    public static void closeGame() {
+        System.exit(0);
+    }
 }
