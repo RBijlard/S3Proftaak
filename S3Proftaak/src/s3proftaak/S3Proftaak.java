@@ -33,6 +33,7 @@ public class S3Proftaak extends BasicGame {
      */
     @Override
     public void init(GameContainer container) throws SlickException {
+
         level = new StaticLevel();
         level.init(container);
 
@@ -55,6 +56,7 @@ public class S3Proftaak extends BasicGame {
         if (container.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             Main.closeGame();
         }
+
     }
 
     /**
@@ -80,5 +82,4 @@ public class S3Proftaak extends BasicGame {
             g.drawLine(0, i, resolution, i);
         }
     }
-
 }

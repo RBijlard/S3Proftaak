@@ -7,7 +7,6 @@ package s3proftaak;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javafx.application.Application;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 
@@ -20,7 +19,7 @@ public class Main {
     public static void main(String[] args) throws SlickException {
         //System.setProperty("org.lwjgl.librarypath", new File( new File( System.getProperty("user.dir") , "native") , LWJGLUtil.getPlatformName() ).getAbsolutePath() );
         AppGameContainer app = new AppGameContainer(new S3Proftaak("Game"));
-                //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //double width = screenSize.getWidth();
         //double height = screenSize.getHeight();
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
