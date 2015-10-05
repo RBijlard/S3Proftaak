@@ -1,19 +1,16 @@
 package s3proftaak;
 
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
+import org.newdawn.slick.tiled.TiledMap;
 
 /**
  *
- * @author Roel
+ * @author S33D
  */
 public class S3Proftaak extends BasicGame {
 
-    private StaticLevel level;
-    private Player player;
+    private TiledMap map;
+    
     /**
      * constructor for the S3Proftaak class
      * @param title instance title
@@ -29,11 +26,7 @@ public class S3Proftaak extends BasicGame {
      */
     @Override
     public void init(GameContainer container) throws SlickException {
-        level = new StaticLevel();
-        level.init(container);
-        
-        player = new Player(level);
-        player.init(container);
+        this.map = new TiledMap("src/Data/TestLevel.tmx");
     }
 
     /**
@@ -56,19 +49,20 @@ public class S3Proftaak extends BasicGame {
      */
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-        //drawDebugLines(g, 50);
-        
-        level.render(container, g);
-        player.render(container, g);
+        map.render(0, 0);
     }
     
-    public void drawDebugLines(Graphics g, int size){
-        int resolution = 800;
-        g.setColor(Color.darkGray);
-        for(int i = 0; i < resolution; i+= size){
-            g.drawLine(i, 0, i, resolution);
-            g.drawLine(0,i,resolution,i);
-        }
+    /**
+     * Main method, runs the game thread and defines the app properties
+     * @param args the command line arguments
+     * @throws org.newdawn.slick.SlickException
+     */
+    public static void main(String[] args) throws SlickException {
+        AppGameContainer app = new AppGameContainer(new S3Proftaak("test"));
+        
+        app.setShowFPS(false);
+        app.setDisplayMode(1000, 1000, false);
+        app.start();
     }
     
 }
