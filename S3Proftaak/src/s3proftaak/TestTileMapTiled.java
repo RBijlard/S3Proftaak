@@ -7,8 +7,13 @@ package s3proftaak;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -52,8 +57,27 @@ public class TestTileMapTiled extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        player = new Rectangle(80, 80, 50, 50);       
-        grassMap = new TiledMap("C:\\Users\\Berry-PC\\Desktop\\backup 07-09-2015\\SCHOOL\\HBO ICT\\LEERJAAR 2 PERIODE 1\\JSF3\\WEEK4\\testTileMapTiled\\Data\\tilemapBerry2.tmx");
+        player = new Rectangle(80, 80, 50, 50);   
+        
+        
+        URL url = getClass().getResource("/Resources/");
+        if (url == null) {
+             // error - missing folder
+        } else {
+            File dir = null;
+            try {
+                dir = new File(url.toURI());
+            } catch (URISyntaxException ex) {
+                Logger.getLogger(TestTileMapTiled.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            for (File nextFile : dir.listFiles()) {
+                System.out.println("PATH" + nextFile.getPath());
+            }
+        }
+        
+        System.out.println("abc: " + getClass().getResource("/Resources/2D_GAME_TEST_LVL.tmx").getPath());
+        
+        grassMap = new TiledMap(/*getClass().getResource("/Resources/2D_GAME_LVL_1.tmx").getPath()*/"C:\\Users\\Stan\\Documents\\NetBeansProjects\\S3Proftaak\\S3Proftaak\\src\\Resources\\2D_GAME_TEST_LVL.tmx");
         rectList = new ArrayList<Rectangle>();
         for(int i = 0; i < grassMap.getObjectCount(0); i++){
             Rectangle r = new Rectangle(grassMap.getObjectX(0, i) ,grassMap.getObjectY(0, i),

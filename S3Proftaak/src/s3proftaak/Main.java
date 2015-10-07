@@ -17,7 +17,9 @@ import org.newdawn.slick.SlickException;
 public class Main {
 
     public static void main(String[] args) throws SlickException {
-        //System.setProperty("org.lwjgl.librarypath", new File( new File( System.getProperty("user.dir") , "native") , LWJGLUtil.getPlatformName() ).getAbsolutePath() );
+      
+
+//System.setProperty("org.lwjgl.librarypath", new File( new File( System.getProperty("user.dir") , "native") , LWJGLUtil.getPlatformName() ).getAbsolutePath() );
         AppGameContainer app = new AppGameContainer(new S3Proftaak("Game"));
         //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         //double width = screenSize.getWidth();
@@ -28,7 +30,7 @@ public class Main {
         System.out.println(width);
         System.out.println(height);
         app.setDisplayMode(width, height, true);
-        app.setShowFPS(false);
+        app.setShowFPS(true);
         app.setTargetFrameRate(60);
         app.start();
     }
