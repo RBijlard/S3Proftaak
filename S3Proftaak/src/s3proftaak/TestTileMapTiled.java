@@ -48,7 +48,7 @@ public class TestTileMapTiled extends BasicGame {
     public static void main(String[] arguments) {
         try {
             AppGameContainer app = new AppGameContainer(new TestTileMapTiled("Game"));
-                app.setDisplayMode(1500, 1500, false);
+                app.setDisplayMode(1300, 1300, false);
             app.setTargetFrameRate(60);
             app.start();
         } catch (SlickException e) {
@@ -75,9 +75,9 @@ public class TestTileMapTiled extends BasicGame {
             }
         }
         
-        System.out.println("abc: " + getClass().getResource("/Resources/TestLevel.tmx").getPath());
+        System.out.println("abc: " + getClass().getResource("/Resources/tilemapBerry2.tmx").getPath());
         
-        String path = getClass().getResource("/Resources/TestLevel.tmx").getPath().replace("%20", " ");
+        String path = getClass().getResource("/Resources/tilemapBerry2.tmx").getPath().replace("%20", " ");
         
         System.out.println(path);
         
