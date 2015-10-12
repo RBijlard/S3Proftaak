@@ -18,7 +18,7 @@ import org.newdawn.slick.geom.Shape;
  *
  * @author Berry-PC
  */
-public class Player{
+public class AdditionalPlayer{
 
     private static float gravity = 0.5f;
     private static float jumpStrength = -12;
@@ -32,7 +32,7 @@ public class Player{
     private float vX = 0;
     private float vY = 0;
 
-    public Player(List<Rectangle> rectList, int x, int y, int width, int height) {
+    public AdditionalPlayer(List<Rectangle> rectList, int x, int y, int width, int height) {
         this.rectList = rectList;
         player = new Rectangle(x,y,width,height);
     }
@@ -77,9 +77,9 @@ public class Player{
 
     public void moveHorizontal(GameContainer container) {
         //X acceleration
-        if (container.getInput().isKeyDown(Input.KEY_LEFT)) {
+        if (container.getInput().isKeyDown(Input.KEY_A)) {
             vX = -speed;
-        } else if (container.getInput().isKeyDown(Input.KEY_RIGHT)) {
+        } else if (container.getInput().isKeyDown(Input.KEY_D)) {
             vX = speed;
         } else {
             vX = 0;
@@ -99,7 +99,7 @@ public class Player{
     public void moveVertical(GameContainer container) {
         //Y acceleration
         vY += gravity;
-        if (container.getInput().isKeyDown(Input.KEY_UP)) {
+        if (container.getInput().isKeyDown(Input.KEY_W)) {
             player.setY(player.getY() + 0.1f);
             if (isBlocked2(player)) {
                 vY = jumpStrength;

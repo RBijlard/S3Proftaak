@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -32,7 +33,8 @@ public class Game extends BasicGame {
     private static float gravity = 0.5f;
     private static float jumpStrength = -15;
     private static float speed = 4;
-    private Shape player;
+    private Player character;
+    private AdditionalPlayer additional_character;
     private float vX = 0;
     private float vY = 0;
     private static int interations = 5;
@@ -53,7 +55,6 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer container) throws SlickException {
-        player = new Rectangle(80, 80, 50, 50);
 
         URL url = getClass().getResource("/Resources/");
         if (url == null) {
@@ -70,12 +71,6 @@ public class Game extends BasicGame {
             }
         }
 
-        System.out.println("abc: " + getClass().getResource("/Resources/tilemapBerry2.tmx").getPath());
-
-        //String path = getClass().getResource("/Resources/tilemapBerry2.tmx").getPath().replace("%20", " ");
-
-        System.out.println(path);
-
         grassMap = new TiledMap(path);
         rectList = new ArrayList<Rectangle>();
         for (int i = 0; i < grassMap.getObjectCount(0); i++) {
@@ -84,19 +79,24 @@ public class Game extends BasicGame {
             System.out.println(r);
             rectList.add(r);
         }
-
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = gd.getDisplayMode().getWidth();
-        int height = gd.getDisplayMode().getHeight();
-
-        jumpStrength = -(width / 110);
+        
+        character = new Player(rectList, 80, 80, 50, 50);
+        additional_character = new AdditionalPlayer(rectList, 160, 80, 50, 50);
+        
+        rectList.add((Rectangle) character.getPlayer());
+        rectList.add((Rectangle) additional_character.getPlayer());
+        
+        
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        moveHorizontal(container);
-        moveVertical(container);
-
+        character.moveHorizontal(container);
+        character.moveVertical(container);
+        
+        additional_character.moveHorizontal(container);
+        additional_character.moveVertical(container);
+        
         if (container.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             closeGame();
         }
@@ -104,63 +104,15 @@ public class Game extends BasicGame {
 
     public void render(GameContainer container, Graphics g) throws SlickException {
         grassMap.render(0, 0);
-        g.draw(player);
-        for(Rectangle r : rectList){
-            g.draw(r);
-        }
+        g.setColor(Color.white);
+        g.draw(character.getPlayer());
+        g.setColor(Color.green);
+        g.draw(additional_character.getPlayer());
+//        for(Rectangle r : rectList){
+//            g.draw(r);
+//        }
     }
-
-    private boolean isBlocked2(Shape s) {
-        for (Rectangle r : rectList) {
-            if (r.intersects(s)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public void moveHorizontal(GameContainer container) {
-        //X acceleration
-        if (container.getInput().isKeyDown(Input.KEY_LEFT)) {
-            vX = -speed;
-        } else if (container.getInput().isKeyDown(Input.KEY_RIGHT)) {
-            vX = speed;
-        } else {
-            vX = 0;
-        }
-
-        //X movement-collisions
-        float vXtemp = vX / interations;
-        for (int i = 0; i < interations; i++) {
-            player.setX(player.getX() + vXtemp);
-            if (isBlocked2(player)) {
-                player.setX(player.getX() - vXtemp);
-                vX = 0;
-            }
-        }
-    }
-
-    public void moveVertical(GameContainer container) {
-        //Y acceleration
-        vY += gravity;
-        if (container.getInput().isKeyDown(Input.KEY_UP)) {
-            player.setY(player.getY() + 0.1f);
-            if (isBlocked2(player)) {
-                vY = jumpStrength;
-            }
-            player.setY(player.getY() - 0.1f);
-        }
-        //Y movement-collisions
-        float vYtemp = vY / interations;
-        for (int i = 0; i < interations; i++) {
-            player.setY(player.getY() + vYtemp);
-            if (isBlocked2(player)) {
-                player.setY(player.getY() - vYtemp);
-                vY = 0;
-            }
-        }
-    }
-
+    
     public static void closeGame() {
         System.exit(0);
     }
