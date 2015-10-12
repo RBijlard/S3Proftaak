@@ -10,7 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,24 +20,11 @@ public class DBConnect {
     
     private Connection conn = null;
     
-    public boolean connect(){
-        try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
-            return true;
-        } catch (SQLException ex) {
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-            return false;
-        }
+    public void connect() throws SQLException{
+        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
     }
     
-/*
-CREATE TABLE IF NOT EXISTS ACCOUNT(Username VARCHAR(20) UNIQUE, Password VARCHAR(20), Mute INTEGER(1), Fullscreen INTEGER(1), Path VARCHAR(255));
-CREATE TABLE IF NOT EXISTS SCORE(Tijd INTEGER(10), Ster INTEGER(10), Usernames VARCHAR(255));
-CREATE TABLE IF NOT EXISTS LOBBY(Usernames VARCHAR(255), Level VARCHAR(255));
-CREATE TABLE IF NOT EXISTS LEVEL(Name VARCHAR(255));
-*/
+    // <editor-fold defaultstate="collapsed" desc="Settings - getSettings / updateSettings"> 
     public Settings getSettings(String username) throws SQLException{
         PreparedStatement ps = conn.prepareStatement("SELECT Mute, Fullscreen, Path FROM ACCOUNT WHERE Username = ?");
         ps.setString(1, username);
@@ -61,4 +48,81 @@ CREATE TABLE IF NOT EXISTS LEVEL(Name VARCHAR(255));
         ps.setString(4, username);
         ps.execute();
     }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Login - doUserLogin"> 
+    public boolean doUserLogin(String username, String password) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("SELECT null FROM ACCOUNT WHERE Username = ? AND Password = ?");
+        ps.setString(1, username);
+        ps.setString(2, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs != null){
+            while (rs.next()){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Account - insertAccount"> 
+    public void insertAccount(Account a) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO ACCOUNT (Username, Password, Mute, Fullscreen, Path) VALUES (?, ?, ?, ?, ?)");
+        ps.setString(1, a.getUsername());
+        ps.setString(2, a.getPassword());
+        ps.setBoolean(3, a.getSettings().isSoundMute());
+        ps.setBoolean(4, a.getSettings().isFullscreen());
+        ps.setString(5, a.getSettings().getSkinPath());
+        ps.execute();
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Score - getScores / insertScore"> 
+    public ArrayList<Score> getScores(String username) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("SELECT Tijd, Ster, Usernames FROM SCORE");
+        ps.setString(1, username);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs != null){
+            ArrayList<Score> Scores = new ArrayList<>();
+            
+            while (rs.next()){
+                Scores.add(new Score(rs.getInt("Tijd"), rs.getInt("Ster"), rs.getString("Usernames")));
+            }
+            
+            return Scores;
+        }
+        
+        return null;
+    }
+    
+    public void insertScore(Score s) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO SCORE (Tijd, Ster, Usernames) VALUES (?, ?, ?)");
+        ps.setInt(1, s.getTime());
+        ps.setInt(2, s.getAmountOfStars());
+        ps.setString(3, s.getPlayerNames());
+        ps.execute();
+    }
+    // </editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Level - getLevelName"> 
+     public String getLevelName(int id) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("SELECT Name FROM LEVEL WHERE Id = ?");
+        ps.setInt(1, id);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs != null){
+            while (rs.next()){
+                return rs.getString("Name");
+            }
+        }
+        
+        return null;
+    }
+    // </editor-fold>
 }
