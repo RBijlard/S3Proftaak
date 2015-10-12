@@ -9,6 +9,30 @@ package s3proftaak.GameObjects;
  *
  * @author Stan
  */
-public class Button {
-    
+public class Button extends GameObject {
+
+    private boolean isPressed;
+    private String altSpritePath;
+
+    public Button(boolean isPressed, String altSpritePath, int posX, int posY, int width, int height, String spritePath, boolean collision, boolean trigger) {
+        super(posX, posY, width, height, spritePath, collision, trigger);
+        this.isPressed = isPressed;
+        this.altSpritePath = altSpritePath;
+    }
+
+    public boolean isPressed() {
+        return isPressed;
+    }
+
+    public void setIsPressed(boolean isPressed) {
+        this.isPressed = isPressed;
+    }
+
+    public String getAltSpritePath() {
+        return altSpritePath;
+    }
+
+    public void setAltSpritePath(String altSpritePath) {
+        this.altSpritePath = altSpritePath;
+    }    
 }

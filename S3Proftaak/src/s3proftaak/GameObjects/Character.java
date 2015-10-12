@@ -9,6 +9,10 @@ package s3proftaak.GameObjects;
  *
  * @author Stan
  */
-public class Character {
+public class Character extends GameObject {
+
+    public Character(int posX, int posY, int width, int height, String spritePath, boolean collision, boolean trigger) {
+        super(posX, posY, width, height, spritePath, collision, trigger);
+    }
     
 }

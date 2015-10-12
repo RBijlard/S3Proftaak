@@ -9,6 +9,32 @@ package s3proftaak.GameObjects;
  *
  * @author Stan
  */
-public class Door {
+public class Door extends GameObject {
+
+    private boolean isOpen;
+    private String altSpritePath;
+
+    public Door(boolean isOpen, String altSpritePath, int posX, int posY, int width, int height, String spritePath, boolean collision, boolean trigger) {
+        super(posX, posY, width, height, spritePath, collision, trigger);
+        this.isOpen = isOpen;
+        this.altSpritePath = altSpritePath;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(boolean isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public String getAltSpritePath() {
+        return altSpritePath;
+    }
+
+    public void setAltSpritePath(String altSpritePath) {
+        this.altSpritePath = altSpritePath;
+    }
+    
     
 }

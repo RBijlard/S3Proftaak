@@ -9,6 +9,10 @@ package s3proftaak.GameObjects;
  *
  * @author Stan
  */
-public class Spike {
+public class Spike extends GameObject {
+
+    public Spike(int posX, int posY, int width, int height, String spritePath, boolean collision, boolean trigger) {
+        super(posX, posY, width, height, spritePath, collision, trigger);
+    }
     
 }
