@@ -7,6 +7,7 @@ package s3proftaak;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,11 +18,11 @@ import java.sql.Statement;
  */
 public class DBConnect {
     
-    private static Connection conn = null;
+    private Connection conn = null;
     
-    private boolean connect(){
+    public boolean connect(){
         try {
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/c2j", "root", "usbw");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
             return true;
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
@@ -31,25 +32,33 @@ public class DBConnect {
         }
     }
     
-    private void refreshTable() throws SQLException{
-        Statement st = conn.createStatement();
-        st.execute("DROP TABLE IF EXISTS HIGHSCORE");
-        st.execute("CREATE TABLE IF NOT EXISTS HIGHSCORE(Name VARCHAR(25), Score INT)");
+/*
+CREATE TABLE IF NOT EXISTS ACCOUNT(Username VARCHAR(20) UNIQUE, Password VARCHAR(20), Mute INTEGER(1), Fullscreen INTEGER(1), Path VARCHAR(255));
+CREATE TABLE IF NOT EXISTS SCORE(Tijd INTEGER(10), Ster INTEGER(10), Usernames VARCHAR(255));
+CREATE TABLE IF NOT EXISTS LOBBY(Usernames VARCHAR(255), Level VARCHAR(255));
+CREATE TABLE IF NOT EXISTS LEVEL(Name VARCHAR(255));
+*/
+    public Settings getSettings(String username) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("SELECT Mute, Fullscreen, Path FROM ACCOUNT WHERE Username = ?");
+        ps.setString(1, username);
         
-        insertScore("Stan", 25000);
-    }
-    
-    private void insertScore(String name, int score) throws SQLException{
-        conn.createStatement().execute("INSERT INTO HIGHSCORE(Name, Score) VALUES('" + name + "', " + score + ")");
-    }
-    
-    private void getScores() throws SQLException{
-        ResultSet rs = conn.prepareStatement("SELECT * FROM HIGHSCORE").executeQuery();
+        ResultSet rs = ps.executeQuery();
         
-        while (rs.next()) {
-                System.out.print(rs.getString(1));
-                System.out.print(": ");
-                System.out.println(rs.getInt(2));
+        if (rs != null){
+            while (rs.next()){
+                return new Settings(rs.getBoolean("Mute"), rs.getBoolean("Fullscreen"), rs.getString("Path"));
+            }
         }
+        
+        return null;
+    }
+    
+    public void updateSettings(String username, Settings s) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("UPDATE ACCOUNT SET Mute = ?, Fullscreen = ?, Path = ? WHERE Username = ?");
+        ps.setBoolean(1, s.isSoundMute());
+        ps.setBoolean(2, s.isFullscreen());
+        ps.setString(3, s.getSkinPath());
+        ps.setString(4, username);
+        ps.execute();
     }
 }
