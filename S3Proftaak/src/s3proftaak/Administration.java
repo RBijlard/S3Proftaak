@@ -59,7 +59,7 @@ public class Administration extends BasicGame{
             if(input.isMousePressed(0)){
                 
                 AppGameContainer app = new AppGameContainer(new Game("Game1"));
-                app.setDisplayMode(width, height, true);
+                app.setDisplayMode(width, height, false);
                 app.setTargetFrameRate(60);
                 app.start();
                 
@@ -67,7 +67,7 @@ public class Administration extends BasicGame{
             if(input.isMousePressed(1)){
                 
                 AppGameContainer app = new AppGameContainer(new Game("Game2"));
-                app.setDisplayMode(width, height, true);
+                app.setDisplayMode(width, height, false);
                 app.setTargetFrameRate(60);
                 app.start();
                 
@@ -77,8 +77,8 @@ public class Administration extends BasicGame{
         if(settingsButton.contains(mouse)){
             if(input.isMousePressed(0)){
                 
-                AppGameContainer app = new AppGameContainer(new Settings("Settings"));
-                app.setDisplayMode(width, height, true);
+                AppGameContainer app = new AppGameContainer(new SettingsVisual("Settings"));
+                app.setDisplayMode(width, height, false);
                 app.setTargetFrameRate(60);
                 app.start();
                 
