@@ -35,6 +35,7 @@ public class Game extends BasicGame {
     private static float speed = 4;
     private Player character;
     private AdditionalPlayer additional_character;
+    private AdditionalAdditionalPlayer additional_additional_character;
     private float vX = 0;
     private float vY = 0;
     private static int interations = 5;
@@ -80,22 +81,24 @@ public class Game extends BasicGame {
             rectList.add(r);
         }
         
-        character = new Player(rectList, 80, 80, 50, 50);
-        additional_character = new AdditionalPlayer(rectList, 160, 80, 50, 50);
+        character = new Player(rectList, 80, 80, 70, 93);
+        additional_character = new AdditionalPlayer(rectList, 160, 80, 70, 93);
+        additional_additional_character = new AdditionalAdditionalPlayer(rectList, 240, 80, 70, 93);
         
         rectList.add((Rectangle) character.getPlayer());
         rectList.add((Rectangle) additional_character.getPlayer());
+        rectList.add((Rectangle) additional_additional_character.getPlayer());
         
         
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        character.moveHorizontal(container);
-        character.moveVertical(container);
+        character.update(container, delta);
         
-        additional_character.moveHorizontal(container);
-        additional_character.moveVertical(container);
+        additional_character.update(container, delta);
+        
+        additional_additional_character.update(container, delta);
         
         if (container.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             closeGame();
@@ -104,10 +107,13 @@ public class Game extends BasicGame {
 
     public void render(GameContainer container, Graphics g) throws SlickException {
         grassMap.render(0, 0);
-        g.setColor(Color.white);
-        g.draw(character.getPlayer());
-        g.setColor(Color.green);
-        g.draw(additional_character.getPlayer());
+        character.render(container,g);
+        additional_character.render(container,g);
+        additional_additional_character.render(container,g);
+        
+//       character.getAnimation().draw(character.getPlayer().getX(), character.getPlayer().getY());
+//        additional_character.getAnimation().draw(additional_character.getPlayer().getX(), additional_character.getPlayer().getY());
+        
 //        for(Rectangle r : rectList){
 //            g.draw(r);
 //        }

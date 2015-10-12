@@ -20,7 +20,7 @@ import org.newdawn.slick.geom.Shape;
  *
  * @author Berry-PC
  */
-public class Player{
+public class AdditionalAdditionalPlayer{
 
     private static float gravity = 0.5f;
     private static float jumpStrength = -12;
@@ -37,10 +37,10 @@ public class Player{
     private float vX = 0;
     private float vY = 0;
 
-    public Player(List<Rectangle> rectList, int x, int y, int width, int height) throws SlickException {
+    public AdditionalAdditionalPlayer(List<Rectangle> rectList, int x, int y, int width, int height) throws SlickException {
         this.rectList = rectList;
         player = new Rectangle(x,y,width,height);
-        playerSheet = new SpriteSheet(getClass().getResource("/Resources/player1_sprites.png").getPath().replace("%20", " "), 70, 93);
+        playerSheet = new SpriteSheet(getClass().getResource("/Resources/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
         animate = new Animation(playerSheet, 100);
     }
 
@@ -51,7 +51,6 @@ public class Player{
     public Animation getAnimation(){
         return this.animate;
     }
-    
     /**
      * Update method, runs every frame (insert logic here)
      *
@@ -68,6 +67,7 @@ public class Player{
         animate.draw(player.getX(), player.getY());
     }
 
+
     private boolean isBlocked2(Shape s) {
         for (Rectangle r : rectList) {
             if (r.intersects(s) && r != s) {
@@ -79,9 +79,9 @@ public class Player{
 
     public void moveHorizontal(GameContainer container) {
         //X acceleration
-        if (container.getInput().isKeyDown(Input.KEY_LEFT)) {
+        if (container.getInput().isKeyDown(Input.KEY_J)) {
             vX = -speed;
-        } else if (container.getInput().isKeyDown(Input.KEY_RIGHT)) {
+        } else if (container.getInput().isKeyDown(Input.KEY_L)) {
             vX = speed;
         } else {
             vX = 0;
@@ -101,7 +101,7 @@ public class Player{
     public void moveVertical(GameContainer container) {
         //Y acceleration
         vY += gravity;
-        if (container.getInput().isKeyDown(Input.KEY_UP)) {
+        if (container.getInput().isKeyDown(Input.KEY_I)) {
             player.setY(player.getY() + 0.1f);
             if (isBlocked2(player)) {
                 vY = jumpStrength;

@@ -6,11 +6,13 @@
 package s3proftaak;
 
 import java.util.List;
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
@@ -24,6 +26,9 @@ public class AdditionalPlayer{
     private static float jumpStrength = -12;
     private static float speed = 4;
 
+    private SpriteSheet playerSheet;
+    private Animation animate;
+    
     private static int interations = 5;
     private List<Rectangle> rectList;
 
@@ -32,15 +37,20 @@ public class AdditionalPlayer{
     private float vX = 0;
     private float vY = 0;
 
-    public AdditionalPlayer(List<Rectangle> rectList, int x, int y, int width, int height) {
+    public AdditionalPlayer(List<Rectangle> rectList, int x, int y, int width, int height) throws SlickException {
         this.rectList = rectList;
         player = new Rectangle(x,y,width,height);
+        playerSheet = new SpriteSheet(getClass().getResource("/Resources/player2_sprites.png").getPath().replace("%20", " "), 70, 93);
+        animate = new Animation(playerSheet, 100);
     }
 
     public Shape getPlayer(){
         return this.player;
     }
     
+    public Animation getAnimation(){
+        return this.animate;
+    }
     /**
      * Update method, runs every frame (insert logic here)
      *
@@ -53,16 +63,8 @@ public class AdditionalPlayer{
         moveVertical(container);
     }
 
-    /**
-     * Render method, draws every update on the screen (draw in here)
-     *
-     * @param container the window for the game
-     * @param g graphics of the screen
-     * @throws SlickException
-     */
     public void render(GameContainer container, Graphics g) throws SlickException {
-        g.setColor(Color.red);
-        g.draw(player);
+        animate.draw(player.getX(), player.getY());
     }
 
 
