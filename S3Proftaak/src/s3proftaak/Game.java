@@ -47,7 +47,7 @@ public class Game extends BasicGame {
             path = getClass().getResource("/Resources/tilemapBerry2.tmx").getPath().replace("%20", " ");
         }
         if(title.equals("Game2")){
-            path = getClass().getResource("/Resources/tilemapBerry.tmx").getPath().replace("%20", " ");
+            path = getClass().getResource("/Resources/tilemapBo.tmx").getPath().replace("%20", " ");
         }
     }
 
