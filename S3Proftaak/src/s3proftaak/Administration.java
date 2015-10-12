@@ -33,7 +33,6 @@ public class Administration extends BasicGame{
     private int width;
     private int height;
     private Point mouse;
-    private Game game;
     
     public Administration(String title) {
         super(title);
@@ -59,7 +58,15 @@ public class Administration extends BasicGame{
         if(startButton.contains(mouse)){
             if(input.isMousePressed(0)){
                 
-                AppGameContainer app = new AppGameContainer(new Game("Game"));
+                AppGameContainer app = new AppGameContainer(new Game("Game1"));
+                app.setDisplayMode(width, height, true);
+                app.setTargetFrameRate(60);
+                app.start();
+                
+            }
+            if(input.isMousePressed(1)){
+                
+                AppGameContainer app = new AppGameContainer(new Game("Game2"));
                 app.setDisplayMode(width, height, true);
                 app.setTargetFrameRate(60);
                 app.start();
