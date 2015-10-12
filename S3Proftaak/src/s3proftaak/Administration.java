@@ -29,6 +29,7 @@ public class Administration extends BasicGame{
     private List<Account> accounts;
     private List<Lobby> lobbies;
     private Rectangle startButton;
+    private Rectangle settingsButton;
     private int width;
     private int height;
     private Point mouse;
@@ -44,7 +45,8 @@ public class Administration extends BasicGame{
         width = gd.getDisplayMode().getWidth();
         height = gd.getDisplayMode().getHeight();
         mouse = new Point(0,0);
-        startButton = new Rectangle(width/2 - 175, height/2 - 100, 350, 200);
+        startButton = new Rectangle(width/2 - 175, height/2 - 200, 350, 200);
+        settingsButton = new Rectangle(width/2 - 175, height/2 + 10, 350, 200);
     }
 
     @Override
@@ -65,6 +67,17 @@ public class Administration extends BasicGame{
             }
         }
         
+        if(settingsButton.contains(mouse)){
+            if(input.isMousePressed(0)){
+                
+                AppGameContainer app = new AppGameContainer(new Settings("Settings"));
+                app.setDisplayMode(width, height, true);
+                app.setTargetFrameRate(60);
+                app.start();
+                
+            }
+        }
+        
         if (input.isKeyDown(Input.KEY_ESCAPE)) {
             closeGame();
         }
@@ -74,9 +87,12 @@ public class Administration extends BasicGame{
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.setColor(Color.red);
         g.fill(startButton);
+        g.fill(settingsButton);
         g.setColor(Color.white);
         g.draw(startButton);
-        g.drawString("Start nieuw spel", width/2 - 100, height/2 - 30);
+        g.draw(settingsButton);
+        g.drawString("Start nieuw spel", startButton.getX() + 100, startButton.getY() + 90);
+        g.drawString("Options", settingsButton.getX() + 100, settingsButton.getY() + 90);
         g.setColor(Color.yellow);
         g.fill(mouse);
     }
