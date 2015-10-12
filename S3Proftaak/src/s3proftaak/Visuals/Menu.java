@@ -27,13 +27,7 @@ import s3proftaak.Main;
  *
  * @author Stan
  */
-public class Menu {
-    
-    private final Scene scene;
-    
-    public Scene getScene(){
-        return this.scene;
-    }
+public class Menu extends BasicScene{
     
     public Menu(){
         Group root = new Group();
@@ -62,6 +56,6 @@ public class Menu {
         hBox.getChildren().addAll(b1, b2);
         root.getChildren().add(hBox);
         
-        this.scene = new Scene(root);
+        setScene(new Scene(root));
     }
 }

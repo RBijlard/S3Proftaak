@@ -17,14 +17,8 @@ import javafx.scene.layout.HBox;
  *
  * @author Stan
  */
-public class SettingsVisual {
-    
-    private final Scene scene;
-    
-    public Scene getScene(){
-        return this.scene;
-    }
-    
+public class SettingsVisual extends BasicScene {
+
     public SettingsVisual(){
         Group root = new Group();
  
@@ -44,6 +38,6 @@ public class SettingsVisual {
         hBox.getChildren().addAll(l, tb1, tb2);
         root.getChildren().add(hBox);
         
-        this.scene = new Scene(root);
+        setScene(new Scene(root));
     }
 }
