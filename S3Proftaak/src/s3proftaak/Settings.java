@@ -11,8 +11,6 @@ package s3proftaak;
  * @author S33D
  */
 public class Settings {
-
-    
     private boolean soundMute;
     private boolean fullscreen;
     private String skinPath;

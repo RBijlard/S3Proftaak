@@ -13,11 +13,12 @@ public class Account {
     
     private String username;
     private String password;
+    private Settings settings;
     
-    public Account(String username, String password){
+    public Account(String username, String password, Settings settings){
         this.username = username;
         this.password = password;
-        //check gegevens vanuit database klasse.. (iteratie 2)
+        this.settings = settings;
     }
     
     public String getUsername(){
@@ -34,5 +35,13 @@ public class Account {
     
     public void setPassword(String password){
         this.password = password;
+    }
+    
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 }
