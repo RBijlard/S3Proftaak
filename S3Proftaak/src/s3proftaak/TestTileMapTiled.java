@@ -75,9 +75,13 @@ public class TestTileMapTiled extends BasicGame {
             }
         }
         
-        System.out.println("abc: " + getClass().getResource("/Resources/2D_GAME_TEST_LVL.tmx").getPath());
+        System.out.println("abc: " + getClass().getResource("/Resources/TestLevel.tmx").getPath());
         
-        grassMap = new TiledMap(/*getClass().getResource("/Resources/2D_GAME_LVL_1.tmx").getPath()*/"C:\\Users\\Stan\\Documents\\NetBeansProjects\\S3Proftaak\\S3Proftaak\\src\\Resources\\2D_GAME_TEST_LVL.tmx");
+        String path = getClass().getResource("/Resources/TestLevel.tmx").getPath().replace("%20", " ");
+        
+        System.out.println(path);
+        
+        grassMap = new TiledMap(path);
         rectList = new ArrayList<Rectangle>();
         for(int i = 0; i < grassMap.getObjectCount(0); i++){
             Rectangle r = new Rectangle(grassMap.getObjectX(0, i) ,grassMap.getObjectY(0, i),
