@@ -105,9 +105,9 @@ public class Game extends BasicGame {
     public void render(GameContainer container, Graphics g) throws SlickException {
         grassMap.render(0, 0);
         g.draw(player);
-//        for(Rectangle r : rectList){
-//            g.draw(r);
-//        }
+        for(Rectangle r : rectList){
+            g.draw(r);
+        }
     }
 
     private boolean isBlocked2(Shape s) {

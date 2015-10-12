@@ -25,7 +25,7 @@ public class Main {
             int height = gd.getDisplayMode().getHeight();
             
             AppGameContainer app = new AppGameContainer(new Administration("Start"));
-            app.setDisplayMode(1920, 1080, false);
+            app.setDisplayMode(width, height, false);
             app.setTargetFrameRate(60);
             app.start();
         } catch (SlickException e) {
