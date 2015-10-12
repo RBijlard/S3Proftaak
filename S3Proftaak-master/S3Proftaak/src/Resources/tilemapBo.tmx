@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="70" tileheight="70" backgroundcolor="#4096ce" nextobjectid="181">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="30" tilewidth="70" tileheight="70" backgroundcolor="#4096ce" nextobjectid="194">
  <tileset firstgid="1" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
   <image source="tiles_spritesheet.png" width="914" height="936"/>
  </tileset>
  <tileset firstgid="157" name="item_persSpriteSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="100">
-  <image source="item_persSpriteSheet.png" width="720" height="720"/>
+  <image source="C:/Users/Bo/Google Drive/S3 - S33D/platformer-art-complete-pack-0/Base pack/Items/item_persSpriteSheet.png" width="720" height="720"/>
  </tileset>
  <layer name="Tiles" width="50" height="30">
   <data encoding="base64" compression="gzip">
    H4sIAAAAAAAAC+2VQQ7DIAwEeVAfwLWXPqB/yjOqHPPN9JBKloUcTNZZQF1pD1HAeJIFlpTSMomR2sD1LOXDI3OsaXyOrCw59LvcuAY7V7rvVp7eOFr1AdWpUW2urKzVjkP3XHJpn6M40Dxsjqj/I3v4cci1ojgieJgcSF4rV2fzRuFYnRxMlTisb/ESY3QNpjy5en79FvN0jbtkZVDvc09u/xw4tZ5XvakXDtb9gdYsHF6d7XNPDfl8t65yyDmPw6OdV5pdczBZrtwfJY4Ilpq6ERxoFiYHy7NxzOAdlgeYzXAXAAA=
   </data>
  </layer>
- <objectgroup name="Collision" width="1000" height="1000">
+ <objectgroup name="Collision">
   <object id="107" x="70" y="1750" width="770" height="280"/>
   <object id="109" x="700" y="1540" width="140" height="210"/>
   <object id="110" x="630" y="1610" width="70" height="140"/>
@@ -48,6 +48,7 @@
   <object id="161" x="3430" y="0" width="70" height="2030"/>
   <object id="163" x="70" y="0" width="3430" height="70"/>
   <object id="179" x="2940" y="1050" width="350" height="140"/>
+  <object id="184" x="70" y="2030" width="3430" height="70"/>
  </objectgroup>
  <objectgroup name="Button1">
   <object id="164" x="3220" y="140" width="70" height="70"/>

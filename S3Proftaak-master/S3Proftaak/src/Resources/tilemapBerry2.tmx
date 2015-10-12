@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="70" tileheight="70" nextobjectid="23">
+ <tileset firstgid="1" name="ts1" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
+  <image source="tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="20" height="20">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2tlYGBopTKmFqCVeeS6d6j6l1T1uPRQ2//U8C813ENueiYnrPCZT258kaoel76BTn/4zKCkvKF2eBOKc1xyxKol1jxS0zy1y3kQBgBqvknkQAYAAA==
+  </data>
+ </layer>
+ <objectgroup name="Collision" width="1326" height="40">
+  <object id="1" x="28" y="26" width="1326" height="40"/>
+  <object id="2" x="28" y="66" width="38" height="1290"/>
+  <object id="3" x="66" y="210" width="284" height="72"/>
+  <object id="4" x="70" y="490" width="280" height="72"/>
+  <object id="5" x="70" y="770" width="282" height="76"/>
+  <object id="6" x="68" y="1052" width="284" height="72"/>
+  <object id="7" x="70" y="1328" width="1276" height="40"/>
+  <object id="8" x="420" y="1194" width="70" height="64"/>
+  <object id="9" x="420" y="1256" width="276" height="70"/>
+  <object id="10" x="702" y="1192" width="134" height="68"/>
+  <object id="11" x="772" y="1124" width="202" height="68"/>
+  <object id="12" x="910" y="1052" width="276" height="66"/>
+  <object id="13" x="1122" y="982" width="208" height="66"/>
+  <object id="14" x="1330" y="66" width="26" height="1268"/>
+  <object id="15" x="1052" y="212" width="278" height="66"/>
+  <object id="16" x="772" y="420" width="208" height="72"/>
+  <object id="17" x="492" y="700" width="136" height="144"/>
+  <object id="18" x="768" y="842" width="280" height="72"/>
+  <object id="19" x="912" y="630" width="416" height="72"/>
+  <object id="20" x="978" y="702" width="352" height="66"/>
+  <object id="21" x="1124" y="562" width="204" height="66"/>
+ </objectgroup>
+</map>
