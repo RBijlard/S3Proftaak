@@ -5,30 +5,31 @@
  */
 package s3proftaak;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.SlickException;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import s3proftaak.Visuals.Menu;
 
 /**
  *
  * @author Berry-PC
  */
-public class Main {
-
+public class Main extends Application {
+    private static Stage primaryStage;
+    
     public static void main(String[] arguments) {
-        try {
-            //AppGameContainer app = new AppGameContainer(new Game("Game"));
-                 
-            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            int width = gd.getDisplayMode().getWidth();
-            int height = gd.getDisplayMode().getHeight();
-            
-            AppGameContainer app = new AppGameContainer(new Administration("Start"));
-            app.setDisplayMode(width, height, false);
-            app.setTargetFrameRate(60);
-            app.start();
-        } catch (SlickException e) {
-        }
+        launch();
+    }
+    
+    @Override
+    public void start(Stage primarystage) throws Exception {
+        primaryStage = primarystage;
+        primaryStage.setScene(new Menu().getScene());
+        primaryStage.show();
+    }
+    
+    public static void changeScene(Scene s){
+        primaryStage.setScene(s);
     }
 }
