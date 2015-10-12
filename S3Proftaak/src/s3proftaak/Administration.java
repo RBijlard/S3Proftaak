@@ -5,6 +5,7 @@
  */
 package s3proftaak;
 
+import s3proftaak.Visuals.SettingsVisual;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.List;
@@ -77,10 +78,7 @@ public class Administration extends BasicGame{
         if(settingsButton.contains(mouse)){
             if(input.isMousePressed(0)){
                 
-                AppGameContainer app = new AppGameContainer(new SettingsVisual("Settings"));
-                app.setDisplayMode(width, height, false);
-                app.setTargetFrameRate(60);
-                app.start();
+                
                 
             }
         }
