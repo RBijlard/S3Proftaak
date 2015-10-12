@@ -39,9 +39,16 @@ public class Game extends BasicGame {
     private TiledMap grassMap;
     private float x = 70f, y = 70f;
     private List<Rectangle> rectList;
+    private String path;
 
     public Game(String title) {
         super(title);
+        if(title.equals("Game1")){
+            path = getClass().getResource("/Resources/tilemapBerry2.tmx").getPath().replace("%20", " ");
+        }
+        if(title.equals("Game2")){
+            path = getClass().getResource("/Resources/tilemapBerry.tmx").getPath().replace("%20", " ");
+        }
     }
 
     @Override
@@ -65,7 +72,7 @@ public class Game extends BasicGame {
 
         System.out.println("abc: " + getClass().getResource("/Resources/tilemapBerry2.tmx").getPath());
 
-        String path = getClass().getResource("/Resources/tilemapBerry2.tmx").getPath().replace("%20", " ");
+        //String path = getClass().getResource("/Resources/tilemapBerry2.tmx").getPath().replace("%20", " ");
 
         System.out.println(path);
 

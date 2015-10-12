@@ -5,11 +5,35 @@
  */
 package s3proftaak;
 
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+
 /**
  *
  * @author S33D
  */
-public class Settings {
+public class Settings extends BasicGame{
+
+    public Settings(String title) {
+        super(title);
+    }
+
+    @Override
+    public void init(GameContainer gc) throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(GameContainer gc, int i) throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     private boolean soundMute;
     private boolean fullscreen;
