@@ -44,16 +44,6 @@ public class Game extends BasicGame {
         super(title);
     }
 
-    public static void main(String[] arguments) {
-        try {
-            AppGameContainer app = new AppGameContainer(new Game("Game"));
-            app.setDisplayMode(1300, 1300, false);
-            app.setTargetFrameRate(60);
-            app.start();
-        } catch (SlickException e) {
-        }
-    }
-
     @Override
     public void init(GameContainer container) throws SlickException {
         player = new Rectangle(80, 80, 50, 50);

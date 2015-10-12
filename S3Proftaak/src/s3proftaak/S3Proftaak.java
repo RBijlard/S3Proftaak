@@ -54,7 +54,7 @@ public class S3Proftaak extends BasicGame {
         player.update(container, delta);
 
         if (container.getInput().isKeyDown(Input.KEY_ESCAPE)) {
-            Main.closeGame();
+            Game.closeGame();
         }
 
     }
