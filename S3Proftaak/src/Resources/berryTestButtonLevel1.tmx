@@ -8,10 +8,10 @@
  </tileset>
  <layer name="Tile Layer 1" width="10" height="10">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NhYGBgIRITAoNN3XwkthsedchiQTjUoYthCxdcYUVs+IIwAPBJiNOQAQAA
+   H4sIAAAAAAAAC2NhYGBgIRITAkNVHboYNnXoYtjCBVdYERu+IAwAmE/TvZABAAA=
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="44" height="652">
+ <objectgroup name="Object Layer 1" width="68" height="27">
   <object id="1" x="24" y="8" width="44" height="652"/>
   <object id="2" x="15" y="19" width="639" height="50"/>
   <object id="3" x="616" y="11" width="59" height="55"/>
@@ -23,17 +23,17 @@
   <object id="9" x="210" y="561" width="93" height="83"/>
   <object id="10" x="561" y="489" width="88" height="70"/>
  </objectgroup>
- <objectgroup name="Object Layer 2" width="44" height="652">
-  <object id="1" x="350" y="372" width="68" height="48">
+ <objectgroup name="Object Layer 2" width="68" height="27">
+  <object id="1" x="350" y="393" width="68" height="27">
    <properties>
-    <property name="button" value="button1"/>
+    <property name="button" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 3" width="44" height="652">
+ <objectgroup name="Object Layer 3" width="68" height="27">
   <object id="1" x="563" y="385" width="63" height="101">
    <properties>
-    <property name="door" value="door1"/>
+    <property name="door" value="1"/>
    </properties>
   </object>
  </objectgroup>

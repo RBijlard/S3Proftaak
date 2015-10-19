@@ -1,10 +1,10 @@
 package s3proftaak.GameObjects;
 
 
-import java.util.List;
-import s3proftaak.GameObjects.GameObject;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
 /*
@@ -20,14 +20,21 @@ import org.newdawn.slick.geom.Rectangle;
 public class Button extends GameObject{
 
     private boolean isActive = false;
+    private Image sprite;
     
     public Button(float x, float y, float width, float height, int match) {
         super(x, y, width, height, match);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
+        this.changeImage(isActive);
     }
     
     public void render(GameContainer gc, Graphics g){
         //render button animation/img
+        sprite.draw(this.x,this.y - calculateOffset());        
+    }
+    
+    public int calculateOffset(){
+        return (int) (70-this.height);
     }
     
     public boolean isActive(){
@@ -36,9 +43,36 @@ public class Button extends GameObject{
     
     public void setActive(boolean active){
         this.isActive = active;
-        for(GameObject go : this.matchedObjects){
-            
+        changeImage(active);
+        
+            if (!getMatchedObjects().isEmpty()){
+                    boolean enable = true;
+                    for (GameObject mo : getMatchedObjects().get(0).getMatchedObjects()){
+                        if(mo instanceof Button){
+                            if (!((Button) mo).isActive()){
+                                enable = false;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (enable){
+                        ((Door)getMatchedObjects().get(0)).setActive(true);
+                    }
+                    
+            }
+    }
+    
+    public void changeImage(boolean active){
+        try{
+            if(active){
+                this.sprite = new Image("Resources/buttonRed_pressed.png");
+            }
+            else{
+                this.sprite = new Image("Resources/buttonRed.png");            
+            }
         }
+        catch(SlickException ex){}
     }
     
     @Override

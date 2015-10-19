@@ -1,6 +1,5 @@
 package s3proftaak;
 
-
 import s3proftaak.GameObjects.Button;
 import s3proftaak.GameObjects.Character;
 import s3proftaak.GameObjects.Door;
@@ -47,7 +46,7 @@ public class Game extends BasicGame {
         //map and list
         this.map = new TiledMap(path);
         this.gameObjects = new ArrayList<GameObject>();
-        
+
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {
             GameObject block = new Block(map.getObjectX(0, i), map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i), -1);
@@ -65,17 +64,17 @@ public class Game extends BasicGame {
         for (int i = 0; i < map.getObjectCount(2); i++) {
             int match = this.getProperty(map, 0, i, "door");
             GameObject door = new Door(map.getObjectX(2, i), map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i), match);
-            
-            for(GameObject go : this.getGameObjects()){
-                if(go instanceof Button){
+
+            for (GameObject go : this.getGameObjects()) {
+                if (go instanceof Button) {
                     int doorMatch = go.getMatch();
-                    if(doorMatch == match){
+                    if (doorMatch == match) {
                         go.addMatchedObject(door);
                         door.addMatchedObject(go);
                     }
                 }
             }
-            
+
             this.gameObjects.add(door);
         }
 
@@ -86,8 +85,8 @@ public class Game extends BasicGame {
         this.gameObjects.add(characterOne);
         this.gameObjects.add(characterTwo);
         this.gameObjects.add(characterThree);
-        
-        for(GameObject go : this.gameObjects){
+
+        for (GameObject go : this.gameObjects) {
             System.out.println(go.toString());
         }
     }
@@ -100,17 +99,33 @@ public class Game extends BasicGame {
                 //move all characters
                 ((Character) go).update(gc, i);
             }
+            if (go instanceof Button /*|| go instanceof Lever*/) {
+                Rectangle r = go.getRect();
+                for (GameObject co : this.gameObjects) {
+                    boolean bool = true;
+
+                    if (co instanceof Character) {
+                        Rectangle r2 = ((Character) co).getRect();
+                        if (r.intersects(r2)) {
+                            bool = false;
+                        }
+                    }
+                    if (bool) {
+                        this.checkMatchedObjects(go);
+                    }
+                }
+            }
         }
     }
-
+    
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //render game and player
         this.map.render(0, 0);
         for (GameObject go : this.gameObjects) {
-            
+
             grphcs.draw(go.getRect());
-            
+
             if (go instanceof Button) {
                 //render buttons
                 ((Button) go).render(gc, grphcs);
@@ -129,18 +144,39 @@ public class Game extends BasicGame {
     public List<GameObject> getGameObjects() {
         return this.gameObjects;
     }
-    
-    public int getProperty(TiledMap map, int layer, int tilenumber, String type){
-        if(map.getObjectProperty(layer, tilenumber, type, "") != null){
+
+    public int getProperty(TiledMap map, int layer, int tilenumber, String type) {
+        if (map.getObjectProperty(layer, tilenumber, type, "") != null) {
             String match = map.getObjectProperty(layer, tilenumber, type, "");
-            try{
-            int matchNumber = Integer.parseInt(match);
-            return matchNumber;
+            try {
+                int matchNumber = Integer.parseInt(match);
+                return matchNumber;
+            } catch (Exception x) {
+                return -1;
             }
-            catch(Exception x){
-                
-            }
-        }  
+        }
         return -1;
+    }
+
+    public void checkMatchedObjects(GameObject go) {
+        if (go instanceof Button) {
+            ((Button) go).changeImage(false);
+            for (GameObject mo : ((Button) go).getMatchedObjects()) {
+                this.checkMatchedObject(mo);
+            }
+        }
+//        if (go instanceof Lever) {
+//            ((Lever) go).changeImage(false);
+//            for (GameObject mo : ((Button) go).getMatchedObjects()) {
+//                this.checkMatchedObject(mo);            
+//            }
+//        }
+    }
+
+    public void checkMatchedObject(GameObject mo) {
+        if (mo instanceof Door) {
+            ((Door) mo).changeImage(false);
+        }
+
     }
 }

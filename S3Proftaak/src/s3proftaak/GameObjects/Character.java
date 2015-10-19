@@ -9,6 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
+import s3proftaak.Visuals.Menu;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -57,7 +58,7 @@ public class Character extends GameObject{
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
     
-    public void update(GameContainer gc, int i){
+    public void update(GameContainer gc, int i) {
         //update player (move)
         switch(this.controlSet){
             case 0:
@@ -73,6 +74,9 @@ public class Character extends GameObject{
                 this.moveVertical2(gc);
             break;            
         }
+        if(gc.getInput().isKeyDown(Input.KEY_ESCAPE)){
+            Menu.getAppContainer().exit();
+        }
     }
     
     public void render(GameContainer gc, Graphics g){
@@ -80,7 +84,7 @@ public class Character extends GameObject{
         animate.draw(this.getX(), this.getY());
     }
     
-    public void moveHorizontal(GameContainer gc){
+    public void moveHorizontal(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_LEFT)){
@@ -108,7 +112,7 @@ public class Character extends GameObject{
         }
     }
     
-    public void moveVertical(GameContainer gc){
+    public void moveVertical(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
         this.vY += this.gravity;
@@ -136,44 +140,41 @@ public class Character extends GameObject{
         }
     }
     
-    public boolean isColliding(){
+    public boolean isColliding() {
         Rectangle rect = this.getRect();
         for(GameObject go : game.getGameObjects()){
             //check if colliding
             //instanceof on GO not working
             if(go.getRect().intersects(rect) || go.getRect().contains(rect)){
                 if(go == this){
-                    System.out.println("FOUND SELF");
                 }
                 else{
                     //check what object
                     if(go instanceof Block){
-                        System.out.println("Collides with block");
                         return true;
                     }
                     else if(go instanceof Spike){
-                        System.out.println("Collides with spike");
                         return false;
                     }
                     else if(go instanceof Character){
-                        System.out.println("Collides with character");
                         return true;
                     }
                     else if(go instanceof Button){
-                        System.out.println("Collides with button");
-                        ((Button) go).setActive(true);
+                        if(this.getY() + this.height - 1 < go.getY()){
+                            ((Button) go).setActive(true); 
+                        }
                         return true;
                     }
                     else if(go instanceof Door){
-                        System.out.println("Collides with door");
-                        ((Door) go).setActive(true);
+                        if(((Door) go).isActive()){
+                            //TODO
+                            //((Door) go).finish();                              
+                        }                      
                         return false;
                     }
-                System.out.println("Collided");
                 }
             }
         }
-        System.out.println("NO COLLISION DETECTED");
         return false;
     }
     
@@ -182,7 +183,7 @@ public class Character extends GameObject{
         return super.toString() + " -- CHARACTER";
     }
         
-    public void moveHorizontal1(GameContainer gc){
+    public void moveHorizontal1(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_A)){
@@ -210,7 +211,7 @@ public class Character extends GameObject{
         }
     }
     
-    public void moveVertical1(GameContainer gc){
+    public void moveVertical1(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
         this.vY += this.gravity;
@@ -238,7 +239,7 @@ public class Character extends GameObject{
         }
     }
         
-    public void moveHorizontal2(GameContainer gc){
+    public void moveHorizontal2(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
         if(input.isKeyDown(Input.KEY_J)){
@@ -266,7 +267,7 @@ public class Character extends GameObject{
         }
     }
     
-    public void moveVertical2(GameContainer gc){
+    public void moveVertical2(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
         this.vY += this.gravity;

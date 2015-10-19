@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
-import s3proftaak.Administration;
+import s3proftaak.Game;
 import s3proftaak.Main;
 
 /**
@@ -22,6 +22,8 @@ import s3proftaak.Main;
  * @author Stan
  */
 public class Menu extends BasicScene{
+    
+    private static AppGameContainer app;    
     
     public Menu(){
         Group root = new Group();
@@ -35,9 +37,10 @@ public class Menu extends BasicScene{
                 int width = gd.getDisplayMode().getWidth();
                 int height = gd.getDisplayMode().getHeight();
                 
-                AppGameContainer app = new AppGameContainer(new Administration("Start"));
+                app = new AppGameContainer(new Game("Game1"));
                 app.setDisplayMode(width, height, false);
                 app.setTargetFrameRate(60);
+                app.setForceExit(false);
                 app.start();
             } catch (SlickException e) {}
         });
@@ -51,5 +54,9 @@ public class Menu extends BasicScene{
         root.getChildren().add(hBox);
         
         setScene(new Scene(root));
+    }
+    
+    public static AppGameContainer getAppContainer(){
+        return app;
     }
 }
