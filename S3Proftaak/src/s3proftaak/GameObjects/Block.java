@@ -16,30 +16,20 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author Berry-PC
  */
-public class Door extends GameObject{
+public class Block extends GameObject{
 
-    private boolean isActive = false;
-    
-    public Door(float x, float y, float width, float height, int match) {
+    public Block(float x, float y, float width, float height, int match) {
         super(x, y, width, height, match);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
     
     public void render(GameContainer gc, Graphics g){
-        //render door animation/img
-    }
-    
-    public boolean isActive(){
-        return this.isActive;
-    }
-    
-    public void setActive(boolean active){
-        this.isActive = active;
+        //render block animation/img
     }
     
     @Override
     public String toString(){
-        return super.toString() + " -- DOOR";
+        return super.toString() + " -- BLOCK";
     }
     
 }

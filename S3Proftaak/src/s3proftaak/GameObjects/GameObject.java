@@ -1,86 +1,82 @@
+package s3proftaak.GameObjects;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import org.newdawn.slick.geom.Rectangle;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package s3proftaak.GameObjects;
 
 /**
  *
- * @author S33D
+ * @author Berry-PC
  */
 public abstract class GameObject {
-    private int posX;
-    private int posY;
-    private int width;
-    private int height;
-    private String spritePath;
-    private boolean collision;
-
-    public GameObject(int posX, int posY, int width, int height, String spritePath, boolean collision, boolean trigger) {
-        this.posX = posX;
-        this.posY = posY;
+    float x,y,width,height;
+    int match;
+    Rectangle hitbox;
+    List<GameObject> matchedObjects;
+    
+    public GameObject(float x, float y, float width, float height, int match){
+        this.x = x;
+        this.y = y;
         this.width = width;
         this.height = height;
-        this.spritePath = spritePath;
-        this.collision = collision;
-        this.trigger = trigger;
+        this.match = match;
+        this.matchedObjects = new ArrayList<GameObject>();
+        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
     
-    public int getPosX() {
-        return posX;
+    public void addMatchedObject(GameObject match){
+        this.matchedObjects.add(match);
+    } 
+    
+    public List<GameObject> getMatchedObjects(){
+        return this.matchedObjects;
     }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
+    
+    public int getMatch(){
+        return this.match;
     }
-
-    public int getPosY() {
-        return posY;
+    
+    public void updateHitbox(){
+        this.hitbox.setX(this.x);
+        this.hitbox.setY(this.y);
     }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
+    
+    public Rectangle getRect(){
+        return this.hitbox;
     }
-
-    public int getWidth() {
-        return width;
+    public float getX(){
+        return this.x;
     }
-
-    public void setWidth(int width) {
+    public float getY(){
+        return this.y;
+    }
+    public float getWidth(){
+        return this.width;
+    }
+    public float getHeight(){
+        return this.height;
+    }
+    public void setX(float x){
+        this.x = x;
+    }
+    public void setY(float y){
+        this.y = y;
+    }
+    public void setWidth(float width){
         this.width = width;
     }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
+    public void setHeight(float height){
         this.height = height;
     }
-
-    public String getSpritePath() {
-        return spritePath;
+    @Override
+    public String toString(){
+        return this.x + "," + this.y + " - " + this.width + " x " + this.height;
     }
-
-    public void setSpritePath(String spritePath) {
-        this.spritePath = spritePath;
-    }
-
-    public boolean isCollision() {
-        return collision;
-    }
-
-    public void setCollision(boolean collision) {
-        this.collision = collision;
-    }
-
-    public boolean isTrigger() {
-        return trigger;
-    }
-
-    public void setTrigger(boolean trigger) {
-        this.trigger = trigger;
-    }
-    private boolean trigger;
 }

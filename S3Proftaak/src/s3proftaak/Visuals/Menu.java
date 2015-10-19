@@ -7,17 +7,11 @@ package s3proftaak.Visuals;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Administration;

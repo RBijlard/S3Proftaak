@@ -1,38 +1,48 @@
+package s3proftaak.GameObjects;
+
+
+import java.util.List;
+import s3proftaak.GameObjects.GameObject;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.geom.Rectangle;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package s3proftaak.GameObjects;
 
 /**
  *
- * @author Stan
+ * @author Berry-PC
  */
-public class Button extends GameObject {
+public class Button extends GameObject{
 
-    private boolean isPressed;
-    private String altSpritePath;
-
-    public Button(boolean isPressed, String altSpritePath, int posX, int posY, int width, int height, String spritePath, boolean collision, boolean trigger) {
-        super(posX, posY, width, height, spritePath, collision, trigger);
-        this.isPressed = isPressed;
-        this.altSpritePath = altSpritePath;
+    private boolean isActive = false;
+    
+    public Button(float x, float y, float width, float height, int match) {
+        super(x, y, width, height, match);
+        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
-
-    public boolean isPressed() {
-        return isPressed;
+    
+    public void render(GameContainer gc, Graphics g){
+        //render button animation/img
     }
-
-    public void setIsPressed(boolean isPressed) {
-        this.isPressed = isPressed;
+    
+    public boolean isActive(){
+        return this.isActive;
     }
-
-    public String getAltSpritePath() {
-        return altSpritePath;
+    
+    public void setActive(boolean active){
+        this.isActive = active;
+        for(GameObject go : this.matchedObjects){
+            
+        }
     }
-
-    public void setAltSpritePath(String altSpritePath) {
-        this.altSpritePath = altSpritePath;
-    }    
+    
+    @Override
+    public String toString(){
+        return super.toString() + " -- BUTTON";
+    }
 }

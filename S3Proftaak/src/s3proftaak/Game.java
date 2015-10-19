@@ -1,125 +1,146 @@
+package s3proftaak;
+
+
+import s3proftaak.GameObjects.Button;
+import s3proftaak.GameObjects.Character;
+import s3proftaak.GameObjects.Door;
+import s3proftaak.GameObjects.Block;
+import s3proftaak.GameObjects.GameObject;
+import java.util.ArrayList;
+import java.util.List;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.tiled.TiledMap;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package s3proftaak;
-
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.tiled.TiledMap;
-
 /**
  *
- * @author S33D
+ * @author Berry-PC
  */
 public class Game extends BasicGame {
 
-    private static float gravity = 0.5f;
-    private static float jumpStrength = -15;
-    private static float speed = 4;
-    private Player character;
-    private AdditionalPlayer additional_character;
-    private AdditionalAdditionalPlayer additional_additional_character;
-    private float vX = 0;
-    private float vY = 0;
-    private static int interations = 5;
-    private TiledMap grassMap;
+    private List<GameObject> gameObjects;
+    private TiledMap map;
     private float x = 70f, y = 70f;
     private List<Rectangle> rectList;
+    private List<Rectangle> buttonList;
+    private List<Rectangle> doorList;
     private String path;
 
     public Game(String title) {
         super(title);
-        if(title.equals("Game1")){
-            path = getClass().getResource("/Resources/tilemapBerry2.tmx").getPath().replace("%20", " ");
+    }
+
+    @Override
+    public void init(GameContainer gc) throws SlickException {
+        //initialise map, players and objects
+        this.path = getClass().getResource("/Resources/berryTestButtonLevel1.tmx").getPath().replace("%20", " ");
+
+        //map and list
+        this.map = new TiledMap(path);
+        this.gameObjects = new ArrayList<GameObject>();
+        
+        //blocks
+        for (int i = 0; i < map.getObjectCount(0); i++) {
+            GameObject block = new Block(map.getObjectX(0, i), map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i), -1);
+            this.gameObjects.add(block);
         }
-        if(title.equals("Game2")){
-            path = getClass().getResource("/Resources/tilemapBo.tmx").getPath().replace("%20", " ");
+
+        //buttons
+        for (int i = 0; i < map.getObjectCount(1); i++) {
+            int match = this.getProperty(map, 0, i, "button");
+            GameObject button = new Button(map.getObjectX(1, i), map.getObjectY(1, i), map.getObjectWidth(1, i), map.getObjectHeight(1, i), match);
+            this.gameObjects.add(button);
+        }
+
+        //doors
+        for (int i = 0; i < map.getObjectCount(2); i++) {
+            int match = this.getProperty(map, 0, i, "door");
+            GameObject door = new Door(map.getObjectX(2, i), map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i), match);
+            
+            for(GameObject go : this.getGameObjects()){
+                if(go instanceof Button){
+                    int doorMatch = go.getMatch();
+                    if(doorMatch == match){
+                        go.addMatchedObject(door);
+                        door.addMatchedObject(go);
+                    }
+                }
+            }
+            
+            this.gameObjects.add(door);
+        }
+
+        //characters
+        GameObject characterOne = new Character(this, 100f, 100f, 70f, 93f, 0, -1);
+        GameObject characterTwo = new Character(this, 200f, 100f, 70f, 93f, 1, -1);
+        GameObject characterThree = new Character(this, 300f, 100f, 70f, 93f, 2, -1);
+        this.gameObjects.add(characterOne);
+        this.gameObjects.add(characterTwo);
+        this.gameObjects.add(characterThree);
+        
+        for(GameObject go : this.gameObjects){
+            System.out.println(go.toString());
         }
     }
 
     @Override
-    public void init(GameContainer container) throws SlickException {
-
-        URL url = getClass().getResource("/Resources/");
-        if (url == null) {
-            // error - missing folder
-        } else {
-            File dir = null;
-            try {
-                dir = new File(url.toURI());
-            } catch (URISyntaxException ex) {
-                Logger.getLogger(Game.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-            }
-            for (File nextFile : dir.listFiles()) {
-                System.out.println("PATH" + nextFile.getPath());
+    public void update(GameContainer gc, int i) throws SlickException {
+        //update game and player
+        for (GameObject go : this.gameObjects) {
+            if (go instanceof Character) {
+                //move all characters
+                ((Character) go).update(gc, i);
             }
         }
-
-        grassMap = new TiledMap(path);
-        rectList = new ArrayList<Rectangle>();
-        for (int i = 0; i < grassMap.getObjectCount(0); i++) {
-            Rectangle r = new Rectangle(grassMap.getObjectX(0, i), grassMap.getObjectY(0, i),
-                    grassMap.getObjectWidth(0, i), grassMap.getObjectHeight(0, i));
-            System.out.println(r);
-            rectList.add(r);
-        }
-        
-        character = new Player(rectList, 80, 80, 70, 93);
-        additional_character = new AdditionalPlayer(rectList, 160, 80, 70, 93);
-        additional_additional_character = new AdditionalAdditionalPlayer(rectList, 240, 80, 70, 93);
-        
-        rectList.add((Rectangle) character.getPlayer());
-        rectList.add((Rectangle) additional_character.getPlayer());
-        rectList.add((Rectangle) additional_additional_character.getPlayer());
-        
-        
     }
 
     @Override
-    public void update(GameContainer container, int delta) throws SlickException {
-        character.update(container, delta);
-        
-        additional_character.update(container, delta);
-        
-        additional_additional_character.update(container, delta);
-        
-        if (container.getInput().isKeyDown(Input.KEY_ESCAPE)) {
-            closeGame();
+    public void render(GameContainer gc, Graphics grphcs) throws SlickException {
+        //render game and player
+        this.map.render(0, 0);
+        for (GameObject go : this.gameObjects) {
+            
+            grphcs.draw(go.getRect());
+            
+            if (go instanceof Button) {
+                //render buttons
+                ((Button) go).render(gc, grphcs);
+            }
+            if (go instanceof Door) {
+                //render doors
+                ((Door) go).render(gc, grphcs);
+            }
+            if (go instanceof Character) {
+                //render characters
+                ((Character) go).render(gc, grphcs);
+            }
         }
     }
 
-    public void render(GameContainer container, Graphics g) throws SlickException {
-        grassMap.render(0, 0);
-        character.render(container,g);
-        additional_character.render(container,g);
-        additional_additional_character.render(container,g);
-        
-//       character.getAnimation().draw(character.getPlayer().getX(), character.getPlayer().getY());
-//        additional_character.getAnimation().draw(additional_character.getPlayer().getX(), additional_character.getPlayer().getY());
-        
-//        for(Rectangle r : rectList){
-//            g.draw(r);
-//        }
+    public List<GameObject> getGameObjects() {
+        return this.gameObjects;
     }
     
-    public static void closeGame() {
-        System.exit(0);
+    public int getProperty(TiledMap map, int layer, int tilenumber, String type){
+        if(map.getObjectProperty(layer, tilenumber, type, "") != null){
+            String match = map.getObjectProperty(layer, tilenumber, type, "");
+            try{
+            int matchNumber = Integer.parseInt(match);
+            return matchNumber;
+            }
+            catch(Exception x){
+                
+            }
+        }  
+        return -1;
     }
 }

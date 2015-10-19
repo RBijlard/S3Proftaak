@@ -5,7 +5,6 @@
  */
 package s3proftaak;
 
-import s3proftaak.Visuals.SettingsVisual;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.util.List;
@@ -16,10 +15,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Point;
 import org.newdawn.slick.geom.Rectangle;
-import static s3proftaak.Game.closeGame;
 
 /**
  *
@@ -81,10 +78,6 @@ public class Administration extends BasicGame{
                 
                 
             }
-        }
-        
-        if (input.isKeyDown(Input.KEY_ESCAPE)) {
-            closeGame();
         }
     }
 
