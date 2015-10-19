@@ -176,6 +176,7 @@ public class Game extends BasicGame {
     public void checkMatchedObject(GameObject mo) {
         if (mo instanceof Door) {
             ((Door) mo).changeImage(false);
+            ((Door) mo).setActive(false);
         }
 
     }

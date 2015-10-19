@@ -168,9 +168,10 @@ public class Character extends GameObject{
                     else if(go instanceof Door){
                         if(((Door) go).isActive()){
                             //TODO
-                            //((Door) go).finish();                              
+                            //((Door) go).finish(); 
+                            return false;
                         }                      
-                        return false;
+                        return true;
                     }
                 }
             }
