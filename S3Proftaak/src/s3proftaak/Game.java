@@ -7,7 +7,6 @@ import s3proftaak.GameObjects.Block;
 import s3proftaak.GameObjects.GameObject;
 import java.util.ArrayList;
 import java.util.List;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -29,9 +28,6 @@ public class Game extends BasicGame {
     private List<GameObject> gameObjects;
     private TiledMap map;
     private float x = 70f, y = 70f;
-    private List<Rectangle> rectList;
-    private List<Rectangle> buttonList;
-    private List<Rectangle> doorList;
     private String path;
 
     public Game(String title) {
@@ -41,7 +37,7 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
-        this.path = getClass().getResource("/Resources/berryTestButtonLevel1.tmx").getPath().replace("%20", " ");
+        this.path = getClass().getResource("/Resources/berryTestButtonLevel2.tmx").getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);
@@ -55,14 +51,14 @@ public class Game extends BasicGame {
 
         //buttons
         for (int i = 0; i < map.getObjectCount(1); i++) {
-            int match = this.getProperty(map, 0, i, "button");
+            int match = this.getProperty(map, 1, i, "button");
             GameObject button = new Button(map.getObjectX(1, i), map.getObjectY(1, i), map.getObjectWidth(1, i), map.getObjectHeight(1, i), match);
             this.gameObjects.add(button);
         }
 
         //doors
         for (int i = 0; i < map.getObjectCount(2); i++) {
-            int match = this.getProperty(map, 0, i, "door");
+            int match = this.getProperty(map, 2, i, "door");
             GameObject door = new Door(map.getObjectX(2, i), map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i), match);
 
             for (GameObject go : this.getGameObjects()) {
@@ -101,8 +97,9 @@ public class Game extends BasicGame {
             }
             if (go instanceof Button /*|| go instanceof Lever*/) {
                 Rectangle r = go.getRect();
+                boolean bool = true;
                 for (GameObject co : this.gameObjects) {
-                    boolean bool = true;
+                    
 
                     if (co instanceof Character) {
                         Rectangle r2 = ((Character) co).getRect();
@@ -146,12 +143,13 @@ public class Game extends BasicGame {
     }
 
     public int getProperty(TiledMap map, int layer, int tilenumber, String type) {
-        if (map.getObjectProperty(layer, tilenumber, type, "") != null) {
-            String match = map.getObjectProperty(layer, tilenumber, type, "");
+        if (map.getObjectProperty(layer, tilenumber, type, "desc") != null) {
+            String match = map.getObjectProperty(layer, tilenumber, type, "desc");
             try {
                 int matchNumber = Integer.parseInt(match);
                 return matchNumber;
             } catch (Exception x) {
+                System.out.println(x.toString());
                 return -1;
             }
         }
@@ -161,6 +159,7 @@ public class Game extends BasicGame {
     public void checkMatchedObjects(GameObject go) {
         if (go instanceof Button) {
             ((Button) go).changeImage(false);
+            ((Button) go).setActive(false);
             for (GameObject mo : ((Button) go).getMatchedObjects()) {
                 this.checkMatchedObject(mo);
             }

@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.Visuals.Menu;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -27,6 +28,10 @@ public class Door extends GameObject{
         super(x, y, width, height, match);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
         this.changeImage(isActive);
+    }
+    
+    public void finish(){
+        Menu.getAppContainer().exit();
     }
     
     public void render(GameContainer gc, Graphics g){
@@ -64,7 +69,7 @@ public class Door extends GameObject{
     
     @Override
     public String toString(){
-        return super.toString() + " -- DOOR";
+        return super.toString() + " -- DOOR " + this.match;
     }
     
 }

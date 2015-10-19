@@ -58,8 +58,7 @@ public class Button extends GameObject{
                     
                     if (enable){
                         ((Door)getMatchedObjects().get(0)).setActive(true);
-                    }
-                    
+                    }                    
             }
     }
     
@@ -77,6 +76,6 @@ public class Button extends GameObject{
     
     @Override
     public String toString(){
-        return super.toString() + " -- BUTTON";
+        return super.toString() + " -- BUTTON " + this.match;
     }
 }
