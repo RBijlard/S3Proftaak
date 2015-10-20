@@ -37,7 +37,7 @@ public class Character extends GameObject {
     private GameObject MLO;
     private float offSetX;
     
-    float margin;
+    float marginy,marginx;
 
     public Character(Game game, float x, float y, float width, float height, int controlSet, int match) throws SlickException {
         super(x, y, width, height, match);
@@ -67,7 +67,7 @@ public class Character extends GameObject {
                 MLO.setX(go.getX());
             }
         }
-        margin = 0 - MLO.getX();
+        marginx = 0 - MLO.getX();
     }
 
     public void update(GameContainer gc, int i) {
@@ -100,7 +100,7 @@ public class Character extends GameObject {
         //render animation
         animate.draw(this.getX(), this.getY());
     }
-
+    
     public void moveHorizontalMap(GameContainer gc) {
         
         this.offSetX = 0 - MLO.getX();
@@ -138,8 +138,7 @@ public class Character extends GameObject {
     }
     
     public float getOffsetX(){
-        System.out.println(this.offSetX);
-        return this.offSetX - this.margin;
+        return this.offSetX - this.marginx;
     }
 
     public void moveHorizontal(GameContainer gc) {
