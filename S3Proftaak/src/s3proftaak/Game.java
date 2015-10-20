@@ -84,9 +84,9 @@ public class Game extends BasicGame {
         }
 
         //characters
-        main_character = new Character(this, 100f, 100f, 70f, 93f, 0, -1);
-        GameObject characterTwo = new Character(this, 200f, 100f, 70f, 93f, 1, -1);
-        GameObject characterThree = new Character(this, 300f, 100f, 70f, 93f, 2, -1);
+        main_character = new Character(this, 72f, 500f, 70f, 93f, 0, -1);
+        GameObject characterTwo = new Character(this, 144f, 500f, 70f, 93f, 1, -1);
+        GameObject characterThree = new Character(this, 216f, 500f, 70f, 93f, 2, -1);
         this.gameObjects.add(main_character);
         this.gameObjects.add(characterTwo);
         this.gameObjects.add(characterThree);
