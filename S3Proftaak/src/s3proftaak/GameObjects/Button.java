@@ -45,29 +45,29 @@ public class Button extends GameObject{
         this.isActive = active;
         changeImage(active);
         
-//            if (!getMatchedObjects().isEmpty()){
-//                    boolean enable = true;
-//                    for (GameObject mo : getMatchedObjects().get(0).getMatchedObjects()){
-//                        if(mo instanceof Button){
-//                            if (!((Button) mo).isActive()){
-//                                enable = false;
-//                                break;
-//                            }
-//                        }
-//                    }
-//                    
-//                    if (enable){
-//                        ((Door)getMatchedObjects().get(0)).setActive(true);
-//                    }                    
-//            }
-            
-            if(!getMatchedObjects().isEmpty()){
-                for(GameObject mo : this.getMatchedObjects()){
-                    if(mo instanceof Door){
-                        ((Door) mo).setActive(true);
+            if (!getMatchedObjects().isEmpty()){
+                    boolean enable = true;
+                    for (GameObject mo : getMatchedObjects().get(0).getMatchedObjects()){
+                        if(mo instanceof Button){
+                            if (!((Button) mo).isActive()){
+                                enable = false;
+                                break;
+                            }
+                        }
                     }
-                }
+                    
+                    if (enable){
+                        ((Door)getMatchedObjects().get(0)).setActive(true);
+                    }                    
             }
+            
+//            if(!getMatchedObjects().isEmpty()){
+//                for(GameObject mo : this.getMatchedObjects()){
+//                    if(mo instanceof Door){
+//                        ((Door) mo).setActive(true);
+//                    }
+//                }
+//            }
     }
     
     public void changeImage(boolean active){

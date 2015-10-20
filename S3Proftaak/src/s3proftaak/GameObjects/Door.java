@@ -1,6 +1,8 @@
 package s3proftaak.GameObjects;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -31,7 +33,7 @@ public class Door extends GameObject{
     }
     
     public void finish(){
-        Menu.getAppContainer().exit();
+            Menu.getAppContainer().exit();
     }
     
     public void render(GameContainer gc, Graphics g){

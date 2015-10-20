@@ -1,5 +1,7 @@
 package s3proftaak.GameObjects;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -73,51 +75,41 @@ public class Character extends GameObject {
                 break;
         }
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
-            Menu.getAppContainer().exit();
+            try {
+                //Menu.getAppContainer().exit();
+                Menu.getAppContainer().reinit();
+            } catch (SlickException ex) {
+                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-//        for(GameObject go: game.getGameObjects()){
-//            if(go instanceof Character){}
-//            else{
-//                if(game.main_character.getX() <= 500){
-//                    go.setX(go.getOriginalX());
-//                }
-//                else{
-//                    go.setX(go.getOriginalX() - (game.main_character.getX() - 500));
-//                    System.out.println(go.getX());
-//                }
-//                go.updateHitbox();
-//            }
-//        }
     }
 
     public void render(GameContainer gc, Graphics g) {
         //render animation
         animate.draw(this.getX(), this.getY());
     }
-    
-    public void moveHorizontalMap(GameContainer gc){
+
+    public void moveHorizontalMap(GameContainer gc) {
         //Move horizontal with arrow keys
         Input input = gc.getInput();
-        if(input.isKeyDown(Input.KEY_LEFT)){
+        if (input.isKeyDown(Input.KEY_LEFT)) {
             //move map left -> x minus speed
             this.vX = -this.speed;
-        }
-        else if (input.isKeyDown(Input.KEY_RIGHT)){
+        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
             //move map right -> x plus speed
             this.vX = this.speed;
-        }
-        else{
+        } else {
             //dont move the map
             this.vX = 0;
         }
-        
+
         //check collisions
         float vXtemp = this.vX / this.interations;
-        for(int i = 0; i < this.interations; i++){
-            for(GameObject go : game.getGameObjects()){
+        for (int i = 0; i < this.interations; i++) {
+            for (GameObject go : game.getGameObjects()) {
                 go.setX(go.getX() + vXtemp);
                 go.updateHitbox();
-                if(this.isColliding()){
+                if (this.isColliding(gc)) {
                     go.setX(go.getX() - vXtemp);
                     go.updateHitbox();
                     this.vX = 0;
@@ -145,7 +137,7 @@ public class Character extends GameObject {
             //ipv setx -> render map
             this.setX(this.getX() + vXtemp);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 //ipv setx -> render map 
                 this.setX(this.getX() - vXtemp);
                 this.updateHitbox();
@@ -163,7 +155,7 @@ public class Character extends GameObject {
             //ipv sety -> render map
             this.setY(this.getY() + 0.1f);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
             }
             this.setY(this.getY() - 0.1f);
@@ -175,15 +167,24 @@ public class Character extends GameObject {
         for (int i = 0; i < this.interations; i++) {
             this.setY(this.getY() + vYtemp);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.setY(this.getY() - vYtemp);
                 this.updateHitbox();
                 this.vY = 0;
             }
         }
     }
+    
+    public void die(){        
+            try {
+                //Menu.getAppContainer().exit();
+                Menu.getAppContainer().reinit();
+            } catch (SlickException ex) {
+                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 
-    public boolean isColliding() {
+    public boolean isColliding(GameContainer gc) {
         Rectangle rect = this.getRect();
         for (GameObject go : game.getGameObjects()) {
             //check if colliding
@@ -196,22 +197,31 @@ public class Character extends GameObject {
                         return true;
                     } else if (go instanceof Spike) {
                         //die
+                        this.die();
                         return false;
                     } else if (go instanceof Character) {
                         return true;
                     } else if (go instanceof Button) {
                         if (this.getY() + this.height - 1 < go.getY()) {
-                            if(!((Button)go).isActive()){
+                            if (!((Button) go).isActive()) {
                                 ((Button) go).setActive(true);
                             }
                         }
                         return true;
+                    } else if (go instanceof Lever && gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
+                        if (!((Lever) go).isActive()) {
+                            ((Lever) go).setActive(true);
+                        }
+                        else{
+                            ((Lever) go).setActive(false);                            
+                        }
+                        return true;
                     } else if (go instanceof Door) {
                         if (this.getX() < go.getX() && this.getX() + this.width > go.getX() + go.getWidth()) {
-                            System.out.println(((Door)go).isActive());
+                            System.out.println(((Door) go).isActive());
                             if (((Door) go).isActive()) {
                                 System.out.println("finish");
-                                ((Door) go).finish(); 
+                                ((Door) go).finish();
                             }
                         }
                     }
@@ -244,7 +254,7 @@ public class Character extends GameObject {
         for (int i = 0; i < this.interations; i++) {
             this.setX(this.getX() + vXtemp);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.setX(this.getX() - vXtemp);
                 this.updateHitbox();
                 this.vX = 0;
@@ -260,7 +270,7 @@ public class Character extends GameObject {
             //move up -> y min
             this.setY(this.getY() + 0.1f);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
             }
             this.setY(this.getY() - 0.1f);
@@ -272,7 +282,7 @@ public class Character extends GameObject {
         for (int i = 0; i < this.interations; i++) {
             this.setY(this.getY() + vYtemp);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.setY(this.getY() - vYtemp);
                 this.updateHitbox();
                 this.vY = 0;
@@ -298,7 +308,7 @@ public class Character extends GameObject {
         for (int i = 0; i < this.interations; i++) {
             this.setX(this.getX() + vXtemp);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.setX(this.getX() - vXtemp);
                 this.updateHitbox();
                 this.vX = 0;
@@ -314,7 +324,7 @@ public class Character extends GameObject {
             //move up -> y min
             this.setY(this.getY() + 0.1f);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
             }
             this.setY(this.getY() - 0.1f);
@@ -326,7 +336,7 @@ public class Character extends GameObject {
         for (int i = 0; i < this.interations; i++) {
             this.setY(this.getY() + vYtemp);
             this.updateHitbox();
-            if (this.isColliding()) {
+            if (this.isColliding(gc)) {
                 this.setY(this.getY() - vYtemp);
                 this.updateHitbox();
                 this.vY = 0;

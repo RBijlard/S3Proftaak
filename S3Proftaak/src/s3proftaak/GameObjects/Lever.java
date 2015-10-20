@@ -43,22 +43,22 @@ public class Lever extends GameObject{
         this.isActive = active;
         changeImage(active);
         
-            if (!getMatchedObjects().isEmpty()){
-                    boolean enable = true;
-                    for (GameObject mo : getMatchedObjects().get(0).getMatchedObjects()){
-                        if(mo instanceof Button){
-                            if (!((Button) mo).isActive()){
-                                enable = false;
-                                break;
-                            }
-                        }
-                    }
-                    
-                    if (enable){
-                        ((Door)getMatchedObjects().get(0)).setActive(true);
-                    }
-                    
-            }
+//            if (!getMatchedObjects().isEmpty()){
+//                    boolean enable = true;
+//                    for (GameObject mo : getMatchedObjects().get(0).getMatchedObjects()){
+//                        if(mo instanceof Button){
+//                            if (!((Button) mo).isActive()){
+//                                enable = false;
+//                                break;
+//                            }
+//                        }
+//                    }
+//                    
+//                    if (enable){
+//                        ((Door)getMatchedObjects().get(0)).setActive(true);
+//                    }
+//                    
+//            }
     }
     
     public void changeImage(boolean active){
@@ -75,6 +75,6 @@ public class Lever extends GameObject{
     
     @Override
     public String toString(){
-        return super.toString() + " -- LEVER";
+        return super.toString() + " -- LEVER " + this.match;
     }
 }

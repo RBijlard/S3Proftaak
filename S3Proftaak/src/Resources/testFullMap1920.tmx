@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="27" height="15" tilewidth="70" tileheight="70" nextobjectid="19">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="27" height="15" tilewidth="70" tileheight="70" nextobjectid="27">
  <tileset firstgid="1" name="item_persSpriteSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="100">
   <image source="item_persSpriteSheet.png" width="720" height="720"/>
  </tileset>
@@ -8,10 +8,10 @@
  </tileset>
  <layer name="Tile Layer 1" width="27" height="15">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC/vPwMDwn46YHmDULurZRQ87B0MYkuMGQuFDqV2kuIcedhFKE8jihNQRCyhNG/SwC5dfiQ0rathFrB5cZTK6maTmf2S1AC1w5vpUBgAA
+   H4sIAAAAAAAAC/vPwMDwn46YHmDULurZRQ87B0MYkuMGQuFDqV2kuIcedhFKE8jihNQRCyhNG+h6WZAwtezC5Vdiw4oadhGrB1eZjG4mqfkfWS0A7AvU9FQGAAA=
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="55" height="98">
+ <objectgroup name="Object Layer 1" width="49" height="1000">
   <object id="1" x="18" y="4" width="49" height="1000"/>
   <object id="2" x="57" y="979" width="430" height="43"/>
   <object id="3" x="562" y="980" width="137" height="64"/>
@@ -29,18 +29,35 @@
   <object id="15" x="64" y="24" width="1119" height="44"/>
   <object id="16" x="1180" y="24" width="649" height="44"/>
  </objectgroup>
- <objectgroup name="Object Layer 2" width="55" height="98">
-  <object id="17" x="71" y="328" width="68" height="19">
+ <objectgroup name="Object Layer 2" width="49" height="1000">
+  <object id="1" x="71" y="328" width="68" height="19">
    <properties>
     <property name="button" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 3" width="55" height="98">
-  <object id="18" x="1688" y="881" width="55" height="98">
+ <objectgroup name="Object Layer 3" width="49" height="1000">
+  <object id="1" x="1688" y="881" width="55" height="98">
    <properties>
     <property name="door" value="1"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 4" width="49" height="1000">
+  <object id="1" x="1364" y="444" width="72" height="42">
+   <properties>
+    <property name="lever" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 5" width="49" height="1000">
+  <object id="1" x="1718" y="568" width="68" height="58">
+   <properties>
+    <property name="weight" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 6" width="49" height="1000">
+  <object id="1" x="1334" y="804" width="200" height="28"/>
  </objectgroup>
 </map>

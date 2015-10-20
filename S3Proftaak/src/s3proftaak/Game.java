@@ -13,6 +13,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
+import s3proftaak.GameObjects.Lever;
+import s3proftaak.GameObjects.Spike;
+import s3proftaak.GameObjects.Weight;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,14 +32,11 @@ public class Game extends BasicGame {
     private TiledMap map;
     private float x = 70f, y = 70f;
     private String path;
-    private Character main_character;
+    private int amountOfPlayers = 0;
 
-    public Game(String title) {
+    public Game(String title, int amountOfPlayers) {
         super(title);
-    }
-
-    public Character getMainCharacter(){
-        return this.main_character;
+        this.amountOfPlayers = amountOfPlayers;
     }
     
     public TiledMap getMap(){
@@ -46,7 +46,7 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
-        this.path = getClass().getResource("/Resources/testFullMap1920.tmx").getPath().replace("%20", " ");
+        this.path = getClass().getResource("/Resources/berryTestButtonLevel2.tmx").getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);
@@ -56,6 +56,12 @@ public class Game extends BasicGame {
         for (int i = 0; i < map.getObjectCount(0); i++) {
             GameObject block = new Block(map.getObjectX(0, i), map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i), -1);
             this.gameObjects.add(block);
+        }
+        
+        //spikes
+        for (int i = 0; i < map.getObjectCount(5); i++) {
+            GameObject spike = new Spike(map.getObjectX(5, i), map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i), -1);
+            this.gameObjects.add(spike);
         }
 
         //buttons
@@ -82,14 +88,37 @@ public class Game extends BasicGame {
 
             this.gameObjects.add(door);
         }
+        
+        
+        //levers TODO
+        for (int i = 0; i < map.getObjectCount(3); i++) {
+            int match = this.getProperty(map, 3, i, "lever");
+            GameObject lever = new Lever(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i), match);
+            this.gameObjects.add(lever);
+        }
+        
+        //weights TODO
+        for (int i = 0; i < map.getObjectCount(4); i++) {
+            int match = this.getProperty(map, 4, i, "weight");
+            GameObject weight = new Weight(map.getObjectX(4, i), map.getObjectY(4, i), map.getObjectWidth(4, i), map.getObjectHeight(4, i), match);
 
-        //characters
-        main_character = new Character(this, 72f, 500f, 70f, 93f, 0, -1);
-        GameObject characterTwo = new Character(this, 144f, 500f, 70f, 93f, 1, -1);
-        GameObject characterThree = new Character(this, 216f, 500f, 70f, 93f, 2, -1);
-        this.gameObjects.add(main_character);
-        this.gameObjects.add(characterTwo);
-        this.gameObjects.add(characterThree);
+            for (GameObject go : this.getGameObjects()) {
+                if (go instanceof Lever) {
+                    int doorMatch = go.getMatch();
+                    if (doorMatch == match) {
+                        go.addMatchedObject(weight);
+                        weight.addMatchedObject(go);
+                    }
+                }
+            }
+
+            this.gameObjects.add(weight);
+        }
+
+        
+        for(int i = 0; i < this.amountOfPlayers; i++){
+            this.gameObjects.add(new Character(this,(72f*i + 72f), 500f, 70f, 93f, i, -1));
+        }
 
         for (GameObject go : this.gameObjects) {
             System.out.println(go.toString());
@@ -122,6 +151,7 @@ public class Game extends BasicGame {
             }
         }
     }
+    
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
@@ -130,11 +160,15 @@ public class Game extends BasicGame {
         
         for (GameObject go : this.gameObjects) {
 
-            grphcs.draw(go.getRect());
+            //grphcs.draw(go.getRect());
 
             if (go instanceof Button) {
                 //render buttons
                 ((Button) go).render(gc, grphcs);
+            }
+            if (go instanceof Lever) {
+                //render buttons
+                ((Lever) go).render(gc, grphcs);
             }
             if (go instanceof Door) {
                 //render doors
