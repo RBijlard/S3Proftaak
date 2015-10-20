@@ -55,7 +55,12 @@ public class Menu extends BasicScene{
                     app.setTargetFrameRate(60);
                     app.setForceExit(false);
                     app.start();
+                    try{
                     app.reinit();
+                    }
+                    catch(Exception ex){
+                        System.out.println(ex);
+                    }
                 }
                 else{
                     
