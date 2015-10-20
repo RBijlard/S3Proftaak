@@ -16,13 +16,14 @@ import org.newdawn.slick.geom.Rectangle;
  * @author Berry-PC
  */
 public abstract class GameObject {
-    float x,y,width,height;
+    float x,y,width,height,Ox;
     int match;
     Rectangle hitbox;
     List<GameObject> matchedObjects;
     
     public GameObject(float x, float y, float width, float height, int match){
         this.x = x;
+        this.Ox=x;
         this.y = y;
         this.width = width;
         this.height = height;
@@ -82,5 +83,9 @@ public abstract class GameObject {
     @Override
     public String toString(){
         return this.x + "," + this.y + " - " + this.width + " x " + this.height;
+    }
+
+    public float getOriginalX() {
+        return this.Ox;
     }
 }

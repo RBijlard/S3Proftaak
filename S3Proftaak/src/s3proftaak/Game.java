@@ -29,15 +29,24 @@ public class Game extends BasicGame {
     private TiledMap map;
     private float x = 70f, y = 70f;
     private String path;
+    private Character main_character;
 
     public Game(String title) {
         super(title);
     }
 
+    public Character getMainCharacter(){
+        return this.main_character;
+    }
+    
+    public TiledMap getMap(){
+        return this.map;
+    }
+    
     @Override
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
-        this.path = getClass().getResource("/Resources/berryTestButtonLevel2.tmx").getPath().replace("%20", " ");
+        this.path = getClass().getResource("/Resources/testFullMap1920.tmx").getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);
@@ -75,10 +84,10 @@ public class Game extends BasicGame {
         }
 
         //characters
-        GameObject characterOne = new Character(this, 100f, 100f, 70f, 93f, 0, -1);
+        main_character = new Character(this, 100f, 100f, 70f, 93f, 0, -1);
         GameObject characterTwo = new Character(this, 200f, 100f, 70f, 93f, 1, -1);
         GameObject characterThree = new Character(this, 300f, 100f, 70f, 93f, 2, -1);
-        this.gameObjects.add(characterOne);
+        this.gameObjects.add(main_character);
         this.gameObjects.add(characterTwo);
         this.gameObjects.add(characterThree);
 
@@ -90,35 +99,35 @@ public class Game extends BasicGame {
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
         //update game and player
+        
         for (GameObject go : this.gameObjects) {
             if (go instanceof Character) {
                 //move all characters
                 ((Character) go).update(gc, i);
             }
             if (go instanceof Button /*|| go instanceof Lever*/) {
+                boolean bool = false;
                 Rectangle r = go.getRect();
-                boolean bool = true;
+                Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
                 for (GameObject co : this.gameObjects) {
-                    
-
                     if (co instanceof Character) {
-                        Rectangle r2 = ((Character) co).getRect();
-                        if (r.intersects(r2)) {
-                            bool = false;
+                        if(co.getRect().intersects(temp)){
+                            bool = true;
                         }
                     }
-                    if (bool) {
-                        this.checkMatchedObjects(go);
-                    }
+                }
+                if (!bool) {
+                    this.checkMatchedObjects(go);
                 }
             }
         }
     }
-    
+
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //render game and player
-        this.map.render(0, 0);
+        this.map.render(0,0);
+        
         for (GameObject go : this.gameObjects) {
 
             grphcs.draw(go.getRect());
@@ -158,10 +167,12 @@ public class Game extends BasicGame {
 
     public void checkMatchedObjects(GameObject go) {
         if (go instanceof Button) {
-            ((Button) go).changeImage(false);
-            ((Button) go).setActive(false);
-            for (GameObject mo : ((Button) go).getMatchedObjects()) {
-                this.checkMatchedObject(mo);
+            if(((Button)go).isActive()){
+                ((Button) go).changeImage(false);
+                ((Button) go).setActive(false);
+                for (GameObject mo : ((Button) go).getMatchedObjects()) {
+                    this.checkMatchedObject(mo);
+                }
             }
         }
 //        if (go instanceof Lever) {
@@ -174,8 +185,11 @@ public class Game extends BasicGame {
 
     public void checkMatchedObject(GameObject mo) {
         if (mo instanceof Door) {
-            ((Door) mo).changeImage(false);
-            ((Door) mo).setActive(false);
+            if(((Door) mo).isActive()){
+                System.out.println("setting door false");
+                ((Door) mo).changeImage(false);
+                ((Door) mo).setActive(false);
+            }
         }
 
     }
