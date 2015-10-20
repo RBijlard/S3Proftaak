@@ -34,6 +34,10 @@ public class Character extends GameObject {
     private Game game;
     private SpriteSheet playerSheet;
     private Animation animate;
+    private GameObject MLO;
+    private float offSetX;
+    
+    float margin;
 
     public Character(Game game, float x, float y, float width, float height, int controlSet, int match) throws SlickException {
         super(x, y, width, height, match);
@@ -56,13 +60,21 @@ public class Character extends GameObject {
                 break;
         }
         this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
+        MLO = new Block( 1f, 1f, 1f, 1f, -1);
+        this.game.getGameObjects().add(MLO);
+        for(GameObject go: this.game.getGameObjects()){
+            if(go.getX() < MLO.getX()){
+                MLO.setX(go.getX());
+            }
+        }
+        margin = 0 - MLO.getX();
     }
 
     public void update(GameContainer gc, int i) {
         //update player (move)
         switch (this.controlSet) {
             case 0:
-                this.moveHorizontal(gc);
+                this.moveHorizontalMap(gc);
                 this.moveVertical(gc);
                 break;
             case 1:
@@ -90,14 +102,16 @@ public class Character extends GameObject {
     }
 
     public void moveHorizontalMap(GameContainer gc) {
+        
+        this.offSetX = 0 - MLO.getX();
         //Move horizontal with arrow keys
         Input input = gc.getInput();
         if (input.isKeyDown(Input.KEY_LEFT)) {
-            //move map left -> x minus speed
-            this.vX = -this.speed;
-        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
-            //move map right -> x plus speed
+            //move map right -> x minus speed
             this.vX = this.speed;
+        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
+            //move map left -> x plus speed
+            this.vX = -this.speed;
         } else {
             //dont move the map
             this.vX = 0;
@@ -107,15 +121,25 @@ public class Character extends GameObject {
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
             for (GameObject go : game.getGameObjects()) {
-                go.setX(go.getX() + vXtemp);
-                go.updateHitbox();
-                if (this.isColliding(gc)) {
-                    go.setX(go.getX() - vXtemp);
+                if (go != this) {
+                    go.setX(go.getX() + vXtemp);
                     go.updateHitbox();
-                    this.vX = 0;
+                }
+            }
+            if (this.isColliding(gc)) {
+                for (GameObject go : game.getGameObjects()) {
+                    if (go != this) {
+                        go.setX(go.getX() - vXtemp);
+                        go.updateHitbox();
+                    }
                 }
             }
         }
+    }
+    
+    public float getOffsetX(){
+        System.out.println(this.offSetX);
+        return this.offSetX - this.margin;
     }
 
     public void moveHorizontal(GameContainer gc) {
@@ -136,7 +160,6 @@ public class Character extends GameObject {
         for (int i = 0; i < this.interations; i++) {
             //ipv setx -> render map
             this.setX(this.getX() + vXtemp);
-            this.updateHitbox();
             if (this.isColliding(gc)) {
                 //ipv setx -> render map 
                 this.setX(this.getX() - vXtemp);
@@ -162,6 +185,10 @@ public class Character extends GameObject {
             this.updateHitbox();
         }
 
+        if(this.getY() > (70*15)){
+            this.die();
+        }
+        
         //check for collision in 5 small steps for higher precision
         float vYtemp = this.vY / this.interations;
         for (int i = 0; i < this.interations; i++) {
@@ -174,14 +201,14 @@ public class Character extends GameObject {
             }
         }
     }
-    
-    public void die(){        
-            try {
-                //Menu.getAppContainer().exit();
-                Menu.getAppContainer().reinit();
-            } catch (SlickException ex) {
-                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
+    public void die() {
+        try {
+            //Menu.getAppContainer().exit();
+            Menu.getAppContainer().reinit();
+        } catch (SlickException ex) {
+            Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public boolean isColliding(GameContainer gc) {
@@ -211,9 +238,8 @@ public class Character extends GameObject {
                     } else if (go instanceof Lever && gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
                         if (!((Lever) go).isActive()) {
                             ((Lever) go).setActive(true);
-                        }
-                        else{
-                            ((Lever) go).setActive(false);                            
+                        } else {
+                            ((Lever) go).setActive(false);
                         }
                         return true;
                     } else if (go instanceof Door) {

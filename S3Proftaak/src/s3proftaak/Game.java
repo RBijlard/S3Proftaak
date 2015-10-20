@@ -33,20 +33,22 @@ public class Game extends BasicGame {
     private float x = 70f, y = 70f;
     private String path;
     private int amountOfPlayers = 0;
+    private Character main_character;
+    private GameObject most_left_object;
 
     public Game(String title, int amountOfPlayers) {
         super(title);
         this.amountOfPlayers = amountOfPlayers;
     }
-    
-    public TiledMap getMap(){
+
+    public TiledMap getMap() {
         return this.map;
     }
-    
+
     @Override
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
-        this.path = getClass().getResource("/Resources/berryTestButtonLevel2.tmx").getPath().replace("%20", " ");
+        this.path = getClass().getResource("/Resources/berryTestButtonLevel4.tmx").getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);
@@ -57,7 +59,7 @@ public class Game extends BasicGame {
             GameObject block = new Block(map.getObjectX(0, i), map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i), -1);
             this.gameObjects.add(block);
         }
-        
+
         //spikes
         for (int i = 0; i < map.getObjectCount(5); i++) {
             GameObject spike = new Spike(map.getObjectX(5, i), map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i), -1);
@@ -85,18 +87,17 @@ public class Game extends BasicGame {
                     }
                 }
             }
-
+            
             this.gameObjects.add(door);
         }
-        
-        
+
         //levers TODO
         for (int i = 0; i < map.getObjectCount(3); i++) {
             int match = this.getProperty(map, 3, i, "lever");
             GameObject lever = new Lever(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i), match);
             this.gameObjects.add(lever);
         }
-        
+
         //weights TODO
         for (int i = 0; i < map.getObjectCount(4); i++) {
             int match = this.getProperty(map, 4, i, "weight");
@@ -115,20 +116,28 @@ public class Game extends BasicGame {
             this.gameObjects.add(weight);
         }
 
-        
-        for(int i = 0; i < this.amountOfPlayers; i++){
-            this.gameObjects.add(new Character(this,(72f*i + 72f), 500f, 70f, 93f, i, -1));
+        for (int i = 1; i < this.amountOfPlayers; i++) {
+            this.gameObjects.add(new Character(this, (72f * i + 500f), 100f, 70f, 93f, i, -1));
         }
+        main_character = new Character(this, 72f + 400f, 100f, 70f, 93f, 0, -1);
+        this.gameObjects.add(main_character);
 
         for (GameObject go : this.gameObjects) {
             System.out.println(go.toString());
+        }
+
+        most_left_object = new Block(72f, 500f, 70f, 93f, -1);
+        for(GameObject go : this.gameObjects){
+            if(go.getX() < most_left_object.getX()){
+                most_left_object.setX(go.getX());
+            }
         }
     }
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
         //update game and player
-        
+
         for (GameObject go : this.gameObjects) {
             if (go instanceof Character) {
                 //move all characters
@@ -140,7 +149,7 @@ public class Game extends BasicGame {
                 Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
                 for (GameObject co : this.gameObjects) {
                     if (co instanceof Character) {
-                        if(co.getRect().intersects(temp)){
+                        if (co.getRect().intersects(temp)) {
                             bool = true;
                         }
                     }
@@ -151,16 +160,15 @@ public class Game extends BasicGame {
             }
         }
     }
-    
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //render game and player
-        this.map.render(0,0);
-        
+        this.map.render(0 - (int) main_character.getOffsetX(), 0);
+
         for (GameObject go : this.gameObjects) {
 
-            //grphcs.draw(go.getRect());
+            grphcs.draw(go.getRect());
 
             if (go instanceof Button) {
                 //render buttons
@@ -201,7 +209,7 @@ public class Game extends BasicGame {
 
     public void checkMatchedObjects(GameObject go) {
         if (go instanceof Button) {
-            if(((Button)go).isActive()){
+            if (((Button) go).isActive()) {
                 ((Button) go).changeImage(false);
                 ((Button) go).setActive(false);
                 for (GameObject mo : ((Button) go).getMatchedObjects()) {
@@ -219,7 +227,7 @@ public class Game extends BasicGame {
 
     public void checkMatchedObject(GameObject mo) {
         if (mo instanceof Door) {
-            if(((Door) mo).isActive()){
+            if (((Door) mo).isActive()) {
                 System.out.println("setting door false");
                 ((Door) mo).changeImage(false);
                 ((Door) mo).setActive(false);

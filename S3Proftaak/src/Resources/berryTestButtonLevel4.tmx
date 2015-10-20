@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="15" tilewidth="70" tileheight="70" nextobjectid="81">
+ <tileset firstgid="1" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
+  <image source="tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <tileset firstgid="157" name="item_persSpriteSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="100">
+  <image source="item_persSpriteSheet.png" width="720" height="720"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2WbQqAIAyGPV0H6HpC7Kj9KZCx3jbzY+QeGNq0Zb7qzCmlHObKAh+EHr4IPXzR+0yL89FG7/mRYmdWn2102ROoTQN/H8WbrccM3tYD78dLax3Fkca2sh4a/0hm6SGtxVG5xZseR1G2mAMCbV718HTPqBnHl3yJYiHfn0E5R6uHxhfY0azLt+fbtzUc16po9kd5LyfQZxf8pKgjyu+ugFYPSx6ozSkoj6xyHvJ/PgG9Egk3cBcAAA==
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="210" height="24">
+  <object id="26" x="2" y="2" width="2400" height="66"/>
+  <object id="27" x="6" y="56" width="60" height="994"/>
+  <object id="28" x="58" y="836" width="84" height="72"/>
+  <object id="29" x="346" y="838" width="70" height="210"/>
+  <object id="30" x="410" y="984" width="288" height="64"/>
+  <object id="31" x="634" y="700" width="64" height="286"/>
+  <object id="32" x="56" y="274" width="646" height="74"/>
+  <object id="33" x="692" y="698" width="988" height="72"/>
+  <object id="34" x="976" y="764" width="76" height="286"/>
+  <object id="35" x="1042" y="984" width="984" height="54"/>
+  <object id="36" x="1608" y="284" width="72" height="412"/>
+  <object id="37" x="1674" y="282" width="354" height="64"/>
+  <object id="38" x="1960" y="348" width="68" height="418"/>
+  <object id="39" x="2032" y="560" width="136" height="208"/>
+  <object id="40" x="2172" y="978" width="134" height="68"/>
+  <object id="41" x="2310" y="562" width="210" height="206"/>
+  <object id="42" x="2452" y="982" width="282" height="66"/>
+  <object id="43" x="2172" y="348" width="1694" height="68"/>
+  <object id="44" x="2400" y="4" width="2376" height="66"/>
+  <object id="45" x="3860" y="344" width="614" height="72"/>
+  <object id="46" x="4200" y="408" width="72" height="290"/>
+  <object id="47" x="4264" y="634" width="426" height="62"/>
+  <object id="48" x="4406" y="414" width="354" height="74"/>
+  <object id="49" x="4614" y="488" width="74" height="146"/>
+  <object id="50" x="4772" y="4" width="1850" height="64"/>
+  <object id="51" x="4898" y="420" width="70" height="66"/>
+  <object id="52" x="5036" y="422" width="72" height="64"/>
+  <object id="53" x="5178" y="424" width="70" height="62"/>
+  <object id="54" x="5394" y="422" width="60" height="64"/>
+  <object id="55" x="5602" y="422" width="64" height="66"/>
+  <object id="56" x="5806" y="418" width="70" height="70"/>
+  <object id="57" x="6018" y="422" width="70" height="64"/>
+  <object id="58" x="6156" y="422" width="70" height="68"/>
+  <object id="59" x="6298" y="424" width="68" height="60"/>
+  <object id="60" x="6436" y="422" width="72" height="62"/>
+  <object id="61" x="6724" y="632" width="262" height="414"/>
+  <object id="62" x="6508" y="702" width="70" height="66"/>
+  <object id="63" x="6620" y="4" width="354" height="66"/>
+  <object id="64" x="6930" y="68" width="46" height="578"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 2" width="210" height="24">
+  <object id="65" x="6722" y="612" width="66" height="18">
+   <properties>
+    <property name="button" value="1"/>
+   </properties>
+  </object>
+  <object id="66" x="6860" y="612" width="68" height="20">
+   <properties>
+    <property name="button" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 3" width="210" height="24">
+  <object id="67" x="1058" y="880" width="54" height="100">
+   <properties>
+    <property name="door" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 4" width="210" height="24">
+  <object id="68" x="86" y="808" width="30" height="24">
+   <properties>
+    <property name="lever" value="1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 5" width="210" height="24"/>
+ <objectgroup name="Object Layer 6" width="210" height="24">
+  <object id="69" x="420" y="954" width="210" height="24"/>
+  <object id="70" x="1124" y="674" width="56" height="20"/>
+  <object id="71" x="1402" y="950" width="62" height="30"/>
+  <object id="72" x="1612" y="952" width="70" height="28"/>
+  <object id="73" x="1816" y="948" width="72" height="32"/>
+  <object id="74" x="2520" y="946" width="214" height="30"/>
+  <object id="75" x="4480" y="384" width="134" height="26"/>
+  <object id="76" x="5040" y="392" width="66" height="30"/>
+  <object id="79" x="6162" y="390" width="62" height="28"/>
+  <object id="80" x="6444" y="392" width="62" height="28"/>
+ </objectgroup>
+</map>
