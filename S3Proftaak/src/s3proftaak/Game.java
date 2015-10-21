@@ -116,7 +116,7 @@ public class Game extends BasicGame {
         
         
         for (int i = 1; i < this.amountOfPlayers; i++) {
-            this.gameObjects.add(new Character(this, (72f * i + 500f), 100f, 70f, 93f, i, -1));
+            this.gameObjects.add(new Character(this, (72f * i + 200f), 150f, 70f, 93f, i, -1)); // + 500f, 100f
         }
         main_character = new Character(this, 72f + 100f, 150f, 70f, 93f, 0, -1); // + 400f, 100f
         this.gameObjects.add(main_character);
@@ -179,7 +179,7 @@ public class Game extends BasicGame {
         return this.gameObjects;
     }
 
-    public int getProperty(TiledMap map, int layer, int tilenumber, String type) {
+    private int getProperty(TiledMap map, int layer, int tilenumber, String type) {
         if (map.getObjectProperty(layer, tilenumber, type, "desc") != null) {
             String match = map.getObjectProperty(layer, tilenumber, type, "desc");
             try {

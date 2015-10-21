@@ -28,6 +28,7 @@ public class Lever extends GameObject implements IPressable, IRenderable {
         this.changeImage(isActive);
     }
     
+    @Override
     public void render(GameContainer gc, Graphics g){
         //render button animation/img
         sprite.draw(this.x,this.y - calculateOffset());        
@@ -37,10 +38,12 @@ public class Lever extends GameObject implements IPressable, IRenderable {
         return (int) (70-this.height);
     }
     
+    @Override
     public boolean isActive(){
         return this.isActive;
     }
     
+    @Override
     public void setActive(boolean active){
         this.isActive = active;
         changeImage(active);

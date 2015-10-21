@@ -220,14 +220,14 @@ public class Character extends GameObject implements IRenderable {
                 if (go == this) {
                 } else {
                     //check what object
-                    if (go instanceof Block) {
+                    if (go instanceof Block || go instanceof Character) {
                         return true;
+                    } else if (go instanceof Weight){
+                        return !((Weight) go).isActive();
                     } else if (go instanceof Spike) {
                         //die
                         this.die();
                         return false;
-                    } else if (go instanceof Character) {
-                        return true;
                     } else if (go instanceof Button) {
                         if (this.getY() + this.height - 1 < go.getY()) {
                             if (!((Button) go).isActive()) {

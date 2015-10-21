@@ -36,6 +36,7 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
         Main.getApp().exit();
     }
     
+    @Override
     public void render(GameContainer gc, Graphics g){
         //render door animation/img
         sprite.draw(this.x,this.y - calculateOffset());
@@ -46,10 +47,12 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
         return (int) (70-this.height);
     }
     
+    @Override
     public boolean isActive(){
         return this.isActive;
     }
     
+    @Override
     public void setActive(boolean active){
         this.isActive = active;
         changeImage(active);

@@ -23,6 +23,7 @@ public class Spike extends GameObject implements IRenderable{
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
     
+    @Override
     public void render(GameContainer gc, Graphics g){
         //render spike animation/img
     }

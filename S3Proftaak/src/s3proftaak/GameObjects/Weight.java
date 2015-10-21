@@ -38,8 +38,9 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable 
     public void render(GameContainer gc, Graphics g){
         //render door animation/img
         sprite.draw(this.x,this.y - calculateOffset());
-        for (int i=0;i<10;i++){
-            sprite1.draw(this.x,this.y + calculateOffset() + i*70);
+        
+        for (int i=0;this.getHeight() - i*70 + 70 > 0;i++){
+            sprite1.draw(this.x, this.getHeight() - i*70);
         }
     }    
     
