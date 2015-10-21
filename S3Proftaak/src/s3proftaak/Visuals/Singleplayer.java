@@ -8,11 +8,14 @@ package s3proftaak.Visuals;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -26,7 +29,7 @@ import static s3proftaak.Main.changeScreen;
  *
  * @author Stan
  */
-public class Singleplayer extends BasicScene {
+public class Singleplayer extends BasicScene implements Initializable {
     
     @FXML Button btnStart;
     @FXML TextField tfAmount;
@@ -34,27 +37,11 @@ public class Singleplayer extends BasicScene {
     @FXML ComboBox cbLevel;
     
     @Override
-    public BasicScene load(String s){
-        BasicScene bs = super.load(s);
-        System.out.println("LOADING");
-        
-        bs.getScene().getRoot().addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent window) {
-                System.out.println("abccc");
-                fillLevelList();
-            }
-        });
-        
-        return bs;
-    }
-    
-    private void fillLevelList(){
+    public void initialize(URL location, ResourceBundle resources) {
         ArrayList levels = new ArrayList<>();
         
         for (File f : new File(getClass().getResource("/Resources/Levels/").getPath()).listFiles()){
             if (f.getName().endsWith(".tmx")){
-                System.out.println(f.getName());
                 levels.add(f.getName());
             }
         }
@@ -75,15 +62,17 @@ public class Singleplayer extends BasicScene {
                 amountOfPlayers = Integer.parseInt(tfAmount.getText());
             } catch (Exception ex) {}
 
-            Main.setGame(new Game("DEE game", amountOfPlayers));
-            Main.getApp().setDisplayMode(width, height, false);
-            Main.getApp().setTargetFrameRate(60);
-            Main.getApp().setForceExit(false);
-            Main.getApp().start();
+            if (cbLevel.getSelectionModel().getSelectedItem() != null){
+                Main.setGame(new Game("DEE game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString()));
+                Main.getApp().setDisplayMode(width, height, false);
+                Main.getApp().setTargetFrameRate(60);
+                Main.getApp().setForceExit(false);
+                Main.getApp().start();
 
-            try {
-                Main.getApp().reinit();
-            } catch (Exception ex) {}
+                try {
+                    Main.getApp().reinit();
+                } catch (Exception ex) {}
+            }
             
         } catch (SlickException ex) {}
     }

@@ -35,10 +35,12 @@ public class Game extends BasicGame {
     private int amountOfPlayers = 0;
     private Character main_character;
     private GameObject most_left_object;
+    private String mapname;
 
-    public Game(String title, int amountOfPlayers) {
+    public Game(String title, int amountOfPlayers, String mapname) {
         super(title);
         this.amountOfPlayers = amountOfPlayers;
+        this.mapname = mapname;
     }
 
     public TiledMap getMap() {
@@ -48,7 +50,7 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
-        this.path = getClass().getResource("/Resources/Levels/berryTestButtonLevel4.tmx").getPath().replace("%20", " ");
+        this.path = getClass().getResource("/Resources/Levels/" + this.mapname).getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);

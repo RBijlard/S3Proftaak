@@ -51,11 +51,7 @@ public class Main extends Application {
         
         Screens(){
             
-            try {
-                bs = ((BasicScene) Class.forName("s3proftaak.Visuals." + this.name()).newInstance()).load(this.getPath());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            bs = new BasicScene().load(this.getPath());
             
         }
         

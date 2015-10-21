@@ -27,27 +27,7 @@ public class Multiplayer extends BasicScene {
     @FXML Button btnBack;
     
     public void btnStartClick(Event e){
-        try {
-            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            int width = gd.getDisplayMode().getWidth();
-            int height = gd.getDisplayMode().getHeight();
-            int amountOfPlayers = 0;
-
-            try {
-                amountOfPlayers = Integer.parseInt(tfAmount.getText());
-            } catch (Exception ex) {}
-
-            Main.setGame(new Game("DEE game", amountOfPlayers));
-            Main.getApp().setDisplayMode(width, height, false);
-            Main.getApp().setTargetFrameRate(60);
-            Main.getApp().setForceExit(false);
-            Main.getApp().start();
-
-            try {
-                Main.getApp().reinit();
-            } catch (Exception ex) {}
-            
-        } catch (SlickException ex) {}
+        
     }
     
     public void btnBackClick(Event e){
