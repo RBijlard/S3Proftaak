@@ -48,7 +48,7 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
-        this.path = getClass().getResource("/Resources/berryTestButtonLevel4.tmx").getPath().replace("%20", " ");
+        this.path = getClass().getResource("/Resources/berryTestButtonLevel5.tmx").getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);
@@ -217,12 +217,6 @@ public class Game extends BasicGame {
                 }
             }
         }
-//        if (go instanceof Lever) {
-//            ((Lever) go).changeImage(false);
-//            for (GameObject mo : ((Button) go).getMatchedObjects()) {
-//                this.checkMatchedObject(mo);            
-//            }
-//        }
     }
 
     public void checkMatchedObject(GameObject mo) {
