@@ -12,13 +12,14 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IStateChangeable;
+import s3proftaak.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Main;
 
 /**
  *
  * @author Berry-PC
  */
-public class Weight extends GameObject implements IStateChangeable, IRenderable {
+public class Weight extends GameObject implements IStateChangeable, IRenderable, IUpdateable {
 
     private boolean isActive = false;
     private Image sprite;
@@ -32,6 +33,11 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable 
     
     public void finish(){
         Main.getApp().exit();
+    }
+    
+    @Override
+    public void update(GameContainer gc, int i) {
+        
     }
     
     @Override

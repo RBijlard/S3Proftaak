@@ -16,6 +16,7 @@ import org.newdawn.slick.tiled.TiledMap;
 import s3proftaak.GameObjects.Interfaces.IPressable;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IStateChangeable;
+import s3proftaak.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.GameObjects.Lever;
 import s3proftaak.GameObjects.Spike;
 import s3proftaak.GameObjects.Weight;
@@ -138,9 +139,9 @@ public class Game extends BasicGame {
         //update game and player
 
         for (GameObject go : this.gameObjects) {
-            if (go instanceof Character) {
-                //move all characters
-                ((Character) go).update(gc, i);
+            if (go instanceof IUpdateable) {
+                //move all characters & weights
+                ((IUpdateable) go).update(gc, i);
             }
             if (go instanceof IPressable) {
                 boolean bool = false;
