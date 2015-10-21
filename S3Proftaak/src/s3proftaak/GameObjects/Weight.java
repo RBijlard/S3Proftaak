@@ -25,6 +25,8 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     private Image sprite;
     private Image sprite1;
     
+    private int minus = 0;
+    
     public Weight(float x, float y, float width, float height, int match){
         super(x, y, width, height, match);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
@@ -37,16 +39,27 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     
     @Override
     public void update(GameContainer gc, int i) {
+        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height-minus);
         
+        if (isActive){
+            if (minus < this.height - 70){
+                minus+=5;
+            }
+        }else{
+            if (minus > 0){
+                minus-=5;
+            }
+        }
+            
     }
     
     @Override
     public void render(GameContainer gc, Graphics g){
         //render door animation/img
-        sprite.draw(this.x,this.y - calculateOffset());
+        sprite.draw(this.x,this.y - calculateOffset() - minus);
         
-        for (int i=0;this.getHeight() - i*70 + 70 > 0;i++){
-            sprite1.draw(this.x, this.getHeight() - i*70);
+        for (int i=0;this.getHeight() - i*70 + 70 - minus > 0;i++){
+            sprite1.draw(this.x, this.getHeight() - i*70 - minus);
         }
     }    
     
@@ -68,8 +81,8 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     public void changeImage(boolean active){
         try{
             if(active){
-                sprite = new Image("Resources/Levels/transparent.png");
-                sprite1 = new Image("Resources/Levels/transparent.png");
+                //sprite = new Image("Resources/Levels/transparent.png");
+                //sprite1 = new Image("Resources/Levels/transparent.png");
             }
             else{
                 sprite = new Image("Resources/Levels/weightChained.png");
