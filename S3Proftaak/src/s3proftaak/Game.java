@@ -143,10 +143,12 @@ public class Game extends BasicGame {
                 //move all characters & weights
                 ((IUpdateable) go).update(gc, i);
             }
+            
             if (go instanceof IPressable) {
                 boolean bool = false;
                 Rectangle r = go.getRect();
                 Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
+                
                 for (GameObject co : this.gameObjects) {
                     if (co instanceof Character) {
                         if (co.getRect().intersects(temp)) {
@@ -154,6 +156,7 @@ public class Game extends BasicGame {
                         }
                     }
                 }
+                
                 if (!bool) {
                     this.checkMatchedObjects(go);
                 }
@@ -167,7 +170,6 @@ public class Game extends BasicGame {
         this.map.render(0 - (int) main_character.getOffsetX(), 0);
 
         for (GameObject go : this.gameObjects) {
-
             grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {

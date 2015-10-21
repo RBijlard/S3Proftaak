@@ -43,14 +43,13 @@ public class Main extends Application {
         Menu,
         Settings,
         Singleplayer,
-        Multiplayer;
+        Multiplayer,
+        Highscores;
         
         private BasicScene bs;
         
         Screens(){
-            
             bs = new BasicScene().load(this.getPath());
-            
         }
         
         private String getPath(){

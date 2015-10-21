@@ -21,7 +21,7 @@ public class Menu extends BasicScene {
     @FXML Button btnSingleplayer;
     @FXML Button btnMultiplayer;
     @FXML Button btnSettings;
-    @FXML TextField tfAmount;
+    @FXML Button btnHighscores;
     
     public void btnSingleplayerClick(Event e){
         changeScreen(Main.Screens.Singleplayer);
@@ -33,5 +33,9 @@ public class Menu extends BasicScene {
     
     public void btnSettingsClick(Event e){
         changeScreen(Main.Screens.Settings);
+    }
+    
+    public void btnHighscoresClick(Event e){
+        changeScreen(Main.Screens.Highscores);
     }
 }

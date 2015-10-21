@@ -18,7 +18,7 @@ public class Account {
     public Account(String username, String password, Settings settings){
         this.username = username;
         this.password = password;
-        this.settings = settings;
+        this.settings = settings == null ? new Settings() : settings;
     }
     
     public String getUsername(){

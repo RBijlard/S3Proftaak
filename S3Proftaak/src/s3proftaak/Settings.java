@@ -15,6 +15,12 @@ public class Settings {
     private boolean fullscreen;
     private String skinPath;
 
+    public Settings(){
+        this.soundMute = false;
+        this.fullscreen = true;
+        this.skinPath = "";
+    }
+    
     public Settings(boolean soundMute, boolean fullscreen, String skinPath) {
         this.soundMute = soundMute;
         this.fullscreen = fullscreen;

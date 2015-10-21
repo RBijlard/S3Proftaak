@@ -43,4 +43,9 @@ public class Score {
     public void setPlayerNames(String playerNames) {
         this.playerNames = playerNames;
     }
+    
+    @Override
+    public String toString(){
+        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames();
+    }
 }

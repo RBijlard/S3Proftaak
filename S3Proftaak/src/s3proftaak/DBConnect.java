@@ -18,6 +18,21 @@ import java.util.ArrayList;
  */
 public class DBConnect {
     
+    private static DBConnect instance;
+    
+    public static DBConnect getInstance() throws SQLException{
+        throw new SQLException("Negeer dit, we hebben nog geen database.");
+        
+        /*
+        if (instance == null){
+            instance = new DBConnect();
+            instance.connect();
+        }
+        
+        return instance;
+        */
+    }
+    
     private Connection conn = null;
     
     public void connect() throws SQLException{
@@ -68,7 +83,37 @@ public class DBConnect {
     }
     // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Account - insertAccount"> 
+    // <editor-fold defaultstate="collapsed" desc="Account - getAccount / hasAccount / insertAccount"> 
+     public Account getAccount(String username) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("SELECT Mute, Fullscreen, Path FROM ACCOUNT WHERE Username = ?");
+        ps.setString(1, username);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs != null){
+            while (rs.next()){
+                return new Account(rs.getString("Username"), rs.getString("Password"), this.getSettings(rs.getString("Username")));
+            }
+        }
+        
+        return null;
+    }
+     
+    public boolean hasAccount(String username) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement("SELECT Null FROM ACCOUNT WHERE Username = ?");
+        ps.setString(1, username);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs != null){
+            while (rs.next()){
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public void insertAccount(Account a) throws SQLException{
         PreparedStatement ps = conn.prepareStatement("INSERT INTO ACCOUNT (Username, Password, Mute, Fullscreen, Path) VALUES (?, ?, ?, ?, ?)");
         ps.setString(1, a.getUsername());
@@ -81,10 +126,8 @@ public class DBConnect {
     // </editor-fold>
     
     // <editor-fold defaultstate="collapsed" desc="Score - getScores / insertScore"> 
-    public ArrayList<Score> getScores(String username) throws SQLException{
+    public ArrayList<Score> getScores() throws SQLException{
         PreparedStatement ps = conn.prepareStatement("SELECT Tijd, Ster, Usernames FROM SCORE");
-        ps.setString(1, username);
-        
         ResultSet rs = ps.executeQuery();
         
         if (rs != null){
