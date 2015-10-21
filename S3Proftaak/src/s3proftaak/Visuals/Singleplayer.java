@@ -40,7 +40,9 @@ public class Singleplayer extends BasicScene implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList levels = new ArrayList<>();
         
-        for (File f : new File(getClass().getResource("/Resources/Levels/").getPath()).listFiles()){
+        //System.out.println(new File(getClass().getResource("/Resources/Levels/").getPath().replaceAll("%20", " ")).listFiles());
+        
+        for (File f : new File(getClass().getResource("/Resources/Levels/").getPath().replaceAll("%20", " ")).listFiles()){
             if (f.getName().endsWith(".tmx")){
                 levels.add(f.getName());
             }
