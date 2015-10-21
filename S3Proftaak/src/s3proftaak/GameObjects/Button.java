@@ -73,10 +73,10 @@ public class Button extends GameObject{
     public void changeImage(boolean active){
         try{
             if(active){
-                this.sprite = new Image("Resources/buttonRed_pressed.png");
+                this.sprite = new Image("Resources/Levels/buttonRed_pressed.png");
             }
             else{
-                this.sprite = new Image("Resources/buttonRed.png");            
+                this.sprite = new Image("Resources/Levels/buttonRed.png");            
             }
         }
         catch(SlickException ex){}

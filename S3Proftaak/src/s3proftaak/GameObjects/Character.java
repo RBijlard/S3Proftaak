@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
-import s3proftaak.Visuals.Menu;
+import s3proftaak.Main;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -42,20 +42,20 @@ public class Character extends GameObject {
     public Character(Game game, float x, float y, float width, float height, int controlSet, int match) throws SlickException {
         super(x, y, width, height, match);
         this.game = game;
-        playerSheet = new SpriteSheet(getClass().getResource("/Resources/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
+        playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
         animate = new Animation(playerSheet, 100);
         this.controlSet = controlSet;
         switch (this.controlSet) {
             case 0:
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/player1_sprites.png").getPath().replace("%20", " "), 70, 93);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player1_sprites.png").getPath().replace("%20", " "), 70, 93);
                 animate = new Animation(playerSheet, 100);
                 break;
             case 1:
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/player2_sprites.png").getPath().replace("%20", " "), 70, 93);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player2_sprites.png").getPath().replace("%20", " "), 70, 93);
                 animate = new Animation(playerSheet, 100);
                 break;
             case 2:
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
                 animate = new Animation(playerSheet, 100);
                 break;
         }
@@ -89,7 +89,7 @@ public class Character extends GameObject {
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             try {
                 //Menu.getAppContainer().exit();
-                Menu.getAppContainer().reinit();
+                Main.getApp().reinit();
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -204,7 +204,7 @@ public class Character extends GameObject {
     public void die() {
         try {
             //Menu.getAppContainer().exit();
-            Menu.getAppContainer().reinit();
+            Main.getApp().reinit();
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }

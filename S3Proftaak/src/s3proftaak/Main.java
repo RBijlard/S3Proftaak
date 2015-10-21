@@ -5,11 +5,16 @@
  */
 package s3proftaak;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import s3proftaak.Visuals.Menu;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.SlickException;
+import s3proftaak.Visuals.BasicScene;
 
 /**
  *
@@ -18,18 +23,65 @@ import s3proftaak.Visuals.Menu;
 public class Main extends Application {
     private static Stage primaryStage;
     
+    private static AppGameContainer app;
+    private static Game game;
+
     public static void main(String[] arguments) {
         launch();
     }
     
     @Override
-    public void start(Stage primarystage) throws Exception {
+    public void start(Stage primarystage) throws IOException {
         primaryStage = primarystage;
-        primaryStage.setScene(new Menu().getScene());
+        changeScreen(Screens.Menu);
         primaryStage.show();
     }
     
-    public static void changeScene(Scene s){
-        primaryStage.setScene(s);
+    public static void changeScreen(Screens s){
+        primaryStage.setScene(s.getScene());
+    }
+    
+    public enum Screens{
+        Menu,
+        Settings,
+        Singleplayer,
+        Multiplayer;
+        
+        private BasicScene bs;
+        
+        Screens(){
+            
+            try {
+                bs = ((BasicScene) Class.forName("s3proftaak.Visuals." + this.name()).newInstance()).load(this.getPath());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
+        private String getPath(){
+            return "/Resources/Visuals/" + this.name() + ".fxml";
+        }
+        
+        public Scene getScene(){
+            return this.bs.getScene();
+        }
+    }
+    
+    public static AppGameContainer getApp() {
+        return app;
+    }
+
+    public static void setApp(AppGameContainer app) {
+        Main.app = app;
+    }
+
+    public static Game getGame() {
+        return game;
+    }
+
+    public static void setGame(Game game) throws SlickException {
+        Main.game = game;
+        setApp(new AppGameContainer(getGame()));
     }
 }

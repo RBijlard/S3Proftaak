@@ -5,6 +5,11 @@
  */
 package s3proftaak.Visuals;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
 /**
@@ -13,6 +18,15 @@ import javafx.scene.Scene;
  */
 public class BasicScene {
     private Scene scene;
+    
+    public BasicScene load(String s) {
+        try {
+            this.setScene(new Scene(FXMLLoader.load(new URL(this.getClass().getResource(s).toExternalForm()))));
+        } catch (IOException ex) {
+            Logger.getLogger(BasicScene.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return this;
+    }
     
     public Scene getScene(){
         return this.scene;

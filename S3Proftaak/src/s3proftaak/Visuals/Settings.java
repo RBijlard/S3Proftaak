@@ -9,6 +9,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import s3proftaak.Main;
 import static s3proftaak.Main.changeScreen;
 
@@ -16,22 +17,22 @@ import static s3proftaak.Main.changeScreen;
  *
  * @author Stan
  */
-public class Menu extends BasicScene {
+public class Settings extends BasicScene {
+
+    @FXML ToggleButton btnSound;
+    @FXML ToggleButton btnFullscreen;
+    @FXML TextField tfPath;
+    @FXML Button btnBack;
     
-    @FXML Button btnSingleplayer;
-    @FXML Button btnMultiplayer;
-    @FXML Button btnSettings;
-    @FXML TextField tfAmount;
-    
-    public void btnSingleplayerClick(Event e){
-        changeScreen(Main.Screens.Singleplayer);
+    public void btnSoundClick(Event e){
+        // Todo
+    }
+        
+    public void btnFullscreenClick(Event e){
+        // Todo
     }
     
-    public void btnMultiplayerClick(Event e){
-        changeScreen(Main.Screens.Multiplayer);
-    }
-    
-    public void btnSettingsClick(Event e){
-        changeScreen(Main.Screens.Settings);
+    public void btnBackClick(Event e){
+        changeScreen(Main.Screens.Menu);
     }
 }

@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.Main;
 import s3proftaak.Visuals.Menu;
 
 /**
@@ -29,7 +30,7 @@ public class Weight extends GameObject{
     }
     
     public void finish(){
-        Menu.getAppContainer().exit();
+        Main.getApp().exit();
     }
     
     public void render(GameContainer gc, Graphics g){
@@ -54,12 +55,12 @@ public class Weight extends GameObject{
     public void changeImage(boolean active){
         try{
             if(active){
-                sprite = new Image("Resources/door_openMid.png");
-                sprite1 = new Image("Resources/door_openTop.png");
+                sprite = new Image("Resources/Levels/door_openMid.png");
+                sprite1 = new Image("Resources/Levels/door_openTop.png");
             }
             else{
-                sprite = new Image("Resources/door_closedMid.png");
-                sprite1 = new Image("Resources/door_closedTop.png");           
+                sprite = new Image("Resources/Levels/door_closedMid.png");
+                sprite1 = new Image("Resources/Levels/door_closedTop.png");           
             }
         }
         catch(SlickException ex){}

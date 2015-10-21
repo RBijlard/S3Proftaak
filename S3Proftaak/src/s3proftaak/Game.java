@@ -52,7 +52,7 @@ public class Game extends BasicGame {
 
         //map and list
         this.map = new TiledMap(path);
-        this.gameObjects = new ArrayList<GameObject>();
+        this.gameObjects = new ArrayList<>();
 
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {
