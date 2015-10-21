@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s3proftaak.Visuals.Menu">
+   <children>
+      <ImageView fitHeight="406.0" fitWidth="600.0" layoutX="1.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="271.0" layoutY="126.0" mnemonicParsing="false" onAction="#btnStartClick" prefHeight="25.0" prefWidth="59.0" text="Start" />
+      <Button layoutX="271.0" layoutY="161.0" mnemonicParsing="false" onAction="#btnSettingsClick" text="Settings" />
+      <TextField fx:id="tfAmount" layoutX="271.0" layoutY="199.0" prefHeight="25.0" prefWidth="59.0" promptText="Amount of players" text="1" />
+   </children>
+</Pane>

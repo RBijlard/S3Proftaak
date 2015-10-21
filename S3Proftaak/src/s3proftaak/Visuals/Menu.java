@@ -7,93 +7,51 @@ package s3proftaak.Visuals;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Scene;
+import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Game;
 import s3proftaak.Main;
+import static s3proftaak.Main.changeScreen;
 
 /**
  *
  * @author Stan
  */
 public class Menu extends BasicScene {
+    
+    @FXML Button btnStart;
+    @FXML Button btnSettings;
+    @FXML TextField tfAmount;
+    
+    public void btnStartClick(Event e){
+        try {
+            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+            int width = gd.getDisplayMode().getWidth();
+            int height = gd.getDisplayMode().getHeight();
+            int amountOfPlayers = 0;
 
-    private static AppGameContainer app;
-    private static Game game;
-
-    public Menu() {
-        Group root = new Group();
-
-        Button b1 = new Button("Start");
-        Button b2 = new Button("Settings");
-        TextField t1 = new TextField();
-        Label label = new Label("Players: ");
-
-        b1.setOnMouseClicked((MouseEvent event) -> {
             try {
-                if (!t1.getText().isEmpty()) {
-                    GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-                    int width = gd.getDisplayMode().getWidth();
-                    int height = gd.getDisplayMode().getHeight();
-                    int amountOfPlayers = 0;
-                    try {
-                        amountOfPlayers = Integer.parseInt(t1.getText());
-                    } catch (Exception ex) {
-                    }
-                    game = new Game("DEE game", amountOfPlayers);
-                    app = new AppGameContainer(game);
-                    app.setDisplayMode(width, height, false);
-                    app.setTargetFrameRate(60);
-                    app.setForceExit(false);
-                    app.start();
-                    try {
-                        app.reinit();
-                    } catch (Exception ex) {
-                        System.out.println(ex);
-                    }
-                } else {
+                amountOfPlayers = Integer.parseInt(tfAmount.getText());
+            } catch (Exception ex) {}
 
-                }
-            } catch (SlickException e) {
-            }
-        });
+            Main.setGame(new Game("DEE game", amountOfPlayers));
+            Main.getApp().setDisplayMode(width, height, false);
+            Main.getApp().setTargetFrameRate(60);
+            Main.getApp().setForceExit(false);
+            Main.getApp().start();
 
-        b2.setOnMouseClicked((MouseEvent event) -> {
-            Main.changeScene(new SettingsVisual().getScene());
-        });
-
-        GridPane pane = new GridPane();
-
-        b1.setMinWidth(t1.getMinWidth());
-        b2.setMinWidth(t1.getMinWidth());
-
-        pane.add(label, 0, 0);
-        pane.add(t1, 1, 0);
-        pane.add(b1, 0, 1);
-        pane.add(b2, 0, 2);
-
-        root.getChildren().add(pane);
-
-//        HBox hBox = new HBox(10);
-//        hBox.getChildren().addAll(b1, b2, t1);
-//        root.getChildren().add(hBox);
-        setScene(new Scene(root));
+            try {
+                Main.getApp().reinit();
+            } catch (Exception ex) {}
+            
+        } catch (SlickException ex) {}
     }
-
-    public static AppGameContainer getAppContainer() {
-        return app;
-    }
-
-    public static Game getGame() {
-        return game;
+    
+    public void btnSettingsClick(Event e){
+        changeScreen(Main.Screens.Settings);
     }
 }

@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.Main;
 import s3proftaak.Visuals.Menu;
 
 /**
@@ -29,7 +30,7 @@ public class Weight extends GameObject{
     }
     
     public void finish(){
-        Menu.getAppContainer().exit();
+        Main.getApp().exit();
     }
     
     public void render(GameContainer gc, Graphics g){

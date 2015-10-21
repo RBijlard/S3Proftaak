@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
+import s3proftaak.Main;
 import s3proftaak.Visuals.Menu;
 
 /*
@@ -89,7 +90,7 @@ public class Character extends GameObject {
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             try {
                 //Menu.getAppContainer().exit();
-                Menu.getAppContainer().reinit();
+                Main.getApp().reinit();
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -204,7 +205,7 @@ public class Character extends GameObject {
     public void die() {
         try {
             //Menu.getAppContainer().exit();
-            Menu.getAppContainer().reinit();
+            Main.getApp().reinit();
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
