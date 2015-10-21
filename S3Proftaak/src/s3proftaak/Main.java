@@ -6,6 +6,8 @@
 package s3proftaak;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.scene.Scene;
@@ -45,10 +47,16 @@ public class Main extends Application {
         Singleplayer,
         Multiplayer;
         
-        private final BasicScene bs;
+        private BasicScene bs;
         
         Screens(){
-            bs = new BasicScene().load(this.getPath());
+            
+            try {
+                bs = ((BasicScene) Class.forName("s3proftaak.Visuals." + this.name()).newInstance()).load(this.getPath());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         }
         
         private String getPath(){

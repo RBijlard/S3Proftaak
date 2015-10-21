@@ -16,20 +16,19 @@ import org.newdawn.slick.geom.Rectangle;
  * @author Berry-PC
  */
 public abstract class GameObject {
-    float x,y,width,height,Ox;
+    float x, y, width, height;
     int match;
     Rectangle hitbox;
     List<GameObject> matchedObjects;
     
     public GameObject(float x, float y, float width, float height, int match){
         this.x = x;
-        this.Ox=x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.match = match;
-        this.matchedObjects = new ArrayList<GameObject>();
-        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
+        this.matchedObjects = new ArrayList<>();
+        this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
     }
     
     public void addMatchedObject(GameObject match){
@@ -56,36 +55,41 @@ public abstract class GameObject {
     public Rectangle getRect(){
         return this.hitbox;
     }
+    
     public float getX(){
         return this.x;
     }
+    
     public float getY(){
         return this.y;
     }
+    
     public float getWidth(){
         return this.width;
     }
+    
     public float getHeight(){
         return this.height;
     }
+    
     public void setX(float x){
         this.x = x;
     }
+    
     public void setY(float y){
         this.y = y;
     }
+    
     public void setWidth(float width){
         this.width = width;
     }
+    
     public void setHeight(float height){
         this.height = height;
     }
+    
     @Override
     public String toString(){
         return this.x + "," + this.y + " - " + this.width + " x " + this.height;
-    }
-
-    public float getOriginalX() {
-        return this.Ox;
     }
 }
