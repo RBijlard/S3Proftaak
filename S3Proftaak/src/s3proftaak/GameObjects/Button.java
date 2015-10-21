@@ -6,6 +6,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.GameObjects.Interfaces.IPressable;
+import s3proftaak.GameObjects.Interfaces.IRenderable;
+import s3proftaak.GameObjects.Interfaces.IStateChangeable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -17,7 +20,7 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author Berry-PC
  */
-public class Button extends GameObject{
+public class Button extends GameObject implements IPressable, IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
@@ -42,8 +45,9 @@ public class Button extends GameObject{
     }
     
     public void setActive(boolean active){
-        this.isActive = active;
-        changeImage(active);
+        if (isActive != active){
+            this.isActive = active;
+            changeImage(active);
         
             if (!getMatchedObjects().isEmpty()){
                     boolean enable = true;
@@ -57,9 +61,10 @@ public class Button extends GameObject{
                     }
                     
                     if (enable){
-                        ((Door)getMatchedObjects().get(0)).setActive(true);
+                        ((IStateChangeable)getMatchedObjects().get(0)).setActive(true);
                     }                    
             }
+        }
             
 //            if(!getMatchedObjects().isEmpty()){
 //                for(GameObject mo : this.getMatchedObjects()){
@@ -70,7 +75,7 @@ public class Button extends GameObject{
 //            }
     }
     
-    public void changeImage(boolean active){
+    private void changeImage(boolean active){
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/buttonRed_pressed.png");

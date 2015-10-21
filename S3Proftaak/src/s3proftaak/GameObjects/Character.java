@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
+import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Main;
 
 /*
@@ -21,7 +22,7 @@ import s3proftaak.Main;
  *
  * @author Berry-PC
  */
-public class Character extends GameObject {
+public class Character extends GameObject implements IRenderable {
 
     private float gravity = 0.5f;
     private float jumpStrength = -12;

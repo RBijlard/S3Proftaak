@@ -4,6 +4,7 @@ package s3proftaak.GameObjects;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.GameObjects.Interfaces.IRenderable;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,7 +16,7 @@ import org.newdawn.slick.geom.Rectangle;
  *
  * @author Berry-PC
  */
-public class Spike extends GameObject{
+public class Spike extends GameObject implements IRenderable{
 
     public Spike(float x, float y, float width, float height, int match) {
         super(x, y, width, height, match);

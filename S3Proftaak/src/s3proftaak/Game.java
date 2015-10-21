@@ -13,6 +13,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.tiled.TiledMap;
+import s3proftaak.GameObjects.Interfaces.IPressable;
+import s3proftaak.GameObjects.Interfaces.IRenderable;
+import s3proftaak.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.GameObjects.Lever;
 import s3proftaak.GameObjects.Spike;
 import s3proftaak.GameObjects.Weight;
@@ -51,7 +54,6 @@ public class Game extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
         this.path = getClass().getResource("/Resources/Levels/" + this.mapname).getPath().replace("%20", " ");
-        this.path = getClass().getResource("/Resources/berryTestButtonLevel5.tmx").getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);
@@ -80,17 +82,6 @@ public class Game extends BasicGame {
         for (int i = 0; i < map.getObjectCount(2); i++) {
             int match = this.getProperty(map, 2, i, "door");
             GameObject door = new Door(map.getObjectX(2, i), map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i), match);
-
-            for (GameObject go : this.getGameObjects()) {
-                if (go instanceof Button) {
-                    int doorMatch = go.getMatch();
-                    if (doorMatch == match) {
-                        go.addMatchedObject(door);
-                        door.addMatchedObject(go);
-                    }
-                }
-            }
-            
             this.gameObjects.add(door);
         }
 
@@ -105,24 +96,29 @@ public class Game extends BasicGame {
         for (int i = 0; i < map.getObjectCount(4); i++) {
             int match = this.getProperty(map, 4, i, "weight");
             GameObject weight = new Weight(map.getObjectX(4, i), map.getObjectY(4, i), map.getObjectWidth(4, i), map.getObjectHeight(4, i), match);
-
-            for (GameObject go : this.getGameObjects()) {
-                if (go instanceof Lever) {
-                    int doorMatch = go.getMatch();
-                    if (doorMatch == match) {
-                        go.addMatchedObject(weight);
-                        weight.addMatchedObject(go);
+            this.gameObjects.add(weight);
+        }
+        
+        // Deze sick dubbele for lus linked alle gameobjects die met elkaar gelinked moeten worden
+        for (GameObject g1 : this.getGameObjects()){
+            for (GameObject g2 : this.getGameObjects()) {
+                if (g1 != g2){
+                    if (g2 instanceof IPressable) {
+                        int doorMatch = g2.getMatch();
+                        if (doorMatch == g1.getMatch()) {
+                            g2.addMatchedObject(g1);
+                            g1.addMatchedObject(g2);
+                        }
                     }
                 }
             }
-
-            this.gameObjects.add(weight);
         }
-
+        
+        
         for (int i = 1; i < this.amountOfPlayers; i++) {
             this.gameObjects.add(new Character(this, (72f * i + 500f), 100f, 70f, 93f, i, -1));
         }
-        main_character = new Character(this, 72f + 400f, 100f, 70f, 93f, 0, -1);
+        main_character = new Character(this, 72f + 100f, 150f, 70f, 93f, 0, -1); // + 400f, 100f
         this.gameObjects.add(main_character);
 
         for (GameObject go : this.gameObjects) {
@@ -146,7 +142,7 @@ public class Game extends BasicGame {
                 //move all characters
                 ((Character) go).update(gc, i);
             }
-            if (go instanceof Button /*|| go instanceof Lever*/) {
+            if (go instanceof IPressable) {
                 boolean bool = false;
                 Rectangle r = go.getRect();
                 Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
@@ -173,21 +169,8 @@ public class Game extends BasicGame {
 
             grphcs.draw(go.getRect());
 
-            if (go instanceof Button) {
-                //render buttons
-                ((Button) go).render(gc, grphcs);
-            }
-            if (go instanceof Lever) {
-                //render buttons
-                ((Lever) go).render(gc, grphcs);
-            }
-            if (go instanceof Door) {
-                //render doors
-                ((Door) go).render(gc, grphcs);
-            }
-            if (go instanceof Character) {
-                //render characters
-                ((Character) go).render(gc, grphcs);
+            if (go instanceof IRenderable) {
+                ((IRenderable) go).render(gc, grphcs);
             }
         }
     }
@@ -211,25 +194,19 @@ public class Game extends BasicGame {
     }
 
     public void checkMatchedObjects(GameObject go) {
-        if (go instanceof Button) {
-            if (((Button) go).isActive()) {
-                ((Button) go).changeImage(false);
-                ((Button) go).setActive(false);
-                for (GameObject mo : ((Button) go).getMatchedObjects()) {
-                    this.checkMatchedObject(mo);
-                }
+        if (((IPressable) go).isActive()) {
+            ((IPressable) go).setActive(false);
+            for (GameObject mo : ((IPressable) go).getMatchedObjects()) {
+                this.checkMatchedObject(mo);
             }
         }
     }
 
     public void checkMatchedObject(GameObject mo) {
-        if (mo instanceof Door) {
-            if (((Door) mo).isActive()) {
-                System.out.println("setting door false");
-                ((Door) mo).changeImage(false);
-                ((Door) mo).setActive(false);
+        if (mo instanceof IStateChangeable) {
+            if (((IStateChangeable) mo).isActive()) {
+                ((IStateChangeable) mo).setActive(false);
             }
         }
-
     }
 }

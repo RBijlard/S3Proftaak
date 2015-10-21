@@ -10,12 +10,14 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.GameObjects.Interfaces.IPressable;
+import s3proftaak.GameObjects.Interfaces.IRenderable;
 
 /**
  *
  * @author Berry-PC
  */
-public class Lever extends GameObject{
+public class Lever extends GameObject implements IPressable, IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
@@ -61,7 +63,7 @@ public class Lever extends GameObject{
 //            }
     }
     
-    public void changeImage(boolean active){
+    private void changeImage(boolean active){
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/switchLeft.png");

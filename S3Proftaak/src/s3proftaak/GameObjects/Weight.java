@@ -10,14 +10,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.GameObjects.Interfaces.IRenderable;
+import s3proftaak.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Main;
-import s3proftaak.Visuals.Menu;
 
 /**
  *
  * @author Berry-PC
  */
-public class Weight extends GameObject{
+public class Weight extends GameObject implements IStateChangeable, IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
@@ -33,20 +34,25 @@ public class Weight extends GameObject{
         Main.getApp().exit();
     }
     
+    @Override
     public void render(GameContainer gc, Graphics g){
         //render door animation/img
         sprite.draw(this.x,this.y - calculateOffset());
-        sprite1.draw(this.x,this.y + calculateOffset());
+        for (int i=0;i<10;i++){
+            sprite1.draw(this.x,this.y + calculateOffset() + i*70);
+        }
     }    
     
     public int calculateOffset(){
         return (int) (70-this.height);
     }
     
+    @Override
     public boolean isActive(){
         return this.isActive;
     }
     
+    @Override
     public void setActive(boolean active){
         this.isActive = active;
         changeImage(active);
@@ -55,12 +61,12 @@ public class Weight extends GameObject{
     public void changeImage(boolean active){
         try{
             if(active){
-                sprite = new Image("Resources/Levels/door_openMid.png");
-                sprite1 = new Image("Resources/Levels/door_openTop.png");
+                sprite = new Image("Resources/Levels/transparent.png");
+                sprite1 = new Image("Resources/Levels/transparent.png");
             }
             else{
-                sprite = new Image("Resources/Levels/door_closedMid.png");
-                sprite1 = new Image("Resources/Levels/door_closedTop.png");           
+                sprite = new Image("Resources/Levels/weightChained.png");
+                sprite1 = new Image("Resources/Levels/chain.png");           
             }
         }
         catch(SlickException ex){}

@@ -6,8 +6,9 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.GameObjects.Interfaces.IRenderable;
+import s3proftaak.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Main;
-import s3proftaak.Visuals.Menu;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,7 +20,7 @@ import s3proftaak.Visuals.Menu;
  *
  * @author Berry-PC
  */
-public class Door extends GameObject{
+public class Door extends GameObject implements IStateChangeable, IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
@@ -54,7 +55,7 @@ public class Door extends GameObject{
         changeImage(active);
     }
     
-    public void changeImage(boolean active){
+    private void changeImage(boolean active){
         try{
             if(active){
                 sprite = new Image("Resources/Levels/door_openMid.png");
