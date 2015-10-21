@@ -11,7 +11,6 @@ import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
 import s3proftaak.Main;
-import s3proftaak.Visuals.Menu;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

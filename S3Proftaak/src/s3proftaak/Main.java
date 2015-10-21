@@ -41,7 +41,9 @@ public class Main extends Application {
     
     public enum Screens{
         Menu,
-        Settings;
+        Settings,
+        Singleplayer,
+        Multiplayer;
         
         private final BasicScene bs;
         
