@@ -36,10 +36,12 @@ public class Singleplayer extends BasicScene {
     @Override
     public BasicScene load(String s){
         BasicScene bs = super.load(s);
+        System.out.println("LOADING");
         
-        bs.getScene().addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>() {
+        bs.getScene().getRoot().addEventHandler(WindowEvent.WINDOW_SHOWN, new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent window) {
+                System.out.println("abccc");
                 fillLevelList();
             }
         });
@@ -51,8 +53,10 @@ public class Singleplayer extends BasicScene {
         ArrayList levels = new ArrayList<>();
         
         for (File f : new File(getClass().getResource("/Resources/Levels/").getPath()).listFiles()){
-            System.out.println(f.getName());
-            levels.add(f.getName());
+            if (f.getName().endsWith(".tmx")){
+                System.out.println(f.getName());
+                levels.add(f.getName());
+            }
         }
         
         if (!levels.isEmpty() && cbLevel != null){

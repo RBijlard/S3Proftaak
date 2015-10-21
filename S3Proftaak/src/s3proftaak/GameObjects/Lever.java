@@ -64,10 +64,10 @@ public class Lever extends GameObject{
     public void changeImage(boolean active){
         try{
             if(active){
-                this.sprite = new Image("Resources/switchLeft.png");
+                this.sprite = new Image("Resources/Levels/switchLeft.png");
             }
             else{
-                this.sprite = new Image("Resources/switchRight.png");            
+                this.sprite = new Image("Resources/Levels/switchRight.png");            
             }
         }
         catch(SlickException ex){}

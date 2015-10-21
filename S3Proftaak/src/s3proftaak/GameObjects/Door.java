@@ -57,12 +57,12 @@ public class Door extends GameObject{
     public void changeImage(boolean active){
         try{
             if(active){
-                sprite = new Image("Resources/door_openMid.png");
-                sprite1 = new Image("Resources/door_openTop.png");
+                sprite = new Image("Resources/Levels/door_openMid.png");
+                sprite1 = new Image("Resources/Levels/door_openTop.png");
             }
             else{
-                sprite = new Image("Resources/door_closedMid.png");
-                sprite1 = new Image("Resources/door_closedTop.png");           
+                sprite = new Image("Resources/Levels/door_closedMid.png");
+                sprite1 = new Image("Resources/Levels/door_closedTop.png");           
             }
         }
         catch(SlickException ex){}

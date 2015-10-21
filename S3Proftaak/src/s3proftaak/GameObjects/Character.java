@@ -42,20 +42,20 @@ public class Character extends GameObject {
     public Character(Game game, float x, float y, float width, float height, int controlSet, int match) throws SlickException {
         super(x, y, width, height, match);
         this.game = game;
-        playerSheet = new SpriteSheet(getClass().getResource("/Resources/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
+        playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
         animate = new Animation(playerSheet, 100);
         this.controlSet = controlSet;
         switch (this.controlSet) {
             case 0:
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/player1_sprites.png").getPath().replace("%20", " "), 70, 93);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player1_sprites.png").getPath().replace("%20", " "), 70, 93);
                 animate = new Animation(playerSheet, 100);
                 break;
             case 1:
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/player2_sprites.png").getPath().replace("%20", " "), 70, 93);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player2_sprites.png").getPath().replace("%20", " "), 70, 93);
                 animate = new Animation(playerSheet, 100);
                 break;
             case 2:
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
                 animate = new Animation(playerSheet, 100);
                 break;
         }

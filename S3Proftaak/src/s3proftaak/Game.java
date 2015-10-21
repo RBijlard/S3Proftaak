@@ -48,7 +48,7 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //initialise map, players and objects
-        this.path = getClass().getResource("/Resources/berryTestButtonLevel4.tmx").getPath().replace("%20", " ");
+        this.path = getClass().getResource("/Resources/Levels/berryTestButtonLevel4.tmx").getPath().replace("%20", " ");
 
         //map and list
         this.map = new TiledMap(path);
