@@ -56,8 +56,8 @@ public class Lever extends GameObject implements IPressable, IRenderable {
                     boolean enable = true;
                     
                     for (GameObject mo : po.getMatchedObjects()){
-                        if(mo instanceof Button){
-                            if (!((Button) mo).isActive()){
+                        if(mo instanceof IPressable){
+                            if (!((IPressable) mo).isActive()){
                                 enable = false;
                                 break;
                             }
