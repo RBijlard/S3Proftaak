@@ -122,10 +122,12 @@ public class Game extends BasicGame {
         main_character = new Character(this, 72f + 100f, 150f, 70f, 93f, 0, -1); // + 400f, 100f
         this.gameObjects.add(main_character);
 
+        // Moet keer weg
         for (GameObject go : this.gameObjects) {
             System.out.println(go.toString());
         }
 
+        // Dit gebruiken we niet? Kan weg?
         most_left_object = new Block(72f, 500f, 70f, 93f, -1);
         for(GameObject go : this.gameObjects){
             if(go.getX() < most_left_object.getX()){
@@ -170,6 +172,7 @@ public class Game extends BasicGame {
         this.map.render(0 - (int) main_character.getOffsetX(), 0);
 
         for (GameObject go : this.gameObjects) {
+            // Teken hitboxes, moet keer weg
             grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {
