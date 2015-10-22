@@ -53,8 +53,11 @@ public class Button extends GameObject implements IPressable, IRenderable {
             changeImage(active);
         
             if (!getMatchedObjects().isEmpty()){
+                
+                for (GameObject po : getMatchedObjects()){
                     boolean enable = true;
-                    for (GameObject mo : getMatchedObjects().get(0).getMatchedObjects()){
+                    
+                    for (GameObject mo : po.getMatchedObjects()){
                         if(mo instanceof Button){
                             if (!((Button) mo).isActive()){
                                 enable = false;
@@ -64,18 +67,11 @@ public class Button extends GameObject implements IPressable, IRenderable {
                     }
                     
                     if (enable){
-                        ((IStateChangeable)getMatchedObjects().get(0)).setActive(true);
-                    }                    
+                        ((IStateChangeable) po).setActive(true);
+                    } 
+                }                 
             }
         }
-            
-//            if(!getMatchedObjects().isEmpty()){
-//                for(GameObject mo : this.getMatchedObjects()){
-//                    if(mo instanceof Door){
-//                        ((Door) mo).setActive(true);
-//                    }
-//                }
-//            }
     }
     
     private void changeImage(boolean active){

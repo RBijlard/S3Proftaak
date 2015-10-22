@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.GameObjects.Interfaces.IPressable;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
+import s3proftaak.GameObjects.Interfaces.IStateChangeable;
 
 /**
  *
@@ -45,25 +46,30 @@ public class Lever extends GameObject implements IPressable, IRenderable {
     
     @Override
     public void setActive(boolean active){
-        this.isActive = active;
-        changeImage(active);
+        if (isActive != active){
+            this.isActive = active;
+            changeImage(active);
         
-//            if (!getMatchedObjects().isEmpty()){
-//                    boolean enable = true;
-//                    for (GameObject mo : getMatchedObjects().get(0).getMatchedObjects()){
-//                        if(mo instanceof Button){
-//                            if (!((Button) mo).isActive()){
-//                                enable = false;
-//                                break;
-//                            }
-//                        }
-//                    }
-//                    
-//                    if (enable){
-//                        ((Door)getMatchedObjects().get(0)).setActive(true);
-//                    }
-//                    
-//            }
+            if (!getMatchedObjects().isEmpty()){
+                
+                for (GameObject po : getMatchedObjects()){
+                    boolean enable = true;
+                    
+                    for (GameObject mo : po.getMatchedObjects()){
+                        if(mo instanceof Button){
+                            if (!((Button) mo).isActive()){
+                                enable = false;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (enable){
+                        ((IStateChangeable) po).setActive(true);
+                    } 
+                }                 
+            }
+        }
     }
     
     private void changeImage(boolean active){

@@ -32,7 +32,6 @@ public abstract class GameObject {
     }
     
     public void addMatchedObject(GameObject match){
-        System.out.println(this.toString() + " gekoppeld met " + match.toString());
         if(!this.matchedObjects.contains(match)){
             this.matchedObjects.add(match);
         }

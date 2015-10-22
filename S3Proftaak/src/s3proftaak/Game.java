@@ -108,9 +108,10 @@ public class Game extends BasicGame {
         for (GameObject g1 : this.getGameObjects()){
             for (GameObject g2 : this.getGameObjects()) {
                 if (g1 != g2){
-                    if (g2 instanceof IPressable) {
+                    if (g2 instanceof IPressable && g1 instanceof IStateChangeable) {
                         int doorMatch = g2.getMatch();
                         if (doorMatch == g1.getMatch()) {
+                            System.out.println(g1.toString() + " gekoppeld met " + g2.toString());
                             g2.addMatchedObject(g1);
                             g1.addMatchedObject(g2);
                         }

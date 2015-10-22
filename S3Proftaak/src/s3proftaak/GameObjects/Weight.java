@@ -15,7 +15,6 @@ import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.GameObjects.Interfaces.IUpdateable;
-import s3proftaak.Main;
 
 /**
  *
@@ -39,10 +38,6 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
         } catch (SlickException ex) {
             Logger.getLogger(Weight.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public void finish(){
-        Main.getApp().exit();
     }
     
     @Override
