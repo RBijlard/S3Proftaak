@@ -221,10 +221,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 if (go == this) {
                 } else {
                     //check what object
-                    if (go instanceof Block || go instanceof Character) {
+                    if (go instanceof Block || go instanceof Character || go instanceof Weight) {
                         return true;
-                    } else if (go instanceof Weight){
-                        return !((Weight) go).isActive();
                     } else if (go instanceof Spike) {
                         //die
                         this.die();
