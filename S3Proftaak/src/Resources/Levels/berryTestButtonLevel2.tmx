@@ -33,7 +33,7 @@
   </object>
   <object id="13" x="132" y="754" width="73" height="15">
    <properties>
-    <property name="button" value="2"/>
+    <property name="button" value="1 2"/>
    </properties>
   </object>
  </objectgroup>
@@ -45,7 +45,7 @@
   </object>
   <object id="5" x="704" y="388" width="57" height="101">
    <properties>
-    <property name="door" value="2"/>
+    <property name="door" value="1"/>
    </properties>
   </object>
  </objectgroup>

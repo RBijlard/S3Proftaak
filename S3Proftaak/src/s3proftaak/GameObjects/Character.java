@@ -41,8 +41,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     
     float marginy,marginx;
 
-    public Character(Game game, float x, float y, float width, float height, int controlSet, int match) throws SlickException {
-        super(x, y, width, height, match);
+    public Character(Game game, float x, float y, float width, float height, int controlSet) throws SlickException {
+        super(x, y, width, height);
         this.game = game;
         this.controlSet = controlSet;
         playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
@@ -62,7 +62,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 //                break;
 //        }
         this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
-        MLO = new Block( 1f, 1f, 1f, 1f, -1);
+        MLO = new Block( 1f, 1f, 1f, 1f);
         this.game.getGameObjects().add(MLO);
         for(GameObject go: this.game.getGameObjects()){
             if(go.getX() < MLO.getX()){

@@ -16,8 +16,8 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class Block extends GameObject{
 
-    public Block(float x, float y, float width, float height, int match) {
-        super(x, y, width, height, match);
+    public Block(float x, float y, float width, float height) {
+        super(x, y, width, height);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
     

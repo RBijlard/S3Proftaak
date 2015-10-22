@@ -28,8 +28,8 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     
     private int minus = 0;
     
-    public Weight(float x, float y, float width, float height, int match){
-        super(x, y, width, height, match);
+    public Weight(float x, float y, float width, float height){
+        super(x, y, width, height);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
         
         try {
@@ -82,7 +82,7 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     
     @Override
     public String toString(){
-        return super.toString() + " -- WEIGHT " + this.match;
+        return super.toString() + " -- WEIGHT " + this.getMatches();
     }
     
 }

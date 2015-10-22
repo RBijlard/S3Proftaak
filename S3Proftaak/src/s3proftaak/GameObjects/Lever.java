@@ -23,8 +23,8 @@ public class Lever extends GameObject implements IPressable, IRenderable {
     private boolean isActive = false;
     private Image sprite;
     
-    public Lever(float x, float y, float width, float height, int match) {
-        super(x, y, width, height, match);
+    public Lever(float x, float y, float width, float height) {
+        super(x, y, width, height);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
         this.changeImage(isActive);
     }
@@ -86,6 +86,6 @@ public class Lever extends GameObject implements IPressable, IRenderable {
     
     @Override
     public String toString(){
-        return super.toString() + " -- LEVER " + this.match;
+        return super.toString() + " -- LEVER " + this.getMatches();
     }
 }

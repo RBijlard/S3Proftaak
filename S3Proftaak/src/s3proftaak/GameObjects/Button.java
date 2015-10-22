@@ -25,8 +25,8 @@ public class Button extends GameObject implements IPressable, IRenderable {
     private boolean isActive = false;
     private Image sprite;
     
-    public Button(float x, float y, float width, float height, int match) {
-        super(x, y, width, height, match);
+    public Button(float x, float y, float width, float height) {
+        super(x, y, width, height);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
         this.changeImage(isActive);
     }
@@ -88,6 +88,6 @@ public class Button extends GameObject implements IPressable, IRenderable {
     
     @Override
     public String toString(){
-        return super.toString() + " -- BUTTON " + this.match;
+        return super.toString() + " -- BUTTON " + this.getMatches();
     }
 }

@@ -17,16 +17,16 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public abstract class GameObject {
     float x, y, width, height;
-    int match;
+    ArrayList<Integer> matches;
     Rectangle hitbox;
     List<GameObject> matchedObjects;
     
-    public GameObject(float x, float y, float width, float height, int match){
+    public GameObject(float x, float y, float width, float height){
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.match = match;
+        this.matches = new ArrayList<>();
         this.matchedObjects = new ArrayList<>();
         this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
     }
@@ -42,8 +42,12 @@ public abstract class GameObject {
         return this.matchedObjects;
     }
     
-    public int getMatch(){
-        return this.match;
+    public void setMatches(ArrayList<Integer> matches){
+        this.matches = matches;
+    }
+    
+    public ArrayList<Integer> getMatches(){
+        return this.matches;
     }
     
     public void updateHitbox(){

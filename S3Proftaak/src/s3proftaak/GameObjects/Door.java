@@ -26,8 +26,8 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     private Image sprite;
     private Image sprite1;
     
-    public Door(float x, float y, float width, float height, int match){
-        super(x, y, width, height, match);
+    public Door(float x, float y, float width, float height){
+        super(x, y, width, height);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
         this.changeImage(isActive);
     }
@@ -74,7 +74,7 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     
     @Override
     public String toString(){
-        return super.toString() + " -- DOOR " + this.match;
+        return super.toString() + " -- DOOR " + this.getMatches();
     }
     
 }

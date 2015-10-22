@@ -18,8 +18,8 @@ import s3proftaak.GameObjects.Interfaces.IRenderable;
  */
 public class Spike extends GameObject implements IRenderable{
 
-    public Spike(float x, float y, float width, float height, int match) {
-        super(x, y, width, height, match);
+    public Spike(float x, float y, float width, float height) {
+        super(x, y, width, height);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
     

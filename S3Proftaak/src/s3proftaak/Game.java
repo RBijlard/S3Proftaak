@@ -66,41 +66,41 @@ public class Game extends BasicGame {
 
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {
-            GameObject block = new Block(map.getObjectX(0, i), map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i), -1);
+            GameObject block = new Block(map.getObjectX(0, i), map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i));
             this.gameObjects.add(block);
         }
 
         //spikes
         for (int i = 0; i < map.getObjectCount(5); i++) {
-            GameObject spike = new Spike(map.getObjectX(5, i), map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i), -1);
+            GameObject spike = new Spike(map.getObjectX(5, i), map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i));
             this.gameObjects.add(spike);
         }
 
         //buttons
         for (int i = 0; i < map.getObjectCount(1); i++) {
-            int match = this.getProperty(map, 1, i, "button");
-            GameObject button = new Button(map.getObjectX(1, i), map.getObjectY(1, i), map.getObjectWidth(1, i), map.getObjectHeight(1, i), match);
+            GameObject button = new Button(map.getObjectX(1, i), map.getObjectY(1, i), map.getObjectWidth(1, i), map.getObjectHeight(1, i));
+            button.setMatches(this.getProperty(map, 1, i, "button"));
             this.gameObjects.add(button);
         }
 
         //doors
         for (int i = 0; i < map.getObjectCount(2); i++) {
-            int match = this.getProperty(map, 2, i, "door");
-            GameObject door = new Door(map.getObjectX(2, i), map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i), match);
+            GameObject door = new Door(map.getObjectX(2, i), map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i));
+            door.setMatches(this.getProperty(map, 2, i, "door"));
             this.gameObjects.add(door);
         }
 
         //levers TODO
         for (int i = 0; i < map.getObjectCount(3); i++) {
-            int match = this.getProperty(map, 3, i, "lever");
-            GameObject lever = new Lever(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i), match);
+            GameObject lever = new Lever(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i));
+            lever.setMatches(this.getProperty(map, 3, i, "lever"));
             this.gameObjects.add(lever);
         }
 
         //weights TODO
         for (int i = 0; i < map.getObjectCount(4); i++) {
-            int match = this.getProperty(map, 4, i, "weight");
-            GameObject weight = new Weight(map.getObjectX(4, i), map.getObjectY(4, i), map.getObjectWidth(4, i), map.getObjectHeight(4, i), match);
+            GameObject weight = new Weight(map.getObjectX(4, i), map.getObjectY(4, i), map.getObjectWidth(4, i), map.getObjectHeight(4, i));
+            weight.setMatches(this.getProperty(map, 4, i, "weight"));
             this.gameObjects.add(weight);
         }
         
@@ -109,11 +109,13 @@ public class Game extends BasicGame {
             for (GameObject g2 : this.getGameObjects()) {
                 if (g1 != g2){
                     if (g2 instanceof IPressable && g1 instanceof IStateChangeable) {
-                        int doorMatch = g2.getMatch();
-                        if (doorMatch == g1.getMatch()) {
-                            System.out.println(g1.toString() + " gekoppeld met " + g2.toString());
-                            g2.addMatchedObject(g1);
-                            g1.addMatchedObject(g2);
+                        
+                        for (int possibleMatch : g1.getMatches()){
+                            if (g2.getMatches().contains(possibleMatch)){
+                                System.out.println(g1.toString() + " gekoppeld met " + g2.toString());
+                                g2.addMatchedObject(g1);
+                                g1.addMatchedObject(g2);
+                            }
                         }
                     }
                 }
@@ -122,9 +124,9 @@ public class Game extends BasicGame {
         
         
         for (int i = 1; i < this.amountOfPlayers; i++) {
-            this.gameObjects.add(new Character(this, (72f * i + 200f), 150f, 70f, 93f, i, -1)); // + 500f, 100f
+            this.gameObjects.add(new Character(this, (72f * i + 200f), 150f, 70f, 93f, i)); // + 500f, 100f
         }
-        main_character = new Character(this, 72f + 100f, 150f, 70f, 93f, 0, -1); // + 400f, 100f
+        main_character = new Character(this, 72f + 100f, 150f, 70f, 93f, 0); // + 400f, 100f
         this.gameObjects.add(main_character);
 
         // Moet keer weg
@@ -133,7 +135,7 @@ public class Game extends BasicGame {
         }
 
         // Dit gebruiken we niet? Kan weg?
-        most_left_object = new Block(72f, 500f, 70f, 93f, -1);
+        most_left_object = new Block(72f, 500f, 70f, 93f);
         for(GameObject go : this.gameObjects){
             if(go.getX() < most_left_object.getX()){
                 most_left_object.setX(go.getX());
@@ -192,18 +194,24 @@ public class Game extends BasicGame {
         return this.gameObjects;
     }
 
-    private int getProperty(TiledMap map, int layer, int tilenumber, String type) {
+    private ArrayList<Integer> getProperty(TiledMap map, int layer, int tilenumber, String type) {
+        ArrayList<Integer> matches = new ArrayList<>();
+        
         if (map.getObjectProperty(layer, tilenumber, type, "desc") != null) {
             String match = map.getObjectProperty(layer, tilenumber, type, "desc");
-            try {
-                int matchNumber = Integer.parseInt(match);
-                return matchNumber;
-            } catch (Exception x) {
-                System.out.println(x.toString());
-                return -1;
+            match += " ";
+            
+            for (String m : match.split(" ")){
+                try {
+                    int matchNumber = Integer.parseInt(m);
+                    matches.add(matchNumber);
+                } catch (Exception x) {
+                    System.out.println(x.toString());
+                }
+                
             }
         }
-        return -1;
+        return matches;
     }
 
     public void checkMatchedObjects(GameObject go) {
