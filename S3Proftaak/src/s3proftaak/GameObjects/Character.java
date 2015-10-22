@@ -31,7 +31,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private int interations = 5;
     private float vX = 0;
     private float vY = 0;
-    private int controlSet;
+    private final int controlSet;
 
     private Game game;
     private SpriteSheet playerSheet;
