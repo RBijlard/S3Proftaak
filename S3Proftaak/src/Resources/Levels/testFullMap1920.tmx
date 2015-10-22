@@ -46,14 +46,14 @@
  <objectgroup name="Object Layer 4" width="49" height="1000">
   <object id="1" x="1364" y="444" width="72" height="42">
    <properties>
-    <property name="lever" value="1"/>
+    <property name="lever" value="2"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="Object Layer 5" width="49" height="1000">
   <object id="1" x="1718" y="568" width="68" height="58">
    <properties>
-    <property name="weight" value="1"/>
+    <property name="weight" value="2"/>
    </properties>
   </object>
  </objectgroup>

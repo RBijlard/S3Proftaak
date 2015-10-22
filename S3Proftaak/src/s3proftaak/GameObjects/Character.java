@@ -303,6 +303,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
         }
+        
+        if(this.getY() > (70*15)){
+            this.die();
+        }
 
         //check for collision in 5 small steps for higher precision
         float vYtemp = this.vY / this.interations;
@@ -356,6 +360,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
+        }
+        
+        if(this.getY() > (70*15)){
+            this.die();
         }
 
         //check for collision in 5 small steps for higher precision

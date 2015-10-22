@@ -5,6 +5,8 @@
  */
 package s3proftaak.GameObjects;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -30,7 +32,13 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     public Weight(float x, float y, float width, float height, int match){
         super(x, y, width, height, match);
         this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
-        this.changeImage(isActive);
+        
+        try {
+            sprite = new Image("Resources/Levels/weightChained.png");
+            sprite1 = new Image("Resources/Levels/chain.png"); 
+        } catch (SlickException ex) {
+            Logger.getLogger(Weight.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void finish(){
@@ -75,21 +83,6 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     @Override
     public void setActive(boolean active){
         this.isActive = active;
-        changeImage(active);
-    }
-    
-    public void changeImage(boolean active){
-        try{
-            if(active){
-                //sprite = new Image("Resources/Levels/transparent.png");
-                //sprite1 = new Image("Resources/Levels/transparent.png");
-            }
-            else{
-                sprite = new Image("Resources/Levels/weightChained.png");
-                sprite1 = new Image("Resources/Levels/chain.png");           
-            }
-        }
-        catch(SlickException ex){}
     }
     
     @Override
