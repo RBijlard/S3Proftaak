@@ -44,7 +44,8 @@ public class Main extends Application {
         Settings,
         Singleplayer,
         Multiplayer,
-        Highscores;
+        Highscores,
+        Gameover;
         
         private BasicScene bs;
         

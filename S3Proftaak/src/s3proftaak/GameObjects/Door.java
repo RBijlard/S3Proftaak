@@ -33,7 +33,7 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     }
     
     public void finish(){
-        Main.getApp().exit();
+        Main.getGame().doFinish();
     }
     
     @Override

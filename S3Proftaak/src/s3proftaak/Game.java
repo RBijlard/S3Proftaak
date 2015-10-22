@@ -40,6 +40,10 @@ public class Game extends BasicGame {
     private Character main_character;
     private GameObject most_left_object;
     private String mapname;
+    
+    private Score score;
+    private long startTime, endTime;
+    private int starsCollected;
 
     public Game(String title, int amountOfPlayers, String mapname) {
         super(title);
@@ -134,6 +138,8 @@ public class Game extends BasicGame {
                 most_left_object.setX(go.getX());
             }
         }
+        
+        startTime = System.currentTimeMillis();
     }
 
     @Override
@@ -214,5 +220,19 @@ public class Game extends BasicGame {
                 ((IStateChangeable) mo).setActive(false);
             }
         }
+    }
+    
+    public Score getScore(){
+        return this.score;
+    }
+    
+    public void doFinish(){
+        endTime = System.currentTimeMillis();
+        
+        long timeDiff = endTime - startTime;
+        
+        this.score = new Score((int) timeDiff, starsCollected, "Iemand");
+        Main.getApp().exit();
+        Main.changeScreen(Main.Screens.Gameover);
     }
 }

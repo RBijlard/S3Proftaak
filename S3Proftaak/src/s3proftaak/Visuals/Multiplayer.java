@@ -5,14 +5,10 @@
  */
 package s3proftaak.Visuals;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.newdawn.slick.SlickException;
-import s3proftaak.Game;
 import s3proftaak.Main;
 import static s3proftaak.Main.changeScreen;
 
@@ -27,7 +23,7 @@ public class Multiplayer extends BasicScene {
     @FXML Button btnBack;
     
     public void btnStartClick(Event e){
-        
+        // Todo
     }
     
     public void btnBackClick(Event e){
