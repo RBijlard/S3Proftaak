@@ -7,6 +7,7 @@ import s3proftaak.GameObjects.Block;
 import s3proftaak.GameObjects.GameObject;
 import java.util.ArrayList;
 import java.util.List;
+import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -40,10 +41,13 @@ public class Game extends BasicGame {
     private Character main_character;
     private GameObject most_left_object;
     private String mapname;
-    
+
     private Score score;
     private long startTime, endTime;
     private int starsCollected;
+    
+    private float baseWidht = 1920;
+    private float baseHight = 1080;
 
     public Game(String title, int amountOfPlayers, String mapname) {
         super(title);
@@ -103,15 +107,15 @@ public class Game extends BasicGame {
             weight.setMatches(this.getProperty(map, 4, i, "weight"));
             this.gameObjects.add(weight);
         }
-        
+
         // Deze sick dubbele for lus linked alle gameobjects die met elkaar gelinked moeten worden
-        for (GameObject g1 : this.getGameObjects()){
+        for (GameObject g1 : this.getGameObjects()) {
             for (GameObject g2 : this.getGameObjects()) {
-                if (g1 != g2){
+                if (g1 != g2) {
                     if (g2 instanceof IPressable && g1 instanceof IStateChangeable) {
-                        
-                        for (int possibleMatch : g1.getMatches()){
-                            if (g2.getMatches().contains(possibleMatch)){
+
+                        for (int possibleMatch : g1.getMatches()) {
+                            if (g2.getMatches().contains(possibleMatch)) {
                                 System.out.println(g1.toString() + " gekoppeld met " + g2.toString());
                                 g2.addMatchedObject(g1);
                                 g1.addMatchedObject(g2);
@@ -121,8 +125,7 @@ public class Game extends BasicGame {
                 }
             }
         }
-        
-        
+
         for (int i = 1; i < this.amountOfPlayers; i++) {
             this.gameObjects.add(new Character(this, (72f * i + 200f), 150f, 70f, 93f, i)); // + 500f, 100f
         }
@@ -136,12 +139,12 @@ public class Game extends BasicGame {
 
         // Dit gebruiken we niet? Kan weg?
         most_left_object = new Block(72f, 500f, 70f, 93f);
-        for(GameObject go : this.gameObjects){
-            if(go.getX() < most_left_object.getX()){
+        for (GameObject go : this.gameObjects) {
+            if (go.getX() < most_left_object.getX()) {
                 most_left_object.setX(go.getX());
             }
         }
-        
+
         startTime = System.currentTimeMillis();
     }
 
@@ -154,12 +157,12 @@ public class Game extends BasicGame {
                 //move all characters & weights
                 ((IUpdateable) go).update(gc, i);
             }
-            
+
             if (go instanceof IPressable) {
                 boolean bool = false;
                 Rectangle r = go.getRect();
                 Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
-                
+
                 for (GameObject co : this.gameObjects) {
                     if (co instanceof Character) {
                         if (co.getRect().intersects(temp)) {
@@ -167,7 +170,7 @@ public class Game extends BasicGame {
                         }
                     }
                 }
-                
+
                 if (!bool) {
                     this.checkMatchedObjects(go);
                 }
@@ -177,6 +180,12 @@ public class Game extends BasicGame {
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
+        //geting display resolution
+        System.out.println(Display.getDisplayMode().getHeight() + " - " + Display.getDisplayMode().getWidth());        
+        
+        //scaling the game to your resolution
+        grphcs.scale(Display.getWidth()/this.baseWidht, Display.getHeight()/this.baseHight);
+        
         //render game and player
         this.map.render(0 - (int) main_character.getOffsetX(), 0);
 
@@ -196,19 +205,19 @@ public class Game extends BasicGame {
 
     private ArrayList<Integer> getProperty(TiledMap map, int layer, int tilenumber, String type) {
         ArrayList<Integer> matches = new ArrayList<>();
-        
+
         if (map.getObjectProperty(layer, tilenumber, type, "desc") != null) {
             String match = map.getObjectProperty(layer, tilenumber, type, "desc");
             match += " ";
-            
-            for (String m : match.split(" ")){
+
+            for (String m : match.split(" ")) {
                 try {
                     int matchNumber = Integer.parseInt(m);
                     matches.add(matchNumber);
                 } catch (Exception x) {
                     System.out.println(x.toString());
                 }
-                
+
             }
         }
         return matches;
@@ -230,16 +239,16 @@ public class Game extends BasicGame {
             }
         }
     }
-    
-    public Score getScore(){
+
+    public Score getScore() {
         return this.score;
     }
-    
-    public void doFinish(){
+
+    public void doFinish() {
         endTime = System.currentTimeMillis();
-        
+
         long timeDiff = endTime - startTime;
-        
+
         this.score = new Score((int) timeDiff, starsCollected, "Iemand");
         Main.getApp().exit();
         Main.changeScreen(Main.Screens.Gameover);
