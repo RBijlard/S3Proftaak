@@ -218,10 +218,21 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             //check if colliding
             //instanceof on GO not working
             if (go.getRect().intersects(rect) || go.getRect().contains(rect)) {
-                if (go == this) {
-                } else {
+                if (go != this) {
                     //check what object
                     if (go instanceof Block || go instanceof Character || go instanceof Weight) {
+                        return true;
+                    } else if (go instanceof MoveableBlock){
+                        if (go.getRect().getMinY() + 1 < rect.getMaxY()){
+                            int i = 0;
+                            if (go.getRect().getX() > rect.getX()){
+                                i = 1;
+                            }
+                            if (go.getRect().getX() < rect.getX()){
+                                i = -1;
+                            }
+                            ((MoveableBlock) go).setDx(i);
+                        }
                         return true;
                     } else if (go instanceof Spike) {
                         //die

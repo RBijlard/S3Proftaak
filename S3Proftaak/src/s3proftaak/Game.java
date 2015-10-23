@@ -19,6 +19,7 @@ import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.GameObjects.Lever;
+import s3proftaak.GameObjects.MoveableBlock;
 import s3proftaak.GameObjects.Spike;
 import s3proftaak.GameObjects.Weight;
 
@@ -94,18 +95,24 @@ public class Game extends BasicGame {
             this.gameObjects.add(door);
         }
 
-        //levers TODO
+        //levers
         for (int i = 0; i < map.getObjectCount(3); i++) {
             GameObject lever = new Lever(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i));
             lever.setMatches(this.getProperty(map, 3, i, "lever"));
             this.gameObjects.add(lever);
         }
 
-        //weights TODO
+        //weights
         for (int i = 0; i < map.getObjectCount(4); i++) {
             GameObject weight = new Weight(map.getObjectX(4, i), map.getObjectY(4, i), map.getObjectWidth(4, i), map.getObjectHeight(4, i));
             weight.setMatches(this.getProperty(map, 4, i, "weight"));
             this.gameObjects.add(weight);
+        }
+        
+        //moveblock
+        for (int i = 0; i < map.getObjectCount(6); i++) {
+            GameObject moveblock = new MoveableBlock(map.getObjectX(6, i), map.getObjectY(6, i), map.getObjectWidth(6, i), map.getObjectHeight(6, i));
+            this.gameObjects.add(moveblock);
         }
 
         // Deze sick dubbele for lus linked alle gameobjects die met elkaar gelinked moeten worden
@@ -180,9 +187,6 @@ public class Game extends BasicGame {
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
-        //geting display resolution
-        System.out.println(Display.getDisplayMode().getHeight() + " - " + Display.getDisplayMode().getWidth());        
-        
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth()/this.baseWidht, Display.getHeight()/this.baseHight);
         
