@@ -34,7 +34,7 @@ public class Button extends GameObject implements IPressable, IRenderable {
     @Override
     public void render(GameContainer gc, Graphics g){
         //render button animation/img
-        sprite.draw(this.x,this.y - calculateOffset());        
+        sprite.draw(this.x,this.y - calculateOffset());    
     }
     
     public int calculateOffset(){

@@ -175,6 +175,10 @@ public class Game extends BasicGame {
                         if (co.getRect().intersects(temp)) {
                             bool = true;
                         }
+                    }if (co instanceof MoveableBlock) {
+                        if (co.getRect().intersects(temp)) {
+                            bool = true;
+                        }
                     }
                 }
 

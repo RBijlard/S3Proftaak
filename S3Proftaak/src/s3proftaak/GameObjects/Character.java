@@ -239,7 +239,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         this.die();
                         return false;
                     } else if (go instanceof Button) {
-                        if (this.getY() + this.height - 1 < go.getY()) {
+                        if (this.getRect().getMinY() - 1 < go.getY()) {
                             if (!((Button) go).isActive()) {
                                 ((Button) go).setActive(true);
                             }

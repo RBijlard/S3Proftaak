@@ -18,42 +18,69 @@ import s3proftaak.Main;
  * @author Stan
  */
 public class MoveableBlock extends GameObject implements IUpdateable, IRenderable {
-    
+
     private int dx;
     private Image sprite;
-    
+
     public MoveableBlock(float x, float y, float width, float height) {
         super(x, y, width, height);
         try {
-            this.sprite = new Image("Resources/Levels/buttonRed_pressed.png");
-        } catch (SlickException ex) {}
+            this.sprite = new Image("Resources/Levels/boxItem.png");
+        } catch (SlickException ex) {
+        }
     }
-    
+
     @Override
     public void update(GameContainer gc, int i) {
-        if (dx != 0){
-            if (!this.isColliding(gc)){
-                this.x += dx;
+        for (int a = 0; a < 5; a++) {
+            if (dx != 0) {
+                if (!this.isColliding(gc)) {
+                    this.x += dx;
+                }
+                dx = 0;
             }
-            dx = 0;
+        }
+
+        boolean verticalCollision = false;
+        for (GameObject go : Main.getGame().getGameObjects()) {
+            if (go != this) {
+                if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && !((go instanceof Spike) || (go instanceof Button))) {
+                    verticalCollision = true;
+                }
+                else if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && (go instanceof Button)){
+                    if (!((Button) go).isActive()) {
+                        ((Button) go).setActive(true);
+                    }                    
+                    verticalCollision = true;
+                }
+            }
+        }
+        if (verticalCollision) {
+            //dont fall down
+        } else {
+            //verticalCollision = false, fall down
+            for (int b = 0; b < 5; b++) {
+                this.y += 2;
+            }
         }
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        sprite.draw(this.x,this.y - calculateOffset());
+        sprite.draw(this.x, this.y - calculateOffset());
     }
-    
+
     public boolean isColliding(GameContainer gc) {
         for (GameObject go : Main.getGame().getGameObjects()) {
-            if (go != this){
+            if (go != this) {
                 if (go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) {
-                    if (go instanceof Block){
-                        if (this.getRect().getMaxY() != go.getRect().getMinY()){
+                    if (go instanceof Block) {
+                        if (this.getRect().getMaxY() != go.getRect().getMinY()) {
                             return true;
                         }
-                    }else
-                    if (go instanceof GameObject){
+                    } else
+                    if (go instanceof GameObject) {
+                        System.out.println(go.toString());
                         return true;
                     }
                 }
@@ -61,12 +88,12 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         }
         return false;
     }
-    
-    public int calculateOffset(){
-        return (int) (70-this.height);
+
+    public int calculateOffset() {
+        return (int) (70 - this.height);
     }
-    
-    public void setDx(int dx){
+
+    public void setDx(int dx) {
         this.dx = dx;
     }
 }
