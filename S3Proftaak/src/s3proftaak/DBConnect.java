@@ -13,7 +13,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
- *
+ * database inlog gegevens
+ * host: athena01.fhict.local
+ * user: dbi317440
+ * password: 31MhWIa03o
+ */
+
+/**
  * @author Stan
  */
 public class DBConnect {
@@ -21,22 +27,21 @@ public class DBConnect {
     private static DBConnect instance;
     
     public static DBConnect getInstance() throws SQLException{
-        throw new SQLException("Negeer dit, we hebben nog geen database.");
+        //throw new SQLException("Negeer dit, we hebben nog geen database.");
         
-        /*
         if (instance == null){
             instance = new DBConnect();
             instance.connect();
         }
         
         return instance;
-        */
     }
     
     private Connection conn = null;
     
     public void connect() throws SQLException{
-        conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
+        conn = DriverManager.getConnection("jdbc:mysql:athena01.fhict.local", "dbi317440", "31MhWIa03o");
+        //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
     }
     
     // <editor-fold defaultstate="collapsed" desc="Settings - getSettings / updateSettings"> 
