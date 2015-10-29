@@ -31,7 +31,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primarystage) throws IOException {
         primaryStage = primarystage;
-        changeScreen(Screens.Menu);
+        changeScreen(Screens.Login);
         primaryStage.show();
     }
     
@@ -40,6 +40,7 @@ public class Main extends Application {
     }
     
     public enum Screens{
+        Login,
         Menu,
         Settings,
         Singleplayer,

@@ -1,5 +1,6 @@
 package s3proftaak;
 
+import java.sql.SQLException;
 import s3proftaak.GameObjects.Button;
 import s3proftaak.GameObjects.Character;
 import s3proftaak.GameObjects.Door;
@@ -7,6 +8,8 @@ import s3proftaak.GameObjects.Block;
 import s3proftaak.GameObjects.GameObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -49,11 +52,14 @@ public class Game extends BasicGame {
 
     private float baseWidht = 1920;
     private float baseHight = 1080;
+    
+    private boolean gameOver;
 
     public Game(String title, int amountOfPlayers, String mapname) {
         super(title);
         this.amountOfPlayers = amountOfPlayers;
         this.mapname = mapname;
+        gameOver = false;
     }
 
     public TiledMap getMap() {
@@ -256,12 +262,21 @@ public class Game extends BasicGame {
     }
 
     public void doFinish() {
-        endTime = System.currentTimeMillis();
+        gameOver = true;
+        
+        if (!gameOver){
+            endTime = System.currentTimeMillis();
 
-        long timeDiff = endTime - startTime;
+            long timeDiff = endTime - startTime;
 
-        this.score = new Score((int) timeDiff, starsCollected, "Iemand");
-        Main.getApp().exit();
-        Main.changeScreen(Main.Screens.Gameover);
+            try {
+                DBConnect.getInstance().insertScore(this.score = new Score((int) timeDiff, starsCollected, "Iemand"));
+            } catch (SQLException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            Main.getApp().exit();
+            Main.changeScreen(Main.Screens.Gameover);
+        }
     }
 }

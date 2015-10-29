@@ -27,20 +27,18 @@ public class DBConnect {
     private static DBConnect instance;
     
     public static DBConnect getInstance() throws SQLException{
-        throw new SQLException("Negeer dit, we hebben nog geen database.");
+        if (instance == null){
+            instance = new DBConnect();
+            instance.connect();
+        }
         
-//        if (instance == null){
-//            instance = new DBConnect();
-//            instance.connect();
-//        }
-//        
-//        return instance;
+        return instance;
     }
     
     private Connection conn = null;
     
     public void connect() throws SQLException{
-        conn = DriverManager.getConnection("jdbc:mysql:athena01.fhict.local", "dbi317440", "31MhWIa03o");
+        conn = DriverManager.getConnection("jdbc:mysql://athena01.fhict.local/dbi317440", "dbi317440", "31MhWIa03o");
         //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
     }
     

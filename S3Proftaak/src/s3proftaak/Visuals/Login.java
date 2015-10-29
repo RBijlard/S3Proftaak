@@ -31,7 +31,7 @@ public class Login extends BasicScene {
     
     public void btnLoginClick(Event e){
         try {
-            if (true || DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())){
+            if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())){
                 changeScreen(Main.Screens.Menu);
             }
         } catch (SQLException ex) {
@@ -41,7 +41,7 @@ public class Login extends BasicScene {
     
     public void btnRegisterClick(Event e){
         try {
-            if (DBConnect.getInstance().hasAccount(tfUsername.getText())){
+            if (!DBConnect.getInstance().hasAccount(tfUsername.getText())){
                 if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()){
                     DBConnect.getInstance().insertAccount(new Account(tfUsername.getText(), tfPassword.getText(), null));
                 }else{
