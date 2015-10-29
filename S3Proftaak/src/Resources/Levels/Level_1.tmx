@@ -110,19 +110,19 @@
   <object id="23" x="3850" y="1" width="140" height="140"/>
   <object id="24" x="1890" y="630" width="490" height="35"/>
   <object id="29" x="2450" y="455" width="420" height="35"/>
-  <object id="31" x="1" y="-332.5" width="70" height="1102.5"/>
+  <object id="31" x="1" y="-332" width="70" height="1102"/>
   <object id="32" x="5810" y="-350" width="140" height="1260"/>
-  <object id="34" x="4550" y="910" width="1802.5" height="210"/>
+  <object id="34" x="4550" y="910" width="1802" height="210"/>
  </objectgroup>
  <objectgroup name="Button" width="1000" height="1000">
-  <object id="38" x="3711" y="122.5" width="70" height="17.5">
+  <object id="38" x="3711" y="122" width="70" height="17">
    <properties>
     <property name="button" value="1"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="Door1" width="1000" height="1000">
-  <object id="36" x="5670" y="787.5" width="70" height="122.5">
+  <object id="36" x="5670" y="787" width="70" height="122">
    <properties>
     <property name="door" value="1"/>
    </properties>
