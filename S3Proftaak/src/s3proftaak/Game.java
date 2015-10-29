@@ -46,7 +46,7 @@ public class Game extends BasicGame {
     private Score score;
     private long startTime, endTime;
     private int starsCollected;
-    
+
     private float baseWidht = 1920;
     private float baseHight = 1080;
 
@@ -108,7 +108,7 @@ public class Game extends BasicGame {
             weight.setMatches(this.getProperty(map, 4, i, "weight"));
             this.gameObjects.add(weight);
         }
-        
+
         //moveblock
         for (int i = 0; i < map.getObjectCount(6); i++) {
             GameObject moveblock = new MoveableBlock(map.getObjectX(6, i), map.getObjectY(6, i), map.getObjectWidth(6, i), map.getObjectHeight(6, i));
@@ -175,7 +175,8 @@ public class Game extends BasicGame {
                         if (co.getRect().intersects(temp)) {
                             bool = true;
                         }
-                    }if (co instanceof MoveableBlock) {
+                    }
+                    if (co instanceof MoveableBlock) {
                         if (co.getRect().intersects(temp)) {
                             bool = true;
                         }
@@ -192,10 +193,12 @@ public class Game extends BasicGame {
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //scaling the game to your resolution
-        grphcs.scale(Display.getWidth()/this.baseWidht, Display.getHeight()/this.baseHight);
-        
+        grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
+
         //render game and player
-        this.map.render(0 - (int) main_character.getOffsetX(), 0);
+        for (int i = 0; i < map.getLayerCount(); i++) {
+            this.map.render(0 - (int) main_character.getOffsetX(), i);
+        }
 
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg

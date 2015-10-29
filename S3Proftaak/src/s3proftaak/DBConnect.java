@@ -27,14 +27,14 @@ public class DBConnect {
     private static DBConnect instance;
     
     public static DBConnect getInstance() throws SQLException{
-        //throw new SQLException("Negeer dit, we hebben nog geen database.");
+        throw new SQLException("Negeer dit, we hebben nog geen database.");
         
-        if (instance == null){
-            instance = new DBConnect();
-            instance.connect();
-        }
-        
-        return instance;
+//        if (instance == null){
+//            instance = new DBConnect();
+//            instance.connect();
+//        }
+//        
+//        return instance;
     }
     
     private Connection conn = null;

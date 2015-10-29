@@ -12,5 +12,6 @@
       <Button layoutX="255.0" layoutY="204.0" mnemonicParsing="false" onAction="#btnSettingsClick" prefHeight="25.0" prefWidth="93.0" text="Settings" />
       <Button fx:id="btnMultiplayer" layoutX="255.0" layoutY="168.0" mnemonicParsing="false" onAction="#btnMultiplayerClick" prefHeight="25.0" prefWidth="93.0" text="Multiplayer" />
       <Button fx:id="btnHighscores" layoutX="254.0" layoutY="238.0" mnemonicParsing="false" onAction="#btnHighscoresClick" prefHeight="25.0" prefWidth="93.0" text="Highscores" />
+      <Button fx:id="btnQuit" layoutX="255.0" layoutY="274.0" mnemonicParsing="false" onAction="#btnQuitClick" prefHeight="25.0" prefWidth="93.0" text="Quit" />
    </children>
 </Pane>

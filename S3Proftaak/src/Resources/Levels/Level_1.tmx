@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="8" height="8" tilewidth="70" tileheight="70" backgroundcolor="#87ceeb" nextobjectid="40">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="1000" height="25" tilewidth="70" tileheight="70" backgroundcolor="#87ceeb" nextobjectid="40">
  <tileset firstgid="1" name="Tile_set_Basic" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
   <image source="tiles_spritesheet.png" width="914" height="936"/>
  </tileset>
@@ -9,87 +9,7 @@
  <tileset firstgid="221" name="tile_building" tilewidth="70" tileheight="70" tilecount="98">
   <image source="sheet_buildings.png" width="980" height="490"/>
  </tileset>
- <tileset firstgid="319" name="tile_trees" tilewidth="70" tileheight="70" tilecount="24">
-  <tile id="1">
-   <image width="70" height="70" source="tilemap trees/tree.png"/>
-  </tile>
-  <tile id="2">
-   <image width="70" height="70" source="tilemap trees/treeBranchesLeft.png"/>
-  </tile>
-  <tile id="3">
-   <image width="70" height="70" source="tilemap trees/treeBranchesLeftAlt.png"/>
-  </tile>
-  <tile id="4">
-   <image width="70" height="70" source="tilemap trees/treeBranchesLeftSnowAlt.png"/>
-  </tile>
-  <tile id="5">
-   <image width="70" height="70" source="tilemap trees/treeBranchesRight.png"/>
-  </tile>
-  <tile id="6">
-   <image width="70" height="70" source="tilemap trees/treeBranchesSnowLeft.png"/>
-  </tile>
-  <tile id="7">
-   <image width="70" height="70" source="tilemap trees/treeBranchesSnowRight.png"/>
-  </tile>
-  <tile id="8">
-   <image width="70" height="70" source="tilemap trees/treeBranchesSnowRightAlt.png"/>
-  </tile>
-  <tile id="9">
-   <image width="70" height="70" source="tilemap trees/treeBranchesSnowRightSnowAlt.png"/>
-  </tile>
-  <tile id="10">
-   <image width="70" height="70" source="tilemap trees/treeTop.png"/>
-  </tile>
-  <tile id="11">
-   <image width="70" height="70" source="tilemap trees/treeTopSnow.png"/>
-  </tile>
-  <tile id="12">
-   <image width="70" height="70" source="tilemap trees/treeTrunk.png"/>
-  </tile>
-  <tile id="13">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBottom.png"/>
-  </tile>
-  <tile id="14">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBottomAlt.png"/>
-  </tile>
-  <tile id="15">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBottomAlt2.png"/>
-  </tile>
-  <tile id="16">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBottomAlt3.png"/>
-  </tile>
-  <tile id="17">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBranch.png"/>
-  </tile>
-  <tile id="18">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBranchEndLeft.png"/>
-  </tile>
-  <tile id="19">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBranchEndRight.png"/>
-  </tile>
-  <tile id="20">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBranchLeftAlt.png"/>
-  </tile>
-  <tile id="21">
-   <image width="70" height="70" source="tilemap trees/treeTrunkBranchRightAlt.png"/>
-  </tile>
-  <tile id="22">
-   <image width="70" height="70" source="tilemap trees/treeTrunkSplitLeft.png"/>
-  </tile>
-  <tile id="23">
-   <image width="70" height="70" source="tilemap trees/treeTrunkSplitRight.png"/>
-  </tile>
-  <tile id="24">
-   <image width="70" height="70" source="tilemap trees/treeTrunkTop.png"/>
-  </tile>
- </tileset>
- <tileset firstgid="343" name="HINT_1" tilewidth="70" tileheight="70" tilecount="36">
-  <image source="HINT_1.png" width="439" height="440"/>
- </tileset>
- <tileset firstgid="379" name="HINT_2" tilewidth="70" tileheight="70" tilecount="24">
-  <image source="HINT_2.png" width="454" height="340"/>
- </tileset>
- <objectgroup name="Collision" width="1000" height="1000">
+ <objectgroup name="Collision" widht="10" height="10">
   <object id="4" x="1" y="770" width="560" height="350"/>
   <object id="5" x="560" y="840" width="140" height="280"/>
   <object id="7" x="700" y="910" width="840" height="210"/>
@@ -114,51 +34,34 @@
   <object id="32" x="5810" y="-350" width="140" height="1260"/>
   <object id="34" x="4550" y="910" width="1802" height="210"/>
  </objectgroup>
- <objectgroup name="Button" width="1000" height="1000">
+ <objectgroup name="Button" widht="10" height="10">
   <object id="38" x="3711" y="122" width="70" height="17">
    <properties>
     <property name="button" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Door1" width="1000" height="1000">
+ <objectgroup name="Door1" widht="10" height="10">
   <object id="36" x="5670" y="787" width="70" height="122">
    <properties>
     <property name="door" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Spikes" width="1000" height="1000">
+ <objectgroup name="Lever" widht="10" height="10"/>
+ <objectgroup name="Weight" widht="10" height="10"/>
+ <objectgroup name="Spikes" widht="10" height="10">
   <object id="39" x="1890" y="945" width="700" height="35"/>
  </objectgroup>
- <layer name="background" width="1000" height="16">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dPWoCURQG0JnKuIDoPswCxCaI9tm9pkhSJRbGSi3MFaYYhsAVHsbInAPfwPspbvsVj6kq7sWsrqpp5Lm+9SQAAADQX/o5AAAA/A9L3RwAAAD+1IsuDgAAAAAAAAAAAAAAAAAAcFPz5N13dn729MudiffkAAAAcJHsH2bZ+SD2H1rproc6OgAAAKRK+/lj7I9a6a7H+jkAAABcZJF06Oz8LfIe+WjWq8g68lo8GQAAAPRHaT/fRr4ju2b9GfmKbIonAwAAgP5YJv07Oz+dP3Gnbu7tI4fIsXw0AAAAAAAAAAAAAAAAAACAq/kBh9XicAD6AAA=
-  </data>
- </layer>
- <layer name="background2" width="1000" height="16">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dTQrDIBAGUIWeIBcq3ZSQnrM5Z7LpLhhEwWnyHsxK/GF2HwiTUl/fvdaAZ0W9v3THb+2VU3ru9c7n+0b3DAAAgHY12U4OLOvZn6N8DgAAAC2i5Poo74hCPwAAAPhXV/rLDwAAAAAAAAAAAAAAAAAAAAAAABDV3HmW2WQ2GgAAAFQxbxwAAADG65HPH7I9AAAANFvkawAAABjuI58DAAAAAAAAAAAAAAAAAAA3swELKO/cAPoAAA==
-  </data>
- </layer>
+ <objectgroup name="MoveAbleBlock" widht="10" height="10"/>
  <layer name="Tilelaag 1" width="1000" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dPW7UQBgG4HUFOQDkClCkgYoKUQShQBVxiHAICo5By7GQQookFVAQKkiRfCkiWauxM/7bsXefR3mT1VorT6Z71+PxarW93lSr1evI26r0SPp7t+CxAwAAsNu+116/X3C/3YbvFwAAANhNXyIntXwqO5xB6v286XuGr5kBAAAA8q2vZ7/v5bk9XD8HAACAfKn7ytfXsw/t5Do6AAAApTwvPYCapr3dmu4rv3t/7E6unwMAACzDnPYH/9yQXCct2bS2vd1Sx6bs5bo5AADA/NV74py6eh9t/XRIR3+ZMS8vEtfC2/Ze/zDRGnYdHQAAYJnuO+Q2PMvroX7ap6M/ivl4XMtelXfsofncZC/XzwEAAOZvqn6e6sKHkVeJHIxzyqyO2rWjP4n5eFrLfpV37Dhef0zMZYlerp8DAADMX/252k3P2O6jRB/M7aldO/p55CJyufb+s5iv0/j7I3KW+NzRBu8v188BAACWrW1PtSH3bPddTz7EVF31T+Qq8jdx7GfkV+T3SOPSzwEAAHZTzrXmPj2777XqIbp01S7/183dryp+EusL/kX+R64HjEU/BwAAoGufzU3qs98y0/VcqXN26aale7NuDgAAwCY74hg9e4p+Wro76+gAAACU7owiSw4AAMBYbgHETMF1APoAAA==
+   H4sIAAAAAAAAC+3cy27TQBgGUIcNsGNTeANEFyxKV+2edwkPwYLHYIsED4UE5b7hIhBsyv2PkgoLjZ2Z2I7r5hzpq6PxOJ4uvziTqgIAAADG9jjypMP58+hpT+9T8r83zS0dL70vAAAAu61Lh9zk2txrHkTmtdzreR3nzcPMAAAAMB0Xoa9OxeGsbH5uD9fPAQAAODOFnr/t5/9nLkcvv1LL1Zae3rWT6+gAAACMZX/sBTQ4WPXwvTher+XGavx4dey7k+vnAAAAF9sQz8jvNyTXvCVjST0vfxbjzyMntXlD9nLdHAAAgG1q66ddOnrOXvE7tTkHtdep5+XvY/xaHD+uWbOODgAAwJCOCn8bLde6frpJR2/bL546lxp7EXNfRl5Vy++xn8bxe+RHxpr1cwAAALpIdeG7kaNEbvd0z5yOWtrRm/aLN51LjX2Kud8inzPXqJ8DAADsnuPZ+jmbGKMP5vbU0o7+OvIm8va/8VuJveQ3E2M/I78ivwvWqJ8DAADslrbfVOuyZ3vT75N3MVRX/RK5FL37a+LcYi/5h2q5l7w+9m41tvj8Y8xOrp8DAABMQ86z5raendpLXu+k84Y5OUquK+3BJZ8//Fn8ifefJdZzWv3bS74/W6Y+NnYn188BAACmobTP5iZ17aPMlN4rdc+Sbjp2b9bNAQAA2GZH7KNnD9FPx+7OOjoAAABjd0aRKQcAAKAvfwERp1GfAPoAAA==
   </data>
  </layer>
  <layer name="Tilelaag 2" width="1000" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dSU4CURiF0SJxBW7BkXEDzgwTNerIRNfAHuz7vp2xW38GBFKpohOoetQ5yU0MTkpmX94Tsmw1tVtZthPba1X9JAAAANBshwm1+X5CzwoAAACrqH/WvztDo3emGAAAADCQPyufpM//29zdaR8SAACAypxFH57HLmKXsavYtXvXc1XW4icF7/M8z771OQAAQDpuohFvY3ex+9hD7FGfz1VRn5+2Bv8rv6j76PocAAAgHU/RiM+xl9hr7C32rs//bfg+e1Gf99q83+SL6mh9DgAAkI6P6MTP2FfsO/YT+9XnI22PeX+Kevxg6OdlfHZbN9PnAAAANNu48/Jl0OYAAAA0Xb7Pq/iuM30OAACQhs2qHyABayPusa+PueN+tOTz8jz32wEAAFh1G72z8ZLfDX8me9X0OQAAACnbmuDz8Y5j7dxri/qetFnpcwAAAOqgW7LOglY3+hwAAIA6KOvzpnRrU/5OAAAA0tKkNgcAAKD+/gCQotBSAPoAAA==
-  </data>
- </layer>
- <layer name="Tilelaag 3" width="1000" height="16">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dsQ6CMBQFUPotfoUsxoUYXP3/bxHD0jShtFYIkXOSTq8L4827QNdxRI/QNgcAAADa3KfsfZvOsJDB1+YAAABAu5L8/ZTNAQAA4CdyHfUxml1lcQAAANhEbkf+yeP24wAAALC9NJ/38jgAAADsIu2zv4LuOgAAAOwp3ZfrsAMAAHAUZ+p0x/n8TM8NAAAANXLfUv/mXsq+HAAAgBy73LL/jdfcAwAAAOq15vNLmE+sj94zBwAAAMqUds911AEAAAAAAAAAAAAAAAAAgH/1Bh1K0QgA+gAA
-  </data>
- </layer>
- <layer name="HINTS" width="1000" height="16">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3XyQ2AMBRDwZ8q2cLafxG4CxQxI727r64CAAAAAAAAAAAAAAAAAAAAAAAAYGRTq5rTkta0pd6+XgUAAAD/sueLH+lMV7rT458DAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADC4F/e1LgsA+gAA
+   H4sIAAAAAAAAC+3dzQ2CMACAUUicwBU8GRfw6sUBnIKV2FY8mACKoFjawntJD/wc4PilTVsUAAAAAAAAAAB5q74YAAAAwDxzm7sO8VEAAACwAf+c+9bnAAAAMF2o9ej6HAAAAF7tyu71s8lDdbQ+BwAAYM3O5fg7nyyxd1td6HMAAAB4GJovX4I2BwAAgK4YZ53pcwAAgDwcY39ABvrz3237N89izpf3Wd8OAADA2h2aDr+OvBOry9v0OQAAADk7Tdj/7daMS+9eqHPSfqXPAQAASEE9MKpAIzX6HAAAgBQM9flWunUr/wkAAEBettTmAAAApO8O9o0D4wD6AAA=
   </data>
  </layer>
 </map>
