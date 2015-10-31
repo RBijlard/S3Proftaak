@@ -24,6 +24,7 @@ import s3proftaak.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.GameObjects.Lever;
 import s3proftaak.GameObjects.MoveableBlock;
 import s3proftaak.GameObjects.Spike;
+import s3proftaak.GameObjects.Star;
 import s3proftaak.GameObjects.Weight;
 
 /*
@@ -48,7 +49,7 @@ public class Game extends BasicGame {
 
     private Score score;
     private long startTime, endTime;
-    private int starsCollected;
+    private int starsCollected = 0;
 
     private float baseWidht = 1920;
     private float baseHight = 1080;
@@ -121,6 +122,12 @@ public class Game extends BasicGame {
             this.gameObjects.add(moveblock);
         }
 
+        //stars
+        for (int i = 0; i < map.getObjectCount(7); i++) {
+            GameObject star = new Star(map.getObjectX(7, i), map.getObjectY(7, i), map.getObjectWidth(7, i), map.getObjectHeight(7, i));
+            this.gameObjects.add(star);
+        }
+
         // Deze sick dubbele for lus linked alle gameobjects die met elkaar gelinked moeten worden
         for (GameObject g1 : this.getGameObjects()) {
             for (GameObject g2 : this.getGameObjects()) {
@@ -158,6 +165,7 @@ public class Game extends BasicGame {
             }
         }
 
+        
         startTime = System.currentTimeMillis();
     }
 
@@ -165,7 +173,23 @@ public class Game extends BasicGame {
     public void update(GameContainer gc, int i) throws SlickException {
         //update game and player
 
+        List<GameObject> tempStarList = new ArrayList<GameObject>();
+        
+        for(GameObject go : this.gameObjects){
+            if(go instanceof Star){
+                if(((Star)go).isActive() == false){
+                    tempStarList.add(go);
+                    this.starsCollected++;
+                }
+            }
+        }
+        
+        for(GameObject go : tempStarList){
+            this.gameObjects.remove(go);
+        }
+        
         for (GameObject go : this.gameObjects) {
+            
             if (go instanceof IUpdateable) {
                 //move all characters & weights
                 ((IUpdateable) go).update(gc, i);

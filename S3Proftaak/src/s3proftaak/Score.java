@@ -32,7 +32,7 @@ public class Score {
         return amountOfStars;
     }
 
-    public void setAmountOfStars(int amountOfStars) {
+    public void setAmountOfStars() {
         this.amountOfStars = amountOfStars;
     }
 

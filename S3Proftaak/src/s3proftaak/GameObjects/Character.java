@@ -260,6 +260,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 ((Door) go).finish();
                             }
                         }
+                    } else if (go instanceof Star){
+                        if(((Star)go).isActive()){
+                            ((Star)go).setActive(false);
+                        }
                     }
                 }
             }
