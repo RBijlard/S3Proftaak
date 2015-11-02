@@ -286,9 +286,9 @@ public class Game extends BasicGame {
     }
 
     public void doFinish() {
-        gameOver = true;
         
         if (!gameOver){
+            gameOver = true;
             endTime = System.currentTimeMillis();
 
             long timeDiff = endTime - startTime;
