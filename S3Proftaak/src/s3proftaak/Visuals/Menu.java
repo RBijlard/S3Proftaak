@@ -5,7 +5,6 @@
  */
 package s3proftaak.Visuals;
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,19 +24,19 @@ public class Menu extends BasicScene {
     @FXML Button btnQuit;
 
     public void btnSingleplayerClick(Event e) {
-        changeScreen(Main.Screens.Singleplayer);
+        changeScreen(Main.Screens.Singleplayer.load());
     }
 
     public void btnMultiplayerClick(Event e) {
-        changeScreen(Main.Screens.Multiplayer);
+        changeScreen(Main.Screens.Multiplayer.load());
     }
 
     public void btnSettingsClick(Event e) {
-        changeScreen(Main.Screens.Settings);
+        changeScreen(Main.Screens.Settings.load());
     }
 
     public void btnHighscoresClick(Event e) {
-        changeScreen(Main.Screens.Highscores);
+        changeScreen(Main.Screens.Highscores.load());
     }
 
     public void btnQuitClick(Event e) {

@@ -291,11 +291,10 @@ public class Game extends BasicGame {
                 DBConnect.getInstance().insertScore(this.score);
             } catch (SQLException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                System.out.println(ex);
             }
 
             Main.getApp().exit();
-            Main.changeScreen(Main.Screens.Gameover);
+            Main.changeScreen(Main.Screens.Gameover.load());
         }
     }
 }

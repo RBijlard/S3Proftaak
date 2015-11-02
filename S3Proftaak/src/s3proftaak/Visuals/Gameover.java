@@ -9,7 +9,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import s3proftaak.Main;
@@ -20,24 +19,23 @@ import s3proftaak.Score;
  *
  * @author Stan
  */
-public class Gameover extends BasicScene implements Initializable {
+public class Gameover extends BasicScene {
     
     @FXML Label lblTime;
     @FXML Label lblStars;
     @FXML Label lblUsername;
     @FXML Button btnBack;
     
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void loadFinished(){
         if (Main.getGame() != null){
-            Score s = Main.getGame().getScore();
-            lblTime.setText("" + s.getTime());
-            lblStars.setText("" + s.getAmountOfStars());
-            lblUsername.setText("" + s.getPlayerNames());
+            Score score = Main.getGame().getScore();
+            lblTime.setText("" + score.getTime());
+            lblStars.setText("" + score.getAmountOfStars());
+            lblUsername.setText("" + score.getPlayerNames());
         }
     }
     
     public void btnBackClick(Event e){
-        changeScreen(Main.Screens.Singleplayer);
+        changeScreen(Main.Screens.Singleplayer.load());
     }
 }

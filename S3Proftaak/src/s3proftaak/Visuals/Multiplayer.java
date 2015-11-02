@@ -27,6 +27,6 @@ public class Multiplayer extends BasicScene {
     }
     
     public void btnBackClick(Event e){
-        changeScreen(Main.Screens.Menu);
+        changeScreen(Main.Screens.Menu.load());
     }
 }

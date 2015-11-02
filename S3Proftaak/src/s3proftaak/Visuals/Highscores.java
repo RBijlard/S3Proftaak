@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import s3proftaak.DBConnect;
@@ -24,23 +24,25 @@ import s3proftaak.Score;
  *
  * @author Stan
  */
-public class Highscores extends BasicScene implements Initializable {
+public class Highscores extends BasicScene {
     
     @FXML ListView lvHighscores;
     @FXML Button btnBack;
+    @FXML Button btnRefresh;
     
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void btnBackClick(Event e){
+        changeScreen(Main.Screens.Menu.load());
+    }
+    
+    public void btnRefreshClick(Event e){
+        lvHighscores.getItems().clear();
+        
         try {
-            for (Score s : DBConnect.getInstance().getScores()){
-                lvHighscores.getItems().add(s.toString());
+            for (Score score : DBConnect.getInstance().getScores()){
+                lvHighscores.getItems().add(score.toString());
             }
         } catch (SQLException ex) {
             Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    public void btnBackClick(Event e){
-        changeScreen(Main.Screens.Menu);
     }
 }

@@ -25,14 +25,10 @@ import static s3proftaak.Main.changeScreen;
  */
 public class Login extends BasicScene {
 
-    @FXML
-    TextField tfUsername;
-    @FXML
-    PasswordField tfPassword;
-    @FXML
-    Button btnLogin;
-    @FXML
-    Button btnRegister;
+    @FXML TextField tfUsername;
+    @FXML PasswordField tfPassword;
+    @FXML Button btnLogin;
+    @FXML  Button btnRegister;
 
     public void btnLoginClick(Event e) {
         try {
@@ -40,7 +36,7 @@ public class Login extends BasicScene {
                 if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
                     Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
                     Main.setAccount(a);
-                    changeScreen(Main.Screens.Menu);
+                    changeScreen(Main.Screens.Menu.load());
                 } else {
                     JOptionPane.showMessageDialog(null, "Username or Password incorrect", "Login Error", 0);
                 }

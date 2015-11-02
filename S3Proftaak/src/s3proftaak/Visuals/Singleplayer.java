@@ -76,7 +76,7 @@ public class Singleplayer extends BasicScene implements Initializable {
     }
     
     public void btnBackClick(Event e){
-        changeScreen(Main.Screens.Menu);
+        changeScreen(Main.Screens.Menu.load());
     }
     
     public void cbLevelClick(Event e){
