@@ -430,7 +430,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
 
             try {
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites" + s + ".png").getPath().replace("%20", " "), 70, 93);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites" + s + ".png").getPath().replace("%20", " "), 70, s.isEmpty() ? 93 : 69);
                 animate = new Animation(playerSheet, 100);
 
                 if (s.isEmpty()){
