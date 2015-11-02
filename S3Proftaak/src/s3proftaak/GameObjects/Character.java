@@ -8,6 +8,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
 import s3proftaak.GameObjects.Interfaces.IRenderable;

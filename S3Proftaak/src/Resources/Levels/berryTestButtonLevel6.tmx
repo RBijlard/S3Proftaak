@@ -11,7 +11,7 @@
    H4sIAAAAAAAAC+2aQQ6FIAwFuc4/sjuO6uonxojSUtC2M8lbYNAiLU1RtlLKhhBCTgS5wOfgEfJVTvA5eIR8lRN8Dh6JkK/Y28qxnCfmHFYxusaJVTss/SBtj9oDWIGnmuRcR9WG7u59CwvbM2uienFNk+O8xBL4RLOOR/tb5I4o/zol42311bxzhLmDfKyIU+3zva8h67F7mwtv44Xv05sTZn7jOu7tMsT4SP7+GjNqZ4AWs+JLss+ItCfxPn6AL5P1/Pvqd5pl7w3/RIwH8EFv/RMN6Xfuq/7W+Vz6P+7JdkS/QW6OMf+76eOJWtrnGv5o8lU9qedshVTloq3lKZcd7UjbEgFYYb0f7H0eQghptAOt52R8UEYAAA==
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="70" height="70">
+ <objectgroup name="Object Layer 1" width="70" height="1050">
   <object id="18" x="1" y="1" width="70" height="1050"/>
   <object id="19" x="70" y="980" width="560" height="70"/>
   <object id="20" x="70" y="770" width="560" height="70"/>
@@ -75,7 +75,7 @@
   <object id="116" x="9660" y="420" width="70" height="70"/>
   <object id="117" x="9380" y="420" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="Object Layer 2" width="70" height="70">
+ <objectgroup name="Object Layer 2" width="70" height="1050">
   <object id="43" x="4133" y="963" width="63" height="12">
    <properties>
     <property name="button" value="1"/>
@@ -101,27 +101,27 @@
     <property name="button" value="2"/>
    </properties>
   </object>
-  <object id="129" x="416" y="742" width="70" height="26">
+  <object id="129" x="11055" y="954" width="70" height="26">
    <properties>
     <property name="button" value="5"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 3" width="70" height="70">
-  <object id="127" x="496" y="672" width="52" height="98">
+ <objectgroup name="Object Layer 3" width="70" height="1050">
+  <object id="127" x="11201" y="878" width="52" height="98">
    <properties>
     <property name="door" value="5"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 4" width="70" height="70">
+ <objectgroup name="Object Layer 4" width="70" height="1050">
   <object id="79" x="7420" y="350" width="70" height="70">
    <properties>
     <property name="lever" value="3"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 5" width="70" height="70">
+ <objectgroup name="Object Layer 5" width="70" height="1050">
   <object id="42" x="4550" y="70" width="70" height="910">
    <properties>
     <property name="weight" value="1"/>
@@ -143,7 +143,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 6" width="70" height="70">
+ <objectgroup name="Object Layer 6" width="70" height="1050">
   <object id="46" x="2314" y="668" width="136" height="32"/>
   <object id="47" x="3224" y="456" width="416" height="32"/>
   <object id="48" x="3644" y="948" width="134" height="30"/>
@@ -155,7 +155,7 @@
   <object id="121" x="9664" y="948" width="976" height="32"/>
   <object id="122" x="9036" y="456" width="66" height="36"/>
  </objectgroup>
- <objectgroup name="Object Layer 7" width="70" height="70">
+ <objectgroup name="Object Layer 7" width="70" height="1050">
   <object id="54" x="4060" y="350" width="70" height="70"/>
   <object id="55" x="3570" y="210" width="70" height="70"/>
   <object id="63" x="5460" y="770" width="70" height="70"/>
@@ -164,7 +164,7 @@
   <object id="90" x="8195" y="280" width="70" height="70"/>
   <object id="101" x="8465" y="280" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="Object Layer 8" width="70" height="70">
+ <objectgroup name="Object Layer 8" width="70" height="1050">
   <object id="80" x="70" y="70" width="70" height="70">
    <properties>
     <property name="star" value="1"/>
