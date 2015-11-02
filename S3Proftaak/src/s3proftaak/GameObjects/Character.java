@@ -86,7 +86,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             try {
-                //Menu.getAppContainer().exit();
                 Main.getApp().reinit();
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
@@ -207,7 +206,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void die() {
         try {
-            //Menu.getAppContainer().exit();
             Main.getApp().reinit();
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,11 +216,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         Rectangle rect = this.getRect();
         for (GameObject go : game.getGameObjects()) {
             //check if colliding
-            //instanceof on GO not working
             if (go.getRect().intersects(rect) || go.getRect().contains(rect)) {
                 if (go != this) {
                     //check what object
-                    if (go instanceof Block || go instanceof Character || go instanceof Weight) {
+                    if (go instanceof Block || go instanceof Character) {
                         return true;
                     } else if (go instanceof MoveableBlock){
                         if (go.getRect().getMinY() + 1 < rect.getMaxY()){
@@ -241,7 +238,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         }
                         return true;
                     } else if (go instanceof Spike) {
-                        //die
                         this.die();
                         return false;
                     } else if (go instanceof Button) {
@@ -270,6 +266,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         if(((Star)go).isActive()){
                             ((Star)go).setActive(false);
                         }
+                    }
+                    else if (go instanceof Weight){
+                        if(getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()){
+                            this.die();
+                            return false;
+                        }
+                        return true;
                     }
                 }
             }
