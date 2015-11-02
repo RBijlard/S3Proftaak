@@ -294,7 +294,7 @@ public class Game extends BasicGame {
             }
 
             Main.getApp().exit();
-            Main.changeScreen(Main.Screens.Gameover.load());
+            Main.changeScreen(Main.Screens.Highscores.load());
         }
     }
 }
