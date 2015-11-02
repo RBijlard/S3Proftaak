@@ -12,11 +12,12 @@ package s3proftaak;
 public class Score {
     private int time;
     private int amountOfStars;
-    private String playerNames;
+    private String playerNames, gamename;
 
-    public Score(int time, int amountOfStars, String playerNames) {
+    public Score(int time, int amountOfStars, String playerNames, String gamename) {
         this.time = time;
         this.amountOfStars = amountOfStars;
+        this.gamename = gamename;
         this.playerNames = playerNames;
     }
 
@@ -39,6 +40,10 @@ public class Score {
     public String getPlayerNames() {
         return playerNames;
     }
+    
+    public String getMap() {
+        return gamename;
+    }
 
     public void setPlayerNames(String playerNames) {
         this.playerNames = playerNames;
@@ -46,6 +51,6 @@ public class Score {
     
     @Override
     public String toString(){
-        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + "Level naam.." +" " +  (10000 - (getTime()/100) + (getAmountOfStars() * 100));
+        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + this.gamename + " " +  (10000 - (getTime()/100) + (getAmountOfStars() * 100));
     }
 }

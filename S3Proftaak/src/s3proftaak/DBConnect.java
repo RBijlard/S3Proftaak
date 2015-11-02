@@ -137,7 +137,7 @@ public class DBConnect {
             ArrayList<Score> Scores = new ArrayList<>();
             
             while (rs.next()){
-                Scores.add(new Score(rs.getInt("Tijd"), rs.getInt("Ster"), rs.getString("Usernames")));
+                Scores.add(new Score(rs.getInt("Tijd"), rs.getInt("Ster"), rs.getString("Usernames"), rs.getString("Map")));
             }
             
             return Scores;
@@ -147,10 +147,11 @@ public class DBConnect {
     }
     
     public void insertScore(Score s) throws SQLException{
-        PreparedStatement ps = conn.prepareStatement("INSERT INTO SCORE (Tijd, Ster, Usernames) VALUES (?, ?, ?)");
+        PreparedStatement ps = conn.prepareStatement("INSERT INTO SCORE (Tijd, Ster, Usernames, Map) VALUES (?, ?, ?, ?)");
         ps.setInt(1, s.getTime());
         ps.setInt(2, s.getAmountOfStars());
         ps.setString(3, s.getPlayerNames());
+        ps.setString(3, s.getMap());
         ps.execute();
     }
     // </editor-fold>

@@ -294,7 +294,7 @@ public class Game extends BasicGame {
             long timeDiff = endTime - startTime;
 
             try {
-                DBConnect.getInstance().insertScore(this.score = new Score((int) timeDiff, starsCollected, Main.getAccount().getUsername()));
+                DBConnect.getInstance().insertScore(this.score = new Score((int) timeDiff, starsCollected, Main.getAccount().getUsername(), this.mapname));
             } catch (SQLException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
