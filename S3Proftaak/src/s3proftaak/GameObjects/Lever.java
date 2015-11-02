@@ -18,7 +18,7 @@ import s3proftaak.GameObjects.Interfaces.IStateChangeable;
  *
  * @author Berry-PC
  */
-public class Lever extends GameObject implements IPressable, IRenderable {
+public class Lever extends GameObject implements IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
@@ -39,12 +39,10 @@ public class Lever extends GameObject implements IPressable, IRenderable {
         return (int) (70-this.height);
     }
     
-    @Override
     public boolean isActive(){
         return this.isActive;
     }
     
-    @Override
     public void setActive(boolean active){
         if (isActive != active){
             this.isActive = active;

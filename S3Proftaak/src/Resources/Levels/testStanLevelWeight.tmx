@@ -28,7 +28,7 @@
  <objectgroup name="Object Layer 3" width="44" height="964"/>
  <objectgroup name="Object Layer 4" width="44" height="964"/>
  <objectgroup name="Object Layer 5" width="44" height="964">
-  <object id="7" x="494" y="138" width="60" height="768">
+  <object id="7" x="494" y="138" width="70" height="770">
    <properties>
     <property name="weight" value="1"/>
    </properties>

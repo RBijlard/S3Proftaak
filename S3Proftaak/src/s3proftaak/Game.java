@@ -201,12 +201,7 @@ public class Game extends BasicGame {
                 Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
 
                 for (GameObject co : this.gameObjects) {
-                    if (co instanceof Character) {
-                        if (co.getRect().intersects(temp)) {
-                            bool = true;
-                        }
-                    }
-                    if (co instanceof MoveableBlock) {
+                    if (co instanceof Character || co instanceof MoveableBlock) {
                         if (co.getRect().intersects(temp)) {
                             bool = true;
                         }
@@ -225,18 +220,18 @@ public class Game extends BasicGame {
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
 
-        //render game and player
-        for (int i = 0; i < map.getLayerCount(); i++) {
-            this.map.render(0 - (int) main_character.getOffsetX(), i);
-        }
 
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
-            grphcs.draw(go.getRect());
+            //grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {
                 ((IRenderable) go).render(gc, grphcs);
             }
+        }
+        //render game and player
+        for (int i = 0; i < map.getLayerCount(); i++) {
+            this.map.render(0 - (int) main_character.getOffsetX(), i);
         }
     }
 

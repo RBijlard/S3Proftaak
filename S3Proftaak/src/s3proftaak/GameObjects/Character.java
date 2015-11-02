@@ -269,8 +269,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     }
                     else if (go instanceof Weight){
                         if(getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()){
-                            this.die();
-                            return false;
+                            if(this.getRect().getMinY() >= go.getRect().getMaxY() - 5){
+                                this.die();
+                                return false;
+                            }
                         }
                         return true;
                     }
