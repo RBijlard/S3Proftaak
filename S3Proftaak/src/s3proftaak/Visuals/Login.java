@@ -43,7 +43,9 @@ public class Login extends BasicScene {
         try {
             if (!DBConnect.getInstance().hasAccount(tfUsername.getText())){
                 if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()){
-                    DBConnect.getInstance().insertAccount(new Account(tfUsername.getText(), tfPassword.getText(), null));
+                    Account a = new Account(tfUsername.getText(), tfPassword.getText(), null);
+                    Main.setAccount(a);
+                    DBConnect.getInstance().insertAccount(a);
                 }else{
                     Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, "Enter an username & password.");
                 }

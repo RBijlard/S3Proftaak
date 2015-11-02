@@ -23,6 +23,7 @@ public class Main extends Application {
     
     private static AppGameContainer app;
     private static Game game;
+    private static Account account;
 
     public static void main(String[] arguments) {
         launch();
@@ -78,5 +79,13 @@ public class Main extends Application {
     public static void setGame(Game game) throws SlickException {
         Main.game = game;
         setApp(new AppGameContainer(getGame()));
+    }
+
+    public static Account getAccount() {
+        return account;
+    }
+
+    public static void setAccount(Account account) {
+        Main.account = account;
     }
 }
