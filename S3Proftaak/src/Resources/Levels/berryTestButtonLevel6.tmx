@@ -101,14 +101,14 @@
     <property name="button" value="2"/>
    </properties>
   </object>
-  <object id="129" x="10982.7" y="951.091" width="70" height="26">
+  <object id="129" x="10982" y="951" width="70" height="26">
    <properties>
     <property name="button" value="5"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="Object Layer 3" width="70" height="70">
-  <object id="127" x="11141.5" y="881.091" width="52" height="98">
+  <object id="127" x="11141" y="881" width="52" height="98">
    <properties>
     <property name="door" value="5"/>
    </properties>
