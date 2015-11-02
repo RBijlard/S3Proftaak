@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -194,7 +195,7 @@ public class Game extends BasicGame {
                 ((IUpdateable) go).update(gc, i);
             }
 
-            if (go instanceof IPressable) {
+            if (go instanceof IPressable && !(go instanceof Lever)) {
                 boolean bool = false;
                 Rectangle r = go.getRect();
                 Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
@@ -218,7 +219,7 @@ public class Game extends BasicGame {
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
-
+        grphcs.setBackground(new Color(135, 206, 250));
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
             //grphcs.draw(go.getRect());

@@ -9,7 +9,17 @@
  <tileset firstgid="221" name="tile_building" tilewidth="70" tileheight="70" tilecount="98">
   <image source="sheet_buildings.png" width="980" height="490"/>
  </tileset>
- <objectgroup name="Collision" widht="10" height="10">
+ <layer name="Tilelaag 1" width="1000" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3cy27TQBgGUIcNsGNTeANEFyxKV+2edwkPwYLHYIsED4UE5b7hIhBsyv2PkgoLjZ2Z2I7r5hzpq6PxOJ4uvziTqgIAAADG9jjypMP58+hpT+9T8r83zS0dL70vAAAAu61Lh9zk2txrHkTmtdzreR3nzcPMAAAAMB0Xoa9OxeGsbH5uD9fPAQAAODOFnr/t5/9nLkcvv1LL1Zae3rWT6+gAAACMZX/sBTQ4WPXwvTher+XGavx4dey7k+vnAAAAF9sQz8jvNyTXvCVjST0vfxbjzyMntXlD9nLdHAAAgG1q66ddOnrOXvE7tTkHtdep5+XvY/xaHD+uWbOODgAAwJCOCn8bLde6frpJR2/bL546lxp7EXNfRl5Vy++xn8bxe+RHxpr1cwAAALpIdeG7kaNEbvd0z5yOWtrRm/aLN51LjX2Kud8inzPXqJ8DAADsnuPZ+jmbGKMP5vbU0o7+OvIm8va/8VuJveQ3E2M/I78ivwvWqJ8DAADslrbfVOuyZ3vT75N3MVRX/RK5FL37a+LcYi/5h2q5l7w+9m41tvj8Y8xOrp8DAABMQ86z5raendpLXu+k84Y5OUquK+3BJZ8//Fn8ifefJdZzWv3bS74/W6Y+NnYn188BAACmobTP5iZ17aPMlN4rdc+Sbjp2b9bNAQAA2GZH7KNnD9FPx+7OOjoAAABjd0aRKQcAAKAvfwERp1GfAPoAAA==
+  </data>
+ </layer>
+ <layer name="Tilelaag 2" width="1000" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3dzQ2CMACAUUicwBU8GRfw6sUBnIKV2FY8mACKoFjawntJD/wc4PilTVsUAAAAAAAAAAB5q74YAAAAwDxzm7sO8VEAAACwAf+c+9bnAAAAMF2o9ej6HAAAAF7tyu71s8lDdbQ+BwAAYM3O5fg7nyyxd1td6HMAAAB4GJovX4I2BwAAgK4YZ53pcwAAgDwcY39ABvrz3237N89izpf3Wd8OAADA2h2aDr+OvBOry9v0OQAAADk7Tdj/7daMS+9eqHPSfqXPAQAASEE9MKpAIzX6HAAAgBQM9flWunUr/wkAAEBettTmAAAApO8O9o0D4wD6AAA=
+  </data>
+ </layer>
+ <objectgroup name="Collision" width="700" height="35">
   <object id="4" x="1" y="770" width="560" height="350"/>
   <object id="5" x="560" y="840" width="140" height="280"/>
   <object id="7" x="700" y="910" width="840" height="210"/>
@@ -27,41 +37,30 @@
   <object id="20" x="3570" y="490" width="560" height="70"/>
   <object id="21" x="3570" y="420" width="490" height="70"/>
   <object id="22" x="3640" y="140" width="350" height="70"/>
-  <object id="23" x="3850" y="1" width="140" height="140"/>
   <object id="24" x="1890" y="630" width="490" height="35"/>
   <object id="29" x="2450" y="455" width="420" height="35"/>
   <object id="31" x="1" y="332" width="70" height="1102"/>
-  <object id="32" x="5810" y="350" width="140" height="1260"/>
+  <object id="32" x="5810" y="140" width="140" height="1470"/>
   <object id="34" x="4550" y="910" width="1802" height="210"/>
  </objectgroup>
- <objectgroup name="Button" widht="10" height="10">
+ <objectgroup name="Button" width="700" height="35">
   <object id="38" x="3711" y="122" width="70" height="17">
    <properties>
     <property name="button" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Door1" widht="10" height="10">
+ <objectgroup name="Door1" width="700" height="35">
   <object id="36" x="5670" y="787" width="70" height="122">
    <properties>
     <property name="door" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Lever" widht="10" height="10"/>
- <objectgroup name="Weight" widht="10" height="10"/>
- <objectgroup name="Spikes" widht="10" height="10">
+ <objectgroup name="Lever" width="700" height="35"/>
+ <objectgroup name="Weight" width="700" height="35"/>
+ <objectgroup name="Spikes" width="700" height="35">
   <object id="39" x="1890" y="945" width="700" height="35"/>
  </objectgroup>
- <objectgroup name="MoveAbleBlock" widht="10" height="10"/>
- <layer name="Tilelaag 1" width="1000" height="16">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3cy27TQBgGUIcNsGNTeANEFyxKV+2edwkPwYLHYIsED4UE5b7hIhBsyv2PkgoLjZ2Z2I7r5hzpq6PxOJ4uvziTqgIAAADG9jjypMP58+hpT+9T8r83zS0dL70vAAAAu61Lh9zk2txrHkTmtdzreR3nzcPMAAAAMB0Xoa9OxeGsbH5uD9fPAQAAODOFnr/t5/9nLkcvv1LL1Zae3rWT6+gAAACMZX/sBTQ4WPXwvTher+XGavx4dey7k+vnAAAAF9sQz8jvNyTXvCVjST0vfxbjzyMntXlD9nLdHAAAgG1q66ddOnrOXvE7tTkHtdep5+XvY/xaHD+uWbOODgAAwJCOCn8bLde6frpJR2/bL546lxp7EXNfRl5Vy++xn8bxe+RHxpr1cwAAALpIdeG7kaNEbvd0z5yOWtrRm/aLN51LjX2Kud8inzPXqJ8DAADsnuPZ+jmbGKMP5vbU0o7+OvIm8va/8VuJveQ3E2M/I78ivwvWqJ8DAADslrbfVOuyZ3vT75N3MVRX/RK5FL37a+LcYi/5h2q5l7w+9m41tvj8Y8xOrp8DAABMQ86z5raendpLXu+k84Y5OUquK+3BJZ8//Fn8ifefJdZzWv3bS74/W6Y+NnYn188BAACmobTP5iZ17aPMlN4rdc+Sbjp2b9bNAQAA2GZH7KNnD9FPx+7OOjoAAABjd0aRKQcAAKAvfwERp1GfAPoAAA==
-  </data>
- </layer>
- <layer name="Tilelaag 2" width="1000" height="16">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3dzQ2CMACAUUicwBU8GRfw6sUBnIKV2FY8mACKoFjawntJD/wc4PilTVsUAAAAAAAAAAB5q74YAAAAwDxzm7sO8VEAAACwAf+c+9bnAAAAMF2o9ej6HAAAAF7tyu71s8lDdbQ+BwAAYM3O5fg7nyyxd1td6HMAAAB4GJovX4I2BwAAgK4YZ53pcwAAgDwcY39ABvrz3237N89izpf3Wd8OAADA2h2aDr+OvBOry9v0OQAAADk7Tdj/7daMS+9eqHPSfqXPAQAASEE9MKpAIzX6HAAAgBQM9flWunUr/wkAAEBettTmAAAApO8O9o0D4wD6AAA=
-  </data>
- </layer>
+ <objectgroup name="MoveAbleBlock" width="700" height="35"/>
 </map>
