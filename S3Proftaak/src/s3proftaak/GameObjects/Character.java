@@ -39,28 +39,15 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private GameObject MLO;
     private float offSetX;
     
+    private boolean isCrouching;
+    
     float marginy,marginx;
 
     public Character(Game game, float x, float y, float width, float height, int controlSet) throws SlickException {
         super(x, y, width, height);
         this.game = game;
         this.controlSet = controlSet;
-        playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
-        animate = new Animation(playerSheet, 100);
-//        switch (this.controlSet) {
-//            case 0:
-//                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player1_sprites.png").getPath().replace("%20", " "), 70, 93);
-//                animate = new Animation(playerSheet, 100);
-//                break;
-//            case 1:
-//                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player2_sprites.png").getPath().replace("%20", " "), 70, 93);
-//                animate = new Animation(playerSheet, 100);
-//                break;
-//            case 2:
-//                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player3_sprites.png").getPath().replace("%20", " "), 70, 93);
-//                animate = new Animation(playerSheet, 100);
-//                break;
-//        }
+
         this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
         MLO = new Block( 1f, 1f, 1f, 1f);
         this.game.getGameObjects().add(MLO);
@@ -70,6 +57,15 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
         marginx = 0 - MLO.getX();
+        
+        this.isCrouching = false;
+        
+        try {
+            playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
+            animate = new Animation(playerSheet, 100);
+        } catch (SlickException ex) {
+            Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void update(GameContainer gc, int i) {
@@ -185,6 +181,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
         }
+        
+        if (input.isKeyDown(Input.KEY_DOWN)){
+            this.checkCrouch(true);
+        }else{
+           this.checkCrouch(false); 
+        }
 
         if(this.getY() > (70*15)){
             this.die();
@@ -233,8 +235,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             }
                             ((MoveableBlock) go).setDx(i);
                         }
+                        if ((int)(go.getRect().getMaxY()) == ((int)(this.getRect().getMinY())) + 1){
+                            this.die();
+                            return false;
+                        }
                         return true;
                     } else if (go instanceof Spike) {
+                        //die
                         this.die();
                         return false;
                     } else if (go instanceof Button) {
@@ -316,6 +323,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
         }
         
+        if (input.isKeyDown(Input.KEY_S)){
+            this.checkCrouch(true);
+        }else{
+           this.checkCrouch(false); 
+        }
+        
         if(this.getY() > (70*15)){
             this.die();
         }
@@ -374,6 +387,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
         }
         
+        if (input.isKeyDown(Input.KEY_K)){
+            this.checkCrouch(true);
+        }else{
+           this.checkCrouch(false); 
+        }
+        
         if(this.getY() > (70*15)){
             this.die();
         }
@@ -389,5 +408,51 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 this.vY = 0;
             }
         }
+    }
+    
+    private void checkCrouch(boolean crouching){
+        if (isCrouching != crouching){
+            if (!crouching){
+                if (isObjectAbove()){
+                    return;
+                }
+            }
+            
+            isCrouching = crouching;
+            
+            String s = "";
+
+            if (crouching){
+                s += "_crouch";
+            }
+
+            try {
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites" + s + ".png").getPath().replace("%20", " "), 70, 93);
+                animate = new Animation(playerSheet, 100);
+
+                if (s.isEmpty()){
+                    this.setY(this.getY() - 23);
+                    this.getRect().setHeight(93);
+                }else{
+                    this.getRect().setHeight(70);
+                    this.setY(this.getY() + 23);
+                }
+
+            } catch (SlickException ex) {
+                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    private boolean isObjectAbove(){
+        for (GameObject go : game.getGameObjects()){
+            if (getRect().getMinX() <= go.getRect().getMaxX() && getRect().getMaxX() >= go.getRect().getMinX()){
+                if (getRect().getMinY() - 23 <= go.getRect().getMaxY() && getRect().getMaxY() > go.getRect().getMaxY()){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }
