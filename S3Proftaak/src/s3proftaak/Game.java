@@ -53,7 +53,7 @@ public class Game extends BasicGame {
 
     private float baseWidht = 1920;
     private float baseHight = 1080;
-    
+
     private boolean gameOver;
 
     public Game(String title, int amountOfPlayers, String mapname) {
@@ -165,7 +165,6 @@ public class Game extends BasicGame {
             }
         }
 
-        
         startTime = System.currentTimeMillis();
     }
 
@@ -174,22 +173,22 @@ public class Game extends BasicGame {
         //update game and player
 
         List<GameObject> tempStarList = new ArrayList<GameObject>();
-        
-        for(GameObject go : this.gameObjects){
-            if(go instanceof Star){
-                if(((Star)go).isActive() == false){
+
+        for (GameObject go : this.gameObjects) {
+            if (go instanceof Star) {
+                if (((Star) go).isActive() == false) {
                     tempStarList.add(go);
                     this.starsCollected++;
                 }
             }
         }
-        
-        for(GameObject go : tempStarList){
+
+        for (GameObject go : tempStarList) {
             this.gameObjects.remove(go);
         }
-        
+
         for (GameObject go : this.gameObjects) {
-            
+
             if (go instanceof IUpdateable) {
                 //move all characters & weights
                 ((IUpdateable) go).update(gc, i);
@@ -219,7 +218,6 @@ public class Game extends BasicGame {
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
-
 
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
@@ -281,17 +279,19 @@ public class Game extends BasicGame {
     }
 
     public void doFinish() {
-        
-        if (!gameOver){
+
+        if (!gameOver) {
             gameOver = true;
             endTime = System.currentTimeMillis();
 
             long timeDiff = endTime - startTime;
 
             try {
-                DBConnect.getInstance().insertScore(this.score = new Score((int) timeDiff, starsCollected, Main.getAccount().getUsername(), this.mapname));
+                this.score = new Score((int) timeDiff, starsCollected, Main.getAccount().getUsername(), this.mapname);
+                DBConnect.getInstance().insertScore(this.score);
             } catch (SQLException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex);
             }
 
             Main.getApp().exit();
