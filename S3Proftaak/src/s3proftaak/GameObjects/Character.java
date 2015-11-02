@@ -424,23 +424,17 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
             
             isCrouching = crouching;
-            
-            String s = "";
-
-            if (crouching){
-                s += "_crouch";
-            }
 
             try {
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites" + s + ".png").getPath().replace("%20", " "), 70, s.isEmpty() ? 93 : 69);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites" + (crouching ? "_crouch" : "") + ".png").getPath().replace("%20", " "), 70, !crouching ? 93 : 69);
                 animate = new Animation(playerSheet, 100);
 
-                if (s.isEmpty()){
-                    this.setY(this.getY() - 24);
-                    this.getRect().setHeight(93);
-                }else{
+                if (crouching){
                     this.getRect().setHeight(69);
                     this.setY(this.getY() + 24);
+                }else{
+                    this.setY(this.getY() - 24);
+                    this.getRect().setHeight(93);
                 }
 
             } catch (SlickException ex) {

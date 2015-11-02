@@ -38,7 +38,7 @@ public class Login extends BasicScene {
                     Main.setAccount(a);
                     changeScreen(Main.Screens.Menu.load());
                 } else {
-                    JOptionPane.showMessageDialog(null, "Username or Password incorrect", "Login Error", 0);
+                    JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Please Enter a Username and Password", "Registration Error", 0);
