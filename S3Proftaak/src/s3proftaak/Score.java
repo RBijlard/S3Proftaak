@@ -46,6 +46,6 @@ public class Score {
     
     @Override
     public String toString(){
-        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + "Level naam.." +" " +  (10000 - (getTime()/100) + (getAmountOfStars() * 100));
+        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames();
     }
 }
