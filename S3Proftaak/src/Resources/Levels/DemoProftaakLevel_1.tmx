@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="15" tilewidth="70" tileheight="70" nextobjectid="25">
+ <tileset firstgid="1" name="items_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="64">
+  <image source="items_spritesheet.png" width="623" height="576"/>
+ </tileset>
+ <tileset firstgid="65" name="item_persSpriteSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="100">
+  <image source="item_persSpriteSheet.png" width="720" height="720"/>
+ </tileset>
+ <tileset firstgid="165" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
+  <image source="tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <tileset firstgid="321" name="sheet_buildings" tilewidth="70" tileheight="70" spacing="2" tilecount="78">
+  <image source="sheet_buildings.png" width="980" height="490"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="28" height="15">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAW0BpqMCIxLnJAcLkxNN9ITjNpHfftokS7w2UdPMFjto1aepEYed0HD1ACqQPt56IR5gRgAqVl5ppAGAAA=
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="350" height="70">
+  <object id="13" x="1" y="840" width="350" height="70"/>
+  <object id="14" x="350" y="210" width="210" height="70"/>
+  <object id="15" x="1" y="980" width="1960" height="70"/>
+  <object id="20" x="770" y="210" width="280" height="70"/>
+  <object id="21" x="1260" y="210" width="700" height="70"/>
+  <object id="22" x="1260" y="280" width="70" height="630"/>
+  <object id="23" x="1330" y="560" width="210" height="70"/>
+  <object id="24" x="1330" y="840" width="420" height="70"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 2" width="350" height="70">
+  <object id="18" x="1402" y="536" width="66" height="22"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 3" width="350" height="70">
+  <object id="19" x="1410" y="742" width="46" height="96"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 4" width="350" height="70">
+  <object id="16" x="910" y="140" width="70" height="70"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 5" width="350" height="70">
+  <object id="17" x="1120" y="1" width="70" height="980"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 6" width="350" height="70">
+  <object id="6" x="490" y="946" width="278" height="34"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 7" width="350" height="70">
+  <object id="8" x="420" y="140" width="70" height="70"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 8" width="350" height="70">
+  <object id="9" x="1" y="910" width="70" height="70"/>
+ </objectgroup>
+</map>
