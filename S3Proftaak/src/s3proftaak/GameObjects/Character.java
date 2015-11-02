@@ -233,10 +233,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             }
                             ((MoveableBlock) go).setDx(i);
                         }
-                        if ((int)(go.getRect().getMaxY()) == ((int)(this.getRect().getMinY())) + 1){
-                            this.die();
-                            return false;
-                        }
                         return true;
                     } else if (go instanceof Spike) {
                         this.die();
