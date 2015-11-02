@@ -231,11 +231,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 i = -1;
                             }
                             ((MoveableBlock) go).setDx(i);
+                        }                        
+                        if(getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()){
+                            
+                            for(int b = 1; b < 20; b++){
+                                if(this.getRect().getMinY() >= go.getRect().getMaxY() - b){
+                                   this.die();
+                                   return true;
+                               }   
+                            }
                         }
-                        if ((int)(go.getRect().getMaxY()) == ((int)(this.getRect().getMinY())) + 1){
-                            this.die();
-                            return false;
-                        }
+                        
+                        
                         return true;
                     } else if (go instanceof Spike) {
                         this.die();
@@ -432,9 +439,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 if (crouching){
                     this.getRect().setHeight(69);
                     this.setY(this.getY() + 24);
+                    this.updateHitbox();
                 }else{
                     this.setY(this.getY() - 24);
                     this.getRect().setHeight(93);
+                    this.updateHitbox();
                 }
 
             } catch (SlickException ex) {
