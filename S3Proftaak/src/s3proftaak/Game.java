@@ -148,9 +148,9 @@ public class Game extends BasicGame {
         }
 
         for (int i = 1; i < this.amountOfPlayers; i++) {
-            this.gameObjects.add(new Character(this, (72f * i + 100f), 150f, 70f, 93f, i)); // + 500f, 100f
+            this.gameObjects.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i)); 
         }
-        main_character = new Character(this, 500f, 72f, 70f, 93f, 0); // + 400f, 100f
+        main_character = new Character(this, 500f, 72f, 70f, 93f, 0); 
         this.gameObjects.add(main_character);
 
         // Moet keer weg
@@ -222,7 +222,7 @@ public class Game extends BasicGame {
         grphcs.setBackground(new Color(0, 191, 255));
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
-            grphcs.draw(go.getRect());
+            //grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {
                 ((IRenderable) go).render(gc, grphcs);
