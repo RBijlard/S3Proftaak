@@ -10,6 +10,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.Game;
 import s3proftaak.GameObjects.Interfaces.IPressable;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IStateChangeable;
@@ -77,9 +78,11 @@ public class Lever extends GameObject implements IPressable, IRenderable {
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/switchLeft.png");
+                Game.playSound("LEVERPULL");
             }
             else{
                 this.sprite = new Image("Resources/Levels/switchRight.png");            
+                Game.playSound("LEVERPUSH");
             }
         }
         catch(SlickException ex){}

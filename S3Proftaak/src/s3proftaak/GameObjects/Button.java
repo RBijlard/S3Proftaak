@@ -6,6 +6,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.Game;
 import s3proftaak.GameObjects.Interfaces.IPressable;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IStateChangeable;
@@ -78,9 +79,11 @@ public class Button extends GameObject implements IPressable, IRenderable {
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/buttonRed_pressed.png");
+                Game.playSound("BUTTONPRESSED");
             }
             else{
-                this.sprite = new Image("Resources/Levels/buttonRed.png");            
+                this.sprite = new Image("Resources/Levels/buttonRed.png");
+                Game.playSound("BUTTONRELEASE");
             }
         }
         catch(SlickException ex){}

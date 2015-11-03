@@ -50,7 +50,7 @@ public class Singleplayer extends BasicScene implements Initializable {
     }
     
     public void btnStartClick(Event e){
-        try {
+        try {    
             GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
             int width = gd.getDisplayMode().getWidth();
             int height = gd.getDisplayMode().getHeight();

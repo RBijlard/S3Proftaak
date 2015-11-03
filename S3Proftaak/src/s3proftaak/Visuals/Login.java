@@ -14,8 +14,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
+import org.newdawn.slick.Music;
+import org.newdawn.slick.SlickException;
 import s3proftaak.Account;
 import s3proftaak.DBConnect;
+import s3proftaak.Game;
 import s3proftaak.Main;
 import static s3proftaak.Main.changeScreen;
 
@@ -28,7 +31,9 @@ public class Login extends BasicScene {
     @FXML TextField tfUsername;
     @FXML PasswordField tfPassword;
     @FXML Button btnLogin;
-    @FXML  Button btnRegister;
+    @FXML Button btnRegister;
+    
+    private static Music music;
 
     public void btnLoginClick(Event e) {
         try {
@@ -36,6 +41,9 @@ public class Login extends BasicScene {
                 if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
                     Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
                     Main.setAccount(a);
+
+                    Main.playMenuMusic();
+
                     changeScreen(Main.Screens.Menu.load());
                 } else {
                     JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);

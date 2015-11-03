@@ -13,6 +13,7 @@ import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Visuals.BasicScene;
 
@@ -26,6 +27,7 @@ public class Main extends Application {
     private static AppGameContainer app;
     private static Game game;
     private static Account account;
+    private static Music music;
 
     public static void main(String[] arguments) {
         launch();
@@ -94,5 +96,21 @@ public class Main extends Application {
 
     public static void setAccount(Account account) {
         Main.account = account;
+    }
+    
+     public static void playMenuMusic() {
+        Thread musicThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    music = new Music(getClass().getResource("/Resources/Music/menu.ogg").getPath().replace("%20", " "));
+                    music.loop(1, 0.25f);
+                } catch (SlickException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+
+        musicThread.start();
     }
 }

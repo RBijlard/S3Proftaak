@@ -178,6 +178,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
+                Game.playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
@@ -275,6 +276,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     } else if (go instanceof Star) {
                         if (((Star) go).isActive()) {
                             ((Star) go).setActive(false);
+                            Game.playSound("COINPICKUP");
                         }
                     } else if (go instanceof Weight) {
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
@@ -332,11 +334,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
+                Game.playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
-            
-            Game.playSound("JUMP");
         }
 
         if (input.isKeyDown(Input.KEY_S)) {
@@ -398,6 +399,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
+                Game.playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();

@@ -154,9 +154,9 @@ public class Game extends BasicGame {
         }
 
         for (int i = 1; i < this.amountOfPlayers; i++) {
-            this.gameObjects.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i)); 
+            this.gameObjects.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i));
         }
-        main_character = new Character(this, 500f, 72f, 70f, 93f, 0); 
+        main_character = new Character(this, 500f, 72f, 70f, 93f, 0);
         this.gameObjects.add(main_character);
 
         // Moet keer weg
@@ -291,9 +291,9 @@ public class Game extends BasicGame {
 
         if (!gameOver) {
             gameOver = true;
-            
+
             this.playSound("GAMEOVER");
-            
+
             endTime = System.currentTimeMillis();
 
             long timeDiff = endTime - startTime;
@@ -307,6 +307,7 @@ public class Game extends BasicGame {
 
             Main.getApp().exit();
             Main.changeScreen(Main.Screens.Highscores.load());
+            Main.playMenuMusic();
         }
     }
 
@@ -391,9 +392,14 @@ public class Game extends BasicGame {
                             break;
                     }
 
+                    System.out.println("Playing: " + soundType);
+
                     sound = new Sound(path);
-                    sound.play(1, 1);
-                    
+
+                    music.pause();
+                    sound.play(1, 0.6f);
+                    music.resume();
+
                 } catch (SlickException ex) {
                     Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                 }
