@@ -58,9 +58,11 @@ public class Game extends BasicGame {
     private float baseWidht = 1920;
     private float baseHight = 1080;
 
-    private static Music music;
+    private static Music music = null;
+    private static Sound sound = null;
 
     private boolean gameOver;
+    private static boolean dead = false;
 
     public Game(String title, int amountOfPlayers, String mapname) {
         super(title);
@@ -172,7 +174,9 @@ public class Game extends BasicGame {
             }
         }
 
-        this.playMusic();
+        if (!dead) {
+            Game.playMusic();
+        }
 
         startTime = System.currentTimeMillis();
     }
@@ -292,7 +296,7 @@ public class Game extends BasicGame {
         if (!gameOver) {
             gameOver = true;
 
-            this.playSound("GAMEOVER");
+            Game.playSound("GAMEOVER");
 
             endTime = System.currentTimeMillis();
 
@@ -309,6 +313,10 @@ public class Game extends BasicGame {
             Main.changeScreen(Main.Screens.Highscores.load());
             Main.playMenuMusic();
         }
+    }
+
+    public static void setDead() {
+        dead = true;
     }
 
     public static void playMusic() {
@@ -356,7 +364,6 @@ public class Game extends BasicGame {
             public void run() {
 
                 try {
-                    Sound sound;
                     String path = "";
 
                     switch (soundType) {
@@ -396,10 +403,13 @@ public class Game extends BasicGame {
 
                     sound = new Sound(path);
 
-                    music.pause();
-                    sound.play(1, 0.6f);
-                    music.resume();
-
+                    if (music != null && music.playing()) {
+                        music.pause();
+                        sound.play(1, 0.6f);
+                        music.resume();
+                    } else {
+                        sound.play(1, 0.6f);
+                    }
                 } catch (SlickException ex) {
                     Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
                 }

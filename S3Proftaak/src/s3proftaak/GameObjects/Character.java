@@ -6,9 +6,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
@@ -209,6 +207,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void die() {
         try {
+            Game.setDead();
             Game.playSound("GAMEOVER");
             Main.getApp().reinit();
 
