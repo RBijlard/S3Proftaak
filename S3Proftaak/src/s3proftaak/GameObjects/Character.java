@@ -6,7 +6,9 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Game;
@@ -38,10 +40,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private Animation animate;
     private GameObject MLO;
     private float offSetX;
-    
+
     private boolean isCrouching;
-    
-    float marginy,marginx;
+
+    float marginy, marginx;
 
     public Character(Game game, float x, float y, float width, float height, int controlSet) throws SlickException {
         super(x, y, width, height);
@@ -49,19 +51,19 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         this.controlSet = controlSet;
 
         this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
-        MLO = new Block( 1f, 1f, 1f, 1f);
+        MLO = new Block(1f, 1f, 1f, 1f);
         this.game.getGameObjects().add(MLO);
-        for(GameObject go: this.game.getGameObjects()){
-            if(go.getX() < MLO.getX()){
+        for (GameObject go : this.game.getGameObjects()) {
+            if (go.getX() < MLO.getX()) {
                 MLO.setX(go.getX());
             }
         }
         marginx = 0 - MLO.getX();
-        
+
         this.isCrouching = false;
-        
+
         try {
-            playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
+            playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
             animate = new Animation(playerSheet, 100);
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
@@ -97,9 +99,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         //render animation
         animate.draw(this.getX(), this.getY());
     }
-    
+
     public void moveHorizontalMap(GameContainer gc) {
-        
+
         this.offSetX = 0 - MLO.getX();
         //Move horizontal with arrow keys
         Input input = gc.getInput();
@@ -133,8 +135,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
-    public float getOffsetX(){
+
+    public float getOffsetX() {
         return this.offSetX - this.marginx;
     }
 
@@ -180,17 +182,17 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
         }
-        
-        if (input.isKeyDown(Input.KEY_DOWN)){
+
+        if (input.isKeyDown(Input.KEY_DOWN)) {
             this.checkCrouch(true);
-        }else{
-           this.checkCrouch(false); 
+        } else {
+            this.checkCrouch(false);
         }
 
-        if(this.getY() > (70*15)){
+        if (this.getY() > (70 * 15)) {
             this.die();
         }
-        
+
         //check for collision in 5 small steps for higher precision
         float vYtemp = this.vY / this.interations;
         for (int i = 0; i < this.interations; i++) {
@@ -206,7 +208,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void die() {
         try {
+            Game.playSound("GAMEOVER");
             Main.getApp().reinit();
+
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -221,28 +225,27 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     //check what object
                     if (go instanceof Block || go instanceof Character) {
                         return true;
-                    } else if (go instanceof MoveableBlock){
-                        if (go.getRect().getMinY() + 1 < rect.getMaxY()){
+                    } else if (go instanceof MoveableBlock) {
+                        if (go.getRect().getMinY() + 1 < rect.getMaxY()) {
                             int i = 0;
-                            if (go.getRect().getX() > rect.getX()){
+                            if (go.getRect().getX() > rect.getX()) {
                                 i = 1;
                             }
-                            if (go.getRect().getX() < rect.getX()){
+                            if (go.getRect().getX() < rect.getX()) {
                                 i = -1;
                             }
                             ((MoveableBlock) go).setDx(i);
-                        }                        
-                        if(getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()){
-                            
-                            for(int b = 1; b < 20; b++){
-                                if(this.getRect().getMinY() >= go.getRect().getMaxY() - b){
-                                   this.die();
-                                   return true;
-                               }   
+                        }
+                        if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
+
+                            for (int b = 1; b < 20; b++) {
+                                if (this.getRect().getMinY() >= go.getRect().getMaxY() - b) {
+                                    this.die();
+                                    return true;
+                                }
                             }
                         }
-                        
-                        
+
                         return true;
                     } else if (go instanceof Spike) {
                         this.die();
@@ -269,14 +272,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 ((Door) go).finish();
                             }
                         }
-                    } else if (go instanceof Star){
-                        if(((Star)go).isActive()){
-                            ((Star)go).setActive(false);
+                    } else if (go instanceof Star) {
+                        if (((Star) go).isActive()) {
+                            ((Star) go).setActive(false);
                         }
-                    }
-                    else if (go instanceof Weight){
-                        if(getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()){
-                            if(this.getRect().getMinY() >= go.getRect().getMaxY() - 5){
+                    } else if (go instanceof Weight) {
+                        if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
+                            if (this.getRect().getMinY() >= go.getRect().getMaxY() - 5) {
                                 this.die();
                                 return false;
                             }
@@ -333,15 +335,17 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
+            
+            Game.playSound("JUMP");
         }
-        
-        if (input.isKeyDown(Input.KEY_S)){
+
+        if (input.isKeyDown(Input.KEY_S)) {
             this.checkCrouch(true);
-        }else{
-           this.checkCrouch(false); 
+        } else {
+            this.checkCrouch(false);
         }
-        
-        if(this.getY() > (70*15)){
+
+        if (this.getY() > (70 * 15)) {
             this.die();
         }
 
@@ -398,14 +402,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
         }
-        
-        if (input.isKeyDown(Input.KEY_K)){
+
+        if (input.isKeyDown(Input.KEY_K)) {
             this.checkCrouch(true);
-        }else{
-           this.checkCrouch(false); 
+        } else {
+            this.checkCrouch(false);
         }
-        
-        if(this.getY() > (70*15)){
+
+        if (this.getY() > (70 * 15)) {
             this.die();
         }
 
@@ -421,26 +425,26 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
-    private void checkCrouch(boolean crouching){
-        if (isCrouching != crouching){
-            if (!crouching){
-                if (isObjectAbove()){
+
+    private void checkCrouch(boolean crouching) {
+        if (isCrouching != crouching) {
+            if (!crouching) {
+                if (isObjectAbove()) {
                     return;
                 }
             }
-            
+
             isCrouching = crouching;
 
             try {
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet+1 < 3 ? controlSet+1 : 3) + "_sprites" + (crouching ? "_crouch" : "") + ".png").getPath().replace("%20", " "), 70, !crouching ? 93 : 69);
+                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (crouching ? "_crouch" : "") + ".png").getPath().replace("%20", " "), 70, !crouching ? 93 : 69);
                 animate = new Animation(playerSheet, 100);
 
-                if (crouching){
+                if (crouching) {
                     this.getRect().setHeight(69);
                     this.setY(this.getY() + 24);
                     this.updateHitbox();
-                }else{
+                } else {
                     this.setY(this.getY() - 24);
                     this.getRect().setHeight(93);
                     this.updateHitbox();
@@ -451,16 +455,16 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
-    private boolean isObjectAbove(){
-        for (GameObject go : game.getGameObjects()){
-            if (getRect().getMinX() <= go.getRect().getMaxX() && getRect().getMaxX() >= go.getRect().getMinX()){
-                if (getRect().getMinY() - 23 <= go.getRect().getMaxY() && getRect().getMaxY() > go.getRect().getMaxY()){
+
+    private boolean isObjectAbove() {
+        for (GameObject go : game.getGameObjects()) {
+            if (getRect().getMinX() <= go.getRect().getMaxX() && getRect().getMaxX() >= go.getRect().getMinX()) {
+                if (getRect().getMinY() - 23 <= go.getRect().getMaxY() && getRect().getMaxY() > go.getRect().getMaxY()) {
                     return true;
                 }
             }
         }
-        
+
         return false;
     }
 }
