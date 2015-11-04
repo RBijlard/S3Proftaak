@@ -10,6 +10,7 @@ import s3proftaak.Game;
 import s3proftaak.GameObjects.Interfaces.IPressable;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IStateChangeable;
+import s3proftaak.SoundManager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -79,11 +80,11 @@ public class Button extends GameObject implements IPressable, IRenderable {
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/buttonRed_pressed.png");
-                Game.playSound("BUTTONPRESSED");
+                SoundManager.playSound("BUTTONPRESSED");
             }
             else{
                 this.sprite = new Image("Resources/Levels/buttonRed.png");
-                Game.playSound("BUTTONRELEASE");
+                SoundManager.playSound("BUTTONRELEASE");
             }
         }
         catch(SlickException ex){}

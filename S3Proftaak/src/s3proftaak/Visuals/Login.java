@@ -21,6 +21,7 @@ import s3proftaak.DBConnect;
 import s3proftaak.Game;
 import s3proftaak.Main;
 import static s3proftaak.Main.changeScreen;
+import s3proftaak.SoundManager;
 
 /**
  *
@@ -33,7 +34,6 @@ public class Login extends BasicScene {
     @FXML Button btnLogin;
     @FXML Button btnRegister;
     
-    private static Music music;
 
     public void btnLoginClick(Event e) {
         try {
@@ -42,7 +42,7 @@ public class Login extends BasicScene {
                     Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
                     Main.setAccount(a);
 
-                    Main.playMenuMusic();
+                    SoundManager.playMenuMusic();
 
                     changeScreen(Main.Screens.Menu.load());
                 } else {

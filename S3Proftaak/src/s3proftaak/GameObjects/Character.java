@@ -13,6 +13,7 @@ import s3proftaak.Game;
 import s3proftaak.GameObjects.Interfaces.IRenderable;
 import s3proftaak.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Main;
+import s3proftaak.SoundManager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -176,7 +177,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
-                Game.playSound("JUMP");
+                SoundManager.playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
@@ -207,8 +208,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void die() {
         try {
-            Game.setDead();
-            Game.playSound("GAMEOVER");
+            SoundManager.playSound("GAMEOVER");
+            SoundManager.stopMusic();
             Main.getApp().reinit();
 
         } catch (SlickException ex) {
@@ -275,13 +276,15 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     } else if (go instanceof Star) {
                         if (((Star) go).isActive()) {
                             ((Star) go).setActive(false);
-                            Game.playSound("COINPICKUP");
+                            SoundManager.playSound("COINPICKUP");
                         }
                     } else if (go instanceof Weight) {
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
                             if (this.getRect().getMinY() >= go.getRect().getMaxY() - 5) {
-                                this.die();
-                                return false;
+                                if (!((Weight) go).isActive()) {
+                                    this.die();
+                                    return false;
+                                }
                             }
                         }
                         return true;
@@ -333,7 +336,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
-                Game.playSound("JUMP");
+                SoundManager.playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
@@ -398,7 +401,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
-                Game.playSound("JUMP");
+                SoundManager.playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
