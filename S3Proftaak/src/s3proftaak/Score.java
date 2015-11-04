@@ -9,7 +9,7 @@ package s3proftaak;
  *
  * @author S33D
  */
-public class Score {
+public class Score implements Comparable<Score>{
     private int time;
     private int amountOfStars;
     private String playerNames, gamename;
@@ -33,7 +33,7 @@ public class Score {
         return amountOfStars;
     }
 
-    public void setAmountOfStars() {
+    public void setAmountOfStars(int amountOfStars) {
         this.amountOfStars = amountOfStars;
     }
 
@@ -52,5 +52,10 @@ public class Score {
     @Override
     public String toString(){
         return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + this.gamename + " " +  (10000 - (getTime()/100) + (getAmountOfStars() * 100));
+    }
+
+    @Override
+    public int compareTo(Score t) {
+        return t.getTime() - this.getTime();
     }
 }

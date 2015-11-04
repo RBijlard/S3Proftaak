@@ -5,12 +5,12 @@
  */
 package s3proftaak.Visuals;
 
-import java.net.URL;
 import java.sql.SQLException;
-import java.util.ResourceBundle;
+import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,9 +38,10 @@ public class Highscores extends BasicScene {
         lvHighscores.getItems().clear();
         
         try {
-            for (Score score : DBConnect.getInstance().getScores()){
-                lvHighscores.getItems().add(score.toString());
-            }
+            ObservableList<Score> Scores = FXCollections.observableArrayList(DBConnect.getInstance().getScores());
+            Collections.sort(Scores);
+            lvHighscores.setItems(Scores);
+            
         } catch (SQLException ex) {
             Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
         }
