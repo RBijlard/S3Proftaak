@@ -71,6 +71,7 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
+        
         //initialise map, players and objects
         this.path = getClass().getResource("/Resources/Levels/" + this.mapname).getPath().replace("%20", " ");
 

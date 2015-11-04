@@ -56,6 +56,6 @@ public class Score implements Comparable<Score>{
 
     @Override
     public int compareTo(Score t) {
-        return t.getTime() - this.getTime();
+        return this.getTime() - t.getTime();
     }
 }

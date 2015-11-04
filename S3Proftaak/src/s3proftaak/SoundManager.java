@@ -23,8 +23,6 @@ import org.newdawn.slick.Sound;
 public final class SoundManager {
 
     private Music music = null;
-    private static Thread musicThread;
-    //private static Sound sound = null;
     
     private static SoundManager instance;
     
@@ -37,28 +35,20 @@ public final class SoundManager {
     }
 
     public void playMusic() {
-        //musicThread = new Thread(new Runnable() {
-        //    @Override
-        //    public void run() {
-                Random rand = new Random();
-                int randomNum = rand.nextInt((5 - 1) + 1) + 1;
+        Random rand = new Random();
+        int randomNum = rand.nextInt((5 - 1) + 1) + 1;
 
-                String path = SoundManager.class.getResource("/Resources/Music/music" + randomNum + ".ogg").getPath().replace("%20", " ");
+        String path = SoundManager.class.getResource("/Resources/Music/music" + randomNum + ".ogg").getPath().replace("%20", " ");
 
-                try {
-                    stopMusic();
-                    
-                    music = new Music(path);
-                } catch (SlickException ex) {
-                    Logger.getLogger(SoundManager.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                
-                music.loop(1, 0.25f);
+        try {
+            stopMusic();
 
-            //}
-        //});
+            music = new Music(path);
+        } catch (SlickException ex) {
+            Logger.getLogger(SoundManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        //musicThread.start();
+        music.loop(1, 0.25f);
     }
 
     public void stopMusic() {
@@ -73,87 +63,70 @@ public final class SoundManager {
             AL.destroy();
         }
     }
-    
 
     public void playSound(String soundType) {
-//        Thread soundThread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//
-                try {
-                    String path = "";
+        try {
+            String path = "";
 
-                    switch (soundType) {
-                        case "JUMP":
-                            path = getClass().getResource("/Resources/Music/jump.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "GAMEOVER":
-                            path = getClass().getResource("/Resources/Music/gameOver.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "COINPICKUP":
-                            path = getClass().getResource("/Resources/Music/coinPickUp.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "BLOCKFALL":
-                            path = getClass().getResource("/Resources/Music/blockFall.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "BUTTONPRESS":
-                            path = getClass().getResource("/Resources/Music/buttonPress.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "BUTTONRELEASE":
-                            path = getClass().getResource("/Resources/Music/buttonRelease.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "LEVERPULL":
-                            path = getClass().getResource("/Resources/Music/leverPull.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "LEVERPUSH":
-                            path = getClass().getResource("/Resources/Music/leverPush.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "WEIGHTDOWN":
-                            path = getClass().getResource("/Resources/Music/weightDown.ogg").getPath().replace("%20", " ");
-                            break;
-                        case "WEIGHTUP":
-                            path = getClass().getResource("/Resources/Music/weightUp.ogg").getPath().replace("%20", " ");
-                            break;
-                    }
+            switch (soundType) {
+                case "JUMP":
+                    path = getClass().getResource("/Resources/Music/jump.ogg").getPath().replace("%20", " ");
+                    break;
+                case "GAMEOVER":
+                    path = getClass().getResource("/Resources/Music/gameOver.ogg").getPath().replace("%20", " ");
+                    break;
+                case "COINPICKUP":
+                    path = getClass().getResource("/Resources/Music/coinPickUp.ogg").getPath().replace("%20", " ");
+                    break;
+                case "BLOCKFALL":
+                    path = getClass().getResource("/Resources/Music/blockFall.ogg").getPath().replace("%20", " ");
+                    break;
+                case "BUTTONPRESS":
+                    path = getClass().getResource("/Resources/Music/buttonPress.ogg").getPath().replace("%20", " ");
+                    break;
+                case "BUTTONRELEASE":
+                    path = getClass().getResource("/Resources/Music/buttonRelease.ogg").getPath().replace("%20", " ");
+                    break;
+                case "LEVERPULL":
+                    path = getClass().getResource("/Resources/Music/leverPull.ogg").getPath().replace("%20", " ");
+                    break;
+                case "LEVERPUSH":
+                    path = getClass().getResource("/Resources/Music/leverPush.ogg").getPath().replace("%20", " ");
+                    break;
+                case "WEIGHTDOWN":
+                    path = getClass().getResource("/Resources/Music/weightDown.ogg").getPath().replace("%20", " ");
+                    break;
+                case "WEIGHTUP":
+                    path = getClass().getResource("/Resources/Music/weightUp.ogg").getPath().replace("%20", " ");
+                    break;
+            }
 
-                    Sound sound;
-                    if (!path.isEmpty()){
-                        sound = new Sound(path);
-                        
-                         if (music != null) {
-                            music.pause();
-                            sound.play(1, 0.6f);
-                            music.resume();
-                        } else {
-                            sound.play(1, 0.6f);
-                        }
-                    }
+            if (!path.isEmpty()){
+                Sound sound = new Sound(path);
 
-                   
-                } catch (SlickException ex) {
-                    System.out.println(ex.toString());
+                 if (music != null) {
+                    music.pause();
+                    sound.play(1, 0.6f);
+                    music.resume();
+                } else {
+                    sound.play(1, 0.6f);
                 }
-//            }
-//        });
-//
-//        soundThread.start();
+            }
+
+
+        } catch (SlickException ex) {
+            System.out.println(ex.toString());
+        }
     }
 
     public void playMenuMusic() {
-//        Thread musicThread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-                try {
-                    stopMusic();
-                    
-                    music = new Music(getClass().getResource("/Resources/Music/menu.ogg").getPath().replace("%20", " "));
-                    music.loop(1, 0.25f);
-                } catch (SlickException ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                }
-//            }
-//        });
-//
-//        musicThread.start();
+        try {
+            stopMusic();
+
+            music = new Music(getClass().getResource("/Resources/Music/menu.ogg").getPath().replace("%20", " "));
+            music.loop(1, 0.25f);
+        } catch (SlickException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

@@ -99,20 +99,4 @@ public class Main extends Application {
     public static void setAccount(Account account) {
         Main.account = account;
     }
-    
-     public static void playMenuMusic() {
-        Thread musicThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    music = new Music(getClass().getResource("/Resources/Music/menu.ogg").getPath().replace("%20", " "));
-                    music.loop(1, 0.25f);
-                } catch (SlickException ex) {
-                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-
-        musicThread.start();
-    }
 }

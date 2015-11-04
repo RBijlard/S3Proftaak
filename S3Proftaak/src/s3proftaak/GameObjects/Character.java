@@ -176,7 +176,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             //ipv sety -> render map
             this.setY(this.getY() + 0.1f);
             this.updateHitbox();
-            if (this.isColliding(gc)) {
+            if (this.isColliding(gc) && !isObjectAbove()) {
                 this.vY = this.jumpStrength;
                 SoundManager.getInstance().playSound("JUMP");
             }
@@ -463,9 +463,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     private boolean isObjectAbove() {
         for (GameObject go : game.getGameObjects()) {
-            if (getRect().getMinX() <= go.getRect().getMaxX() && getRect().getMaxX() >= go.getRect().getMinX()) {
-                if (getRect().getMinY() - 23 <= go.getRect().getMaxY() && getRect().getMaxY() > go.getRect().getMaxY()) {
-                    return true;
+            if (!(go instanceof Door) && !(go instanceof Star)){
+                if (getRect().getMinX() <= go.getRect().getMaxX() && getRect().getMaxX() >= go.getRect().getMinX()) {
+                    if (getRect().getMinY() - 23 <= go.getRect().getMaxY() && getRect().getMaxY() > go.getRect().getMaxY()) {
+                        return true;
+                    }
                 }
             }
         }
