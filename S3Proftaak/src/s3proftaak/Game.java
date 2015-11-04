@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -70,7 +71,6 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
-
         //initialise map, players and objects
         this.path = getClass().getResource("/Resources/Levels/" + this.mapname).getPath().replace("%20", " ");
 
@@ -167,8 +167,8 @@ public class Game extends BasicGame {
             }
         }
 
-        SoundManager.playMusic();
-
+        SoundManager.getInstance().playMusic();
+        
         startTime = System.currentTimeMillis();
     }
 
@@ -288,7 +288,7 @@ public class Game extends BasicGame {
             gameOver = true;
 
             //add stop
-            SoundManager.playSound("GAMEOVER");
+            SoundManager.getInstance().playSound("GAMEOVER");
 
             endTime = System.currentTimeMillis();
 
@@ -303,7 +303,7 @@ public class Game extends BasicGame {
 
             Main.getApp().exit();
             Main.changeScreen(Main.Screens.Highscores.load());
-            SoundManager.playMenuMusic();
+            SoundManager.getInstance().playMenuMusic();
         }
     }
 }

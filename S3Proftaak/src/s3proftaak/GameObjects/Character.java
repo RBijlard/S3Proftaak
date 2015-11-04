@@ -87,6 +87,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             try {
+                SoundManager.getInstance().restartSound();
                 Main.getApp().reinit();
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,7 +178,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
-                SoundManager.playSound("JUMP");
+                SoundManager.getInstance().playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
@@ -208,8 +209,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void die() {
         try {
-            SoundManager.playSound("GAMEOVER");
-            SoundManager.stopMusic();
+            SoundManager.getInstance().playSound("GAMEOVER");
             Main.getApp().reinit();
 
         } catch (SlickException ex) {
@@ -276,7 +276,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     } else if (go instanceof Star) {
                         if (((Star) go).isActive()) {
                             ((Star) go).setActive(false);
-                            SoundManager.playSound("COINPICKUP");
+                            SoundManager.getInstance().playSound("COINPICKUP");
                         }
                     } else if (go instanceof Weight) {
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
@@ -336,7 +336,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
-                SoundManager.playSound("JUMP");
+                SoundManager.getInstance().playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
@@ -401,7 +401,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.updateHitbox();
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
-                SoundManager.playSound("JUMP");
+                SoundManager.getInstance().playSound("JUMP");
             }
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();

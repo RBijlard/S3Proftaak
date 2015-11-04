@@ -42,7 +42,7 @@ public class Login extends BasicScene {
                     Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
                     Main.setAccount(a);
 
-                    SoundManager.playMenuMusic();
+                    SoundManager.getInstance().playMenuMusic();
 
                     changeScreen(Main.Screens.Menu.load());
                 } else {

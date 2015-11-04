@@ -38,6 +38,8 @@ public class Main extends Application {
         primaryStage = primarystage;
         changeScreen(Screens.Login.load());
         primaryStage.show();
+        
+        new SoundManager();
     }
     
     public static void changeScreen(Screens s){

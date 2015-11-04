@@ -79,11 +79,11 @@ public class Lever extends GameObject implements IPressable, IRenderable {
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/switchLeft.png");
-                SoundManager.playSound("LEVERPULL");
+                SoundManager.getInstance().playSound("LEVERPULL");
             }
             else{
                 this.sprite = new Image("Resources/Levels/switchRight.png");            
-                SoundManager.playSound("LEVERPUSH");
+                SoundManager.getInstance().playSound("LEVERPUSH");
             }
         }
         catch(SlickException ex){}

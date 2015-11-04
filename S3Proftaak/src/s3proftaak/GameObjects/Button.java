@@ -80,11 +80,11 @@ public class Button extends GameObject implements IPressable, IRenderable {
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/buttonRed_pressed.png");
-                SoundManager.playSound("BUTTONPRESSED");
+                SoundManager.getInstance().playSound("BUTTONPRESSED");
             }
             else{
                 this.sprite = new Image("Resources/Levels/buttonRed.png");
-                SoundManager.playSound("BUTTONRELEASE");
+                SoundManager.getInstance().playSound("BUTTONRELEASE");
             }
         }
         catch(SlickException ex){}
