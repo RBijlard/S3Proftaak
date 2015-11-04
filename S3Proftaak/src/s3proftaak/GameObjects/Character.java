@@ -210,6 +210,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     public void die() {
         try {
             SoundManager.getInstance().playSound("GAMEOVER");
+            SoundManager.getInstance().restartSound();
             Main.getApp().reinit();
 
         } catch (SlickException ex) {

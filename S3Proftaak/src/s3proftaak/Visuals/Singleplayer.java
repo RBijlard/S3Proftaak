@@ -22,6 +22,7 @@ import org.newdawn.slick.SlickException;
 import s3proftaak.Game;
 import s3proftaak.Main;
 import static s3proftaak.Main.changeScreen;
+import s3proftaak.SoundManager;
 
 /**
  *
@@ -68,6 +69,7 @@ public class Singleplayer extends BasicScene implements Initializable {
                 Main.getApp().start();
 
                 try {
+                    SoundManager.getInstance().restartSound();
                     Main.getApp().reinit();
                 } catch (Exception ex) {}
             }
