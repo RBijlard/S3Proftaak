@@ -5,6 +5,9 @@
  */
 package s3proftaak;
 
+import s3proftaak.Client.SoundManager;
+import s3proftaak.Client.Game;
+import s3proftaak.Client.Account;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,7 +18,7 @@ import javafx.stage.Stage;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import s3proftaak.Visuals.BasicScene;
+import s3proftaak.Client.Visuals.BasicScene;
 
 /**
  *
@@ -36,14 +39,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primarystage) throws IOException {
         primaryStage = primarystage;
-        changeScreen(Screens.Login.load());
+        changeScreen(Screens.Login);
         primaryStage.show();
         
         new SoundManager();
     }
     
     public static void changeScreen(Screens s){
-        primaryStage.setScene(s.getScene());
+        primaryStage.setScene(s.load().getScene());
     }
     
     public enum Screens{
@@ -58,11 +61,12 @@ public class Main extends Application {
         private BasicScene bs;
         
         public Screens load(){
-            try {
-                bs = ((BasicScene) Class.forName("s3proftaak.Visuals." + this.name()).newInstance()).load(this.getPath());
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //try {
+                //bs = ((BasicScene) Class.forName("s3proftaak.Client.Visuals." + this.name()).newInstance()).load(this.getPath());
+                bs = new BasicScene().load(this.getPath());
+            //} catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+            //    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            //}
             return this;
         }
         
