@@ -28,6 +28,7 @@ import s3proftaak.Client.GameObjects.MoveableBlock;
 import s3proftaak.Client.GameObjects.Spike;
 import s3proftaak.Client.GameObjects.Star;
 import s3proftaak.Client.GameObjects.Weight;
+import s3proftaak.Client.SoundManager.Sounds;
 import s3proftaak.Main;
 
 /*
@@ -290,7 +291,7 @@ public class Game extends BasicGame {
             gameOver = true;
 
             //add stop
-            SoundManager.getInstance().playSound("GAMEOVER");
+            SoundManager.getInstance().playSound(Sounds.GAMEOVER);
 
             endTime = System.currentTimeMillis();
 

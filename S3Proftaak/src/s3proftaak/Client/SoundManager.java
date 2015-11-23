@@ -63,46 +63,34 @@ public final class SoundManager {
             AL.destroy();
         }
     }
+    
+    public enum Sounds{
+        JUMP("jump"),
+        GAMEOVER("gameOver"),
+        COINPICKUP("coinPickUp"),
+        BLOCKFALL("blockFall"),
+        BUTTONPRESS("buttonPress"),
+        BUTTONRELEASE("buttonRelease"),
+        LEVERPULL("leverPull"),
+        LEVERPUSH("leverPush"),
+        WEIGHTDOWN("weightDown"),
+        WEIGHTUP("weightUp");
+        
+        private final String path;
+        
+        Sounds(String path){
+            this.path = path;
+        }
+        
+        public String getPath(){
+            return getClass().getResource("/Resources/Music/" + path + ".ogg").toString().replace("%20", " ");
+        }
+    }
 
-    public void playSound(String soundType) {
+    public void playSound(Sounds s) {
         try {
-            String path = "";
-
-            switch (soundType) {
-                case "JUMP":
-                    path = getClass().getResource("/Resources/Music/jump.ogg").getPath().replace("%20", " ");
-                    break;
-                case "GAMEOVER":
-                    path = getClass().getResource("/Resources/Music/gameOver.ogg").getPath().replace("%20", " ");
-                    break;
-                case "COINPICKUP":
-                    path = getClass().getResource("/Resources/Music/coinPickUp.ogg").getPath().replace("%20", " ");
-                    break;
-                case "BLOCKFALL":
-                    path = getClass().getResource("/Resources/Music/blockFall.ogg").getPath().replace("%20", " ");
-                    break;
-                case "BUTTONPRESS":
-                    path = getClass().getResource("/Resources/Music/buttonPress.ogg").getPath().replace("%20", " ");
-                    break;
-                case "BUTTONRELEASE":
-                    path = getClass().getResource("/Resources/Music/buttonRelease.ogg").getPath().replace("%20", " ");
-                    break;
-                case "LEVERPULL":
-                    path = getClass().getResource("/Resources/Music/leverPull.ogg").getPath().replace("%20", " ");
-                    break;
-                case "LEVERPUSH":
-                    path = getClass().getResource("/Resources/Music/leverPush.ogg").getPath().replace("%20", " ");
-                    break;
-                case "WEIGHTDOWN":
-                    path = getClass().getResource("/Resources/Music/weightDown.ogg").getPath().replace("%20", " ");
-                    break;
-                case "WEIGHTUP":
-                    path = getClass().getResource("/Resources/Music/weightUp.ogg").getPath().replace("%20", " ");
-                    break;
-            }
-
-            if (!path.isEmpty()){
-                Sound sound = new Sound(path);
+            if (s != null){
+                Sound sound = new Sound(s.getPath());
 
                  if (music != null) {
                     music.pause();

@@ -15,6 +15,7 @@ import s3proftaak.Client.GameObjects.Interfaces.IPressable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Client.SoundManager;
+import s3proftaak.Client.SoundManager.Sounds;
 
 /**
  *
@@ -79,11 +80,11 @@ public class Lever extends GameObject implements IPressable, IRenderable {
         try{
             if(active){
                 this.sprite = new Image("Resources/Levels/switchLeft.png");
-                SoundManager.getInstance().playSound("LEVERPULL");
+                SoundManager.getInstance().playSound(Sounds.LEVERPULL);
             }
             else{
                 this.sprite = new Image("Resources/Levels/switchRight.png");            
-                SoundManager.getInstance().playSound("LEVERPUSH");
+                SoundManager.getInstance().playSound(Sounds.LEVERPUSH);
             }
         }
         catch(SlickException ex){}
