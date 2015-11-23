@@ -5,45 +5,74 @@
  */
 package s3proftaak.Client.Visuals;
 
-import java.sql.SQLException;
-import java.util.Collections;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import s3proftaak.Client.DBConnect;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import s3proftaak.Client.RMIClient;
 import s3proftaak.Main;
 import static s3proftaak.Main.changeScreen;
-import s3proftaak.Client.Score;
 
 /**
  *
  * @author Stan
  */
 public class Highscores extends BasicScene {
-    
-    @FXML ListView lvHighscores;
+
+    @FXML TableView tableHighscore;
     @FXML Button btnBack;
     @FXML Button btnRefresh;
-    
-    public void btnBackClick(Event e){
+
+    public Highscores() {
+        TableColumn timeCol = new TableColumn("Time");
+        timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+        TableColumn CollectablesCol = new TableColumn("Collectables");
+        CollectablesCol.setCellValueFactory(new PropertyValueFactory<>("amountOfStars"));
+
+        TableColumn playerCol = new TableColumn("Players");
+        playerCol.setCellValueFactory(new PropertyValueFactory<>("playerNames"));
+
+        TableColumn lvlCol = new TableColumn("Level");
+        lvlCol.setCellValueFactory(new PropertyValueFactory<>("gamename"));
+
+        TableColumn scoreCol = new TableColumn("Total Score");
+        scoreCol.setCellValueFactory(new PropertyValueFactory<>("totalScore"));
+
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (tableHighscore != null) {
+                    tableHighscore.getColumns().addAll(timeCol, CollectablesCol, playerCol, lvlCol, scoreCol);
+                    btnRefreshClick(null);
+                }
+            }
+        });
+    }
+
+    public void btnBackClick(Event e) {
         changeScreen(Main.Screens.Menu);
     }
-    
-    public void btnRefreshClick(Event e){
-        lvHighscores.getItems().clear();
-        
-        try {
-            ObservableList<Score> Scores = FXCollections.observableArrayList(DBConnect.getInstance().getScores());
-            Collections.sort(Scores);
-            lvHighscores.setItems(Scores);
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
-        }
+
+    public void btnRefreshClick(Event e) {
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    tableHighscore.setItems(FXCollections.observableArrayList(RMIClient.getServerAdministration().getLobbies()));
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 }

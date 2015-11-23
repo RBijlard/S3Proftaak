@@ -13,12 +13,14 @@ public class Score implements Comparable<Score>{
     private int time;
     private int amountOfStars;
     private String playerNames, gamename;
+    private int totalScore;
 
     public Score(int time, int amountOfStars, String playerNames, String gamename) {
         this.time = time;
         this.amountOfStars = amountOfStars;
         this.gamename = gamename;
         this.playerNames = playerNames;
+        this.totalScore = (10000 - (time/100) + (amountOfStars * 100));
     }
 
     public int getTime() {
