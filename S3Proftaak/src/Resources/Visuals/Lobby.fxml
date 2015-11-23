@@ -9,10 +9,40 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s3proftaak.Client.Visuals.Multiplayer">
    <children>
       <ImageView fitHeight="406.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnBack" layoutX="280.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnBackClick" text="Back" />
-      <Button fx:id="btnCreate" layoutX="331.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnCreateClick" text="Create Game" />
-      <Button fx:id="btnJoin" layoutX="434.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnJoinClick" text="Join Game" />
-      <Button fx:id="btnRefresh" layoutX="161.0" layoutY="315.0" mnemonicParsing="false" onAction="#btnRefreshClick" text="Refresh" />
-      <TableView fx:id="tableLobbies" layoutX="117.0" layoutY="35.0" prefHeight="200.0" prefWidth="430.0" />
+      <Label fx:id="lblLobbyName" layoutX="226.0" layoutY="14.0" text="&lt;LobbyName&gt;">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <SplitPane dividerPositions="0.6760070052539404" layoutX="14.0" layoutY="88.0" prefHeight="259.0" prefWidth="573.0">
+         <items>
+            <SplitPane dividerPositions="0.6303501945525292" orientation="VERTICAL" prefHeight="271.0" prefWidth="571.0">
+               <items>
+                  <ListView fx:id="levelList" prefHeight="93.0" prefWidth="383.0" />
+                  <ListView fx:id="chatList" prefHeight="200.0" prefWidth="200.0" />
+               </items>
+            </SplitPane>
+            <ListView fx:id="playerList" prefHeight="188.0" prefWidth="180.0" />
+         </items>
+      </SplitPane>
+      <HBox layoutX="14.0" layoutY="347.0" prefHeight="42.0" prefWidth="573.0">
+         <children>
+            <TextField fx:id="chatText" prefHeight="25.0" prefWidth="314.0" />
+            <Button fx:id="btnSend" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Send" />
+            <Button fx:id="btnKick" mnemonicParsing="false" text="Kick Player" />
+            <Button fx:id="btnLeave" mnemonicParsing="false" text="Leave Lobby" />
+            <Button fx:id="btnReady" mnemonicParsing="false" text="Ready" />
+         </children>
+      </HBox>
+      <Label layoutX="467.0" layoutY="62.0" text="Players">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="166.0" layoutY="62.0" text="Options">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
    </children>
 </Pane>
