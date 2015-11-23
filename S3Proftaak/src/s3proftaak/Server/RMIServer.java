@@ -7,7 +7,6 @@ package s3proftaak.Server;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import s3proftaak.Shared.ILobby;
 
 /**
  * Example of RMI using Registry
@@ -20,11 +19,11 @@ public class RMIServer {
     private static final int portNumber = 1099;
 
     // Set binding name for MockEffectenbeurs
-    private static final String bindingName = "Chat";
+    private static final String bindingName = "S3Proftaak";
 
     // References to registry and MockEffectenbeurs
     private Registry registry = null;
-    private ILobby lobby = null;
+    private ServerAdministration serverAdministration = null;
 
     // Constructor
     public RMIServer() {
@@ -33,16 +32,16 @@ public class RMIServer {
         System.out.println("Server: Port number " + portNumber);
 
         // Create MockEffectenbeurs
-        /*try {
-            lobby = new Lobby();
+        try {
+            serverAdministration = new ServerAdministration();
             System.out.println("Server: MockEffectenbeurs created");
         } catch (RemoteException ex) {
             System.out.println("Server: Cannot create MockEffectenbeurs");
             System.out.println("Server: RemoteException: " + ex.getMessage());
-            lobby = null;
-        }*/
+            serverAdministration = null;
+        }
         
-        if (lobby != null){
+        if (serverAdministration != null){
             // Create registry at port number
             try {
                 registry = LocateRegistry.createRegistry(portNumber);
@@ -54,12 +53,12 @@ public class RMIServer {
             }
 
             // Bind MockEffectenbeurs using registry
-            /*try {
-                registry.rebind(bindingName, lobby);
+            try {
+                registry.rebind(bindingName, serverAdministration);
             } catch (RemoteException ex) {
                 System.out.println("Server: Cannot bind MockEffectenbeurs");
                 System.out.println("Server: RemoteException: " + ex.getMessage());
-            }*/
+            }
         }else {
             System.out.println("Server: MockEffectenbeurs not bound");
         }

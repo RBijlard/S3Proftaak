@@ -33,24 +33,24 @@ public class Login extends BasicScene {
     
 
     public void btnLoginClick(Event e) {
-        try {
-            if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()) {
-                if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
-                    Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
-                    Main.setAccount(a);
-
-                    SoundManager.getInstance().playMenuMusic();
-
+//        try {
+//            if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()) {
+//                if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
+//                    Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
+//                    Main.setAccount(a);
+//
+//                    SoundManager.getInstance().playMenuMusic();
+//
                     changeScreen(Main.Screens.Menu);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please Enter a Username and Password", "Registration Error", 0);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Please Enter a Username and Password", "Registration Error", 0);
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }
 
     public void btnRegisterClick(Event e) {

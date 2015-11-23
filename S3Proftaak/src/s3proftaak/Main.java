@@ -31,10 +31,6 @@ public class Main extends Application {
     private static Game game;
     private static Account account;
     private static Music music;
-
-    public static void main(String[] arguments) {
-        launch();
-    }
     
     @Override
     public void start(Stage primarystage) throws IOException {
@@ -46,7 +42,7 @@ public class Main extends Application {
     }
     
     public static void changeScreen(Screens s){
-        primaryStage.setScene(s.load().getScene());
+        primaryStage.setScene(s.newInstance().getScene());
     }
     
     public enum Screens{
@@ -60,13 +56,12 @@ public class Main extends Application {
         
         private BasicScene bs;
         
-        public Screens load(){
-            //try {
-                //bs = ((BasicScene) Class.forName("s3proftaak.Client.Visuals." + this.name()).newInstance()).load(this.getPath());
-                bs = new BasicScene().load(this.getPath());
-            //} catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            //    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-            //}
+        public Screens newInstance(){
+            try {
+                bs = ((BasicScene) Class.forName("s3proftaak.Client.Visuals." + this.name()).newInstance()).load(this.getPath());
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
             return this;
         }
         

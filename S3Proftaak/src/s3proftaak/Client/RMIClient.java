@@ -4,6 +4,7 @@
  */
 package s3proftaak.Client;
 
+import java.io.File;
 import s3proftaak.Shared.ILobby;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -11,6 +12,9 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 import javafx.application.Application;
+import org.lwjgl.LWJGLUtil;
+import s3proftaak.Main;
+import s3proftaak.Shared.IServer;
 
 /**
  * Example of RMI using Registry
@@ -20,11 +24,11 @@ import javafx.application.Application;
 public class RMIClient {
 
     // Set binding name for MockEffectenbeurs
-    private static final String bindingName = "Chat";
+    private static final String bindingName = "S3Proftaak";
 
     // References to registry and MockEffectenbeurs
     private Registry registry = null;
-    private static ILobby lobby = null;
+    private static IServer serverAdministration = null;
 
     // Constructor
     public RMIClient(String ipAddress, int portNumber) {
@@ -53,44 +57,35 @@ public class RMIClient {
         // Bind MockEffectenbeurs using registry
         if (registry != null) {
             try {
-                lobby = (ILobby) registry.lookup(bindingName);
+                serverAdministration = (IServer) registry.lookup(bindingName);
             } catch (RemoteException ex) {
                 System.out.println("Client: Cannot bind MockEffectenbeurs");
                 System.out.println("Client: RemoteException: " + ex.getMessage());
-                lobby = null;
+                serverAdministration = null;
             } catch (NotBoundException ex) {
                 System.out.println("Client: Cannot bind MockEffectenbeurs");
                 System.out.println("Client: NotBoundException: " + ex.getMessage());
-                lobby = null;
+                serverAdministration = null;
             }
         }
 
         // Print result binding MockEffectenbeurs
-        if (lobby != null) {
+        if (serverAdministration != null) {
             System.out.println("Client: MockEffectenbeurs bound");
         } else {
             System.out.println("Client: MockEffectenbeurs is null pointer");
         }
 
         // Test RMI connection
-        if (lobby != null) {
+        if (serverAdministration != null) {
             testConnectionEffectenbeurs();
         }
     }
 
     // Test RMI connection
     private void testConnectionEffectenbeurs() {
-        // get koersen
-        /*try {
-            System.out.println("Client: Number of koersen: " + lobby.getChat());
-            lobby.getChat().sendMessage(new Bericht("Stan", "Hallo"));
-        } catch (RemoteException e) {
-            System.out.println("Client: Cannot get koersen");
-            System.out.println("Client: RemoteException: " + e.getMessage());
-        }*/
-        
         try {
-            //Application.launch(GUI.class);
+            Application.launch(Main.class);
         }
         catch(Exception e)
         {
@@ -117,7 +112,7 @@ public class RMIClient {
         new RMIClient(ipAddress, portNumber);
     }
     
-    public static ILobby getLobby(){
-        return lobby;
+    public static IServer getServerAdministration(){
+        return serverAdministration;
     }
 }

@@ -5,17 +5,17 @@
  */
 package s3proftaak.Shared;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.List;
+
 /**
  *
  * @author Stan
  */
-public interface IServer {
-    public ILobby joinLobby(String username, String lobbyname);
-    public void leaveLobby(String username);
-    public ILobby createLobby(String username, String lobbyname);
-    public void sendMessage(String username, Message message);
-    public void ready(String username);
-    public void unready(String username);
-    public void move(int userid, int x, int y, int crouch);
-    public void interact(int objectid, int state);
+public interface IServer extends Remote{
+    public ILobby createLobby(String username, String lobbyname) throws RemoteException;
+    public ILobby joinLobby(String username, String lobbyname) throws RemoteException;
+    public void leaveLobby(String username) throws RemoteException;
+    public List<ILobby> getLobbies() throws RemoteException;
 }
