@@ -20,8 +20,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Game;
-import s3proftaak.Main;
-import static s3proftaak.Main.changeScreen;
+import s3proftaak.Client.ClientAdministration;
+import static s3proftaak.Client.ClientAdministration.changeScreen;
 import s3proftaak.Client.SoundManager;
 
 /**
@@ -62,15 +62,15 @@ public class Singleplayer extends BasicScene implements Initializable {
             } catch (Exception ex) {}
 
             if (cbLevel.getSelectionModel().getSelectedItem() != null){
-                Main.setGame(new Game("DEE game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString()));
-                Main.getApp().setDisplayMode(width, height, false);
-                Main.getApp().setTargetFrameRate(60);
-                Main.getApp().setForceExit(false);
-                Main.getApp().start();
+                ClientAdministration.setGame(new Game("DEE game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString()));
+                ClientAdministration.getApp().setDisplayMode(width, height, false);
+                ClientAdministration.getApp().setTargetFrameRate(60);
+                ClientAdministration.getApp().setForceExit(false);
+                ClientAdministration.getApp().start();
 
                 try {
                     SoundManager.getInstance().restartSound();
-                    Main.getApp().reinit();
+                    ClientAdministration.getApp().reinit();
                 } catch (Exception ex) {}
             }
             
@@ -78,7 +78,7 @@ public class Singleplayer extends BasicScene implements Initializable {
     }
     
     public void btnBackClick(Event e){
-        changeScreen(Main.Screens.Menu);
+        changeScreen(ClientAdministration.Screens.Menu);
     }
     
     public void cbLevelClick(Event e){

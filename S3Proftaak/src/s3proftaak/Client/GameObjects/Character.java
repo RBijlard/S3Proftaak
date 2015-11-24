@@ -12,7 +12,7 @@ import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
-import s3proftaak.Main;
+import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
 
@@ -89,7 +89,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             try {
                 SoundManager.getInstance().restartSound();
-                Main.getApp().reinit();
+                ClientAdministration.getApp().reinit();
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -212,7 +212,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         try {
             SoundManager.getInstance().playSound(Sounds.GAMEOVER);
             SoundManager.getInstance().restartSound();
-            Main.getApp().reinit();
+            ClientAdministration.getApp().reinit();
 
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);

@@ -29,7 +29,6 @@ import s3proftaak.Client.GameObjects.Spike;
 import s3proftaak.Client.GameObjects.Star;
 import s3proftaak.Client.GameObjects.Weight;
 import s3proftaak.Client.SoundManager.Sounds;
-import s3proftaak.Main;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -298,14 +297,14 @@ public class Game extends BasicGame {
             long timeDiff = endTime - startTime;
 
             try {
-                this.score = new Score((int) timeDiff, starsCollected, Main.getAccount().getUsername(), this.mapname);
+                this.score = new Score((int) timeDiff, starsCollected, ClientAdministration.getAccount().getUsername(), this.mapname);
                 DBConnect.getInstance().insertScore(this.score);
             } catch (SQLException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            Main.getApp().exit();
-            Main.changeScreen(Main.Screens.Highscores);
+            ClientAdministration.getApp().exit();
+            ClientAdministration.changeScreen(ClientAdministration.Screens.Highscores);
             SoundManager.getInstance().playMenuMusic();
         }
     }

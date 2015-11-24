@@ -9,9 +9,7 @@ import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,9 +17,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import s3proftaak.Client.RMIClient;
-import s3proftaak.Main;
-import static s3proftaak.Main.changeScreen;
-import s3proftaak.Server.Lobby;
+import s3proftaak.Client.ClientAdministration;
+import static s3proftaak.Client.ClientAdministration.changeScreen;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -79,12 +76,20 @@ public class Multiplayer extends BasicScene {
     }
     
     public void btnJoinClick(Event e) {
-        if (tableLobbies.getSelectionModel() != null){
-            System.out.println(tableLobbies.getSelectionModel().getSelectedItem());
+        if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null){
+            try {
+                if (((ILobby)tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getAccount().getUsername())){
+                    changeScreen(ClientAdministration.Screens.Lobby);
+                }else{
+                    // Failed show a message
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
     public void btnBackClick(Event e) {
-        changeScreen(Main.Screens.Menu);
+        changeScreen(ClientAdministration.Screens.Menu);
     }
 }

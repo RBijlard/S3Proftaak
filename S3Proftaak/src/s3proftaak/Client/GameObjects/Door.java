@@ -8,7 +8,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
-import s3proftaak.Main;
+import s3proftaak.Client.ClientAdministration;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -33,7 +33,7 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     }
     
     public void finish(){
-        Main.getGame().doFinish();
+        ClientAdministration.getGame().doFinish();
     }
     
     @Override

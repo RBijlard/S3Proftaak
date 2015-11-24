@@ -17,8 +17,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import s3proftaak.Client.RMIClient;
-import s3proftaak.Main;
-import static s3proftaak.Main.changeScreen;
+import s3proftaak.Client.ClientAdministration;
+import static s3proftaak.Client.ClientAdministration.changeScreen;
 
 /**
  *
@@ -59,7 +59,7 @@ public class Highscores extends BasicScene {
     }
 
     public void btnBackClick(Event e) {
-        changeScreen(Main.Screens.Menu);
+        changeScreen(ClientAdministration.Screens.Menu);
     }
 
     public void btnRefreshClick(Event e) {

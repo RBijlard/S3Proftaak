@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s3proftaak.Client.Visuals.Multiplayer">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s3proftaak.Client.Visuals.Lobby">
    <children>
       <ImageView fitHeight="406.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="lblLobbyName" layoutX="226.0" layoutY="14.0" text="&lt;LobbyName&gt;">
@@ -28,10 +28,10 @@
       <HBox layoutX="14.0" layoutY="347.0" prefHeight="42.0" prefWidth="573.0">
          <children>
             <TextField fx:id="chatText" prefHeight="25.0" prefWidth="314.0" />
-            <Button fx:id="btnSend" mnemonicParsing="false" prefHeight="25.0" prefWidth="56.0" text="Send" />
-            <Button fx:id="btnKick" mnemonicParsing="false" text="Kick Player" />
-            <Button fx:id="btnLeave" mnemonicParsing="false" text="Leave Lobby" />
-            <Button fx:id="btnReady" mnemonicParsing="false" text="Ready" />
+            <Button fx:id="btnSend" mnemonicParsing="false" onAction="#btnSendClick" prefHeight="25.0" prefWidth="56.0" text="Send" />
+            <Button fx:id="btnKick" mnemonicParsing="false" onAction="#btnKickClick" text="Kick Player" />
+            <Button fx:id="btnLeave" mnemonicParsing="false" onAction="#btnLeaveClick" text="Leave Lobby" />
+            <Button fx:id="btnReady" mnemonicParsing="false" onAction="#btnReadyClick" text="Ready" />
          </children>
       </HBox>
       <Label layoutX="467.0" layoutY="62.0" text="Players">

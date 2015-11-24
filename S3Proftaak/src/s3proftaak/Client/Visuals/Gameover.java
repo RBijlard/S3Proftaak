@@ -11,8 +11,8 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import s3proftaak.Main;
-import static s3proftaak.Main.changeScreen;
+import s3proftaak.Client.ClientAdministration;
+import static s3proftaak.Client.ClientAdministration.changeScreen;
 import s3proftaak.Client.Score;
 
 /**
@@ -27,8 +27,8 @@ public class Gameover extends BasicScene {
     @FXML Button btnBack;
     
     public void loadFinished(){
-        if (Main.getGame() != null){
-            Score score = Main.getGame().getScore();
+        if (ClientAdministration.getGame() != null){
+            Score score = ClientAdministration.getGame().getScore();
             lblTime.setText("" + score.getTime());
             lblStars.setText("" + score.getAmountOfStars());
             lblUsername.setText("" + score.getPlayerNames());
@@ -36,6 +36,6 @@ public class Gameover extends BasicScene {
     }
     
     public void btnBackClick(Event e){
-        changeScreen(Main.Screens.Singleplayer);
+        changeScreen(ClientAdministration.Screens.Singleplayer);
     }
 }

@@ -7,7 +7,7 @@ package s3proftaak.Server;
 
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import s3proftaak.Client.Account;
+import java.util.List;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.Message;
 
@@ -18,7 +18,7 @@ import s3proftaak.Shared.Message;
 public class Lobby implements ILobby {
     private final int id;
     private String level;
-    private ArrayList<Account> players;
+    private final List<String> players = new ArrayList<>();
     private String name;
     private String amountOfPlayers;
     private int max;
@@ -40,14 +40,6 @@ public class Lobby implements ILobby {
 
     public void setLevel(String level) {
         this.level = level;
-    }
-
-    public ArrayList<Account> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(ArrayList<Account> players) {
-        this.players = players;
     }
 
     @Override
@@ -78,5 +70,32 @@ public class Lobby implements ILobby {
     @Override
     public String getName() throws RemoteException {
         return this.name;
+    }
+
+    @Override
+    public boolean addPlayer(String username) {
+        if (players.size() < max){
+            if (players.add(username)){
+                updatePlayerList();
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
+    @Override
+    public void removePlayer(String username) throws RemoteException {
+        if (players.remove(username)){
+            updatePlayerList();
+        }
+        
+        if (players.isEmpty()){
+            // Kill the lobby
+        }
+    }
+    
+    private void updatePlayerList(){
+        // Tell clients to update the player list
     }
 }

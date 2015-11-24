@@ -17,7 +17,7 @@ import s3proftaak.Shared.IServer;
  * @author Stan
  */
 public class ServerAdministration extends UnicastRemoteObject implements IServer {
-    private List<ILobby> lobbies = new ArrayList<>();
+    private final List<ILobby> lobbies = new ArrayList<>();
     
     public ServerAdministration() throws RemoteException{
         lobbies.add(new Lobby(3, "AWEOSMEE", 2));

@@ -16,8 +16,8 @@ import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import s3proftaak.Client.Account;
 import s3proftaak.Client.DBConnect;
-import s3proftaak.Main;
-import static s3proftaak.Main.changeScreen;
+import s3proftaak.Client.ClientAdministration;
+import static s3proftaak.Client.ClientAdministration.changeScreen;
 import s3proftaak.Client.SoundManager;
 
 /**
@@ -36,12 +36,12 @@ public class Login extends BasicScene {
 //        try {
 //            if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()) {
 //                if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
-//                    Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
-//                    Main.setAccount(a);
+//                    Account a = DBConnect.getInstance().getAccount("Stan"/*tfUsername.getText()*/);
+                    ClientAdministration.setAccount(new Account("Stan", "123", null)/*a*/);
 //
 //                    SoundManager.getInstance().playMenuMusic();
 //
-                    changeScreen(Main.Screens.Menu);
+                    changeScreen(ClientAdministration.Screens.Menu);
 //                } else {
 //                    JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);
 //                }

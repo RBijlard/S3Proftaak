@@ -8,8 +8,8 @@ package s3proftaak.Client.Visuals;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import s3proftaak.Main;
-import static s3proftaak.Main.changeScreen;
+import s3proftaak.Client.ClientAdministration;
+import static s3proftaak.Client.ClientAdministration.changeScreen;
 
 /**
  *
@@ -24,19 +24,19 @@ public class Menu extends BasicScene {
     @FXML Button btnQuit;
 
     public void btnSingleplayerClick(Event e) {
-        changeScreen(Main.Screens.Singleplayer);
+        changeScreen(ClientAdministration.Screens.Singleplayer);
     }
 
     public void btnMultiplayerClick(Event e) {
-        changeScreen(Main.Screens.Multiplayer);
+        changeScreen(ClientAdministration.Screens.Multiplayer);
     }
 
     public void btnSettingsClick(Event e) {
-        changeScreen(Main.Screens.Settings);
+        changeScreen(ClientAdministration.Screens.Settings);
     }
 
     public void btnHighscoresClick(Event e) {
-        changeScreen(Main.Screens.Highscores);
+        changeScreen(ClientAdministration.Screens.Highscores);
     }
 
     public void btnQuitClick(Event e) {

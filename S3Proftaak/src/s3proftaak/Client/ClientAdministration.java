@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package s3proftaak;
+package s3proftaak.Client;
 
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.Game;
@@ -24,7 +24,7 @@ import s3proftaak.Client.Visuals.BasicScene;
  *
  * @author Berry-PC
  */
-public class Main extends Application {
+public class ClientAdministration extends Application {
     private static Stage primaryStage;
     
     private static AppGameContainer app;
@@ -51,6 +51,7 @@ public class Main extends Application {
         Settings,
         Singleplayer,
         Multiplayer,
+        Lobby,
         Highscores,
         Gameover;
         
@@ -60,7 +61,7 @@ public class Main extends Application {
             try {
                 bs = ((BasicScene) Class.forName("s3proftaak.Client.Visuals." + this.name()).newInstance()).load(this.getPath());
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
             }
             return this;
         }
@@ -79,7 +80,7 @@ public class Main extends Application {
     }
 
     public static void setApp(AppGameContainer app) {
-        Main.app = app;
+        ClientAdministration.app = app;
     }
 
     public static Game getGame() {
@@ -87,7 +88,7 @@ public class Main extends Application {
     }
 
     public static void setGame(Game game) throws SlickException {
-        Main.game = game;
+        ClientAdministration.game = game;
         setApp(new AppGameContainer(getGame()));
     }
 
@@ -96,6 +97,6 @@ public class Main extends Application {
     }
 
     public static void setAccount(Account account) {
-        Main.account = account;
+        ClientAdministration.account = account;
     }
 }

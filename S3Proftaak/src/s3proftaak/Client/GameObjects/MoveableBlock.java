@@ -11,7 +11,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
-import s3proftaak.Main;
+import s3proftaak.Client.ClientAdministration;
 
 /**
  *
@@ -42,7 +42,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         }
 
         boolean verticalCollision = false;
-        for (GameObject go : Main.getGame().getGameObjects()) {
+        for (GameObject go : ClientAdministration.getGame().getGameObjects()) {
             if (go != this) {
                 if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && !((go instanceof Spike) || (go instanceof Button))) {
                     verticalCollision = true;
@@ -71,7 +71,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     }
 
     public boolean isColliding(GameContainer gc) {
-        for (GameObject go : Main.getGame().getGameObjects()) {
+        for (GameObject go : ClientAdministration.getGame().getGameObjects()) {
             if (go != this) {
                 if (go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) {
                     if (go instanceof Block) {

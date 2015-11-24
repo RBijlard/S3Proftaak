@@ -10,8 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
-import s3proftaak.Main;
-import static s3proftaak.Main.changeScreen;
+import s3proftaak.Client.ClientAdministration;
+import static s3proftaak.Client.ClientAdministration.changeScreen;
 
 /**
  *
@@ -33,6 +33,6 @@ public class Settings extends BasicScene {
     }
     
     public void btnBackClick(Event e){
-        changeScreen(Main.Screens.Menu);
+        changeScreen(ClientAdministration.Screens.Menu);
     }
 }

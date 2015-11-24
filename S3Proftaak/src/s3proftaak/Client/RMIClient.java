@@ -13,7 +13,6 @@ import java.rmi.registry.Registry;
 import java.util.Scanner;
 import javafx.application.Application;
 import org.lwjgl.LWJGLUtil;
-import s3proftaak.Main;
 import s3proftaak.Shared.IServer;
 
 /**
@@ -85,7 +84,7 @@ public class RMIClient {
     // Test RMI connection
     private void testConnectionEffectenbeurs() {
         try {
-            Application.launch(Main.class);
+            Application.launch(ClientAdministration.class);
         }
         catch(Exception e)
         {

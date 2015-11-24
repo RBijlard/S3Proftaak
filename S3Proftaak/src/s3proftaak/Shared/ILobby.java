@@ -21,4 +21,6 @@ public interface ILobby extends Remote, Serializable {
     public void interact(int objectid, int state) throws RemoteException;
     public String getName() throws RemoteException;
     public String getLevel() throws RemoteException;
+    public boolean addPlayer(String username) throws RemoteException;
+    public void removePlayer(String username) throws RemoteException;
 }
