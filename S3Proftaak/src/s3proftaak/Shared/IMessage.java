@@ -5,10 +5,15 @@
  */
 package s3proftaak.Shared;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Stan
  */
-public class Message {
-    
+public interface IMessage extends Serializable {
+    public String getSender();
+    public String getMessage();
+    @Override
+    public String toString();
 }

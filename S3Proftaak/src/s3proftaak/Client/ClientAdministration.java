@@ -5,20 +5,17 @@
  */
 package s3proftaak.Client;
 
-import s3proftaak.Client.SoundManager;
-import s3proftaak.Client.Game;
-import s3proftaak.Client.Account;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
+import s3proftaak.Shared.ILobby;
 
 /**
  *
@@ -31,6 +28,7 @@ public class ClientAdministration extends Application {
     private static Game game;
     private static Account account;
     private static Music music;
+    private static ILobby currentLobby;
     
     @Override
     public void start(Stage primarystage) throws IOException {
@@ -98,5 +96,13 @@ public class ClientAdministration extends Application {
 
     public static void setAccount(Account account) {
         ClientAdministration.account = account;
+    }
+    
+    public static ILobby getCurrentLobby(){
+        return currentLobby;
+    }
+    
+    public static void setCurrentLobby(ILobby currentlobby){
+        currentLobby = currentlobby;
     }
 }

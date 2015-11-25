@@ -6,28 +6,38 @@
 package s3proftaak.Server;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import s3proftaak.Shared.IChat;
 import s3proftaak.Shared.ILobby;
-import s3proftaak.Shared.Message;
 
 /**
  *
  * @author S33D
  */
-public class Lobby implements ILobby {
+public class Lobby extends UnicastRemoteObject implements ILobby {
     private final int id;
     private String level;
     private final List<String> players = new ArrayList<>();
     private String name;
     private String amountOfPlayers;
     private int max;
+    private Chat chat;
 
-    public Lobby(int id, String name, int maxPlayers) {
+    public Lobby(int id, String name, int maxPlayers) throws RemoteException {
         this.id = id;
         this.name = name;
         this.max = maxPlayers;
         amountOfPlayers = 0 + "/" + max;
+        
+        try {
+            this.chat = new Chat();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public int getId(){
@@ -40,11 +50,6 @@ public class Lobby implements ILobby {
 
     public void setLevel(String level) {
         this.level = level;
-    }
-
-    @Override
-    public void sendMessage(String username, Message message) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -97,5 +102,10 @@ public class Lobby implements ILobby {
     
     private void updatePlayerList(){
         // Tell clients to update the player list
+    }
+
+    @Override
+    public IChat getChat() throws RemoteException {
+        return this.chat;
     }
 }

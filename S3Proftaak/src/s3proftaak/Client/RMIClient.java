@@ -4,15 +4,12 @@
  */
 package s3proftaak.Client;
 
-import java.io.File;
-import s3proftaak.Shared.ILobby;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
 import javafx.application.Application;
-import org.lwjgl.LWJGLUtil;
 import s3proftaak.Shared.IServer;
 
 /**
