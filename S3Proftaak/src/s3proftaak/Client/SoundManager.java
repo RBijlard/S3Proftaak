@@ -5,12 +5,9 @@
  */
 package s3proftaak.Client;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lwjgl.LWJGLException;
 import org.lwjgl.openal.AL;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
@@ -23,20 +20,21 @@ import org.newdawn.slick.Sound;
 public final class SoundManager {
 
     private Music music = null;
-    
+    private boolean playDeathSound;
+
     private static SoundManager instance;
-    
-    public SoundManager(){
+
+    public SoundManager() {
         instance = this;
     }
-    
-    public static SoundManager getInstance(){
+
+    public static SoundManager getInstance() {
         return instance;
     }
 
     public void playMusic() {
         Random rand = new Random();
-        int randomNum = rand.nextInt((5 - 1) + 1) + 1;
+        int randomNum = rand.nextInt(5) + 1;
 
         String path = SoundManager.class.getResource("/Resources/Music/music" + randomNum + ".ogg").getPath().replace("%20", " ");
 
@@ -52,19 +50,22 @@ public final class SoundManager {
     }
 
     public void stopMusic() {
-        if (music != null){
+        if (music != null) {
             music.stop();
             music = null;
         }
     }
-    
-    public void restartSound(){
-        if (AL.isCreated()){
+
+    public void restartSound() {
+        if (AL.isCreated()) {
             AL.destroy();
         }
+
+        this.playDeathSound = true;
     }
-    
-    public enum Sounds{
+
+    public enum Sounds {
+
         JUMP("jump"),
         GAMEOVER("gameOver"),
         COINPICKUP("coinPickUp"),
@@ -75,24 +76,24 @@ public final class SoundManager {
         LEVERPUSH("leverPush"),
         WEIGHTDOWN("weightDown"),
         WEIGHTUP("weightUp");
-        
+
         private final String path;
-        
-        Sounds(String path){
+
+        Sounds(String path) {
             this.path = path;
         }
-        
-        public String getPath(){
-            return getClass().getResource("/Resources/Music/" + path + ".ogg").toString().replace("%20", " ");
+
+        public String getPath() {
+            return getClass().getResource("/Resources/Music/" + path + ".ogg").getPath().replace("%20", " ");
         }
     }
 
     public void playSound(Sounds s) {
         try {
-            if (s != null){
+            if (s != null) {
                 Sound sound = new Sound(s.getPath());
 
-                 if (music != null) {
+                if (music != null) {
                     music.pause();
                     sound.play(1, 0.6f);
                     music.resume();
@@ -100,7 +101,6 @@ public final class SoundManager {
                     sound.play(1, 0.6f);
                 }
             }
-
 
         } catch (SlickException ex) {
             System.out.println(ex.toString());
@@ -116,5 +116,13 @@ public final class SoundManager {
         } catch (SlickException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public void playDeathSound() {
+        if (this.playDeathSound) {
+            this.playDeathSound = false;
+            SoundManager.getInstance().playSound(Sounds.GAMEOVER);
+        }
+        
     }
 }
