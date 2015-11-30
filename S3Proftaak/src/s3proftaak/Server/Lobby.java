@@ -36,34 +36,34 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
         publisher = new BasicPublisher(new String[]{"Chat", "Level", "Ready", "Players", "X", "Y"});
     }
-    
+
     @Override
-    public void sendMessage(IMessage message){
+    public void sendMessage(IMessage message) {
         publisher.inform(this, "Chat", null, message);
     }
-    
+
     @Override
-    public void updateLevel(String level){
+    public void updateLevel(String level) {
         publisher.inform(this, "Level", null, level);
     }
-    
+
     @Override
-    public void updateReadyState(String username, boolean state){
-        publisher.inform(this, "Ready", username, state);
+    public void toggleReadyState(String username) {
+        publisher.inform(this, "Ready", null, username);
     }
-    
+
     @Override
-    public void updatePlayers(){
+    public void updatePlayers() {
         publisher.inform(this, "Players", null, players);
     }
-    
+
     @Override
-    public void updateX(String username, int x){
+    public void updateX(String username, int x) {
         publisher.inform(this, "X", username, x);
     }
-    
+
     @Override
-    public void updateY(String username, int y){
+    public void updateY(String username, int y) {
         publisher.inform(this, "Y", username, y);
     }
 

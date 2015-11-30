@@ -8,7 +8,6 @@ package s3proftaak.Shared;
 import fontys.RemotePropertyListener;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
 
 /**
  *
@@ -20,7 +19,7 @@ public interface ILobby extends Remote {
 
     public void updateLevel(String level) throws RemoteException;
 
-    public void updateReadyState(String username, boolean state) throws RemoteException;
+    public void toggleReadyState(String username) throws RemoteException;
 
     public void updatePlayers() throws RemoteException;
 

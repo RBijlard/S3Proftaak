@@ -62,7 +62,11 @@ public final class Lobby extends BasicScene {
     }
     
     public void btnReadyClick(Event e) {
-        
+        try {
+            ClientAdministration.getInstance().getCurrentLobby().toggleReadyState(ClientAdministration.getInstance().getAccount().getUsername());
+        } catch (RemoteException ex) {
+            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void btnLeaveClick(Event e) {
