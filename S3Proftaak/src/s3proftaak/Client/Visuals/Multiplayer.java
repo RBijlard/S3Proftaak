@@ -78,9 +78,11 @@ public class Multiplayer extends BasicScene {
     public void btnJoinClick(Event e) {
         if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null){
             try {
-                if (((ILobby)tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getAccount().getUsername())){
-                    ClientAdministration.setCurrentLobby((ILobby) tableLobbies.getSelectionModel().getSelectedItem());
+                if (((ILobby)tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getInstance().getAccount().getUsername())){
+                    ClientAdministration.getInstance().setCurrentLobby((ILobby) tableLobbies.getSelectionModel().getSelectedItem());
                     changeScreen(ClientAdministration.Screens.Lobby);
+                    ((ILobby) tableLobbies.getSelectionModel().getSelectedItem()).updatePlayerList();
+                    
                 }else{
                     // Failed show a message
                 }

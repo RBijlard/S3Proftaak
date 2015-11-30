@@ -62,15 +62,15 @@ public class Singleplayer extends BasicScene implements Initializable {
             } catch (Exception ex) {}
 
             if (cbLevel.getSelectionModel().getSelectedItem() != null){
-                ClientAdministration.setGame(new Game("DEE game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString()));
-                ClientAdministration.getApp().setDisplayMode(width, height, false);
-                ClientAdministration.getApp().setTargetFrameRate(60);
-                ClientAdministration.getApp().setForceExit(false);
-                ClientAdministration.getApp().start();
+                ClientAdministration.getInstance().setGame(new Game("DEE game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString()));
+                ClientAdministration.getInstance().getApp().setDisplayMode(width, height, false);
+                ClientAdministration.getInstance().getApp().setTargetFrameRate(60);
+                ClientAdministration.getInstance().getApp().setForceExit(false);
+                ClientAdministration.getInstance().getApp().start();
 
                 try {
                     SoundManager.getInstance().restartSound();
-                    ClientAdministration.getApp().reinit();
+                    ClientAdministration.getInstance().getApp().reinit();
                 } catch (Exception ex) {}
             }
             

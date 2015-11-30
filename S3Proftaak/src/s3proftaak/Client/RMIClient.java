@@ -4,11 +4,14 @@
  */
 package s3proftaak.Client;
 
+import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import s3proftaak.Shared.IServer;
 
@@ -23,7 +26,7 @@ public class RMIClient {
     private static final String bindingName = "S3Proftaak";
 
     // References to registry and MockEffectenbeurs
-    private Registry registry = null;
+    private static Registry registry = null;
     private static IServer serverAdministration = null;
 
     // Constructor
@@ -106,6 +109,22 @@ public class RMIClient {
 
         // Create client
         new RMIClient(ipAddress, portNumber);
+    }
+    
+    public static void bind(){
+        try {
+            registry.rebind(ClientAdministration.getInstance().getAccount().getUsername(), ClientAdministration.getInstance().getClientData());
+        } catch (RemoteException ex) {
+            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void unbind(){
+        try {
+            registry.unbind(ClientAdministration.getInstance().getAccount().getUsername());
+        } catch (RemoteException | NotBoundException ex) {
+            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public static IServer getServerAdministration(){

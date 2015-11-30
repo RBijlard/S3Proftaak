@@ -5,8 +5,6 @@
  */
 package s3proftaak.Client.Visuals;
 
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,8 +25,8 @@ public class Gameover extends BasicScene {
     @FXML Button btnBack;
     
     public void loadFinished(){
-        if (ClientAdministration.getGame() != null){
-            Score score = ClientAdministration.getGame().getScore();
+        if (ClientAdministration.getInstance().getGame() != null){
+            Score score = ClientAdministration.getInstance().getGame().getScore();
             lblTime.setText("" + score.getTime());
             lblStars.setText("" + score.getAmountOfStars());
             lblUsername.setText("" + score.getPlayerNames());

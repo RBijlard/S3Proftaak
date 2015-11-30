@@ -1,9 +1,7 @@
 package s3proftaak.Client;
 
 import s3proftaak.Shared.IMessage;
-import fontys.BasicPublisher;
 import fontys.RemotePropertyListener;
-import fontys.RemotePublisher;
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -35,17 +33,17 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
     
     public void sendMessage(IMessage message){
         try {
-            ClientAdministration.getCurrentLobby().getChat().sendMessage(message);
+            ClientAdministration.getInstance().getCurrentLobby().getChat().sendMessage(message);
         } catch (RemoteException ex) {
             Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     public final void addListener(RemotePropertyListener listener, String property) throws RemoteException {
-        ClientAdministration.getCurrentLobby().getChat().addListener(listener, property);
+        ClientAdministration.getInstance().getCurrentLobby().getChat().addListener(listener, property);
     }
 
     public void removeListener(RemotePropertyListener listener, String property) throws RemoteException {
-        ClientAdministration.getCurrentLobby().getChat().removeListener(listener, property);
+        ClientAdministration.getInstance().getCurrentLobby().getChat().removeListener(listener, property);
     }
 }

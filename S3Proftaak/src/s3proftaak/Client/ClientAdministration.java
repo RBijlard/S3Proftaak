@@ -22,28 +22,42 @@ import s3proftaak.Shared.ILobby;
  * @author Berry-PC
  */
 public class ClientAdministration extends Application {
+
+    private static ClientAdministration instance;
+
     private static Stage primaryStage;
-    
-    private static AppGameContainer app;
-    private static Game game;
-    private static Account account;
-    private static Music music;
-    private static ILobby currentLobby;
-    
+
+    private AppGameContainer app;
+    private Game game;
+    private Account account;
+    private Music music;
+    private ILobby currentLobby;
+
+    private BasicScene currentScreen;
+
+    private ClientData clientData;
+
     @Override
     public void start(Stage primarystage) throws IOException {
+        instance = this;
+        clientData = new ClientData();
+        
         primaryStage = primarystage;
         changeScreen(Screens.Login);
         primaryStage.show();
-        
+
         new SoundManager();
     }
-    
-    public static void changeScreen(Screens s){
-        primaryStage.setScene(s.newInstance().getScene());
+
+    public static void changeScreen(Screens s) {
+        ClientAdministration.primaryStage.setScene(s.newInstance().getScene());
     }
-    
-    public enum Screens{
+
+    public static BasicScene getCurrentScreen() {
+        return getInstance().currentScreen;
+    }
+
+    public enum Screens {
         Login,
         Menu,
         Settings,
@@ -52,57 +66,66 @@ public class ClientAdministration extends Application {
         Lobby,
         Highscores,
         Gameover;
-        
+
         private BasicScene bs;
-        
-        public Screens newInstance(){
+
+        public Screens newInstance() {
             try {
                 bs = ((BasicScene) Class.forName("s3proftaak.Client.Visuals." + this.name()).newInstance()).load(this.getPath());
+                ClientAdministration.getInstance().currentScreen = bs;
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
                 Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
             }
             return this;
         }
-        
-        private String getPath(){
+
+        private String getPath() {
             return "/Resources/Visuals/" + this.name() + ".fxml";
         }
-        
-        public Scene getScene(){
+
+        public Scene getScene() {
             return this.bs.getScene();
         }
     }
-    
-    public static AppGameContainer getApp() {
+
+    public AppGameContainer getApp() {
         return app;
     }
 
-    public static void setApp(AppGameContainer app) {
-        ClientAdministration.app = app;
+    public void setApp(AppGameContainer app) {
+        this.app = app;
     }
 
-    public static Game getGame() {
+    public Game getGame() {
         return game;
     }
 
-    public static void setGame(Game game) throws SlickException {
-        ClientAdministration.game = game;
+    public void setGame(Game game) throws SlickException {
+        this.game = game;
         setApp(new AppGameContainer(getGame()));
     }
 
-    public static Account getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public static void setAccount(Account account) {
-        ClientAdministration.account = account;
+    public void setAccount(Account account) {
+        this.account = account;
     }
-    
-    public static ILobby getCurrentLobby(){
+
+    public ILobby getCurrentLobby() {
         return currentLobby;
     }
-    
-    public static void setCurrentLobby(ILobby currentlobby){
+
+    public void setCurrentLobby(ILobby currentlobby) {
         currentLobby = currentlobby;
+    }
+
+    public ClientData getClientData() {
+        return clientData;
+    }
+
+    public static ClientAdministration getInstance() {
+        return instance;
     }
 }

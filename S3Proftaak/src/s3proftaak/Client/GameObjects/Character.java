@@ -89,7 +89,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             try {
                 SoundManager.getInstance().restartSound();
-                ClientAdministration.getApp().reinit();
+                ClientAdministration.getInstance().getApp().reinit();
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -212,7 +212,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         try {
             SoundManager.getInstance().playSound(Sounds.GAMEOVER);
             SoundManager.getInstance().restartSound();
-            ClientAdministration.getApp().reinit();
+            ClientAdministration.getInstance().getApp().reinit();
 
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);

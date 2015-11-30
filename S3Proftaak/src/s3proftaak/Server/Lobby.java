@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import s3proftaak.Shared.IChat;
+import s3proftaak.Shared.IClient;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -19,9 +20,10 @@ import s3proftaak.Shared.ILobby;
  * @author S33D
  */
 public class Lobby extends UnicastRemoteObject implements ILobby {
+
     private final int id;
     private String level;
-    private final List<String> players = new ArrayList<>();
+    private final List<IClient> players = new ArrayList<>();
     private String name;
     private String amountOfPlayers;
     private int max;
@@ -32,15 +34,15 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         this.name = name;
         this.max = maxPlayers;
         amountOfPlayers = 0 + "/" + max;
-        
+
         try {
             this.chat = new Chat();
         } catch (RemoteException ex) {
             Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public int getId(){
+
+    public int getId() {
         return this.id;
     }
 
@@ -79,29 +81,50 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public boolean addPlayer(String username) {
-        if (players.size() < max){
-            if (players.add(username)){
-                updatePlayerList();
-                return true;
+        if (username != null && !username.isEmpty()) {
+            if (players.size() < max) {
+                IClient client = RMIServer.getClientData(username);
+                if (client != null) {
+                    if (players.add(client)) {
+                        return true;
+                    }
+                }
             }
         }
-        
+
         return false;
     }
 
     @Override
     public void removePlayer(String username) throws RemoteException {
-        if (players.remove(username)){
-            updatePlayerList();
-        }
-        
-        if (players.isEmpty()){
-            // Kill the lobby
+        if (username != null && !username.isEmpty()) {
+            IClient client = RMIServer.getClientData(username);
+            if (client != null) {
+                if (players.remove(client)) {
+                    updatePlayerList();
+                }
+
+                if (players.isEmpty()) {
+                    // Kill the lobby
+                }
+            }
         }
     }
-    
-    private void updatePlayerList(){
-        // Tell clients to update the player list
+
+    @Override
+    public void updatePlayerList() {
+        try {
+            List<String> playerz = new ArrayList<>();
+
+            for (IClient client : players) {
+                playerz.add(client.getName());
+            }
+
+            for (IClient client : players) {
+                client.updatePlayerList(playerz);
+            }
+        } catch (RemoteException ex) {
+        }
     }
 
     @Override

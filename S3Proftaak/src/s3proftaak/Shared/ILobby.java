@@ -22,4 +22,5 @@ public interface ILobby extends Remote {
     public boolean addPlayer(String username) throws RemoteException;
     public void removePlayer(String username) throws RemoteException;
     public IChat getChat() throws RemoteException;
+    public void updatePlayerList() throws RemoteException;
 }

@@ -4,9 +4,13 @@
  */
 package s3proftaak.Server;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import s3proftaak.Shared.IClient;
 
 /**
  * Example of RMI using Registry
@@ -22,7 +26,7 @@ public class RMIServer {
     private static final String bindingName = "S3Proftaak";
 
     // References to registry and MockEffectenbeurs
-    private Registry registry = null;
+    private static Registry registry = null;
     private ServerAdministration serverAdministration = null;
 
     // Constructor
@@ -74,5 +78,15 @@ public class RMIServer {
         
         // Create server
         new RMIServer();
+    }
+    
+    public static IClient getClientData(String username){
+        try {
+            return (IClient) registry.lookup(username);
+        } catch (RemoteException | NotBoundException ex) {
+            Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;
     }
 }

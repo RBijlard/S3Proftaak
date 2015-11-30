@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.lwjgl.openal.AL;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -297,13 +296,13 @@ public class Game extends BasicGame {
             long timeDiff = endTime - startTime;
 
             try {
-                this.score = new Score((int) timeDiff, starsCollected, ClientAdministration.getAccount().getUsername(), this.mapname);
+                this.score = new Score((int) timeDiff, starsCollected, ClientAdministration.getInstance().getAccount().getUsername(), this.mapname);
                 DBConnect.getInstance().insertScore(this.score);
             } catch (SQLException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            ClientAdministration.getApp().exit();
+            ClientAdministration.getInstance().getApp().exit();
             ClientAdministration.changeScreen(ClientAdministration.Screens.Highscores);
             SoundManager.getInstance().playMenuMusic();
         }

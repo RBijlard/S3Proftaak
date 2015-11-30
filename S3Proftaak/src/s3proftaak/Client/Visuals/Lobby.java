@@ -6,6 +6,7 @@
 package s3proftaak.Client.Visuals;
 
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -44,7 +45,7 @@ public final class Lobby extends BasicScene {
     
     public void btnSendClick(Event e) {
         if (!chatText.getText().isEmpty()){
-            chatController.sendMessage(new Message(ClientAdministration.getAccount().getUsername(), chatText.getText()));
+            chatController.sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), chatText.getText()));
             chatText.setText("");
         }
     }
@@ -65,7 +66,7 @@ public final class Lobby extends BasicScene {
         }
         
         try {
-            ClientAdministration.getCurrentLobby().removePlayer(ClientAdministration.getAccount().getUsername());
+            ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
         } catch (RemoteException ex) {
             Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -88,5 +89,22 @@ public final class Lobby extends BasicScene {
             Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
             displayMessage(new Message("ERROR", "Chat failed to initialize."));
         }
+    }
+    
+    public void updatePlayerList(List<String> players){
+        System.out.println(chatList);
+        ListView lv = playerList;
+        
+        Platform.runLater(() -> {
+            System.out.println(lv);
+            if (playerList != null){
+                playerList.getItems().clear();
+                
+                for (String playerName : players){
+                    System.out.println(playerName);
+                    playerList.getItems().add(playerName);
+                }
+            }
+        });
     }
 }
