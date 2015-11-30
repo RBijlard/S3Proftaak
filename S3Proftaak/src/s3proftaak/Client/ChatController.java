@@ -55,6 +55,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
 
             case "Level":
                 // 
+                this.lobby.comboboxSet(evt.getNewValue().toString());
                 break;
         }
 

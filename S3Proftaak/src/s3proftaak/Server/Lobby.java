@@ -53,7 +53,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void toggleReadyState(String username) {
-        publisher.inform(this, "Ready", null, username);
+        publisher.inform(this, "Ready", null, username);        
     }
 
     @Override
