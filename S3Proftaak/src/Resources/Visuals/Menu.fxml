@@ -1,17 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s3proftaak.Client.Visuals.Menu">
+<GridPane fx:id="grid" hgap="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1300.0" vgap="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="s3proftaak.Client.Visuals.Menu">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
    <children>
-      <ImageView fitHeight="406.0" fitWidth="600.0" layoutX="1.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="btnSingleplayer" layoutX="253.0" layoutY="117.0" mnemonicParsing="false" onAction="#btnSingleplayerClick" prefHeight="25.0" prefWidth="93.0" text="Singleplayer" />
-      <Button layoutX="254.0" layoutY="188.0" mnemonicParsing="false" onAction="#btnSettingsClick" prefHeight="25.0" prefWidth="93.0" text="Settings" />
-      <Button fx:id="btnMultiplayer" layoutX="254.0" layoutY="152.0" mnemonicParsing="false" onAction="#btnMultiplayerClick" prefHeight="25.0" prefWidth="93.0" text="Multiplayer" />
-      <Button fx:id="btnHighscores" layoutX="253.0" layoutY="222.0" mnemonicParsing="false" onAction="#btnHighscoresClick" prefHeight="25.0" prefWidth="93.0" text="Highscores" />
-      <Button fx:id="btnQuit" layoutX="254.0" layoutY="258.0" mnemonicParsing="false" onAction="#btnQuitClick" prefHeight="25.0" prefWidth="93.0" text="Quit" />
+      <Button fx:id="btnSingleplayer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSingleplayerClick" text="Singleplayer" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnMultiplayer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnMultiplayerClick" text="Multiplayer" GridPane.columnIndex="1" GridPane.rowIndex="3">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnSettings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnSettingsClick" text="Settings" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnHighscores" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnHighscoresClick" text="Highscores" GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnQuit" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnQuitClick" text="Quit" GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Label fx:id="lblTitle" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Menu" GridPane.columnIndex="1" GridPane.rowIndex="1">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
    </children>
-</Pane>
+</GridPane>

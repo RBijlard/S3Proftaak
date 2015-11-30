@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="CreateLobby">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="76.0" minWidth="10.0" prefWidth="46.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="10.0" prefWidth="107.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="10.0" prefWidth="75.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="123.0" minWidth="10.0" prefWidth="102.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="118.0" minWidth="10.0" prefWidth="69.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="101.0" minWidth="10.0" prefWidth="101.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="109.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="10.0" prefWidth="83.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="95.0" minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="78.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="92.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="61.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="48.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button fx:id="btnCreateLobby" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="188.0" text="Create Lobby" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="6">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <Button fx:id="btnBack" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnBackClick" text="Back" GridPane.columnIndex="3" GridPane.rowIndex="6">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Button>
+      <TextField fx:id="txtLobbyName" maxWidth="1.7976931348623157E308" prefHeight="13.0" prefWidth="336.0" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.rowIndex="2" />
+      <Label fx:id="lblLobbyName" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Lobby Name:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</GridPane>
