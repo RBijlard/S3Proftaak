@@ -46,6 +46,10 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
                 break;
 
             case "Players":
+                if(evt.getOldValue() != null && evt.getOldValue().toString().equals("ISHOST")){
+                    System.out.println("Setting is host : ");
+                    this.lobby.setIsHost(true);
+                }                
                 this.lobby.updatePlayerList((List<String>) evt.getNewValue());
                 break;
 

@@ -65,6 +65,9 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         for (Player p : players){
             names.add(p.getName());
         }
+        if(players.size() == 1){
+            publisher.inform(this, "Players", "ISHOST", names);
+        }
         
         publisher.inform(this, "Players", null, names);
     }

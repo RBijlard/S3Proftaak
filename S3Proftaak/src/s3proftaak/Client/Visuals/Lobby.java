@@ -84,6 +84,7 @@ public final class Lobby extends BasicScene {
                             }
 
                         });
+                        cbLevel.setEditable(isHost);
                     }
                 } catch (RemoteException ex) {
                     Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
@@ -160,11 +161,13 @@ public final class Lobby extends BasicScene {
 
     public void comboboxClick() {
         if (cbLevel != null && cbLevel.getSelectionModel().getSelectedItem() != null) {
-            String level = cbLevel.getSelectionModel().getSelectedItem().toString();
-            try {
-                ClientAdministration.getInstance().getCurrentLobby().updateLevel(level);
-            } catch (RemoteException ex) {
-                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+            if (isHost) {
+                String level = cbLevel.getSelectionModel().getSelectedItem().toString();
+                try {
+                    ClientAdministration.getInstance().getCurrentLobby().updateLevel(level);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -174,7 +177,7 @@ public final class Lobby extends BasicScene {
             if (cbLevel != null) {
                 ArrayList<String> list = new ArrayList<String>();
                 list.add(s);
-                if (isHost == false) {
+                if (!isHost) {
                     this.cbLevel.setEditable(false);
                     System.out.println("Set selection model : " + s);
                     this.cbLevel.getSelectionModel().select(s);
@@ -182,5 +185,9 @@ public final class Lobby extends BasicScene {
                 }
             }
         });
+    }
+
+    public void setIsHost(boolean b) {
+        this.isHost = b;
     }
 }
