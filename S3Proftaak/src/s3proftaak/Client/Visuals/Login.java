@@ -38,7 +38,6 @@ public class Login extends BasicScene {
 //                if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
 //                    Account a = DBConnect.getInstance().getAccount("Stan"/*tfUsername.getText()*/);
                     ClientAdministration.getInstance().setAccount(new Account(tfUsername.getText().isEmpty() ? "Stan" : tfUsername.getText(), "123", null)/*a*/);
-                    RMIClient.bind();
 //
 //                    SoundManager.getInstance().playMenuMusic();
 //

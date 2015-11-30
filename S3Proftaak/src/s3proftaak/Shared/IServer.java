@@ -15,7 +15,6 @@ import java.util.List;
  */
 public interface IServer extends Remote{
     public ILobby createLobby(String username, String lobbyname) throws RemoteException;
-    public ILobby joinLobby(String username, String lobbyname) throws RemoteException;
     public void leaveLobby(String username) throws RemoteException;
     public List<ILobby> getLobbies() throws RemoteException;
 }

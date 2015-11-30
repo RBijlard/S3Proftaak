@@ -35,12 +35,9 @@ public class ClientAdministration extends Application {
 
     private BasicScene currentScreen;
 
-    private ClientData clientData;
-
     @Override
     public void start(Stage primarystage) throws IOException {
         instance = this;
-        clientData = new ClientData();
         
         primaryStage = primarystage;
         changeScreen(Screens.Login);
@@ -119,10 +116,6 @@ public class ClientAdministration extends Application {
 
     public void setCurrentLobby(ILobby currentlobby) {
         currentLobby = currentlobby;
-    }
-
-    public ClientData getClientData() {
-        return clientData;
     }
 
     public static ClientAdministration getInstance() {

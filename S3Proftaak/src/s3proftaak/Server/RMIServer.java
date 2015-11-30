@@ -4,13 +4,9 @@
  */
 package s3proftaak.Server;
 
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import s3proftaak.Shared.IClient;
 
 /**
  * Example of RMI using Registry
@@ -18,7 +14,6 @@ import s3proftaak.Shared.IClient;
  * @author Nico Kuijpers
  */
 public class RMIServer {
-
     // Set port number
     private static final int portNumber = 1099;
 
@@ -31,7 +26,6 @@ public class RMIServer {
 
     // Constructor
     public RMIServer() {
-
         // Print port number for registry
         System.out.println("Server: Port number " + portNumber);
 
@@ -72,21 +66,10 @@ public class RMIServer {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
         // Welcome message
         System.out.println("SERVER USING REGISTRY");
         
         // Create server
         new RMIServer();
-    }
-    
-    public static IClient getClientData(String username){
-        try {
-            return (IClient) registry.lookup(username);
-        } catch (RemoteException | NotBoundException ex) {
-            Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return null;
     }
 }

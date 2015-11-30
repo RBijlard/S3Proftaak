@@ -5,15 +5,14 @@
  */
 package s3proftaak.Server;
 
+import fontys.BasicPublisher;
+import fontys.RemotePropertyListener;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import s3proftaak.Shared.IChat;
-import s3proftaak.Shared.IClient;
 import s3proftaak.Shared.ILobby;
+import s3proftaak.Shared.IMessage;
 
 /**
  *
@@ -23,11 +22,11 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     private final int id;
     private String level;
-    private final List<IClient> players = new ArrayList<>();
+    private final List<String> players = new ArrayList<>();
     private String name;
     private String amountOfPlayers;
     private int max;
-    private Chat chat;
+    private final BasicPublisher publisher;
 
     public Lobby(int id, String name, int maxPlayers) throws RemoteException {
         this.id = id;
@@ -35,11 +34,47 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         this.max = maxPlayers;
         amountOfPlayers = 0 + "/" + max;
 
-        try {
-            this.chat = new Chat();
-        } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        publisher = new BasicPublisher(new String[]{"Chat", "Level", "Ready", "Players", "X", "Y"});
+    }
+    
+    @Override
+    public void sendMessage(IMessage message){
+        publisher.inform(this, "Chat", null, message);
+    }
+    
+    @Override
+    public void updateLevel(String level){
+        publisher.inform(this, "Level", null, level);
+    }
+    
+    @Override
+    public void updateReadyState(String username, boolean state){
+        publisher.inform(this, "Ready", username, state);
+    }
+    
+    @Override
+    public void updatePlayers(){
+        publisher.inform(this, "Players", null, players);
+    }
+    
+    @Override
+    public void updateX(String username, int x){
+        publisher.inform(this, "X", username, x);
+    }
+    
+    @Override
+    public void updateY(String username, int y){
+        publisher.inform(this, "Y", username, y);
+    }
+
+    @Override
+    public void addListener(RemotePropertyListener listener, String property) throws RemoteException {
+        publisher.addListener(listener, property);
+    }
+
+    @Override
+    public void removeListener(RemotePropertyListener listener, String property) throws RemoteException {
+        publisher.removeListener(listener, property);
     }
 
     public int getId() {
@@ -55,26 +90,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void ready(String username) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void unready(String username) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void move(int userid, int x, int y, int crouch) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void interact(int objectid, int state) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public String getName() throws RemoteException {
         return this.name;
     }
@@ -83,11 +98,9 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public boolean addPlayer(String username) {
         if (username != null && !username.isEmpty()) {
             if (players.size() < max) {
-                IClient client = RMIServer.getClientData(username);
-                if (client != null) {
-                    if (players.add(client)) {
-                        return true;
-                    }
+                if (players.add(username)) {
+                    updatePlayers();
+                    return true;
                 }
             }
         }
@@ -98,37 +111,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     @Override
     public void removePlayer(String username) throws RemoteException {
         if (username != null && !username.isEmpty()) {
-            IClient client = RMIServer.getClientData(username);
-            if (client != null) {
-                if (players.remove(client)) {
-                    updatePlayerList();
-                }
+            if (players.remove(username)) {
+                updatePlayers();
+            }
 
-                if (players.isEmpty()) {
-                    // Kill the lobby
-                }
+            if (players.isEmpty()) {
+                // Kill the lobby
             }
         }
-    }
-
-    @Override
-    public void updatePlayerList() {
-        try {
-            List<String> playerz = new ArrayList<>();
-
-            for (IClient client : players) {
-                playerz.add(client.getName());
-            }
-
-            for (IClient client : players) {
-                client.updatePlayerList(playerz);
-            }
-        } catch (RemoteException ex) {
-        }
-    }
-
-    @Override
-    public IChat getChat() throws RemoteException {
-        return this.chat;
     }
 }

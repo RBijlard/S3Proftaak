@@ -4,14 +4,11 @@
  */
 package s3proftaak.Client;
 
-import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import s3proftaak.Shared.IServer;
 
@@ -31,7 +28,6 @@ public class RMIClient {
 
     // Constructor
     public RMIClient(String ipAddress, int portNumber) {
-
         // Print IP address and port number for registry
         System.out.println("Client: IP Address: " + ipAddress);
         System.out.println("Client: Port number " + portNumber);
@@ -94,7 +90,6 @@ public class RMIClient {
     
     // Main method
     public static void main(String[] args) {
-
         // Welcome message
         System.out.println("CLIENT USING REGISTRY");
 
@@ -109,22 +104,6 @@ public class RMIClient {
 
         // Create client
         new RMIClient(ipAddress, portNumber);
-    }
-    
-    public static void bind(){
-        try {
-            registry.rebind(ClientAdministration.getInstance().getAccount().getUsername(), ClientAdministration.getInstance().getClientData());
-        } catch (RemoteException ex) {
-            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
-    public static void unbind(){
-        try {
-            registry.unbind(ClientAdministration.getInstance().getAccount().getUsername());
-        } catch (RemoteException | NotBoundException ex) {
-            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     public static IServer getServerAdministration(){

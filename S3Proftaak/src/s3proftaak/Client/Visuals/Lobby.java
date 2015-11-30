@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,6 +42,12 @@ public final class Lobby extends BasicScene {
     
     public Lobby(){
         createChatController();
+        
+        try {
+            ClientAdministration.getInstance().getCurrentLobby().updatePlayers();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void btnSendClick(Event e) {
@@ -92,18 +99,9 @@ public final class Lobby extends BasicScene {
     }
     
     public void updatePlayerList(List<String> players){
-        System.out.println(chatList);
-        ListView lv = playerList;
-        
         Platform.runLater(() -> {
-            System.out.println(lv);
             if (playerList != null){
-                playerList.getItems().clear();
-                
-                for (String playerName : players){
-                    System.out.println(playerName);
-                    playerList.getItems().add(playerName);
-                }
+                playerList.setItems(FXCollections.observableArrayList(players));
             }
         });
     }

@@ -20,16 +20,11 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
     private final List<ILobby> lobbies = new ArrayList<>();
     
     public ServerAdministration() throws RemoteException{
-        lobbies.add(new Lobby(3, "AWEOSMEE", 2));
+        lobbies.add(new Lobby(3, "AWEOSMEE", 5));
     }
 
     @Override
     public ILobby createLobby(String username, String lobbyname) throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public ILobby joinLobby(String username, String lobbyname) throws RemoteException {
         return null;
     }
 

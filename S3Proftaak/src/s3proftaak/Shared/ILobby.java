@@ -5,22 +5,36 @@
  */
 package s3proftaak.Shared;
 
+import fontys.RemotePropertyListener;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 
 /**
  *
  * @author Stan
  */
 public interface ILobby extends Remote {
-    public void ready(String username) throws RemoteException;
-    public void unready(String username) throws RemoteException;
-    public void move(int userid, int x, int y, int crouch) throws RemoteException;
-    public void interact(int objectid, int state) throws RemoteException;
+
+    public void sendMessage(IMessage message) throws RemoteException;
+
+    public void updateLevel(String level) throws RemoteException;
+
+    public void updateReadyState(String username, boolean state) throws RemoteException;
+
+    public void updatePlayers() throws RemoteException;
+
+    public void updateX(String username, int x) throws RemoteException;
+
+    public void updateY(String username, int y) throws RemoteException;
+
     public String getName() throws RemoteException;
-    public String getLevel() throws RemoteException;
+
     public boolean addPlayer(String username) throws RemoteException;
+
     public void removePlayer(String username) throws RemoteException;
-    public IChat getChat() throws RemoteException;
-    public void updatePlayerList() throws RemoteException;
+
+    public void addListener(RemotePropertyListener listener, String property) throws RemoteException;
+
+    public void removeListener(RemotePropertyListener listener, String property) throws RemoteException;
 }
