@@ -41,6 +41,7 @@ public class Login extends BasicScene {
 //                    SoundManager.getInstance().playMenuMusic();
 //
                     changeScreen(ClientAdministration.Screens.Menu);
+                    //changeScreen(ClientAdministration.Screens.MenuHandMade);
 //                } else {
 //                    JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);
 //                }
