@@ -28,6 +28,10 @@ public interface ILobby extends Remote {
     public void updateY(String username, int y) throws RemoteException;
 
     public String getName() throws RemoteException;
+    
+    public String getLevel() throws RemoteException;
+    
+    public String getAmountOfPlayers() throws RemoteException;
 
     public boolean addPlayer(String username) throws RemoteException;
 

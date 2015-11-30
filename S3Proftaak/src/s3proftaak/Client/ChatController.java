@@ -17,13 +17,16 @@ import s3proftaak.Client.Visuals.Lobby;
 public class ChatController extends UnicastRemoteObject implements RemotePropertyListener {
 
     private Lobby lobby;
-    
+
     public ChatController(Lobby lobby) throws RemoteException {
         this.lobby = lobby;
-        
+
         try {
+            addListener(this, "Administrative");
             addListener(this, "Chat");
             addListener(this, "Players");
+            addListener(this, "Ready");
+            addListener(this, "Level");
         } catch (RemoteException ex) {
             Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -31,20 +34,33 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
-       switch(evt.getPropertyName()){
-           case "Chat":
-               this.lobby.displayMessage((IMessage) evt.getNewValue());
-               break;
-               
-           case "Players":
-               this.lobby.updatePlayerList((List<String>) evt.getNewValue());
-               break;
-       }
-        
-        
+        switch (evt.getPropertyName()) {
+            case "Administrative":
+                if (evt.getNewValue().toString().equals("StartGame")){
+                    // Start die shit
+                }
+                break;
+                
+            case "Chat":
+                this.lobby.displayMessage((IMessage) evt.getNewValue());
+                break;
+
+            case "Players":
+                this.lobby.updatePlayerList((List<String>) evt.getNewValue());
+                break;
+
+            case "Ready":
+                // 
+                break;
+
+            case "Level":
+                // 
+                break;
+        }
+
     }
-    
-    public void sendMessage(IMessage message){
+
+    public void sendMessage(IMessage message) {
         try {
             ClientAdministration.getInstance().getCurrentLobby().sendMessage(message);
         } catch (RemoteException ex) {

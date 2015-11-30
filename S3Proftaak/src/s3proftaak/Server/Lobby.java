@@ -22,19 +22,23 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     private final int id;
     private String level;
-    private final List<String> players = new ArrayList<>();
-    private String name;
+    private final List<Player> players = new ArrayList<>();
+    private final String name;
     private String amountOfPlayers;
-    private int max;
+    private final int max;
     private final BasicPublisher publisher;
 
     public Lobby(int id, String name, int maxPlayers) throws RemoteException {
         this.id = id;
         this.name = name;
         this.max = maxPlayers;
-        amountOfPlayers = 0 + "/" + max;
+        updateAmountOfPlayers();
 
-        publisher = new BasicPublisher(new String[]{"Chat", "Level", "Ready", "Players", "X", "Y"});
+        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Ready", "Players", "X", "Y"});
+    }
+    
+    private void updateAmountOfPlayers(){
+        this.amountOfPlayers = this.players.size() + "/" + this.max;
     }
 
     @Override
@@ -54,7 +58,15 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void updatePlayers() {
-        publisher.inform(this, "Players", null, players);
+        updateAmountOfPlayers();
+        
+        List<String> names = new ArrayList<>();
+        
+        for (Player p : players){
+            names.add(p.getName());
+        }
+        
+        publisher.inform(this, "Players", null, names);
     }
 
     @Override
@@ -81,12 +93,18 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         return this.id;
     }
 
+    @Override
     public String getLevel() {
         return level;
     }
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    @Override
+    public String getAmountOfPlayers() {
+        return amountOfPlayers;
     }
 
     @Override
@@ -98,7 +116,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public boolean addPlayer(String username) {
         if (username != null && !username.isEmpty()) {
             if (players.size() < max) {
-                if (players.add(username)) {
+                if (players.add(new Player(username))) {
                     updatePlayers();
                     return true;
                 }
@@ -111,12 +129,41 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     @Override
     public void removePlayer(String username) throws RemoteException {
         if (username != null && !username.isEmpty()) {
-            if (players.remove(username)) {
-                updatePlayers();
-            }
+            Player p = getPlayer(username);
+            if (p != null) {
+                if (players.remove(p)) {
+                    updatePlayers();
+                }
 
-            if (players.isEmpty()) {
-                // Kill the lobby
+                if (players.isEmpty()) {
+                    // Kill the lobby
+                }
+            }
+        }
+    }
+
+    public Player getPlayer(String username) {
+        for (Player p : players) {
+            if (p.getName().equals(username)) {
+                return p;
+            }
+        }
+
+        return null;
+    }
+
+    public void startGame() {
+        if (players.size() == max){
+            boolean allReady = true;
+            
+            for (Player p : players){
+                if (!p.isReady()){
+                    allReady = false;
+                }
+            }
+            
+            if (allReady){
+                publisher.inform(this, "Administrative", null, "StartGame");
             }
         }
     }

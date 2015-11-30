@@ -34,23 +34,23 @@ public class Multiplayer extends BasicScene {
     @FXML Button btnRefresh;
     
     public Multiplayer(){
-        TableColumn firstNameCol = new TableColumn("Name");
-        firstNameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
-        firstNameCol.setMinWidth(175);
+        TableColumn name = new TableColumn("Name");
+        name.setCellValueFactory(new PropertyValueFactory<>("name"));
+        name.setMinWidth(175);
 
-        TableColumn lastNameCol = new TableColumn("Level");
-        lastNameCol.setCellValueFactory(new PropertyValueFactory<>("level"));
-        lastNameCol.setMinWidth(175);
+        TableColumn level = new TableColumn("Level");
+        level.setCellValueFactory(new PropertyValueFactory<>("level"));
+        level.setMinWidth(175);
 
-        TableColumn emailCol = new TableColumn("Players");
-        emailCol.setCellValueFactory(new PropertyValueFactory<>("amountOfPlayers"));
+        TableColumn players = new TableColumn("Players");
+        players.setCellValueFactory(new PropertyValueFactory<>("amountOfPlayers"));
         
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
                 if (tableLobbies != null){
-                    tableLobbies.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+                    tableLobbies.getColumns().addAll(name, level, players);
                     btnRefreshClick(null);
                 }
             }

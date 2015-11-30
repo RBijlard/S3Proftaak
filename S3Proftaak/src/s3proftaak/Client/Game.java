@@ -49,19 +49,18 @@ public class Game extends BasicGame {
     private String path;
     private int amountOfPlayers = 0;
     private Character main_character;
-    private GameObject most_left_object;
     private String mapname;
 
     private Score score;
-    private long startTime, currentTime ,endTime;
+    private long startTime, currentTime, endTime;
     private int starsCollected = 0;
 
     private float baseWidht = 1920;
     private float baseHight = 1080;
 
     private boolean gameOver;
-    
-    private TrueTypeFont slickFontTimer;  
+
+    private TrueTypeFont slickFontTimer;
     private TrueTypeFont slickFontUserName;
 
     public Game(String title, int amountOfPlayers, String mapname) {
@@ -80,10 +79,10 @@ public class Game extends BasicGame {
         //Set Fonts
         this.slickFontTimer = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 40), false);
         this.slickFontUserName = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 18), false);
-        
+
         //play deathsound
         SoundManager.getInstance().playDeathSound();
-        
+
         //initialise map, players and objects
         this.path = getClass().getResource("/Resources/Levels/" + this.mapname).getPath().replace("%20", " ");
 
@@ -164,21 +163,14 @@ public class Game extends BasicGame {
         for (int i = 1; i < this.amountOfPlayers; i++) {
             this.gameObjects.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i));
         }
-        main_character = new Character(this, 500f, 72f, 70f, 93f, 0);
-        this.gameObjects.add(main_character);
+
+        this.gameObjects.add(main_character = new Character(this, 500f, 72f, 70f, 93f, 0));
 
         // Moet keer weg
         for (GameObject go : this.gameObjects) {
             System.out.println(go.toString());
         }
 
-        // Dit gebruiken we niet? Kan weg?
-        most_left_object = new Block(72f, 500f, 70f, 93f);
-        for (GameObject go : this.gameObjects) {
-            if (go.getX() < most_left_object.getX()) {
-                most_left_object.setX(go.getX());
-            }
-        }
         // set current Time to 0
         this.currentTime = 0;
 
@@ -252,14 +244,14 @@ public class Game extends BasicGame {
         for (int i = 0; i < map.getLayerCount(); i++) {
             this.map.render(0 - (int) main_character.getOffsetX(), i);
         }
-        
+
         //Draw Username Above Character
         grphcs.setColor(Color.yellow);
         grphcs.setFont(slickFontUserName);
-        grphcs.drawString(ClientAdministration.getInstance().getAccount().getUsername(), 
-                this.main_character.getRect().getX() + 23, 
+        grphcs.drawString(ClientAdministration.getInstance().getAccount().getUsername(),
+                this.main_character.getRect().getX() + 23,
                 this.main_character.getRect().getY() - 23);
-        
+
         //render Timer
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
         String strDate = sdf.format(this.currentTime);
@@ -283,8 +275,8 @@ public class Game extends BasicGame {
                 try {
                     int matchNumber = Integer.parseInt(m);
                     matches.add(matchNumber);
-                } catch (Exception x) {
-                    System.out.println(x.toString());
+                } catch (Exception ex) {
+                    System.out.println(ex.toString());
                 }
 
             }

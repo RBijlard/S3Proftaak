@@ -43,6 +43,20 @@ public final class Lobby extends BasicScene {
     public Lobby(){
         createChatController();
         
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    if (lblLobbyName != null){
+                        lblLobbyName.setText(ClientAdministration.getInstance().getCurrentLobby().getName());
+                    }
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
         try {
             ClientAdministration.getInstance().getCurrentLobby().updatePlayers();
         } catch (RemoteException ex) {
