@@ -80,6 +80,6 @@
             <Font name="System Bold" size="20.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cbLevel" maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="245.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+      <ComboBox fx:id="cbLevel" maxWidth="1.7976931348623157E308" onAction="#cbLevelClick" prefHeight="30.0" prefWidth="245.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
    </children>
 </GridPane>

@@ -76,14 +76,7 @@ public final class Lobby extends BasicScene {
                         if (!levels.isEmpty() && cbLevel != null) {
                             cbLevel.setItems(FXCollections.observableArrayList(levels));
                         }
-                        cbLevel.setOnAction(new EventHandler() {
-
-                            @Override
-                            public void handle(Event event) {
-                                comboboxClick();
-                            }
-
-                        });
+                        
                         cbLevel.setEditable(isHost);
                     }
                 } catch (RemoteException ex) {
@@ -159,7 +152,7 @@ public final class Lobby extends BasicScene {
         });
     }
 
-    public void comboboxClick() {
+    public void cbLevelClick() {
         if (cbLevel != null && cbLevel.getSelectionModel().getSelectedItem() != null) {
             if (isHost) {
                 String level = cbLevel.getSelectionModel().getSelectedItem().toString();
@@ -175,7 +168,7 @@ public final class Lobby extends BasicScene {
     public void comboboxSet(String s) {
         Platform.runLater(() -> {
             if (cbLevel != null) {
-                ArrayList<String> list = new ArrayList<String>();
+                ArrayList<String> list = new ArrayList<>();
                 list.add(s);
                 if (!isHost) {
                     this.cbLevel.setEditable(false);
