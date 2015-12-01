@@ -36,8 +36,8 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
         switch (evt.getPropertyName()) {
             case "Administrative":
-                if (evt.getNewValue().toString().equals("StartGame")){
-                    // Start die shit
+                if (evt.getOldValue().toString().equals("StartGame")){
+                    ClientAdministration.getInstance().startGame(new Game("De Game", 1, evt.getNewValue().toString()));
                 }
                 break;
                 
@@ -54,7 +54,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
                 break;
 
             case "Ready":
-                // 
+                // Old = username, New = State
                 break;
 
             case "Level":

@@ -5,6 +5,8 @@
  */
 package s3proftaak.Client;
 
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,7 +40,7 @@ public class ClientAdministration extends Application {
     @Override
     public void start(Stage primarystage) throws IOException {
         instance = this;
-        
+
         primaryStage = primarystage;
         changeScreen(Screens.Login);
         primaryStage.show();
@@ -55,6 +57,7 @@ public class ClientAdministration extends Application {
     }
 
     public enum Screens {
+
         Login,
         Menu,
         Settings,
@@ -120,5 +123,25 @@ public class ClientAdministration extends Application {
 
     public static ClientAdministration getInstance() {
         return instance;
+    }
+
+    public void startGame(Game game) {
+        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        int width = gd.getDisplayMode().getWidth();
+        int height = gd.getDisplayMode().getHeight();
+
+        try {
+            setGame(game);
+            getApp().setDisplayMode(width, height, false);
+            getApp().setTargetFrameRate(60);
+            getApp().setForceExit(false);
+            getApp().start();
+
+            try {
+                SoundManager.getInstance().restartSound();
+                ClientAdministration.getInstance().getApp().reinit();
+            } catch (Exception ex) {}
+            
+        } catch (SlickException ex) {}
     }
 }

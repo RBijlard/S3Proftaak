@@ -29,60 +29,50 @@ import s3proftaak.Client.SoundManager;
  * @author Stan
  */
 public class Singleplayer extends BasicScene implements Initializable {
-    
-    @FXML Button btnStart;
-    @FXML TextField tfAmount;
-    @FXML Button btnBack;
-    @FXML ComboBox cbLevel;
-    
+
+    @FXML
+    Button btnStart;
+    @FXML
+    TextField tfAmount;
+    @FXML
+    Button btnBack;
+    @FXML
+    ComboBox cbLevel;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ArrayList levels = new ArrayList<>();
-        
-        for (File f : new File(getClass().getResource("/Resources/Levels/").getPath().replaceAll("%20", " ")).listFiles()){
-            if (f.getName().endsWith(".tmx")){
+
+        for (File f : new File(getClass().getResource("/Resources/Levels/").getPath().replaceAll("%20", " ")).listFiles()) {
+            if (f.getName().endsWith(".tmx")) {
                 levels.add(f.getName());
             }
         }
-        
-        if (!levels.isEmpty() && cbLevel != null){
+
+        if (!levels.isEmpty() && cbLevel != null) {
             cbLevel.setItems(FXCollections.observableArrayList(levels));
         }
     }
-    
-    public void btnStartClick(Event e){
-        try {    
-            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-            int width = gd.getDisplayMode().getWidth();
-            int height = gd.getDisplayMode().getHeight();
-            int amountOfPlayers = 0;
 
-            try {
-                amountOfPlayers = Integer.parseInt(tfAmount.getText());
-            } catch (Exception ex) {}
+    public void btnStartClick(Event e) {
+        int amountOfPlayers = 0;
 
-            if (cbLevel.getSelectionModel().getSelectedItem() != null){
-                ClientAdministration.getInstance().setGame(new Game("DEE game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString()));
-                ClientAdministration.getInstance().getApp().setDisplayMode(width, height, false);
-                ClientAdministration.getInstance().getApp().setTargetFrameRate(60);
-                ClientAdministration.getInstance().getApp().setForceExit(false);
-                ClientAdministration.getInstance().getApp().start();
+        try {
+            amountOfPlayers = Integer.parseInt(tfAmount.getText());
+        } catch (Exception ex) {
+        }
 
-                try {
-                    SoundManager.getInstance().restartSound();
-                    ClientAdministration.getInstance().getApp().reinit();
-                } catch (Exception ex) {}
-            }
-            
-        } catch (SlickException ex) {}
+        if (cbLevel.getSelectionModel().getSelectedItem() != null) {
+            ClientAdministration.getInstance().startGame(new Game("De Game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString()));
+        }
     }
-    
-    public void btnBackClick(Event e){
+
+    public void btnBackClick(Event e) {
         changeScreen(ClientAdministration.Screens.Menu);
     }
-    
-    public void cbLevelClick(Event e){
-        
+
+    public void cbLevelClick(Event e) {
+
     }
-        
+
 }

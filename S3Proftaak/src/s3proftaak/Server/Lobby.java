@@ -48,12 +48,19 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void updateLevel(String level) {
+        this.level = level;
         publisher.inform(this, "Level", null, level);
     }
 
     @Override
     public void toggleReadyState(String username) {
-        publisher.inform(this, "Ready", null, username);        
+        Player p = getPlayer(username);
+        if (p != null){
+            p.toggleReady();
+            publisher.inform(this, "Ready", username, p.isReady());
+        }
+        
+        checkStartGame();
     }
 
     @Override
@@ -155,7 +162,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         return null;
     }
 
-    public void startGame() {
+    public void checkStartGame() {
         if (players.size() == max){
             boolean allReady = true;
             
@@ -166,7 +173,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             }
             
             if (allReady){
-                publisher.inform(this, "Administrative", null, "StartGame");
+                publisher.inform(this, "Administrative", "StartGame", level);
             }
         }
     }
