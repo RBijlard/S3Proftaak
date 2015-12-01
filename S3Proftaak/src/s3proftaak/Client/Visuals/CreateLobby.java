@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
 import s3proftaak.Client.RMIClient;
-import s3proftaak.Shared.CustomRemoteException;
+import s3proftaak.Shared.CustomException;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -42,14 +42,14 @@ public class CreateLobby extends BasicScene {
                 try {
                     ILobby tempLobby = RMIClient.getServerAdministration().createLobby(txtLobbyName.getText());
                     tempLobby.addPlayer(ClientAdministration.getInstance().getAccount().getUsername());
-                } catch (RemoteException ex) {
-                    if (ex instanceof CustomRemoteException){
-                        JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
-                    }else{
-                        System.out.println(ex);
-                    }
+                    ClientAdministration.getInstance().setCurrentLobby(tempLobby);
+                    changeScreen(ClientAdministration.Screens.Lobby);
+                } catch(CustomException ex){
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
+                } catch (RemoteException ex){
+                    System.out.println(ex);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Specify a lobby name.", "Failed.", 1);
             }
         }

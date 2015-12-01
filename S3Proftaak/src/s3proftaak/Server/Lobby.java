@@ -11,7 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import s3proftaak.Shared.CustomRemoteException;
+import s3proftaak.Shared.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
 
@@ -123,23 +123,23 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void addPlayer(String username) throws RemoteException {
+    public void addPlayer(String username) throws RemoteException, CustomException {
         if (username != null && !username.isEmpty()) {
             if (players.size() < max) {
                 if (!getNames().contains(username)) {
                     if (players.add(new Player(username))) {
                         updatePlayers();
                     } else {
-                        throw new CustomRemoteException("ABC: Failed to join this lobby.");
+                        throw new CustomException("Failed to join this lobby.");
                     }
                 }else{
-                    throw new CustomRemoteException("ABC: Username is already in this lobby.");
+                    throw new CustomException("Username is already in this lobby.");
                 }
             } else {
-                throw new CustomRemoteException("ABC: Game is full.");
+                throw new CustomException("Game is full.");
             }
         } else {
-            throw new CustomRemoteException("ABC: Username is empty.");
+            throw new CustomException("Username is empty.");
         }
     }
 

@@ -33,7 +33,7 @@ public interface ILobby extends Remote {
     
     public String getAmountOfPlayers() throws RemoteException;
 
-    public void addPlayer(String username) throws RemoteException;
+    public void addPlayer(String username) throws RemoteException, CustomException;
 
     public void removePlayer(String username) throws RemoteException;
 

@@ -5,17 +5,15 @@
  */
 package s3proftaak.Shared;
 
-import java.rmi.RemoteException;
-
 /**
  *
  * @author Stan
  */
-public class CustomRemoteException extends RemoteException {
+public class CustomException extends Exception {
 
     private final String message;
 
-    public CustomRemoteException(String message) {
+    public CustomException(String message) {
         this.message = message;
     }
 

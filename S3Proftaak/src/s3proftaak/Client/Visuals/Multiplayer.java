@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
-import s3proftaak.Shared.CustomRemoteException;
+import s3proftaak.Shared.CustomException;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -88,12 +88,10 @@ public class Multiplayer extends BasicScene {
                 ((ILobby) tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getInstance().getAccount().getUsername());
                 ClientAdministration.getInstance().setCurrentLobby((ILobby) tableLobbies.getSelectionModel().getSelectedItem());
                 changeScreen(ClientAdministration.Screens.Lobby);
+            } catch (CustomException ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
             } catch (RemoteException ex) {
-                if (ex instanceof CustomRemoteException) {
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
-                } else {
-                    System.out.println(ex);
-                }
+                System.out.println(ex);
             }
         }
     }
