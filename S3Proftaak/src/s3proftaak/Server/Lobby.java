@@ -21,7 +21,7 @@ import s3proftaak.Shared.IMessage;
  */
 public class Lobby extends UnicastRemoteObject implements ILobby {
 
-    private String level;
+    private String level = "";
     private final List<Player> players = new ArrayList<>();
     private final String name;
     private String amountOfPlayers;
@@ -133,7 +133,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                     } else {
                         throw new CustomException("Failed to join this lobby.");
                     }
-                }else{
+                } else {
                     throw new CustomException("Username is already in this lobby.");
                 }
             } else {
@@ -171,23 +171,25 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     public void checkStartGame() {
-        if (players.size() == max) {
-            boolean allReady = true;
+        if (level != null) {
+            if (players.size() == max) {
+                boolean allReady = true;
 
-            for (Player p : players) {
-                if (!p.isReady()) {
-                    allReady = false;
+                for (Player p : players) {
+                    if (!p.isReady()) {
+                        allReady = false;
+                    }
                 }
-            }
 
-            if (allReady) {
-                started = true;
-                publisher.inform(this, "Administrative", "StartGame", level);
+                if (allReady) {
+                    started = true;
+                    publisher.inform(this, "Administrative", "StartGame", level);
+                }
             }
         }
     }
-    
-    public boolean hasStarted(){
+
+    public boolean hasStarted() {
         return this.started;
     }
 
