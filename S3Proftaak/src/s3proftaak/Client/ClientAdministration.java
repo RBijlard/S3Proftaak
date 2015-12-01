@@ -11,12 +11,16 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
+import s3proftaak.Client.Visuals.Lobby;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -42,6 +46,22 @@ public class ClientAdministration extends Application {
         instance = this;
 
         primaryStage = primarystage;
+        primarystage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+            @Override
+            public void handle(WindowEvent event) {
+                
+                if (getCurrentScreen() instanceof Lobby){
+                    if (((Lobby) getCurrentScreen()).getChatController() != null){
+                        ((Lobby) getCurrentScreen()).getChatController().leaveLobby();
+                    }
+                }
+                
+                System.exit(0);
+                
+            }
+        });
+        
         changeScreen(Screens.Login);
         primaryStage.show();
 
@@ -49,7 +69,7 @@ public class ClientAdministration extends Application {
     }
 
     public static void changeScreen(Screens s) {
-        ClientAdministration.primaryStage.setScene(s.newInstance().getScene());
+        primaryStage.setScene(s.newInstance().getScene());
     }
 
     public static BasicScene getCurrentScreen() {

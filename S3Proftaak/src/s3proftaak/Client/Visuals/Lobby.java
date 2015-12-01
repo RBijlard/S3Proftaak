@@ -76,7 +76,7 @@ public final class Lobby extends BasicScene {
                         if (!levels.isEmpty() && cbLevel != null) {
                             cbLevel.setItems(FXCollections.observableArrayList(levels));
                         }
-                        
+
                         cbLevel.setEditable(isHost);
                     }
                 } catch (RemoteException ex) {
@@ -94,8 +94,10 @@ public final class Lobby extends BasicScene {
 
     public void btnSendClick(Event e) {
         if (!chatText.getText().isEmpty()) {
-            chatController.sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), chatText.getText()));
-            chatText.setText("");
+            if (chatController != null) {
+                chatController.sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), chatText.getText()));
+                chatText.setText("");
+            }
         }
     }
 
@@ -112,19 +114,9 @@ public final class Lobby extends BasicScene {
     }
 
     public void btnLeaveClick(Event e) {
-        try {
-            chatController.removeListener(chatController, "Chat");
-        } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        chatController.leaveLobby();
 
-        try {
-            ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
-        } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        changeScreen(ClientAdministration.Screens.Menu);
+        changeScreen(ClientAdministration.Screens.Multiplayer);
     }
 
     public void displayMessage(IMessage message) {
@@ -146,7 +138,7 @@ public final class Lobby extends BasicScene {
 
     public void updatePlayerList(List<String> players) {
         Platform.runLater(() -> {
-            if (playerList != null) {
+            if (playerList != null && players != null) {
                 playerList.setItems(FXCollections.observableArrayList(players));
             }
         });
@@ -182,5 +174,9 @@ public final class Lobby extends BasicScene {
 
     public void setIsHost(boolean b) {
         this.isHost = b;
+    }
+
+    public ChatController getChatController() {
+        return this.chatController;
     }
 }

@@ -36,21 +36,22 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
         switch (evt.getPropertyName()) {
             case "Administrative":
-                if (evt.getOldValue().toString().equals("StartGame")){
+                if (evt.getOldValue().toString().equals("StartGame")) {
                     ClientAdministration.getInstance().startGame(new Game("De Game", 1, evt.getNewValue().toString()));
                 }
                 break;
-                
+
             case "Chat":
                 this.lobby.displayMessage((IMessage) evt.getNewValue());
                 break;
 
             case "Players":
-                if(evt.getOldValue() != null && evt.getOldValue().toString().equals("ISHOST")){
+                if (evt.getOldValue() != null && evt.getOldValue().toString().equals("ISHOST")) {
                     System.out.println("Setting is host : ");
                     this.lobby.setIsHost(true);
-                }                
-                this.lobby.updatePlayerList((List<String>) evt.getNewValue());
+                }else{
+                    this.lobby.updatePlayerList((List<String>) evt.getNewValue());
+                }
                 break;
 
             case "Ready":
@@ -79,5 +80,20 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
 
     public void removeListener(RemotePropertyListener listener, String property) throws RemoteException {
         ClientAdministration.getInstance().getCurrentLobby().removeListener(listener, property);
+    }
+
+    public void leaveLobby() {
+        try {
+            removeListener(this, "Administrative");
+            removeListener(this, "Chat");
+            removeListener(this, "Players");
+            removeListener(this, "Ready");
+            removeListener(this, "Level");
+
+            ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
+
+        } catch (RemoteException ex) {
+            Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
