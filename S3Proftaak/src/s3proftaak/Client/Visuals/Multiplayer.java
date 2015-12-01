@@ -16,9 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.JOptionPane;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Shared.CustomRemoteException;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -26,14 +28,19 @@ import s3proftaak.Shared.ILobby;
  * @author Stan
  */
 public class Multiplayer extends BasicScene {
-    
-    @FXML TableView tableLobbies;
-    @FXML Button btnBack;
-    @FXML Button btnCreate;
-    @FXML Button btnJoin;
-    @FXML Button btnRefresh;
-    
-    public Multiplayer(){
+
+    @FXML
+    TableView tableLobbies;
+    @FXML
+    Button btnBack;
+    @FXML
+    Button btnCreate;
+    @FXML
+    Button btnJoin;
+    @FXML
+    Button btnRefresh;
+
+    public Multiplayer() {
         TableColumn name = new TableColumn("Name");
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         name.setMinWidth(175);
@@ -44,19 +51,19 @@ public class Multiplayer extends BasicScene {
 
         TableColumn players = new TableColumn("Players");
         players.setCellValueFactory(new PropertyValueFactory<>("amountOfPlayers"));
-        
+
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
-                if (tableLobbies != null){
+                if (tableLobbies != null) {
                     tableLobbies.getColumns().addAll(name, level, players);
                     btnRefreshClick(null);
                 }
             }
         });
     }
-    
+
     public void btnRefreshClick(Event e) {
         Platform.runLater(new Runnable() {
 
@@ -70,27 +77,27 @@ public class Multiplayer extends BasicScene {
             }
         });
     }
-    
+
     public void btnCreateClick(Event e) {
-        
+        changeScreen(ClientAdministration.Screens.CreateLobby);
     }
-    
+
     public void btnJoinClick(Event e) {
-        if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null){
+        if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null) {
             try {
-                if (((ILobby)tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getInstance().getAccount().getUsername())){
-                    ClientAdministration.getInstance().setCurrentLobby((ILobby) tableLobbies.getSelectionModel().getSelectedItem());
-                    changeScreen(ClientAdministration.Screens.Lobby);
-                    
-                }else{
-                    // Failed show a message
-                }
+                ((ILobby) tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getInstance().getAccount().getUsername());
+                ClientAdministration.getInstance().setCurrentLobby((ILobby) tableLobbies.getSelectionModel().getSelectedItem());
+                changeScreen(ClientAdministration.Screens.Lobby);
             } catch (RemoteException ex) {
-                Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+                if (ex instanceof CustomRemoteException) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
+                } else {
+                    System.out.println(ex);
+                }
             }
         }
     }
-    
+
     public void btnBackClick(Event e) {
         changeScreen(ClientAdministration.Screens.Menu);
     }

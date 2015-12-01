@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import s3proftaak.Shared.CustomRemoteException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
 
@@ -31,13 +32,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
         this.name = lobbyname;
         this.max = maxPlayers;
-        
+
         updateAmountOfPlayers();
 
         this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Ready", "Players", "X", "Y"});
     }
-    
-    private void updateAmountOfPlayers(){
+
+    private void updateAmountOfPlayers() {
         this.amountOfPlayers = this.players.size() + "/" + this.max;
     }
 
@@ -55,37 +56,31 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     @Override
     public void toggleReadyState(String username) {
         Player p = getPlayer(username);
-        if (p != null){
+        if (p != null) {
             p.toggleReady();
             publisher.inform(this, "Ready", username, p.isReady());
         }
-        
+
         checkStartGame();
     }
 
     @Override
     public void updatePlayers() {
         updateAmountOfPlayers();
-        
-        List<String> names = new ArrayList<>();
-        
-        for (Player p : players){
-            names.add(p.getName());
-        }
-        
-        if (!names.contains(currentHost)){
+
+        if (!getNames().contains(currentHost)) {
             currentHost = null;
         }
-        
-        if(currentHost == null){
-            if (players.size() > 0){
+
+        if (currentHost == null) {
+            if (players.size() > 0) {
                 currentHost = players.get(0).getName();
             }
-            
+
             publisher.inform(this, "Players", "ISHOST", currentHost);
         }
-        
-        publisher.inform(this, "Players", null, names);
+
+        publisher.inform(this, "Players", null, getNames());
     }
 
     @Override
@@ -128,17 +123,24 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public boolean addPlayer(String username) {
+    public void addPlayer(String username) throws RemoteException {
         if (username != null && !username.isEmpty()) {
             if (players.size() < max) {
-                if (players.add(new Player(username))) {
-                    updatePlayers();
-                    return true;
+                if (!getNames().contains(username)) {
+                    if (players.add(new Player(username))) {
+                        updatePlayers();
+                    } else {
+                        throw new CustomRemoteException("ABC: Failed to join this lobby.");
+                    }
+                }else{
+                    throw new CustomRemoteException("ABC: Username is already in this lobby.");
                 }
+            } else {
+                throw new CustomRemoteException("ABC: Game is full.");
             }
+        } else {
+            throw new CustomRemoteException("ABC: Username is empty.");
         }
-
-        return false;
     }
 
     @Override
@@ -168,18 +170,28 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     public void checkStartGame() {
-        if (players.size() == max){
+        if (players.size() == max) {
             boolean allReady = true;
-            
-            for (Player p : players){
-                if (!p.isReady()){
+
+            for (Player p : players) {
+                if (!p.isReady()) {
                     allReady = false;
                 }
             }
-            
-            if (allReady){
+
+            if (allReady) {
                 publisher.inform(this, "Administrative", "StartGame", level);
             }
         }
+    }
+
+    private List<String> getNames() {
+        List<String> names = new ArrayList<>();
+
+        players.stream().forEach((p) -> {
+            names.add(p.getName());
+        });
+
+        return names;
     }
 }

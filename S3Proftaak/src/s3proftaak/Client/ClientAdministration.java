@@ -63,6 +63,7 @@ public class ClientAdministration extends Application {
         Settings,
         Singleplayer,
         Multiplayer,
+        CreateLobby,
         Lobby,
         Highscores,
         Gameover;
@@ -140,8 +141,10 @@ public class ClientAdministration extends Application {
             try {
                 SoundManager.getInstance().restartSound();
                 ClientAdministration.getInstance().getApp().reinit();
-            } catch (Exception ex) {}
-            
-        } catch (SlickException ex) {}
+            } catch (Exception ex) {
+            }
+
+        } catch (SlickException ex) {
+        }
     }
 }
