@@ -17,20 +17,18 @@ import s3proftaak.Shared.IServer;
  * @author Stan
  */
 public class ServerAdministration extends UnicastRemoteObject implements IServer {
+
     private final List<ILobby> lobbies = new ArrayList<>();
-    
-    public ServerAdministration() throws RemoteException{
-        lobbies.add(new Lobby(3, "AWEOSMEE", 2));
+
+    public ServerAdministration() throws RemoteException {
+        this.lobbies.add(new Lobby("Awesome", 2));
     }
 
     @Override
-    public ILobby createLobby(String username, String lobbyname) throws RemoteException {
-        return null;
-    }
-
-    @Override
-    public void leaveLobby(String username) throws RemoteException {
-        
+    public ILobby createLobby(String lobbyname) throws RemoteException {
+        ILobby tempLobby = new Lobby(lobbyname, 2);
+        this.lobbies.add(tempLobby);
+        return tempLobby;
     }
 
     @Override

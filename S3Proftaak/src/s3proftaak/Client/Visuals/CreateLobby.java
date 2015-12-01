@@ -25,4 +25,12 @@ public class CreateLobby {
     public void btnBackClick(Event e){
         changeScreen(ClientAdministration.Screens.Multiplayer);
     }
+    
+    public void btnCreateLobbyClick(Event e){
+        if (txtLobbyName != null){
+            if (!txtLobbyName.getText().isEmpty()){
+                
+            }
+        }
+    }
 }

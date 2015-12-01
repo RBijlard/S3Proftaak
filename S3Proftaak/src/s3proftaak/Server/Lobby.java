@@ -20,18 +20,18 @@ import s3proftaak.Shared.IMessage;
  */
 public class Lobby extends UnicastRemoteObject implements ILobby {
 
-    private final int id;
     private String level;
     private final List<Player> players = new ArrayList<>();
     private final String name;
     private String amountOfPlayers;
     private final int max;
     private final BasicPublisher publisher;
+    private String currentHost;
 
-    public Lobby(int id, String name, int maxPlayers) throws RemoteException {
-        this.id = id;
-        this.name = name;
+    public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
+        this.name = lobbyname;
         this.max = maxPlayers;
+        
         updateAmountOfPlayers();
 
         this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Ready", "Players", "X", "Y"});
@@ -72,8 +72,17 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         for (Player p : players){
             names.add(p.getName());
         }
-        if(players.size() == 1){
-            publisher.inform(this, "Players", "ISHOST", names);
+        
+        if (!names.contains(currentHost)){
+            currentHost = null;
+        }
+        
+        if(currentHost == null){
+            if (players.size() > 0){
+                currentHost = players.get(0).getName();
+            }
+            
+            publisher.inform(this, "Players", "ISHOST", currentHost);
         }
         
         publisher.inform(this, "Players", null, names);
@@ -97,10 +106,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     @Override
     public void removeListener(RemotePropertyListener listener, String property) throws RemoteException {
         publisher.removeListener(listener, property);
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     @Override
