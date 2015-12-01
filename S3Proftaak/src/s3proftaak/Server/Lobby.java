@@ -28,6 +28,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     private final int max;
     private final BasicPublisher publisher;
     private String currentHost;
+    private boolean started;
 
     public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
         this.name = lobbyname;
@@ -180,9 +181,14 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             }
 
             if (allReady) {
+                started = true;
                 publisher.inform(this, "Administrative", "StartGame", level);
             }
         }
+    }
+    
+    public boolean hasStarted(){
+        return this.started;
     }
 
     private List<String> getNames() {

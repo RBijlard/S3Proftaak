@@ -18,7 +18,7 @@ import s3proftaak.Shared.IServer;
  */
 public class ServerAdministration extends UnicastRemoteObject implements IServer {
 
-    private final List<ILobby> lobbies = new ArrayList<>();
+    private final List<Lobby> lobbies = new ArrayList<>();
 
     public ServerAdministration() throws RemoteException {
         this.lobbies.add(new Lobby("Awesome", 2));
@@ -26,13 +26,21 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
 
     @Override
     public ILobby createLobby(String lobbyname) throws RemoteException {
-        ILobby tempLobby = new Lobby(lobbyname, 2);
+        Lobby tempLobby = new Lobby(lobbyname, 2);
         this.lobbies.add(tempLobby);
         return tempLobby;
     }
 
     @Override
     public List<ILobby> getLobbies() throws RemoteException {
-        return this.lobbies;
+        List<ILobby> tempLobbies = new ArrayList<>();
+        
+        for (Lobby lobby : lobbies){
+            if (!lobby.hasStarted()){
+                tempLobbies.add(lobby);
+            }
+        }
+        
+        return tempLobbies;
     }
 }
