@@ -75,6 +75,7 @@ public final class Lobby extends BasicScene {
 
                         if (!levels.isEmpty() && cbLevel != null) {
                             cbLevel.setItems(FXCollections.observableArrayList(levels));
+                            cbLevel.setValue(levels.get(0));
                         }
 
                         cbLevel.setEditable(isHost);

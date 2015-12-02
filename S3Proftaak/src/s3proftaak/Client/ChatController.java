@@ -16,17 +16,19 @@ import s3proftaak.fontys.RemotePropertyListener;
  */
 public class ChatController extends UnicastRemoteObject implements RemotePropertyListener {
 
-    private Lobby lobby;
+    private final Lobby lobby;
+    private final ChatListener chatListener;
 
     public ChatController(Lobby lobby) throws RemoteException {
         this.lobby = lobby;
+        this.chatListener = new ChatListener(this);
 
         try {
-            addListener(this, "Administrative");
-            addListener(this, "Chat");
-            addListener(this, "Players");
-            addListener(this, "Ready");
-            addListener(this, "Level");
+            addListener(chatListener, "Administrative");
+            addListener(chatListener, "Chat");
+            addListener(chatListener, "Players");
+            addListener(chatListener, "Ready");
+            addListener(chatListener, "Level");
         } catch (RemoteException ex) {
             Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,16 +86,20 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
 
     public void leaveLobby() {
         try {
-            removeListener(this, "Administrative");
-            removeListener(this, "Chat");
-            removeListener(this, "Players");
-            removeListener(this, "Ready");
-            removeListener(this, "Level");
+            removeListener(chatListener, "Administrative");
+            removeListener(chatListener, "Chat");
+            removeListener(chatListener, "Players");
+            removeListener(chatListener, "Ready");
+            removeListener(chatListener, "Level");
 
             ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
 
         } catch (RemoteException ex) {
             Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public Lobby getLobby(){
+        return this.lobby;
     }
 }
