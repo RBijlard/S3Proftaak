@@ -1,7 +1,6 @@
 package s3proftaak.Client;
 
 import s3proftaak.Shared.IMessage;
-import fontys.RemotePropertyListener;
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -9,6 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import s3proftaak.Client.Visuals.Lobby;
+import s3proftaak.fontys.RemotePropertyListener;
 
 /**
  *

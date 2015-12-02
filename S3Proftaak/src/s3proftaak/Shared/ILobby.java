@@ -5,9 +5,9 @@
  */
 package s3proftaak.Shared;
 
-import fontys.RemotePropertyListener;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import s3proftaak.fontys.RemotePropertyListener;
 
 /**
  *

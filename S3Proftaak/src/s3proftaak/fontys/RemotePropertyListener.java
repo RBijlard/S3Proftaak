@@ -1,4 +1,4 @@
-package fontys;
+package s3proftaak.fontys;
 
 import java.beans.*;
 import java.rmi.*;
