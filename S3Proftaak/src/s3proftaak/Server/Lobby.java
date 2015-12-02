@@ -171,19 +171,21 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     public void checkStartGame() {
-        if (level != null) {
-            if (players.size() == max) {
-                boolean allReady = true;
+        if (!hasStarted()) {
+            if (level != null) {
+                if (players.size() == max) {
+                    boolean allReady = true;
 
-                for (Player p : players) {
-                    if (!p.isReady()) {
-                        allReady = false;
+                    for (Player p : players) {
+                        if (!p.isReady()) {
+                            allReady = false;
+                        }
                     }
-                }
 
-                if (allReady) {
-                    started = true;
-                    publisher.inform(this, "Administrative", "StartGame", level);
+                    if (allReady) {
+                        started = true;
+                        publisher.inform(this, "Administrative", "StartGame", level);
+                    }
                 }
             }
         }
