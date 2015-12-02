@@ -106,4 +106,32 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
     public Lobby getLobby() {
         return this.lobby;
     }
+
+    public void gameStart() {
+        try {
+            removeListener(this, "Players");
+            removeListener(this, "Ready");
+            removeListener(this, "Level");
+            removeListener(this, "Host");
+            
+            addListener(this, "X");
+            addListener(this, "Y");
+        } catch (RemoteException ex) {
+            Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void gameStop() {
+        try {
+            addListener(this, "Players");
+            addListener(this, "Ready");
+            addListener(this, "Level");
+            addListener(this, "Host");
+            
+            removeListener(this, "X");
+            removeListener(this, "Y");
+        } catch (RemoteException ex) {
+            Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
