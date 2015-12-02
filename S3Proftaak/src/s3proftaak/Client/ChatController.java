@@ -27,6 +27,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
             addListener(this, "Players");
             addListener(this, "Ready");
             addListener(this, "Level");
+            addListener(this, "Host");
         } catch (RemoteException ex) {
             Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -46,12 +47,8 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
                 break;
 
             case "Players":
-                if (evt.getOldValue() != null && evt.getOldValue().toString().equals("ISHOST")) {
-                    System.out.println("Setting is host : ");
-                    this.lobby.setIsHost(true);
-                }else{
-                    this.lobby.updatePlayerList((List<String>) evt.getNewValue());
-                }
+                System.out.println("received players");
+                this.lobby.updatePlayerList((List<String>) evt.getNewValue());
                 break;
 
             case "Ready":
@@ -61,6 +58,13 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
             case "Level":
                 // 
                 this.lobby.comboboxSet(evt.getNewValue().toString());
+                break;
+            case "Host":
+                System.out.println("received host");
+                if (ClientAdministration.getInstance().getAccount().getUsername().equals(evt.getNewValue().toString())) {
+                    System.out.println("Setting is host : ");
+                    this.lobby.setIsHost(true);
+                }
                 break;
         }
 
@@ -89,6 +93,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
             removeListener(this, "Players");
             removeListener(this, "Ready");
             removeListener(this, "Level");
+            removeListener(this, "Host");
 
             ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
 
@@ -96,8 +101,8 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
             Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Lobby getLobby(){
+
+    public Lobby getLobby() {
         return this.lobby;
     }
 }

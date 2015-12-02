@@ -36,7 +36,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
         updateAmountOfPlayers();
 
-        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Ready", "Players", "X", "Y"});
+        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Ready", "Players", "X", "Y", "Host"});
     }
 
     private void updateAmountOfPlayers() {
@@ -73,12 +73,12 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             currentHost = null;
         }
 
-        if (currentHost == null) {
-            if (players.size() > 0) {
-                currentHost = players.get(0).getName();
-            }
+        if (players.size() == 1) {
+            currentHost = players.get(0).getName();
+        }
 
-            publisher.inform(this, "Players", "ISHOST", currentHost);
+        if (currentHost != null) {
+            publisher.inform(this, "Host", null, currentHost);
         }
 
         publisher.inform(this, "Players", null, getNames());

@@ -26,6 +26,7 @@ import s3proftaak.Shared.IMessage;
 import s3proftaak.Client.Message;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.RMIClient;
 
 /**
  *
@@ -53,7 +54,7 @@ public final class Lobby extends BasicScene {
     ComboBox cbLevel;
 
     private ChatController chatController;
-    private boolean isHost = false;
+    private boolean isHost;
 
     public Lobby() {
         createChatController();
@@ -65,20 +66,6 @@ public final class Lobby extends BasicScene {
                 try {
                     if (lblLobbyName != null) {
                         lblLobbyName.setText(ClientAdministration.getInstance().getCurrentLobby().getName());
-                        ArrayList levels = new ArrayList<>();
-
-                        for (File f : new File(getClass().getResource("/Resources/Levels/").getPath().replaceAll("%20", " ")).listFiles()) {
-                            if (f.getName().endsWith(".tmx")) {
-                                levels.add(f.getName());
-                            }
-                        }
-
-                        if (!levels.isEmpty() && cbLevel != null) {
-                            cbLevel.setItems(FXCollections.observableArrayList(levels));
-                            cbLevel.setValue(levels.get(0));
-                        }
-
-                        cbLevel.setEditable(isHost);
                     }
                 } catch (RemoteException ex) {
                     Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
@@ -164,7 +151,6 @@ public final class Lobby extends BasicScene {
                 ArrayList<String> list = new ArrayList<>();
                 list.add(s);
                 if (!isHost) {
-                    this.cbLevel.setEditable(false);
                     System.out.println("Set selection model : " + s);
                     this.cbLevel.getSelectionModel().select(s);
                     this.cbLevel.setItems(FXCollections.observableArrayList(list));
@@ -174,7 +160,40 @@ public final class Lobby extends BasicScene {
     }
 
     public void setIsHost(boolean b) {
-        this.isHost = b;
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (cbLevel != null) {
+                    if (b != isHost) {
+                        isHost = b;
+                        
+                        if (isHost) {
+                            ArrayList levels = new ArrayList<>();
+
+                            for (File f : new File(getClass().getResource("/Resources/Levels/").getPath().replaceAll("%20", " ")).listFiles()) {
+                                if (f.getName().endsWith(".tmx")) {
+                                    levels.add(f.getName());
+                                }
+                            }
+
+                            if (!levels.isEmpty()) {
+                                cbLevel.setItems(FXCollections.observableArrayList(levels));
+                                cbLevel.setValue(levels.get(0));
+                            }
+                        } else {
+                            try {
+                                List<String> lvl = new ArrayList<>();
+                                lvl.add(ClientAdministration.getInstance().getCurrentLobby().getLevel());
+                                cbLevel.setItems(FXCollections.observableArrayList(lvl));
+                            } catch (RemoteException ex) {
+                                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    }
+                }
+            }
+        });
     }
 
     public ChatController getChatController() {
