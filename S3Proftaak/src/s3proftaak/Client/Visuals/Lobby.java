@@ -60,7 +60,7 @@ public final class Lobby extends BasicScene {
 
     public Lobby() {
         createChatController();
-        
+
         Platform.runLater(new Runnable() {
 
             @Override
@@ -68,6 +68,17 @@ public final class Lobby extends BasicScene {
                 try {
                     if (lblLobbyName != null) {
                         lblLobbyName.setText(ClientAdministration.getInstance().getCurrentLobby().getName());
+                    }
+
+                    if (cbLevel != null) {
+                        try {
+                            List<String> lvl = new ArrayList<>();
+                            lvl.add(ClientAdministration.getInstance().getCurrentLobby().getLevel());
+                            cbLevel.setItems(FXCollections.observableArrayList(lvl));
+                            cbLevel.setValue(lvl.get(0));
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 } catch (RemoteException ex) {
                     Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
@@ -153,8 +164,6 @@ public final class Lobby extends BasicScene {
                 ArrayList<String> list = new ArrayList<>();
                 list.add(s);
                 if (!isHost) {
-                    System.out.println("Set selection model : " + s);
-                    this.cbLevel.getSelectionModel().select(s);
                     this.cbLevel.setItems(FXCollections.observableArrayList(list));
                 }
             }
@@ -169,7 +178,7 @@ public final class Lobby extends BasicScene {
                 if (cbLevel != null) {
                     if (b != isHost) {
                         isHost = b;
-                        
+
                         if (isHost) {
                             ArrayList levels = new ArrayList<>();
 

@@ -109,10 +109,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         return level;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
     @Override
     public String getAmountOfPlayers() {
         return amountOfPlayers;
