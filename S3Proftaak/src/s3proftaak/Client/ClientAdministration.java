@@ -50,18 +50,18 @@ public class ClientAdministration extends Application {
 
             @Override
             public void handle(WindowEvent event) {
-                
-                if (getCurrentScreen() instanceof Lobby){
-                    if (((Lobby) getCurrentScreen()).getChatController() != null){
+
+                if (getCurrentScreen() instanceof Lobby) {
+                    if (((Lobby) getCurrentScreen()).getChatController() != null) {
                         ((Lobby) getCurrentScreen()).getChatController().leaveLobby();
                     }
                 }
-                
+
                 System.exit(0);
-                
+
             }
         });
-        
+
         changeScreen(Screens.Login);
         primaryStage.show();
 
@@ -147,6 +147,8 @@ public class ClientAdministration extends Application {
     }
 
     public void startGame(Game game) {
+        ((Lobby) getCurrentScreen()).getChatController().startGame();
+
         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         int width = gd.getDisplayMode().getWidth();
         int height = gd.getDisplayMode().getHeight();
@@ -166,5 +168,12 @@ public class ClientAdministration extends Application {
 
         } catch (SlickException ex) {
         }
+    }
+
+    public void stopGame() {
+        ((Lobby) getCurrentScreen()).getChatController().stopGame();
+
+        getApp().exit();
+        //changeScreen(ClientAdministration.Screens.Highscores);
     }
 }

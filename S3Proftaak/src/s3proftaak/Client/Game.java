@@ -324,8 +324,7 @@ public class Game extends BasicGame {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            ClientAdministration.getInstance().getApp().exit();
-            ClientAdministration.changeScreen(ClientAdministration.Screens.Highscores);
+            ClientAdministration.getInstance().stopGame();
             SoundManager.getInstance().playMenuMusic();
         }
     }

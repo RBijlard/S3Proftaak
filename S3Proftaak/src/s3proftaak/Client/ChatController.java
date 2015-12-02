@@ -107,7 +107,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
         return this.lobby;
     }
 
-    public void gameStart() {
+    public void startGame() {
         try {
             removeListener(this, "Players");
             removeListener(this, "Ready");
@@ -121,7 +121,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
         }
     }
 
-    public void gameStop() {
+    public void stopGame() {
         try {
             addListener(this, "Players");
             addListener(this, "Ready");
