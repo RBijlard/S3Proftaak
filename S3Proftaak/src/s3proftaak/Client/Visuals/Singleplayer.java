@@ -63,7 +63,7 @@ public class Singleplayer extends BasicScene implements Initializable {
         }
 
         if (cbLevel.getSelectionModel().getSelectedItem() != null) {
-            ClientAdministration.getInstance().startGame(new Game("De Game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString(), false));
+            ClientAdministration.getInstance().startGame(new Game("De Game", amountOfPlayers, cbLevel.getSelectionModel().getSelectedItem().toString(), null));
         }
     }
 

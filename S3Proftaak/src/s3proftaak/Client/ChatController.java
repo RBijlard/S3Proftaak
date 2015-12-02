@@ -4,6 +4,7 @@ import s3proftaak.Shared.IMessage;
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,9 +19,12 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
 
     private final Lobby lobby;
     private int amount = 1;
+    
+    private List<String> names;
 
     public ChatController(Lobby lobby) throws RemoteException {
         this.lobby = lobby;
+        this.names = new ArrayList<>();
 
         try {
             addListener(this, "Administrative");
@@ -39,7 +43,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
         switch (evt.getPropertyName()) {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
-                    ClientAdministration.getInstance().startGame(new Game("De Game", amount, evt.getNewValue().toString(), true));
+                    ClientAdministration.getInstance().startGame(new Game("De Game", amount, evt.getNewValue().toString(), this.names));
                 }
                 break;
 
@@ -50,9 +54,9 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
             case "Players":
                 System.out.println("received players");
                 if (evt.getNewValue() != null){
-                    List<String> players = (List<String>) evt.getNewValue();
-                    amount = players.size();
-                    this.lobby.updatePlayerList(players);
+                    this.names = (List<String>) evt.getNewValue();
+                    this.amount = this.names.size();
+                    this.lobby.updatePlayerList(this.names);
                 }
                 break;
 

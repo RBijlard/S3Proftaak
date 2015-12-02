@@ -46,7 +46,8 @@ public class Game extends BasicGame {
     private final boolean multiplayer;
 
     private List<GameObject> gameObjects;
-    private List<Character> gameCaracters;
+    private List<Character> gameCharacters;
+    private List<String> gameCharacterNames;
 
     private TiledMap map;
     private float x = 70f, y = 70f;
@@ -67,9 +68,14 @@ public class Game extends BasicGame {
     private TrueTypeFont slickFontTimer;
     private TrueTypeFont slickFontUserName;
 
-    public Game(String title, int amountOfPlayers, String mapname, boolean multiplayer) {
+    public Game(String title, int amountOfPlayers, String mapname, List<String> names) {
         super(title);
-        this.multiplayer = multiplayer;
+        
+        this.multiplayer = names != null;
+        if (this.multiplayer){
+            this.gameCharacterNames = names;
+        }
+        
         this.amountOfPlayers = amountOfPlayers;
         this.mapname = mapname;
         this.gameOver = false;
@@ -94,7 +100,7 @@ public class Game extends BasicGame {
         //map and list
         this.map = new TiledMap(path);
         this.gameObjects = new ArrayList<>();
-        this.gameCaracters = new ArrayList<>();
+        this.gameCharacters = new ArrayList<>();
 
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {
@@ -167,12 +173,12 @@ public class Game extends BasicGame {
         }
 
         for (int i = 1; i < this.amountOfPlayers; i++) {
-            this.gameCaracters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, multiplayer ? -1 : i, "Steve"));
+            this.gameCharacters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, multiplayer ? -1 : i, gameCharacterNames.get(i)));
         }
 
-        this.gameObjects.addAll(this.gameCaracters);
+        this.gameObjects.addAll(this.gameCharacters);
 
-        this.gameObjects.add(main_character = new Character(this, 500f, 72f, 70f, 93f, 0, "Steve"));
+        this.gameObjects.add(main_character = new Character(this, 500f, 72f, 70f, 93f, 0, ClientAdministration.getInstance().getAccount().getUsername()));
 
         // Moet keer weg
         for (GameObject go : this.gameObjects) {
