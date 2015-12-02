@@ -27,6 +27,8 @@ import s3proftaak.Client.SoundManager.Sounds;
  */
 public class Character extends GameObject implements IRenderable, IUpdateable {
 
+    private final String name;
+    
     private float gravity = 0.5f;
     private float jumpStrength = -12;
     private float speed = 4;
@@ -45,8 +47,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     float marginy, marginx;
 
-    public Character(Game game, float x, float y, float width, float height, int controlSet) throws SlickException {
+    public Character(Game game, float x, float y, float width, float height, int controlSet, String name) throws SlickException {
         super(x, y, width, height);
+        this.name = name;
+        
         this.game = game;
         this.controlSet = controlSet;
 

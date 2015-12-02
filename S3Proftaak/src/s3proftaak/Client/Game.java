@@ -43,7 +43,11 @@ import s3proftaak.Client.SoundManager.Sounds;
  */
 public class Game extends BasicGame {
 
+    private final boolean multiplayer;
+
     private List<GameObject> gameObjects;
+    private List<Character> gameCaracters;
+
     private TiledMap map;
     private float x = 70f, y = 70f;
     private String path;
@@ -63,11 +67,12 @@ public class Game extends BasicGame {
     private TrueTypeFont slickFontTimer;
     private TrueTypeFont slickFontUserName;
 
-    public Game(String title, int amountOfPlayers, String mapname) {
+    public Game(String title, int amountOfPlayers, String mapname, boolean multiplayer) {
         super(title);
+        this.multiplayer = multiplayer;
         this.amountOfPlayers = amountOfPlayers;
         this.mapname = mapname;
-        gameOver = false;
+        this.gameOver = false;
     }
 
     public TiledMap getMap() {
@@ -89,6 +94,7 @@ public class Game extends BasicGame {
         //map and list
         this.map = new TiledMap(path);
         this.gameObjects = new ArrayList<>();
+        this.gameCaracters = new ArrayList<>();
 
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {
@@ -161,10 +167,12 @@ public class Game extends BasicGame {
         }
 
         for (int i = 1; i < this.amountOfPlayers; i++) {
-            this.gameObjects.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i));
+            this.gameCaracters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, multiplayer ? -1 : i, "Steve"));
         }
 
-        this.gameObjects.add(main_character = new Character(this, 500f, 72f, 70f, 93f, 0));
+        this.gameObjects.addAll(this.gameCaracters);
+
+        this.gameObjects.add(main_character = new Character(this, 500f, 72f, 70f, 93f, 0, "Steve"));
 
         // Moet keer weg
         for (GameObject go : this.gameObjects) {

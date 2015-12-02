@@ -17,6 +17,7 @@ import s3proftaak.fontys.RemotePropertyListener;
 public class ChatController extends UnicastRemoteObject implements RemotePropertyListener {
 
     private final Lobby lobby;
+    private int amount = 1;
 
     public ChatController(Lobby lobby) throws RemoteException {
         this.lobby = lobby;
@@ -38,7 +39,7 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
         switch (evt.getPropertyName()) {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
-                    ClientAdministration.getInstance().startGame(new Game("De Game", 1, evt.getNewValue().toString()));
+                    ClientAdministration.getInstance().startGame(new Game("De Game", amount, evt.getNewValue().toString(), true));
                 }
                 break;
 
@@ -48,7 +49,11 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
 
             case "Players":
                 System.out.println("received players");
-                this.lobby.updatePlayerList((List<String>) evt.getNewValue());
+                if (evt.getNewValue() != null){
+                    List<String> players = (List<String>) evt.getNewValue();
+                    amount = players.size();
+                    this.lobby.updatePlayerList(players);
+                }
                 break;
 
             case "Ready":
