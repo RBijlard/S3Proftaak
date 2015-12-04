@@ -147,33 +147,50 @@ public class ClientAdministration extends Application {
     }
 
     public void startGame(Game game) {
-        ((Lobby) getCurrentScreen()).getChatController().startGame();
-
-        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-        int width = gd.getDisplayMode().getWidth();
-        int height = gd.getDisplayMode().getHeight();
-
-        try {
-            setGame(game);
-            getApp().setDisplayMode(width, height, false);
-            getApp().setTargetFrameRate(60);
-            getApp().setForceExit(false);
-            getApp().start();
-
+        if (this.game == null) {
             try {
-                SoundManager.getInstance().restartSound();
-                ClientAdministration.getInstance().getApp().reinit();
-            } catch (Exception ex) {
+                setGame(game);
+            } catch (SlickException ex) {
+                Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        } catch (SlickException ex) {
+            if (game != null) {
+                if (game.isMultiplayer()) {
+                    ((Lobby) getCurrentScreen()).getChatController().startGame();
+                }
+
+                GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+                int width = gd.getDisplayMode().getWidth();
+                int height = gd.getDisplayMode().getHeight();
+
+                try {
+                    getApp().setDisplayMode(width, height, false);
+                    getApp().setTargetFrameRate(60);
+                    getApp().setForceExit(false);
+                    getApp().start();
+
+                    try {
+                        SoundManager.getInstance().restartSound();
+                        ClientAdministration.getInstance().getApp().reinit();
+                    } catch (Exception ex) {
+                    }
+
+                } catch (SlickException ex) {
+                }
+            }
+
         }
+
     }
 
     public void stopGame() {
-        ((Lobby) getCurrentScreen()).getChatController().stopGame();
+        if (game.isMultiplayer()) {
+            ((Lobby) getCurrentScreen()).getChatController().startGame();
+        }
 
         getApp().exit();
         //changeScreen(ClientAdministration.Screens.Highscores);
+
+        this.game = null;
     }
 }

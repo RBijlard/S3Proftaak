@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
-import s3proftaak.Shared.CustomException;
+import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 
 /**

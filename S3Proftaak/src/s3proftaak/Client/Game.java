@@ -72,6 +72,7 @@ public class Game extends BasicGame {
         super(title);
         
         this.multiplayer = names != null;
+        
         if (this.multiplayer){
             this.gameCharacterNames = names;
         }
@@ -172,13 +173,25 @@ public class Game extends BasicGame {
             }
         }
 
-        for (int i = 1; i < this.amountOfPlayers; i++) {
-            this.gameCharacters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, multiplayer ? -1 : i, gameCharacterNames.get(i)));
+        for (int i = 1; i < this.amountOfPlayers+1; i++) {
+            if (multiplayer){
+                if (ClientAdministration.getInstance().getAccount().getUsername().equals(gameCharacterNames.get(i-1))){
+                    this.main_character = new Character(this, 500f, 72f, 70f, 93f, i-1, gameCharacterNames.get(i-1));
+                    this.gameCharacters.add(this.main_character);
+                }else{
+                    this.gameCharacters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i-1, gameCharacterNames.get(i-1)));
+                }
+            }else{
+                if (i == 1){
+                    this.main_character = new Character(this, (72f * i + 500f), 72f, 70f, 93f, i-1, "");
+                    this.gameCharacters.add(this.main_character);
+                }else{
+                    this.gameCharacters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i-1, ""));
+                }
+            }
         }
 
         this.gameObjects.addAll(this.gameCharacters);
-
-        this.gameObjects.add(main_character = new Character(this, 500f, 72f, 70f, 93f, 0, ClientAdministration.getInstance().getAccount().getUsername()));
 
         // Moet keer weg
         for (GameObject go : this.gameObjects) {
@@ -341,5 +354,9 @@ public class Game extends BasicGame {
             ClientAdministration.getInstance().stopGame();
             SoundManager.getInstance().playMenuMusic();
         }
+    }
+    
+    public boolean isMultiplayer(){
+        return this.multiplayer;
     }
 }

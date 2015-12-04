@@ -45,6 +45,10 @@ public class ChatController extends UnicastRemoteObject implements RemotePropert
                 if (evt.getOldValue().toString().equals("StartGame")) {
                     ClientAdministration.getInstance().startGame(new Game("De Game", amount, evt.getNewValue().toString(), this.names));
                 }
+                
+                if (evt.getOldValue().toString().equals("StopGame")) {
+                    ClientAdministration.getInstance().stopGame();
+                }
                 break;
 
             case "Chat":

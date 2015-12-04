@@ -5,6 +5,7 @@
  */
 package s3proftaak.Shared;
 
+import s3proftaak.util.CustomException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import s3proftaak.fontys.RemotePropertyListener;
