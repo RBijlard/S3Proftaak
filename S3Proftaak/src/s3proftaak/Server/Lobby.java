@@ -80,8 +80,10 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         if (currentHost != null) {
             publisher.inform(this, "Host", null, currentHost);
         }
-
-        publisher.inform(this, "Players", null, getNames());
+        
+        if (!players.isEmpty()){
+           publisher.inform(this, "Players", null, getNames()); 
+        }
     }
 
     @Override
@@ -194,9 +196,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     private List<String> getNames() {
         List<String> names = new ArrayList<>();
 
-        players.stream().forEach((p) -> {
+        // Use a copied list to prevent a ConcurrentModificationException from happening.
+        List<Player> tempPlayers = new ArrayList<>();
+        tempPlayers.addAll(players);
+        
+        for (Player p : tempPlayers){
             names.add(p.getName());
-        });
+        }
 
         return names;
     }

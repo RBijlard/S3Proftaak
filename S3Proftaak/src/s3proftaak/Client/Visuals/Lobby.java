@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import s3proftaak.Client.ChatController;
 import s3proftaak.Shared.IMessage;
@@ -37,7 +38,7 @@ public final class Lobby extends BasicScene {
     @FXML
     ListView chatList;
     @FXML
-    ListView playerList;
+    TableView playerList;
     @FXML
     TextField chatText;
     @FXML
@@ -56,6 +57,17 @@ public final class Lobby extends BasicScene {
 
     public Lobby() {
         createChatController();
+
+        
+        
+        
+       
+        
+        
+        
+        
+        
+        
 
         Platform.runLater(new Runnable() {
 

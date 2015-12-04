@@ -3,6 +3,7 @@ package s3proftaak.Client.GameObjects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -26,9 +27,10 @@ import s3proftaak.Client.SoundManager.Sounds;
  * @author Berry-PC
  */
 public class Character extends GameObject implements IRenderable, IUpdateable {
-    
+
     private final String name;
-    
+    private final boolean isControllabe;
+
     private float gravity = 0.5f;
     private float jumpStrength = -12;
     private float speed = 4;
@@ -36,24 +38,26 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float vX = 0;
     private float vY = 0;
     private final int controlSet;
-    
+
     private Game game;
     private SpriteSheet playerSheet;
     private Animation animate;
     private GameObject MLO;
     private float offSetX;
-    
+
     private boolean isCrouching;
-    
+
     float marginy, marginx;
-    
+
     public Character(Game game, float x, float y, float width, float height, int controlSet, String name) throws SlickException {
         super(x, y, width, height);
         this.name = name;
-        
+
+        this.isControllabe = this.name.equals(ClientAdministration.getInstance().getAccount().getUsername());
+
         this.game = game;
         this.controlSet = controlSet;
-        
+
         this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
         MLO = new Block(1f, 1f, 1f, 1f);
         this.game.getGameObjects().add(MLO);
@@ -63,9 +67,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
         marginx = 0 - MLO.getX();
-        
+
         this.isCrouching = false;
-        
+
         try {
             playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
             animate = new Animation(playerSheet, 100);
@@ -73,17 +77,20 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void update(GameContainer gc, int i) {
         //update player (move)
 
         if (game.isMultiplayer()) {
-            if (name.equals(ClientAdministration.getInstance().getAccount().getUsername())) {
+            if (isControllabe) {
                 this.moveHorizontalMap(gc);
                 this.moveVertical(gc);
+            } else {
+                this.moveHorizontal1(gc);
+                this.moveVertical1(gc);
             }
-            
+
         } else {
             switch (this.controlSet) {
                 case 0:
@@ -100,7 +107,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     break;
             }
         }
-        
+
         if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
             try {
                 SoundManager.getInstance().restartSound();
@@ -110,14 +117,23 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
+    @Override
     public void render(GameContainer gc, Graphics g) {
         //render animation
         animate.draw(this.getX(), this.getY());
+
+        if (game.isMultiplayer()) {
+            //Draw Username Above Character
+            g.setColor(Color.yellow);
+            g.setFont(game.getSlickFontUsername());
+            g.drawString(name, this.getRect().getX() + 23, this.getRect().getY() - 23);
+        }
+
     }
-    
+
     public void moveHorizontalMap(GameContainer gc) {
-        
+
         this.offSetX = 0 - MLO.getX();
         //Move horizontal with arrow keys
         Input input = gc.getInput();
@@ -151,11 +167,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
     public float getOffsetX() {
         return this.offSetX - this.marginx;
     }
-    
+
     public void moveHorizontal(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -182,7 +198,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
     public void moveVertical(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -199,13 +215,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
         }
-        
+
         if (input.isKeyDown(Input.KEY_DOWN)) {
             this.checkCrouch(true);
         } else {
             this.checkCrouch(false);
         }
-        
+
         if (this.getY() > (70 * 15)) {
             this.die();
         }
@@ -222,18 +238,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
     public void die() {
         try {
             SoundManager.getInstance().playSound(Sounds.GAMEOVER);
             SoundManager.getInstance().restartSound();
             ClientAdministration.getInstance().getApp().reinit();
-            
+
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public boolean isColliding(GameContainer gc) {
         Rectangle rect = this.getRect();
         for (GameObject go : game.getGameObjects()) {
@@ -255,7 +271,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             ((MoveableBlock) go).setDx(i);
                         }
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
-                            
+
                             for (int b = 1; b < 20; b++) {
                                 if (this.getRect().getMinY() >= go.getRect().getMaxY() - b) {
                                     this.die();
@@ -263,7 +279,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 }
                             }
                         }
-                        
+
                         return true;
                     } else if (go instanceof Spike) {
                         this.die();
@@ -311,23 +327,26 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
         return super.toString() + " -- CHARACTER";
     }
-    
+
     public void moveHorizontal1(GameContainer gc) {
         //move with arrow keys
-        Input input = gc.getInput();
-        if (input.isKeyDown(Input.KEY_A)) {
-            //move leftt -> x min
-            this.vX = -this.speed;
-        } else if (input.isKeyDown(Input.KEY_D)) {
-            //move right -> x plus
-            this.vX = this.speed;
-        } else {
-            this.vX = 0;
+
+        if (!game.isMultiplayer()) {
+            Input input = gc.getInput();
+            if (input.isKeyDown(Input.KEY_A)) {
+                //move leftt -> x min
+                this.vX = -this.speed;
+            } else if (input.isKeyDown(Input.KEY_D)) {
+                //move right -> x plus
+                this.vX = this.speed;
+            } else {
+                this.vX = 0;
+            }
         }
 
         //check for collision in 5 small steps for higher precision
@@ -342,29 +361,33 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
     public void moveVertical1(GameContainer gc) {
         //move with arrow keys
-        Input input = gc.getInput();
+        
         this.vY += this.gravity;
-        if (input.isKeyDown(Input.KEY_W)) {
-            //move up -> y min
-            this.setY(this.getY() + 0.1f);
-            this.updateHitbox();
-            if (this.isColliding(gc)) {
-                this.vY = this.jumpStrength;
-                SoundManager.getInstance().playSound(Sounds.JUMP);
+        
+        if (!game.isMultiplayer()){
+            Input input = gc.getInput();
+            if (input.isKeyDown(Input.KEY_W)) {
+                //move up -> y min
+                this.setY(this.getY() + 0.1f);
+                this.updateHitbox();
+                if (this.isColliding(gc)) {
+                    this.vY = this.jumpStrength;
+                    SoundManager.getInstance().playSound(Sounds.JUMP);
+                }
+                this.setY(this.getY() - 0.1f);
+                this.updateHitbox();
             }
-            this.setY(this.getY() - 0.1f);
-            this.updateHitbox();
+
+            if (input.isKeyDown(Input.KEY_S)) {
+                this.checkCrouch(true);
+            } else {
+                this.checkCrouch(false);
+            }
         }
-        
-        if (input.isKeyDown(Input.KEY_S)) {
-            this.checkCrouch(true);
-        } else {
-            this.checkCrouch(false);
-        }
-        
+
         if (this.getY() > (70 * 15)) {
             this.die();
         }
@@ -381,7 +404,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
     public void moveHorizontal2(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -407,7 +430,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
     public void moveVertical2(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -423,13 +446,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.setY(this.getY() - 0.1f);
             this.updateHitbox();
         }
-        
+
         if (input.isKeyDown(Input.KEY_K)) {
             this.checkCrouch(true);
         } else {
             this.checkCrouch(false);
         }
-        
+
         if (this.getY() > (70 * 15)) {
             this.die();
         }
@@ -446,7 +469,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-    
+
     private void checkCrouch(boolean crouching) {
         if (isCrouching != crouching) {
             if (!crouching) {
@@ -454,13 +477,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     return;
                 }
             }
-            
+
             isCrouching = crouching;
-            
+
             try {
                 playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (crouching ? "_crouch" : "") + ".png").getPath().replace("%20", " "), 70, !crouching ? 93 : 69);
                 animate = new Animation(playerSheet, 100);
-                
+
                 if (crouching) {
                     this.getRect().setHeight(69);
                     this.setY(this.getY() + 24);
@@ -470,13 +493,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     this.getRect().setHeight(93);
                     this.updateHitbox();
                 }
-                
+
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-    
+
     private boolean isObjectAbove() {
         for (GameObject go : game.getGameObjects()) {
             if (!(go instanceof Door) && !(go instanceof Star)) {
@@ -487,7 +510,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 }
             }
         }
-        
+
         return false;
     }
 }

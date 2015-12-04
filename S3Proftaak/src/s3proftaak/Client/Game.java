@@ -70,13 +70,13 @@ public class Game extends BasicGame {
 
     public Game(String title, int amountOfPlayers, String mapname, List<String> names) {
         super(title);
-        
+
         this.multiplayer = names != null;
-        
-        if (this.multiplayer){
+
+        if (this.multiplayer) {
             this.gameCharacterNames = names;
         }
-        
+
         this.amountOfPlayers = amountOfPlayers;
         this.mapname = mapname;
         this.gameOver = false;
@@ -173,22 +173,18 @@ public class Game extends BasicGame {
             }
         }
 
-        for (int i = 1; i < this.amountOfPlayers+1; i++) {
-            if (multiplayer){
-                if (ClientAdministration.getInstance().getAccount().getUsername().equals(gameCharacterNames.get(i-1))){
-                    this.main_character = new Character(this, 500f, 72f, 70f, 93f, i-1, gameCharacterNames.get(i-1));
-                    this.gameCharacters.add(this.main_character);
-                }else{
-                    this.gameCharacters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i-1, gameCharacterNames.get(i-1)));
-                }
-            }else{
-                if (i == 1){
-                    this.main_character = new Character(this, (72f * i + 500f), 72f, 70f, 93f, i-1, "");
-                    this.gameCharacters.add(this.main_character);
-                }else{
-                    this.gameCharacters.add(new Character(this, (72f * i + 500f), 72f, 70f, 93f, i-1, ""));
-                }
+        for (int i = 0; i < this.amountOfPlayers; i++) {
+
+            Character c = new Character(this, (72f * i + 500f), 72f, 70f, 93f, i, multiplayer ? gameCharacterNames.get(i) : "");
+
+            if ((!multiplayer && i == 0) || (multiplayer && ClientAdministration.getInstance().getAccount().getUsername().equals(gameCharacterNames.get(i)))) {
+                this.gameCharacters.add(main_character = c);
             }
+
+            if (!this.gameCharacters.contains(c)) {
+                this.gameCharacters.add(c);
+            }
+
         }
 
         this.gameObjects.addAll(this.gameCharacters);
@@ -272,13 +268,6 @@ public class Game extends BasicGame {
             this.map.render(0 - (int) main_character.getOffsetX(), i);
         }
 
-        //Draw Username Above Character
-        grphcs.setColor(Color.yellow);
-        grphcs.setFont(slickFontUserName);
-        grphcs.drawString(ClientAdministration.getInstance().getAccount().getUsername(),
-                this.main_character.getRect().getX() + 23,
-                this.main_character.getRect().getY() - 23);
-
         //render Timer
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
         String strDate = sdf.format(this.currentTime);
@@ -355,8 +344,12 @@ public class Game extends BasicGame {
             SoundManager.getInstance().playMenuMusic();
         }
     }
-    
-    public boolean isMultiplayer(){
+
+    public boolean isMultiplayer() {
         return this.multiplayer;
+    }
+
+    public TrueTypeFont getSlickFontUsername() {
+        return this.slickFontUserName;
     }
 }
