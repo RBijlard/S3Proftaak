@@ -80,11 +80,6 @@
             </font>
         </Label>
         <ComboBox fx:id="cbLevel" maxWidth="1.7976931348623157E308" onAction="#cbLevelClick" prefHeight="30.0" prefWidth="245.0" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-        <TableView fx:id="playerList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="6">
-            <columns>
-                <TableColumn prefWidth="75.0" text="Ready" />
-                <TableColumn prefWidth="259.0" text="Name" />
-            </columns>
-        </TableView>
+        <TableView fx:id="playerList" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="6" />
     </children>
 </GridPane>

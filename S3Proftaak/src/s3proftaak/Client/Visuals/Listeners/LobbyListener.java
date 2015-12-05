@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.Visuals.Lobby;
+import s3proftaak.Shared.IPlayer;
 import s3proftaak.fontys.RemotePropertyListener;
 
 /**
@@ -20,14 +21,13 @@ import s3proftaak.fontys.RemotePropertyListener;
 public class LobbyListener extends BasicListener implements Serializable, RemotePropertyListener {
 
     private final Lobby lobbyScreen;
-
-    private int amount = 1;
-    private List<String> names;
+    
+    private List<IPlayer> players;
 
     public LobbyListener(Lobby lobby) throws RemoteException {
         this.lobbyScreen = lobby;
-
-        this.names = new ArrayList<>();
+        
+        this.players = new ArrayList<>();
     }
 
     @Override
@@ -35,7 +35,7 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
         switch (evt.getPropertyName()) {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
-                    ClientAdministration.getInstance().startGame(new Game("De Game", amount, evt.getNewValue().toString(), this.names));
+                    ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), this.getNames()));
                 }
 
                 if (evt.getOldValue().toString().equals("StopGame")) {
@@ -50,14 +50,9 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
             case "Players":
                 System.out.println("received players");
                 if (evt.getNewValue() != null) {
-                    this.names = (List<String>) evt.getNewValue();
-                    this.amount = this.names.size();
-                    this.lobbyScreen.updatePlayerList(this.names);
+                    this.players = (List<IPlayer>) evt.getNewValue();
+                    this.lobbyScreen.updatePlayerList(this.players);
                 }
-                break;
-
-            case "Ready":
-                // Old = username, New = State
                 break;
 
             case "Level":
@@ -81,7 +76,6 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Administrative");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Chat");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Ready");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Host");
         } catch (RemoteException ex) {
@@ -95,7 +89,6 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Administrative");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Chat");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Ready");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
 
@@ -135,4 +128,19 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
      }
      }
      */
+    private List<String> getNames() {
+        List<String> names = new ArrayList<>();
+
+        // Use a copied list to prevent a ConcurrentModificationException from happening.
+        List<IPlayer> tempPlayers = new ArrayList<>();
+        tempPlayers.addAll(players);
+
+        try {
+            for (IPlayer p : tempPlayers) {
+                names.add(p.getName());
+            }
+        } catch (RemoteException ex) {}
+
+        return names;
+    }
 }

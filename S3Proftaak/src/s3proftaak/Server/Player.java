@@ -5,25 +5,36 @@
  */
 package s3proftaak.Server;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import s3proftaak.Shared.IPlayer;
+
 /**
  *
  * @author Stan
  */
-public class Player {
+public class Player extends UnicastRemoteObject implements IPlayer {
     
-    public String name;
-    public boolean ready;
+    private final String name;
+    private boolean ready;
 
-    public Player(String name) {
+    public Player(String name) throws RemoteException {
         this.name = name;
     }
 
+    @Override
     public String getName() {
         return name;
     }
     
+    @Override
     public boolean isReady() {
         return ready;
+    }
+    
+    @Override
+    public String getReady() {
+        return String.valueOf(ready);
     }
 
     public void toggleReady() {

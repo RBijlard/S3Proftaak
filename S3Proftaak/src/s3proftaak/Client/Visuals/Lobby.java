@@ -6,7 +6,6 @@
 package s3proftaak.Client.Visuals;
 
 import java.io.File;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +19,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.control.cell.PropertyValueFactory;
 import s3proftaak.Client.Visuals.Listeners.LobbyListener;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Client.Message;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Shared.IPlayer;
 
 /**
  *
@@ -62,11 +65,24 @@ public final class Lobby extends BasicScene {
         } catch (RemoteException ex) {
             Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        TableColumn readyCol = new TableColumn<>("Ready");
+        readyCol.setCellValueFactory(new PropertyValueFactory<>("ready"));
+        //readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
+
+        TableColumn nameCol = new TableColumn("Name");
+        nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
+                
+                if (playerList != null) {
+                    nameCol.setMinWidth(playerList.getWidth() - readyCol.getWidth());
+                    playerList.getColumns().addAll(readyCol, nameCol);
+                }
+                
                 try {
                     if (lblLobbyName != null) {
                         lblLobbyName.setText(ClientAdministration.getInstance().getCurrentLobby().getName());
@@ -132,7 +148,7 @@ public final class Lobby extends BasicScene {
         });
     }
 
-    public void updatePlayerList(List<String> players) {
+    public void updatePlayerList(List<IPlayer> players) {
         Platform.runLater(() -> {
             if (playerList != null && players != null) {
                 playerList.setItems(FXCollections.observableArrayList(players));
@@ -200,5 +216,9 @@ public final class Lobby extends BasicScene {
                 }
             }
         });
+    }
+    
+    public TableView getPlayerList(){
+        return this.playerList;
     }
 }

@@ -28,7 +28,7 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         instance = (ServerAdministration) this;
         this.lobbies = new ArrayList<>();
         this.publisher = new BasicPublisher(new String[]{"LobbyList"});
-        
+
         // Remove later
         this.lobbies.add(new Lobby("Awesome", 2));
     }
@@ -40,7 +40,7 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         this.informLobbyListMembers();
         return tempLobby;
     }
-    
+
     @Override
     public List<ILobby> getLobbies() throws RemoteException {
         return getLobbiesInLobby();
@@ -54,7 +54,7 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
     public static ServerAdministration getInstance() {
         return instance;
     }
-    
+
     @Override
     public void addListener(RemotePropertyListener listener, String property) throws RemoteException {
         publisher.addListener(listener, property);
@@ -64,20 +64,22 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
     public void removeListener(RemotePropertyListener listener, String property) throws RemoteException {
         publisher.removeListener(listener, property);
     }
-    
-    private List<ILobby> getLobbiesInLobby(){
+
+    private List<ILobby> getLobbiesInLobby() {
         List<ILobby> tempLobbies = new ArrayList<>();
-        
-        for (Lobby lobby : this.lobbies){
-            if (!lobby.hasStarted()){
+
+        for (Lobby lobby : this.lobbies) {
+            if (!lobby.hasStarted()) {
                 tempLobbies.add(lobby);
             }
         }
-        
+
         return tempLobbies;
     }
-    
-    private void informLobbyListMembers(){
-        this.publisher.inform(this, "LobbyList", null, getLobbiesInLobby());
+
+    private void informLobbyListMembers() {
+        if (!getLobbiesInLobby().isEmpty()) {
+            this.publisher.inform(this, "LobbyList", null, getLobbiesInLobby());
+        }
     }
 }
