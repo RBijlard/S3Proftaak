@@ -21,26 +21,18 @@ import s3proftaak.fontys.RemotePropertyListener;
  */
 public class Lobby extends UnicastRemoteObject implements ILobby {
 
-    private String level = "";
     private final List<Player> players = new ArrayList<>();
     private final String name;
-    private String amountOfPlayers;
     private final int max;
     private final BasicPublisher publisher;
+    private String level = "";
     private String currentHost;
     private boolean started;
 
     public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
         this.name = lobbyname;
         this.max = maxPlayers;
-
-        updateAmountOfPlayers();
-
         this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Ready", "Players", "X", "Y", "Host"});
-    }
-
-    private void updateAmountOfPlayers() {
-        this.amountOfPlayers = this.players.size() + "/" + this.max;
     }
 
     @Override
@@ -50,8 +42,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void updateLevel(String level) {
-        this.level = level;
-        publisher.inform(this, "Level", null, level);
+        publisher.inform(this, "Level", null, this.level = level);
     }
 
     @Override
@@ -67,8 +58,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void updatePlayers() {
-        updateAmountOfPlayers();
-
         if (!getNames().contains(currentHost)) {
             currentHost = null;
         }
@@ -97,23 +86,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void addListener(RemotePropertyListener listener, String property) throws RemoteException {
-        publisher.addListener(listener, property);
-    }
-
-    @Override
-    public void removeListener(RemotePropertyListener listener, String property) throws RemoteException {
-        publisher.removeListener(listener, property);
+    public String getAmountOfPlayers() {
+        return this.players.size() + "/" + this.max;
     }
 
     @Override
     public String getLevel() {
         return level;
-    }
-
-    @Override
-    public String getAmountOfPlayers() {
-        return amountOfPlayers;
     }
 
     @Override
@@ -160,7 +139,21 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         }
     }
 
-    public Player getPlayer(String username) {
+    @Override
+    public void addListener(RemotePropertyListener listener, String property) throws RemoteException {
+        publisher.addListener(listener, property);
+    }
+
+    @Override
+    public void removeListener(RemotePropertyListener listener, String property) throws RemoteException {
+        publisher.removeListener(listener, property);
+    }
+
+    public boolean hasStarted() {
+        return this.started;
+    }
+
+    private Player getPlayer(String username) {
         for (Player p : players) {
             if (p.getName().equals(username)) {
                 return p;
@@ -170,7 +163,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         return null;
     }
 
-    public void checkStartGame() {
+    private void checkStartGame() {
         if (!hasStarted()) {
             if (level != null) {
                 if (players.size() == max) {
@@ -189,10 +182,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                 }
             }
         }
-    }
-
-    public boolean hasStarted() {
-        return this.started;
     }
 
     private List<String> getNames() {
