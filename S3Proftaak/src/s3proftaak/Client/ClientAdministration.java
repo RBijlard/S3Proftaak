@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -20,8 +19,6 @@ import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
-import s3proftaak.Client.Visuals.Lobby;
-import s3proftaak.Client.Visuals.Multiplayer;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -54,12 +51,6 @@ public class ClientAdministration extends Application {
 
                 if (getCurrentScreen().getListener() != null){
                     getCurrentScreen().getListener().stopListening();
-                }
-                
-                if (getCurrentScreen() instanceof Lobby) {
-                    if (((Lobby) getCurrentScreen()).getChatController() != null) {
-                        ((Lobby) getCurrentScreen()).getChatController().leaveLobby();
-                    }
                 }
 
                 System.exit(0);
@@ -161,7 +152,7 @@ public class ClientAdministration extends Application {
 
             if (game != null) {
                 if (game.isMultiplayer()) {
-                    ((Lobby) getCurrentScreen()).getChatController().startGame();
+                    //((Lobby) getCurrentScreen()).getChatController().startGame();
                 }
 
                 GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -190,7 +181,7 @@ public class ClientAdministration extends Application {
 
     public void stopGame() {
         if (game.isMultiplayer()) {
-            ((Lobby) getCurrentScreen()).getChatController().startGame();
+            //((Lobby) getCurrentScreen()).getChatController().stopGame();
         }
 
         getApp().exit();

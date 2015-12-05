@@ -6,6 +6,7 @@
 package s3proftaak.Client.Visuals;
 
 import java.io.File;
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import s3proftaak.Client.ChatController;
+import s3proftaak.Client.Visuals.Listeners.LobbyListener;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Client.Message;
 import s3proftaak.Client.ClientAdministration;
@@ -52,11 +53,15 @@ public final class Lobby extends BasicScene {
     @FXML
     ComboBox cbLevel;
 
-    private ChatController chatController;
     private boolean isHost;
 
     public Lobby() {
-        createChatController();
+        try {
+            this.setListener(new LobbyListener(this));
+            this.getListener().startListening();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         Platform.runLater(new Runnable() {
 
@@ -92,9 +97,11 @@ public final class Lobby extends BasicScene {
 
     public void btnSendClick(Event e) {
         if (!chatText.getText().isEmpty()) {
-            if (chatController != null) {
-                chatController.sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), chatText.getText()));
+            try {
+                ClientAdministration.getInstance().getCurrentLobby().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), chatText.getText()));
                 chatText.setText("");
+            } catch (RemoteException ex) {
+                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -112,7 +119,7 @@ public final class Lobby extends BasicScene {
     }
 
     public void btnLeaveClick(Event e) {
-        chatController.leaveLobby();
+        this.getListener().stopListening();
 
         changeScreen(ClientAdministration.Screens.Multiplayer);
     }
@@ -123,15 +130,6 @@ public final class Lobby extends BasicScene {
                 chatList.getItems().add(message.toString());
             }
         });
-    }
-
-    private void createChatController() {
-        try {
-            chatController = new ChatController(this);
-        } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-            displayMessage(new Message("ERROR", "Chat failed to initialize."));
-        }
     }
 
     public void updatePlayerList(List<String> players) {
@@ -202,9 +200,5 @@ public final class Lobby extends BasicScene {
                 }
             }
         });
-    }
-
-    public ChatController getChatController() {
-        return this.chatController;
     }
 }

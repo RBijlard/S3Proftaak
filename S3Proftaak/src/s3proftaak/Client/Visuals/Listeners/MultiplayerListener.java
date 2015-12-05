@@ -24,12 +24,12 @@ public class MultiplayerListener extends BasicListener implements Serializable, 
 
     private final Multiplayer multiplayerScreen;
     
-    public MultiplayerListener(Multiplayer multiplayerScreen){
+    public MultiplayerListener(Multiplayer multiplayerScreen) throws RemoteException {
         this.multiplayerScreen = multiplayerScreen;
     }
     
     @Override
-    public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
+    public void propertyChange(PropertyChangeEvent evt) {
         multiplayerScreen.updateList((List<ILobby>) evt.getNewValue());
     }
     

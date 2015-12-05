@@ -31,7 +31,7 @@ import s3proftaak.Shared.ILobby;
  *
  * @author Stan
  */
-public class Multiplayer extends BasicScene implements Serializable {
+public class Multiplayer extends BasicScene {
 
     @FXML
     TableView tableLobbies;
@@ -43,8 +43,12 @@ public class Multiplayer extends BasicScene implements Serializable {
     Button btnJoin;
 
     public Multiplayer() {
-        this.setListener(new MultiplayerListener(this));
-        this.getListener().startListening();
+        try {
+            this.setListener(new MultiplayerListener(this));
+            this.getListener().startListening();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         TableColumn name = new TableColumn("Name");
         name.setCellValueFactory(new PropertyValueFactory<>("name"));

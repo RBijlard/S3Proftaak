@@ -17,7 +17,7 @@ import s3proftaak.Client.Visuals.Listeners.BasicListener;
  *
  * @author Stan
  */
-public class BasicScene {
+public abstract class BasicScene {
     private Scene scene;
     private BasicListener listener;
     

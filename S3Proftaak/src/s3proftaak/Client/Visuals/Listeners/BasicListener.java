@@ -5,11 +5,17 @@
  */
 package s3proftaak.Client.Visuals.Listeners;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
 /**
  *
  * @author Stan
  */
-public class BasicListener {
+public abstract class BasicListener extends UnicastRemoteObject {
+    
+    public BasicListener() throws RemoteException {};
+    
     public void startListening(){}
     public void stopListening(){}
 }
