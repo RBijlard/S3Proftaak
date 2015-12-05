@@ -5,11 +5,14 @@
  */
 package s3proftaak.Client.Visuals;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,6 +23,7 @@ import javax.swing.JOptionPane;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.Visuals.Listeners.MultiplayerListener;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 
@@ -27,7 +31,7 @@ import s3proftaak.Shared.ILobby;
  *
  * @author Stan
  */
-public class Multiplayer extends BasicScene {
+public class Multiplayer extends BasicScene implements Serializable {
 
     @FXML
     TableView tableLobbies;
@@ -37,10 +41,11 @@ public class Multiplayer extends BasicScene {
     Button btnCreate;
     @FXML
     Button btnJoin;
-    @FXML
-    Button btnRefresh;
 
     public Multiplayer() {
+        this.setListener(new MultiplayerListener(this));
+        this.getListener().startListening();
+
         TableColumn name = new TableColumn("Name");
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         name.setMinWidth(175);
@@ -58,21 +63,11 @@ public class Multiplayer extends BasicScene {
             public void run() {
                 if (tableLobbies != null) {
                     tableLobbies.getColumns().addAll(name, level, players);
-                    btnRefreshClick(null);
-                }
-            }
-        });
-    }
-
-    public void btnRefreshClick(Event e) {
-        Platform.runLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    tableLobbies.setItems(FXCollections.observableArrayList(RMIClient.getServerAdministration().getLobbies()));
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+                    try {
+                        tableLobbies.setItems(FXCollections.observableArrayList(RMIClient.getServerAdministration().getLobbies()));
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
             }
         });
@@ -97,6 +92,22 @@ public class Multiplayer extends BasicScene {
     }
 
     public void btnBackClick(Event e) {
+        this.getListener().stopListening();
         changeScreen(ClientAdministration.Screens.Menu);
+    }
+
+    public void updateList(List<ILobby> lobbies) {
+        // The line below prevents: 'java.lang.IllegalStateException: Toolkit not initialized'
+        new JFXPanel();
+        
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                if (tableLobbies != null) {
+                    tableLobbies.setItems(FXCollections.observableArrayList(lobbies));
+                }
+            }
+        });
     }
 }

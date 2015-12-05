@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import s3proftaak.Client.Visuals.Listeners.BasicListener;
 
 /**
  *
@@ -18,10 +19,10 @@ import javafx.scene.Scene;
  */
 public class BasicScene {
     private Scene scene;
+    private BasicListener listener;
     
     public BasicScene load(String s) {
         try {
-            //System.out.println("test: " + this.getClass().getResource(s).toExternalForm());
             this.setScene(new Scene(FXMLLoader.load(new URL(this.getClass().getResource(s).toExternalForm()))));
         } catch (IOException ex) {
             Logger.getLogger(BasicScene.class.getName()).log(Level.SEVERE, null, ex);
@@ -35,5 +36,13 @@ public class BasicScene {
     
     public void setScene(Scene s){
         this.scene = s;
+    }
+
+    public BasicListener getListener() {
+        return this.listener;
+    }
+    
+    public void setListener(BasicListener listener){
+        this.listener = listener;
     }
 }

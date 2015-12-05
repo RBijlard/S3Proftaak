@@ -58,17 +58,6 @@ public final class Lobby extends BasicScene {
     public Lobby() {
         createChatController();
 
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-
         Platform.runLater(new Runnable() {
 
             @Override

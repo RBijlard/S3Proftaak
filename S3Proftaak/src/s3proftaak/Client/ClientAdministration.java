@@ -21,6 +21,7 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
 import s3proftaak.Client.Visuals.Lobby;
+import s3proftaak.Client.Visuals.Multiplayer;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -51,6 +52,10 @@ public class ClientAdministration extends Application {
             @Override
             public void handle(WindowEvent event) {
 
+                if (getCurrentScreen().getListener() != null){
+                    getCurrentScreen().getListener().stopListening();
+                }
+                
                 if (getCurrentScreen() instanceof Lobby) {
                     if (((Lobby) getCurrentScreen()).getChatController() != null) {
                         ((Lobby) getCurrentScreen()).getChatController().leaveLobby();

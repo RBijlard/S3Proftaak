@@ -67,11 +67,7 @@ public class Highscores extends BasicScene {
 
             @Override
             public void run() {
-                try {
-                    tableHighscore.setItems(FXCollections.observableArrayList(RMIClient.getServerAdministration().getLobbies()));
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                // 
             }
         });
     }

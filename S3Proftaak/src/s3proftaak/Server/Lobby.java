@@ -80,9 +80,9 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         if (currentHost != null) {
             publisher.inform(this, "Host", null, currentHost);
         }
-        
-        if (!players.isEmpty()){
-           publisher.inform(this, "Players", null, getNames()); 
+
+        if (!players.isEmpty()) {
+            publisher.inform(this, "Players", null, getNames());
         }
     }
 
@@ -117,12 +117,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public String getName() throws RemoteException {
+    public String getName() {
         return this.name;
     }
 
     @Override
     public void addPlayer(String username) throws RemoteException, CustomException {
+
         if (username != null && !username.isEmpty()) {
             if (players.size() < max) {
                 if (!getNames().contains(username)) {
@@ -140,6 +141,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         } else {
             throw new CustomException("Username is empty.");
         }
+
     }
 
     @Override
@@ -152,7 +154,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                 }
 
                 if (players.isEmpty()) {
-                    // Kill the lobby
+                    ServerAdministration.getInstance().removeLobby(this);
                 }
             }
         }
@@ -199,8 +201,8 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         // Use a copied list to prevent a ConcurrentModificationException from happening.
         List<Player> tempPlayers = new ArrayList<>();
         tempPlayers.addAll(players);
-        
-        for (Player p : tempPlayers){
+
+        for (Player p : tempPlayers) {
             names.add(p.getName());
         }
 
