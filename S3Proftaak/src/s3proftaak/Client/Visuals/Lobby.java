@@ -68,7 +68,7 @@ public final class Lobby extends BasicScene {
         
         TableColumn readyCol = new TableColumn<>("Ready");
         readyCol.setCellValueFactory(new PropertyValueFactory<>("ready"));
-        //readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
+        readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
 
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -151,6 +151,8 @@ public final class Lobby extends BasicScene {
     public void updatePlayerList(List<IPlayer> players) {
         Platform.runLater(() -> {
             if (playerList != null && players != null) {
+                // We have to clear the items first or it doesn't update the ready state.
+                playerList.getItems().clear();
                 playerList.setItems(FXCollections.observableArrayList(players));
             }
         });

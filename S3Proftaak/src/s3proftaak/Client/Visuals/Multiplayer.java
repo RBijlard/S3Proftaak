@@ -5,7 +5,6 @@
  */
 package s3proftaak.Client.Visuals;
 
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Level;

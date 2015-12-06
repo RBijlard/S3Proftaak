@@ -15,5 +15,4 @@ import java.rmi.RemoteException;
 public interface IPlayer extends Remote {
     public String getName() throws RemoteException;
     public boolean isReady() throws RemoteException;
-    public String getReady() throws RemoteException;
 }

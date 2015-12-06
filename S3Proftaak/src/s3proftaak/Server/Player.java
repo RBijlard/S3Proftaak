@@ -7,6 +7,7 @@ package s3proftaak.Server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import javafx.beans.property.SimpleBooleanProperty;
 import s3proftaak.Shared.IPlayer;
 
 /**
@@ -30,11 +31,6 @@ public class Player extends UnicastRemoteObject implements IPlayer {
     @Override
     public boolean isReady() {
         return ready;
-    }
-    
-    @Override
-    public String getReady() {
-        return String.valueOf(ready);
     }
 
     public void toggleReady() {
