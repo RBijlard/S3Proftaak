@@ -49,7 +49,7 @@ public class ClientAdministration extends Application {
             @Override
             public void handle(WindowEvent event) {
 
-                if (getCurrentScreen().getListener() != null){
+                if (getCurrentScreen().getListener() != null) {
                     getCurrentScreen().getListener().stopListening();
                 }
 
@@ -119,7 +119,9 @@ public class ClientAdministration extends Application {
 
     public void setGame(Game game) throws SlickException {
         this.game = game;
-        setApp(new AppGameContainer(getGame()));
+        if (this.game != null) {
+            setApp(new AppGameContainer(getGame()));
+        }
     }
 
     public Account getAccount() {
@@ -151,10 +153,6 @@ public class ClientAdministration extends Application {
             }
 
             if (game != null) {
-                if (game.isMultiplayer()) {
-                    //((Lobby) getCurrentScreen()).getChatController().startGame();
-                }
-
                 GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
                 int width = gd.getDisplayMode().getWidth();
                 int height = gd.getDisplayMode().getHeight();

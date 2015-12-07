@@ -279,8 +279,8 @@ public class Game extends BasicGame {
     public List<GameObject> getGameObjects() {
         return this.gameObjects;
     }
-    
-    public List<Character> getGameCharacters(){
+
+    public List<Character> getGameCharacters() {
         return this.gameCharacters;
     }
 
@@ -355,5 +355,16 @@ public class Game extends BasicGame {
 
     public TrueTypeFont getSlickFontUsername() {
         return this.slickFontUserName;
+    }
+
+    @Override
+    public boolean closeRequested() {
+        try {
+            ClientAdministration.getInstance().setGame(null);
+        } catch (SlickException ex) {
+            Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return super.closeRequested();
     }
 }

@@ -171,10 +171,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         
         if (game.isMultiplayer()){
-            if (oldX != x){
-                oldX = x;
+            if (oldX != getX()){
+                oldX = getX();
                 try {
-                    ClientAdministration.getInstance().getCurrentLobby().updateX(ClientAdministration.getInstance().getAccount().getUsername(), x);
+                    ClientAdministration.getInstance().getCurrentLobby().updateX(ClientAdministration.getInstance().getAccount().getUsername(), getX());
                 } catch (RemoteException ex) {
                     Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -253,10 +253,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         
         if (game.isMultiplayer()){
-            if (oldY != y){
-                oldY = y;
+            if (oldY != getY()){
+                oldY = getY();
                 try {
-                    ClientAdministration.getInstance().getCurrentLobby().updateY(ClientAdministration.getInstance().getAccount().getUsername(), y);
+                    ClientAdministration.getInstance().getCurrentLobby().updateY(ClientAdministration.getInstance().getAccount().getUsername(), getY());
                 } catch (RemoteException ex) {
                     Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                 }
