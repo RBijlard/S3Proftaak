@@ -11,7 +11,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 
 /**
@@ -21,7 +20,7 @@ import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 public class Star extends GameObject implements IRenderable {
 
     private Image sprite;
-    private boolean isActive = true;
+    private boolean removed;
 
     public Star(float x, float y, float width, float height) {
         super(x, y, width, height);
@@ -30,34 +29,28 @@ public class Star extends GameObject implements IRenderable {
         } catch (SlickException ex) {
             Logger.getLogger(Star.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.isActive = true;
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) {
         //render star animation/img
-        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
+        if (sprite != null){
+            sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
+        }
+        
     }
 
     public int calculateOffset() {
         return (int) (70 - this.getRect().getHeight());
     }
 
-    public boolean isActive() {
-        return this.isActive;
+    public void remove() {
+        this.sprite = null;
+        this.removed = true;
     }
-
-    public void setActive(boolean active) {
-        this.isActive = active;
-        if (this.isActive == true) {
-            try {
-                this.sprite = new Image("Resources/Levels/lollipopRed.png");
-            } catch (SlickException ex) {
-                Logger.getLogger(Star.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            this.sprite = null;
-        }
+    
+    public boolean isRemoved(){
+        return this.removed;
     }
 
     @Override

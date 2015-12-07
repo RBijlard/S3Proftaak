@@ -119,7 +119,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
         
-        if (game.isMultiplayer()){
+        if (game.isMultiplayer() && isControllabe){
             if (oldY != getRect().getY() || oldX != getRect().getX()){
                 oldY = getRect().getY();
                 oldX = getRect().getX();
@@ -315,8 +315,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             }
                         }
                     } else if (go instanceof Star) {
-                        if (((Star) go).isActive()) {
-                            ((Star) go).setActive(false);
+                        if (!((Star) go).isRemoved()) {
+                            ((Star) go).remove();
                             SoundManager.getInstance().playSound(Sounds.COINPICKUP);
                         }
                     } else if (go instanceof Weight) {

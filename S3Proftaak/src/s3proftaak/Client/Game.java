@@ -212,7 +212,7 @@ public class Game extends BasicGame {
 
         for (GameObject go : this.gameObjects) {
             if (go instanceof Star) {
-                if (((Star) go).isActive() == false) {
+                if (((Star) go).isRemoved()) {
                     tempStarList.add(go);
                     this.starsCollected++;
                 }

@@ -32,17 +32,17 @@ public class GameListener extends BasicListener {
                     case "Rect":
                         if (game.getGameCharacters() != null) {
                             for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-
+                                
                                 if (c.getName().equals(evt.getOldValue().toString())) {
                                     
                                     Rectangle rect = (Rectangle) evt.getNewValue();
                                     System.out.println(c.getName() + " " + evt.getOldValue().toString() + "  ->  " + c.getName().equals(evt.getOldValue().toString()));
                                     
-                                    System.out.println(c.getName() + ": x: " + rect.getX() + " y: " + rect.getY());
-                                    
                                     c.getRect().setX(rect.getX());
                                     c.getRect().setY(rect.getY());
                                     c.getRect().setHeight(rect.getHeight());
+                                    
+                                    break;
                                 }
                             }
                         }
