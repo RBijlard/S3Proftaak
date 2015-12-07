@@ -31,14 +31,20 @@ public class GameListener extends BasicListener {
             if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                 switch (evt.getPropertyName()) {
                     case "Rect":
+                        int offset = 0;
                         if (game.getGameCharacters() != null) {
+                            for(s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()){
+                                if(c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())){
+                                    offset = (int)c.getOffsetX();
+                                }
+                            }
                             for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
                                 
                                 if (c.getName().equals(evt.getOldValue().toString())) {
                                     
                                     Rectangle rect = (Rectangle) evt.getNewValue();
                                     
-                                    c.getRect().setX(rect.getX());
+                                    c.getRect().setX(rect.getX() - offset);
                                     c.getRect().setY(rect.getY());
                                     c.getRect().setHeight(rect.getHeight());
                                     
