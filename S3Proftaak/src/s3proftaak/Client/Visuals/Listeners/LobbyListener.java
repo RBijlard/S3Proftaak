@@ -36,9 +36,6 @@ public class LobbyListener extends BasicListener {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
                     try {
-                        gameListener = new GameListener();
-                        gameListener.startListening();
-                        
                         Platform.runLater(new Runnable() {
 
                             @Override
@@ -46,6 +43,9 @@ public class LobbyListener extends BasicListener {
                                 ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
                             }
                         });
+                        
+                        gameListener = new GameListener();
+                        gameListener.startListening();
                         
                     } catch (RemoteException ex) {
                         Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
