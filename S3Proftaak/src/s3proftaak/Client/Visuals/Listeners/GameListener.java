@@ -29,25 +29,29 @@ public class GameListener extends BasicListener {
             if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                 switch (evt.getPropertyName()) {
                     case "X":
-                        for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                            if (c != null) {
+                        if (game.getGameCharacters() != null) {
+                            for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+
                                 if (c.getName().equals(evt.getOldValue().toString())) {
                                     c.setX((float) evt.getNewValue());
                                     c.updateHitbox();
                                 }
                             }
                         }
+
                         break;
 
                     case "Y":
-                        for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                            if (c != null) {
+                        if (game.getGameCharacters() != null) {
+                            for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+
                                 if (c.getName().equals(evt.getOldValue().toString())) {
                                     c.setY((float) evt.getNewValue());
                                     c.updateHitbox();
                                 }
                             }
                         }
+
                         break;
                 }
             }
