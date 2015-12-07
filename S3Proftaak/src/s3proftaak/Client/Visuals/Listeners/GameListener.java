@@ -17,62 +17,67 @@ import s3proftaak.Client.Game;
  * @author Stan
  */
 public class GameListener extends BasicListener {
-    
+
     public GameListener() throws RemoteException {
-        
+
     }
-    
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
         Game game = ClientAdministration.getInstance().getGame();
         if (game != null) {
-            switch (evt.getPropertyName()) {
-                case "X":
-                    for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                        if (c.getName().equals(evt.getOldValue().toString())) {
-                            c.setX((float) evt.getNewValue());
-                            c.updateHitbox();
+            if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
+                switch (evt.getPropertyName()) {
+                    case "X":
+                        for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+                            if (c != null) {
+                                if (c.getName().equals(evt.getOldValue().toString())) {
+                                    c.setX((float) evt.getNewValue());
+                                    c.updateHitbox();
+                                }
+                            }
                         }
-                    }
-                    break;
-                
-                case "Y":
-                    for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                        if (c.getName().equals(evt.getOldValue().toString())) {
-                            c.setY((float) evt.getNewValue());
-                            c.updateHitbox();
+                        break;
+
+                    case "Y":
+                        for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+                            if (c != null) {
+                                if (c.getName().equals(evt.getOldValue().toString())) {
+                                    c.setY((float) evt.getNewValue());
+                                    c.updateHitbox();
+                                }
+                            }
                         }
-                    }
-                    break;
+                        break;
+                }
             }
         }
-        
     }
-    
+
     @Override
     public void startListening() {
         try {
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
-            
+
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "X");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Y");
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void stopListening() {
         try {
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Players");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Host");
-            
+
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "X");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Y");
-            
+
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
         }
