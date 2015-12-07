@@ -279,6 +279,10 @@ public class Game extends BasicGame {
     public List<GameObject> getGameObjects() {
         return this.gameObjects;
     }
+    
+    public List<Character> getGameCharacters(){
+        return this.gameCharacters;
+    }
 
     private ArrayList<Integer> getProperty(TiledMap map, int layer, int tilenumber, String type) {
         ArrayList<Integer> matches = new ArrayList<>();

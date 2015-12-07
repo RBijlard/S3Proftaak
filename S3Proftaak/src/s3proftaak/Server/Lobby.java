@@ -76,12 +76,12 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void updateX(String username, int x) {
+    public void updateX(String username, float x) {
         publisher.inform(this, "X", username, x);
     }
 
     @Override
-    public void updateY(String username, int y) {
+    public void updateY(String username, float y) {
         publisher.inform(this, "Y", username, y);
     }
 

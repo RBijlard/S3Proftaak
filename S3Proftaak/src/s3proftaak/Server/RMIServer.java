@@ -67,6 +67,8 @@ public class RMIServer {
         // Welcome message
         System.out.println("SERVER USING REGISTRY");
         
+        System.setProperty("java.rmi.server.hostname", "145.93.168.100");
+        
         // Create server
         new RMIServer();
     }

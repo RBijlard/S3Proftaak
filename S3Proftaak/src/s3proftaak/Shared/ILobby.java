@@ -24,9 +24,9 @@ public interface ILobby extends Remote {
 
     public void updatePlayers() throws RemoteException;
 
-    public void updateX(String username, int x) throws RemoteException;
+    public void updateX(String username, float x) throws RemoteException;
 
-    public void updateY(String username, int y) throws RemoteException;
+    public void updateY(String username, float y) throws RemoteException;
 
     public String getName() throws RemoteException;
     

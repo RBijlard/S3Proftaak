@@ -5,14 +5,16 @@
  */
 package s3proftaak.Client.Visuals.Listeners;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import s3proftaak.fontys.RemotePropertyListener;
 
 /**
  *
  * @author Stan
  */
-public abstract class BasicListener extends UnicastRemoteObject {
+public abstract class BasicListener extends UnicastRemoteObject implements Serializable, RemotePropertyListener {
     
     public BasicListener() throws RemoteException {};
     

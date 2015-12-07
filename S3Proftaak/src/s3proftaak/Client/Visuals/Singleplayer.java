@@ -5,8 +5,6 @@
  */
 package s3proftaak.Client.Visuals;
 
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
@@ -18,11 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
-import s3proftaak.Client.SoundManager;
 
 /**
  *

@@ -2,7 +2,6 @@ package s3proftaak.Client.Visuals.Listeners;
 
 import s3proftaak.Shared.IMessage;
 import java.beans.PropertyChangeEvent;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,21 +11,21 @@ import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.Visuals.Lobby;
 import s3proftaak.Shared.IPlayer;
-import s3proftaak.fontys.RemotePropertyListener;
 
 /**
  *
  * @author Stan
  */
-public class LobbyListener extends BasicListener implements Serializable, RemotePropertyListener {
+public class LobbyListener extends BasicListener {
 
     private final Lobby lobbyScreen;
-    
+
+    private GameListener gameListener;
     private List<IPlayer> players;
 
     public LobbyListener(Lobby lobby) throws RemoteException {
         this.lobbyScreen = lobby;
-        
+
         this.players = new ArrayList<>();
     }
 
@@ -35,10 +34,18 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
         switch (evt.getPropertyName()) {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
-                    ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), this.getNames()));
+                    try {
+                        gameListener = new GameListener();
+                        gameListener.startListening();
+                        ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), this.getNames()));
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
 
                 if (evt.getOldValue().toString().equals("StopGame")) {
+                    gameListener.stopListening();
+                    gameListener = null;
                     ClientAdministration.getInstance().stopGame();
                 }
                 break;
@@ -86,6 +93,10 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
     @Override
     public void stopListening() {
         try {
+            if (gameListener != null){
+                gameListener.stopListening();
+            }
+            
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Administrative");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Chat");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
@@ -99,35 +110,6 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
         }
     }
 
-    /*
-     public void startGame() {
-     try {
-     removeListener(this, "Players");
-     removeListener(this, "Ready");
-     removeListener(this, "Level");
-     removeListener(this, "Host");
-
-     addListener(this, "X");
-     addListener(this, "Y");
-     } catch (RemoteException ex) {
-     Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     }
-
-     public void stopGame() {
-     try {
-     addListener(this, "Players");
-     addListener(this, "Ready");
-     addListener(this, "Level");
-     addListener(this, "Host");
-
-     removeListener(this, "X");
-     removeListener(this, "Y");
-     } catch (RemoteException ex) {
-     Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
-     }
-     }
-     */
     private List<String> getNames() {
         List<String> names = new ArrayList<>();
 
@@ -139,7 +121,8 @@ public class LobbyListener extends BasicListener implements Serializable, Remote
             for (IPlayer p : tempPlayers) {
                 names.add(p.getName());
             }
-        } catch (RemoteException ex) {}
+        } catch (RemoteException ex) {
+        }
 
         return names;
     }

@@ -1,5 +1,6 @@
 package s3proftaak.Client.GameObjects;
 
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
@@ -38,6 +39,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float vX = 0;
     private float vY = 0;
     private final int controlSet;
+    
+    private float oldX, oldY;
 
     private Game game;
     private SpriteSheet playerSheet;
@@ -163,6 +166,26 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         go.setX(go.getX() - vXtemp);
                         go.updateHitbox();
                     }
+                }
+            }
+        }
+        
+        if (game.isMultiplayer()){
+            if (oldX != x){
+                oldX = x;
+                try {
+                    ClientAdministration.getInstance().getCurrentLobby().updateX(ClientAdministration.getInstance().getAccount().getUsername(), x);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
+            if (oldY != y){
+                oldY = y;
+                try {
+                    ClientAdministration.getInstance().getCurrentLobby().updateY(ClientAdministration.getInstance().getAccount().getUsername(), y);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -512,5 +535,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         return false;
+    }
+    
+    public String getName(){
+        return this.name;
     }
 }
