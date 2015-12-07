@@ -14,6 +14,7 @@ import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
+import s3proftaak.Shared.IPlayer;
 import s3proftaak.fontys.RemotePropertyListener;
 
 /**
@@ -100,6 +101,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public String getName() {
         return this.name;
     }
+    
+    @Override
+    public List<IPlayer> getPlayers(){
+        List<IPlayer> playerz = new ArrayList<>();
+        playerz.addAll(players);
+        return playerz;
+    }
 
     @Override
     public void addPlayer(String username) throws RemoteException, CustomException {
@@ -152,6 +160,11 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     public boolean hasStarted() {
         return this.started;
+    }
+    
+    @Override
+    public String getCurrentHost(){
+        return this.currentHost;
     }
 
     private Player getPlayer(String username) {

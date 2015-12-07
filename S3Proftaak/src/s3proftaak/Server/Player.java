@@ -7,7 +7,6 @@ package s3proftaak.Server;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import javafx.beans.property.SimpleBooleanProperty;
 import s3proftaak.Shared.IPlayer;
 
 /**

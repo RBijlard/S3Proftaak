@@ -114,6 +114,8 @@ public class BasicPublisher {
                 alertable.addAll(listenersTable.get(key));
             }
         }
+        
+        List<RemotePropertyListener> tempListeners = new ArrayList<>();
 
         for (RemotePropertyListener listener : alertable) {
 
@@ -122,10 +124,14 @@ public class BasicPublisher {
             try {
                 listener.propertyChange(evt);
             } catch (RemoteException ex) {
-                removeListener(listener, null);
+                tempListeners.add(listener);
                 Logger.getLogger(BasicPublisher.class.getName()).log(Level.SEVERE, null, ex);
             }
 
+        }
+        
+        for (RemotePropertyListener listener : tempListeners){
+            removeListener(listener, null);
         }
     }
 

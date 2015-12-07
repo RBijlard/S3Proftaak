@@ -29,6 +29,7 @@ import s3proftaak.Shared.IMessage;
 import s3proftaak.Client.Message;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.Visuals.Listeners.MultiplayerListener;
 import s3proftaak.Shared.IPlayer;
 
 /**
@@ -63,7 +64,7 @@ public final class Lobby extends BasicScene {
             this.setListener(new LobbyListener(this));
             this.getListener().startListening();
         } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         TableColumn readyCol = new TableColumn<>("Ready");
@@ -98,17 +99,19 @@ public final class Lobby extends BasicScene {
                             Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
+                    
+                    if (playerList != null){
+                        playerList.setItems(FXCollections.observableArrayList(ClientAdministration.getInstance().getCurrentLobby().getPlayers()));
+                    }
+                    
+                    if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())){
+                        setIsHost(true);
+                    }
                 } catch (RemoteException ex) {
                     Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
-
-        try {
-            ClientAdministration.getInstance().getCurrentLobby().updatePlayers();
-        } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     public void btnSendClick(Event e) {
@@ -135,7 +138,10 @@ public final class Lobby extends BasicScene {
     }
 
     public void btnLeaveClick(Event e) {
-        this.getListener().stopListening();
+        if (this.getListener() != null){
+            this.getListener().stopListening();
+        }
+        
 
         changeScreen(ClientAdministration.Screens.Multiplayer);
     }

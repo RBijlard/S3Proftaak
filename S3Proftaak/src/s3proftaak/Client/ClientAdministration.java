@@ -65,6 +65,10 @@ public class ClientAdministration extends Application {
     }
 
     public static void changeScreen(Screens s) {
+        if (getInstance().currentScreen != null && getInstance().currentScreen.getListener() != null){
+            getInstance().currentScreen.getListener().stopListening();
+        }
+        
         primaryStage.setScene(s.newInstance().getScene());
     }
 
@@ -89,7 +93,7 @@ public class ClientAdministration extends Application {
         public Screens newInstance() {
             try {
                 bs = ((BasicScene) Class.forName("s3proftaak.Client.Visuals." + this.name()).newInstance()).load(this.getPath());
-                ClientAdministration.getInstance().currentScreen = bs;
+                ClientAdministration.getInstance().currentScreen = bs;                
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
                 Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
             }

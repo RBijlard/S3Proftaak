@@ -25,6 +25,7 @@ public class GameListener extends BasicListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
+        System.out.println("received property 3. " + evt.getPropertyName());
         Game game = ClientAdministration.getInstance().getGame();
         if (game != null) {
             if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {

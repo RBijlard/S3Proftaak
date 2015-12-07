@@ -8,6 +8,7 @@ package s3proftaak.Shared;
 import s3proftaak.util.CustomException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.List;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.fontys.RemotePropertyListener;
 
@@ -31,7 +32,11 @@ public interface ILobby extends Remote {
 
     public String getName() throws RemoteException;
     
+    public String getCurrentHost() throws RemoteException;
+    
     public String getLevel() throws RemoteException;
+    
+    public List<IPlayer> getPlayers() throws RemoteException;
     
     public String getAmountOfPlayers() throws RemoteException;
 

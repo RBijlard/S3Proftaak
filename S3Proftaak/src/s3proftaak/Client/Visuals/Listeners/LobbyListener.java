@@ -32,6 +32,7 @@ public class LobbyListener extends BasicListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        System.out.println("received property 2. " + evt.getPropertyName());
         switch (evt.getPropertyName()) {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
@@ -44,6 +45,7 @@ public class LobbyListener extends BasicListener {
                             }
                         });
                         
+                        System.out.println("gamelistening");
                         gameListener = new GameListener();
                         gameListener.startListening();
                         
