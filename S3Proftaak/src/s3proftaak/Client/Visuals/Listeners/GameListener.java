@@ -58,8 +58,7 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
 
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "X");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Y");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Rect");
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,8 +71,7 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Host");
 
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "X");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Y");
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Rect");
 
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
