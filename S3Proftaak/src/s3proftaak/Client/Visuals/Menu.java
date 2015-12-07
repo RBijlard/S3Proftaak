@@ -40,7 +40,7 @@ public class Menu extends BasicScene {
     }
 
     public void btnHighscoresClick(Event e) {
-        changeScreen(ClientAdministration.Screens.Highscores);
+        //changeScreen(ClientAdministration.Screens.Highscores);
     }
 
     public void btnQuitClick(Event e) {

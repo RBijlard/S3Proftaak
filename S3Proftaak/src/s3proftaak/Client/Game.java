@@ -268,7 +268,7 @@ public class Game extends BasicGame {
         for (int i = 0; i < map.getLayerCount(); i++) {
             this.map.render(0 - (int) main_character.getOffsetX(), i);
         }
-
+        
         //render Timer
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
         String strDate = sdf.format(this.currentTime);

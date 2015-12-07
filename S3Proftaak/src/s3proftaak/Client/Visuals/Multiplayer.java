@@ -42,14 +42,13 @@ public class Multiplayer extends BasicScene {
     Button btnJoin;
 
     public Multiplayer() {
-        System.out.println("multi");
         try {
             this.setListener(new MultiplayerListener(this));
             this.getListener().startListening();
         } catch (RemoteException ex) {
             Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         TableColumn name = new TableColumn("Name");
         name.setCellValueFactory(new PropertyValueFactory<>("name"));
         name.setMinWidth(175);
@@ -79,13 +78,13 @@ public class Multiplayer extends BasicScene {
 
     public void btnCreateClick(Event e) {
         this.getListener().stopListening();
-        
+
         changeScreen(ClientAdministration.Screens.CreateLobby);
     }
 
     public void btnJoinClick(Event e) {
         this.getListener().stopListening();
-        
+
         if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null) {
             try {
                 ((ILobby) tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getInstance().getAccount().getUsername());
@@ -101,14 +100,14 @@ public class Multiplayer extends BasicScene {
 
     public void btnBackClick(Event e) {
         this.getListener().stopListening();
-        
+
         changeScreen(ClientAdministration.Screens.Menu);
     }
 
     public void updateList(List<ILobby> lobbies) {
         // The line below prevents: 'java.lang.IllegalStateException: Toolkit not initialized'
         new JFXPanel();
-        
+
         Platform.runLater(new Runnable() {
 
             @Override

@@ -106,6 +106,8 @@ public class RMIClient {
         // Get port number
         System.out.print("Client: Enter port number: ");
         int portNumber = 1099;//input.nextInt();
+        
+        boolean propertyAdded = false;
 
         try {
             Enumeration e = NetworkInterface.getNetworkInterfaces();
@@ -116,6 +118,7 @@ public class RMIClient {
                     InetAddress i = (InetAddress) ee.nextElement();
                     if (i.getHostAddress().startsWith("145")) {
                         System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                        propertyAdded = true;
                         break;
                     }
                 }
@@ -124,6 +127,10 @@ public class RMIClient {
         } catch (SocketException ex) {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        if (!propertyAdded){
+            ipAddress = "localhost";
+        }        
 
         // Create client
         new RMIClient(ipAddress, portNumber);

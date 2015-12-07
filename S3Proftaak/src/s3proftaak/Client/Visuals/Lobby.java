@@ -60,6 +60,7 @@ public final class Lobby extends BasicScene {
     private boolean isHost;
 
     public Lobby() {
+        System.out.println("abc");
         try {
             this.setListener(new LobbyListener(this));
             this.getListener().startListening();
@@ -67,17 +68,20 @@ public final class Lobby extends BasicScene {
             Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        TableColumn readyCol = new TableColumn<>("Ready");
+        TableColumn readyCol = new TableColumn("Ready");
         readyCol.setCellValueFactory(new PropertyValueFactory<>("ready"));
         //readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
 
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
+        System.out.println("abcd");
+        
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
+                System.out.println("abcsfad");
                 
                 if (playerList != null) {
                     nameCol.setMinWidth(playerList.getWidth() - readyCol.getWidth());
@@ -104,7 +108,7 @@ public final class Lobby extends BasicScene {
                         playerList.setItems(FXCollections.observableArrayList(ClientAdministration.getInstance().getCurrentLobby().getPlayers()));
                     }
                     
-                    if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())){
+                    if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())){
                         setIsHost(true);
                     }
                 } catch (RemoteException ex) {

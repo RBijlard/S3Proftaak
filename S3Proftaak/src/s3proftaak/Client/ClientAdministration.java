@@ -34,7 +34,6 @@ public class ClientAdministration extends Application {
     private AppGameContainer app;
     private Game game;
     private Account account;
-    private Music music;
     private ILobby currentLobby;
 
     private BasicScene currentScreen;
@@ -91,12 +90,8 @@ public class ClientAdministration extends Application {
         private BasicScene bs;
 
         public Screens newInstance() {
-            try {
-                bs = ((BasicScene) Class.forName("s3proftaak.Client.Visuals." + this.name()).newInstance()).load(this.getPath());
-                ClientAdministration.getInstance().currentScreen = bs;                
-            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            bs = new BasicScene().load(this.getPath());
+            ClientAdministration.getInstance().currentScreen = bs;
             return this;
         }
 
