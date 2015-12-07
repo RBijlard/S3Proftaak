@@ -30,7 +30,7 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         this.publisher = new BasicPublisher(new String[]{"LobbyList"});
 
         // Remove later
-        this.lobbies.add(new Lobby("Awesome", 2));
+        this.lobbies.add(new Lobby("Awesome", 3));
     }
 
     @Override

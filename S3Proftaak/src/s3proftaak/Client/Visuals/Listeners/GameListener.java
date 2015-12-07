@@ -31,6 +31,7 @@ public class GameListener extends BasicListener {
                     for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
                         if (c.getName().equals(evt.getOldValue().toString())) {
                             c.setX((float) evt.getNewValue());
+                            c.updateHitbox();
                         }
                     }
                     break;
@@ -39,6 +40,7 @@ public class GameListener extends BasicListener {
                     for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
                         if (c.getName().equals(evt.getOldValue().toString())) {
                             c.setY((float) evt.getNewValue());
+                            c.updateHitbox();
                         }
                     }
                     break;

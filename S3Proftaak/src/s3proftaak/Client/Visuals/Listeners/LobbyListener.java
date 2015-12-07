@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.Visuals.Lobby;
@@ -37,7 +38,15 @@ public class LobbyListener extends BasicListener {
                     try {
                         gameListener = new GameListener();
                         gameListener.startListening();
-                        ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), this.getNames()));
+                        
+                        Platform.runLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
+                            }
+                        });
+                        
                     } catch (RemoteException ex) {
                         Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
                     }

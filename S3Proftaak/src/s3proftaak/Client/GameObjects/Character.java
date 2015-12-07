@@ -179,15 +179,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            
-            if (oldY != y){
-                oldY = y;
-                try {
-                    ClientAdministration.getInstance().getCurrentLobby().updateY(ClientAdministration.getInstance().getAccount().getUsername(), y);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
         }
     }
 
@@ -258,6 +249,17 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 this.setY(this.getY() - vYtemp);
                 this.updateHitbox();
                 this.vY = 0;
+            }
+        }
+        
+        if (game.isMultiplayer()){
+            if (oldY != y){
+                oldY = y;
+                try {
+                    ClientAdministration.getInstance().getCurrentLobby().updateY(ClientAdministration.getInstance().getAccount().getUsername(), y);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
