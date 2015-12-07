@@ -61,15 +61,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         this.game = game;
         this.controlSet = controlSet;
 
-        this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
         MLO = new Block(1f, 1f, 1f, 1f);
         this.game.getGameObjects().add(MLO);
         for (GameObject go : this.game.getGameObjects()) {
-            if (go.getX() < MLO.getX()) {
-                MLO.setX(go.getX());
+            if (go.getRect().getX() < MLO.getRect().getX()) {
+                MLO.getRect().setX(go.getRect().getX());
             }
         }
-        marginx = 0 - MLO.getX();
+        marginx = 0 - MLO.getRect().getX();
 
         this.isCrouching = false;
 
@@ -137,7 +136,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     @Override
     public void render(GameContainer gc, Graphics g) {
         //render animation
-        animate.draw(this.getX(), this.getY());
+        animate.draw(this.getRect().getX(), this.getRect().getY());
 
         if (game.isMultiplayer()) {
             //Draw Username Above Character
@@ -150,7 +149,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void moveHorizontalMap(GameContainer gc) {
 
-        this.offSetX = 0 - MLO.getX();
+        this.offSetX = 0 - MLO.getRect().getX();
         //Move horizontal with arrow keys
         Input input = gc.getInput();
         if (input.isKeyDown(Input.KEY_LEFT)) {
@@ -169,15 +168,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         for (int i = 0; i < this.interations; i++) {
             for (GameObject go : game.getGameObjects()) {
                 if (go != this) {
-                    go.setX(go.getX() + vXtemp);
-                    go.updateHitbox();
+                    go.getRect().setX(go.getRect().getX() + vXtemp);
                 }
             }
             if (this.isColliding(gc)) {
                 for (GameObject go : game.getGameObjects()) {
                     if (go != this) {
-                        go.setX(go.getX() - vXtemp);
-                        go.updateHitbox();
+                        go.getRect().setX(go.getRect().getX() - vXtemp);
                     }
                 }
             }
@@ -205,11 +202,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
             //ipv setx -> render map
-            this.setX(this.getX() + vXtemp);
+            this.getRect().setX(this.getRect().getX() + vXtemp);
             if (this.isColliding(gc)) {
                 //ipv setx -> render map 
-                this.setX(this.getX() - vXtemp);
-                this.updateHitbox();
+                this.getRect().setX(this.getRect().getX() - vXtemp);
                 this.vX = 0;
             }
         }
@@ -222,14 +218,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         if (input.isKeyDown(Input.KEY_UP)) {
             //move up -> y min
             //ipv sety -> render map
-            this.setY(this.getY() + 0.1f);
-            this.updateHitbox();
+            this.getRect().setY(this.getRect().getY() + 0.1f);
             if (this.isColliding(gc) && !isObjectAbove()) {
                 this.vY = this.jumpStrength;
                 SoundManager.getInstance().playSound(Sounds.JUMP);
             }
-            this.setY(this.getY() - 0.1f);
-            this.updateHitbox();
+            this.getRect().setY(this.getRect().getY() - 0.1f);
         }
 
         if (input.isKeyDown(Input.KEY_DOWN)) {
@@ -238,18 +232,16 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.checkCrouch(false);
         }
 
-        if (this.getY() > (70 * 15)) {
+        if (this.getRect().getY() > (70 * 15)) {
             this.die();
         }
 
         //check for collision in 5 small steps for higher precision
         float vYtemp = this.vY / this.interations;
         for (int i = 0; i < this.interations; i++) {
-            this.setY(this.getY() + vYtemp);
-            this.updateHitbox();
+            this.getRect().setY(this.getRect().getY() + vYtemp);
             if (this.isColliding(gc)) {
-                this.setY(this.getY() - vYtemp);
-                this.updateHitbox();
+                this.getRect().setY(this.getRect().getY() - vYtemp);
                 this.vY = 0;
             }
         }
@@ -301,7 +293,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         this.die();
                         return false;
                     } else if (go instanceof Button) {
-                        if (this.getRect().getMinY() - 1 < go.getY()) {
+                        if (this.getRect().getMinY() - 1 < go.getRect().getY()) {
                             if (!((Button) go).isActive()) {
                                 ((Button) go).setActive(true);
                             }
@@ -315,7 +307,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         }
                         return true;
                     } else if (go instanceof Door) {
-                        if (this.getX() < go.getX() && this.getX() + this.width > go.getX() + go.getWidth()) {
+                        if (this.getRect().getX() < go.getRect().getX() && this.getRect().getX() + this.getRect().getWidth() > go.getRect().getX() + go.getRect().getWidth()) {
                             System.out.println(((Door) go).isActive());
                             if (((Door) go).isActive()) {
                                 System.out.println("finish");
@@ -368,11 +360,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         //check for collision in 5 small steps for higher precision
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
-            this.setX(this.getX() + vXtemp);
-            this.updateHitbox();
+            this.getRect().setX(this.getRect().getX() + vXtemp);
             if (this.isColliding(gc)) {
-                this.setX(this.getX() - vXtemp);
-                this.updateHitbox();
+                this.getRect().setX(this.getRect().getX() - vXtemp);
                 this.vX = 0;
             }
         }
@@ -387,14 +377,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             Input input = gc.getInput();
             if (input.isKeyDown(Input.KEY_W)) {
                 //move up -> y min
-                this.setY(this.getY() + 0.1f);
-                this.updateHitbox();
+                this.getRect().setY(this.getRect().getY() + 0.1f);
                 if (this.isColliding(gc)) {
                     this.vY = this.jumpStrength;
                     SoundManager.getInstance().playSound(Sounds.JUMP);
                 }
-                this.setY(this.getY() - 0.1f);
-                this.updateHitbox();
+                this.getRect().setY(this.getRect().getY() - 0.1f);
             }
 
             if (input.isKeyDown(Input.KEY_S)) {
@@ -404,18 +392,16 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
 
-        if (this.getY() > (70 * 15)) {
+        if (this.getRect().getY() > (70 * 15)) {
             this.die();
         }
 
         //check for collision in 5 small steps for higher precision
         float vYtemp = this.vY / this.interations;
         for (int i = 0; i < this.interations; i++) {
-            this.setY(this.getY() + vYtemp);
-            this.updateHitbox();
+            this.getRect().setY(this.getRect().getY() + vYtemp);
             if (this.isColliding(gc)) {
-                this.setY(this.getY() - vYtemp);
-                this.updateHitbox();
+                this.getRect().setY(this.getRect().getY() - vYtemp);
                 this.vY = 0;
             }
         }
@@ -437,11 +423,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         //check for collision in 5 small steps for higher precision
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
-            this.setX(this.getX() + vXtemp);
-            this.updateHitbox();
+            this.getRect().setX(this.getRect().getX() + vXtemp);
             if (this.isColliding(gc)) {
-                this.setX(this.getX() - vXtemp);
-                this.updateHitbox();
+                this.getRect().setX(this.getRect().getX() - vXtemp);
                 this.vX = 0;
             }
         }
@@ -453,14 +437,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         this.vY += this.gravity;
         if (input.isKeyDown(Input.KEY_I)) {
             //move up -> y min
-            this.setY(this.getY() + 0.1f);
-            this.updateHitbox();
+            this.getRect().setY(this.getRect().getY() + 0.1f);
             if (this.isColliding(gc)) {
                 this.vY = this.jumpStrength;
                 SoundManager.getInstance().playSound(Sounds.JUMP);
             }
-            this.setY(this.getY() - 0.1f);
-            this.updateHitbox();
+            this.getRect().setY(this.getRect().getY() - 0.1f);
         }
 
         if (input.isKeyDown(Input.KEY_K)) {
@@ -469,18 +451,16 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.checkCrouch(false);
         }
 
-        if (this.getY() > (70 * 15)) {
+        if (this.getRect().getY() > (70 * 15)) {
             this.die();
         }
 
         //check for collision in 5 small steps for higher precision
         float vYtemp = this.vY / this.interations;
         for (int i = 0; i < this.interations; i++) {
-            this.setY(this.getY() + vYtemp);
-            this.updateHitbox();
+            this.getRect().setY(this.getRect().getY() + vYtemp);
             if (this.isColliding(gc)) {
-                this.setY(this.getY() - vYtemp);
-                this.updateHitbox();
+                this.getRect().setY(this.getRect().getY() - vYtemp);
                 this.vY = 0;
             }
         }
@@ -502,12 +482,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
                 if (crouching) {
                     this.getRect().setHeight(69);
-                    this.setY(this.getY() + 24);
-                    this.updateHitbox();
+                    this.getRect().setY(this.getRect().getY() + 24);
                 } else {
-                    this.setY(this.getY() - 24);
+                    this.getRect().setY(this.getRect().getY() - 24);
                     this.getRect().setHeight(93);
-                    this.updateHitbox();
                 }
 
             } catch (SlickException ex) {

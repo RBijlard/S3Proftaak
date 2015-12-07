@@ -18,7 +18,6 @@ public class Block extends GameObject{
 
     public Block(float x, float y, float width, float height) {
         super(x, y, width, height);
-        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
     }
     
     public void render(GameContainer gc, Graphics g){

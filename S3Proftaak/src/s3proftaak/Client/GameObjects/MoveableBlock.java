@@ -35,7 +35,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         for (int a = 0; a < 5; a++) {
             if (dx != 0) {
                 if (!this.isColliding(gc)) {
-                    this.x += dx;
+                    this.getRect().setX(this.getRect().getX() + dx);
                 }
                 dx = 0;
             }
@@ -60,14 +60,14 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         } else {
             //verticalCollision = false, fall down
             for (int b = 0; b < 5; b++) {
-                this.y += 2;
+                this.getRect().setY(this.getRect().getY() + 2);
             }
         }
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) {
-        sprite.draw(this.x, this.y - calculateOffset());
+        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
     }
 
     public boolean isColliding(GameContainer gc) {
@@ -90,7 +90,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     }
 
     public int calculateOffset() {
-        return (int) (70 - this.height);
+        return (int) (70 - this.getRect().getHeight());
     }
 
     public void setDx(int dx) {

@@ -37,10 +37,11 @@ public class GameListener extends BasicListener {
                                     
                                     Rectangle rect = (Rectangle) evt.getNewValue();
                                     
-                                    c.setX(rect.getX());
-                                    c.setY(rect.getY());
-                                    c.setHeight(rect.getHeight());
-                                    c.updateHitbox();
+                                    System.out.println(c.getName() + ": x: " + rect.getX() + " y: " + rect.getY());
+                                    
+                                    c.getRect().setX(rect.getX());
+                                    c.getRect().setY(rect.getY());
+                                    c.getRect().setHeight(rect.getHeight());
                                 }
                             }
                         }

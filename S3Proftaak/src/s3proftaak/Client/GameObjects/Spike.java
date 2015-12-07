@@ -16,16 +16,10 @@ import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
  *
  * @author Berry-PC
  */
-public class Spike extends GameObject implements IRenderable{
+public class Spike extends GameObject {
 
     public Spike(float x, float y, float width, float height) {
         super(x, y, width, height);
-        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
-    }
-    
-    @Override
-    public void render(GameContainer gc, Graphics g){
-        //render spike animation/img
     }
     
     @Override

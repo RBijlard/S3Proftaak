@@ -16,26 +16,20 @@ import org.newdawn.slick.geom.Rectangle;
  * @author Berry-PC
  */
 public abstract class GameObject {
-    float x, y, width, height;
-    ArrayList<Integer> matches;
-    Rectangle hitbox;
-    List<GameObject> matchedObjects;
+    private ArrayList<Integer> matches;
+    private Rectangle hitbox;
+    private List<GameObject> matchedObjects;
     
     public GameObject(float x, float y, float width, float height){
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
         this.matches = new ArrayList<>();
         this.matchedObjects = new ArrayList<>();
-        this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
+        this.hitbox = new Rectangle(x, y, width, height);
     }
     
     public void addMatchedObject(GameObject match){
         if(!this.matchedObjects.contains(match)){
             this.matchedObjects.add(match);
         }
-        
     } 
     
     public List<GameObject> getMatchedObjects(){
@@ -50,49 +44,12 @@ public abstract class GameObject {
         return this.matches;
     }
     
-    public void updateHitbox(){
-        this.hitbox.setX(this.x);
-        this.hitbox.setY(this.y);
-    }
-    
     public Rectangle getRect(){
         return this.hitbox;
     }
     
-    public float getX(){
-        return this.x;
-    }
-    
-    public float getY(){
-        return this.y;
-    }
-    
-    public float getWidth(){
-        return this.width;
-    }
-    
-    public float getHeight(){
-        return this.height;
-    }
-    
-    public void setX(float x){
-        this.x = x;
-    }
-    
-    public void setY(float y){
-        this.y = y;
-    }
-    
-    public void setWidth(float width){
-        this.width = width;
-    }
-    
-    public void setHeight(float height){
-        this.height = height;
-    }
-    
     @Override
     public String toString(){
-        return this.x + "," + this.y + " - " + this.width + " x " + this.height;
+        return this.getRect().getX() + "," + this.getRect().getY() + " - " + this.getRect().getWidth() + " x " + this.getRect().getHeight();
     }
 }

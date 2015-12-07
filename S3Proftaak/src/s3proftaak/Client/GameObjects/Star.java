@@ -25,7 +25,6 @@ public class Star extends GameObject implements IRenderable {
 
     public Star(float x, float y, float width, float height) {
         super(x, y, width, height);
-        this.hitbox = new Rectangle(this.x, this.y, this.width, this.height);
         try {
             this.sprite = new Image("Resources/Levels/lollipopRed.png");
         } catch (SlickException ex) {
@@ -37,11 +36,11 @@ public class Star extends GameObject implements IRenderable {
     @Override
     public void render(GameContainer gc, Graphics g) {
         //render star animation/img
-        sprite.draw(this.x, this.y - calculateOffset());
+        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
     }
 
     public int calculateOffset() {
-        return (int) (70 - this.height);
+        return (int) (70 - this.getRect().getHeight());
     }
 
     public boolean isActive() {
@@ -51,15 +50,13 @@ public class Star extends GameObject implements IRenderable {
     public void setActive(boolean active) {
         this.isActive = active;
         if (this.isActive == true) {
-            this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
             try {
                 this.sprite = new Image("Resources/Levels/lollipopRed.png");
             } catch (SlickException ex) {
                 Logger.getLogger(Star.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            //this.hitbox = null;
-            //this.sprite = null;
+            this.sprite = null;
         }
     }
 

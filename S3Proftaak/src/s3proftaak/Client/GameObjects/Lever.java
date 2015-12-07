@@ -10,7 +10,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import s3proftaak.Client.Game;
 import s3proftaak.Client.GameObjects.Interfaces.IPressable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
@@ -28,18 +27,17 @@ public class Lever extends GameObject implements IPressable, IRenderable {
     
     public Lever(float x, float y, float width, float height) {
         super(x, y, width, height);
-        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
         this.changeImage(isActive);
     }
     
     @Override
     public void render(GameContainer gc, Graphics g){
         //render button animation/img
-        sprite.draw(this.x,this.y - calculateOffset());        
+        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());        
     }
     
     public int calculateOffset(){
-        return (int) (70-this.height);
+        return (int) (70-this.getRect().getHeight());
     }
     
     @Override

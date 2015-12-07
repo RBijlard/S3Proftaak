@@ -30,7 +30,6 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     
     public Weight(float x, float y, float width, float height){
         super(x, y, width, height);
-        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height);
         
         try {
             sprite = new Image("Resources/Levels/weightChained.png");
@@ -42,10 +41,10 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     
     @Override
     public void update(GameContainer gc, int i) {
-        this.hitbox = new Rectangle(this.x,this.y,this.width,this.height-minus);
+        this.getRect().setHeight(this.getRect().getHeight() - minus);
         
         if (isActive){
-            if (minus < this.height - 70){
+            if (minus < this.getRect().getHeight() - 70){
                 minus+=5;
             }
         }else{
@@ -60,14 +59,14 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     public void render(GameContainer gc, Graphics g){
         //render door animation/img
         
-        for (int i=0;this.getHeight() - i*70 + 70 - minus > 0;i++){
-            sprite1.draw(this.x, this.getHeight() - i*70 - 70 - minus);
+        for (int i=0;this.getRect().getHeight() - i*70 + 70 - minus > 0;i++){
+            sprite1.draw(this.getRect().getX(), this.getRect().getHeight() - i*70 - 70 - minus);
         }
-        sprite.draw(this.x,this.y - calculateOffset() - minus);
+        sprite.draw(this.getRect().getX(),this.getRect().getY() - calculateOffset() - minus);
     }    
     
     public int calculateOffset(){
-        return (int) (70-this.height);
+        return (int) (70-this.getRect().getHeight());
     }
     
     @Override
