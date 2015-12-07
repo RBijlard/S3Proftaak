@@ -120,7 +120,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         
         if (game.isMultiplayer() && isControllabe){
-            Rectangle r = new Rectangle(MLO.getRect().getX() - getRect().getX(), getRect().getY(), getRect().getWidth(), getRect().getHeight());
+            Rectangle r = new Rectangle(MLO.getRect().getX() + getRect().getX(), getRect().getY(), getRect().getWidth(), getRect().getHeight());
             if (oldY != getRect().getY() || oldX != r.getX()){
                 oldY = getRect().getY();
                 oldX = r.getX();
