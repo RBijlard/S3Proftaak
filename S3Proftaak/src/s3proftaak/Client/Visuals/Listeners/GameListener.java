@@ -36,7 +36,6 @@ public class GameListener extends BasicListener {
                                 if (c.getName().equals(evt.getOldValue().toString())) {
                                     
                                     Rectangle rect = (Rectangle) evt.getNewValue();
-                                    System.out.println(c.getName() + " " + evt.getOldValue().toString() + "  ->  " + c.getName().equals(evt.getOldValue().toString()));
                                     
                                     c.getRect().setX(rect.getX());
                                     c.getRect().setY(rect.getY());
