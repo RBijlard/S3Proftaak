@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Visuals.Listeners.BasicListener;
 
 /**
@@ -20,6 +21,10 @@ import s3proftaak.Client.Visuals.Listeners.BasicListener;
 public class BasicScene {
     private Scene scene;
     private BasicListener listener;
+    
+    public BasicScene(){
+        ClientAdministration.getInstance().setCurrentScreen(this);
+    }
     
     public BasicScene load(String s) {
         try {

@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
 import s3proftaak.Shared.ILobby;
@@ -47,7 +46,6 @@ public class ClientAdministration extends Application {
 
             @Override
             public void handle(WindowEvent event) {
-
                 if (getCurrentScreen().getListener() != null) {
                     getCurrentScreen().getListener().stopListening();
                 }
@@ -64,15 +62,19 @@ public class ClientAdministration extends Application {
     }
 
     public static void changeScreen(Screens s) {
-        if (getInstance().currentScreen != null && getInstance().currentScreen.getListener() != null){
-            getInstance().currentScreen.getListener().stopListening();
+        if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null){
+            getInstance().getCurrentScreen().getListener().stopListening();
         }
         
         primaryStage.setScene(s.newInstance().getScene());
     }
 
-    public static BasicScene getCurrentScreen() {
-        return getInstance().currentScreen;
+    public BasicScene getCurrentScreen() {
+        return currentScreen;
+    }
+    
+    public void setCurrentScreen(BasicScene bs){
+        currentScreen = bs;
     }
 
     public enum Screens {
@@ -91,7 +93,6 @@ public class ClientAdministration extends Application {
 
         public Screens newInstance() {
             bs = new BasicScene().load(this.getPath());
-            ClientAdministration.getInstance().currentScreen = bs;
             return this;
         }
 

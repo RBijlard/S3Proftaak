@@ -108,6 +108,16 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         playerz.addAll(players);
         return playerz;
     }
+    
+    @Override
+    public void kickPlayer(String username){
+        Player p = getPlayer(username);
+        if (p != null) {
+            this.removePlayer(username);
+            publisher.inform(this, "Administrative", "Kick", username);
+            updatePlayers();
+        }
+    }
 
     @Override
     public void addPlayer(String username) throws RemoteException, CustomException {
@@ -133,7 +143,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void removePlayer(String username) throws RemoteException {
+    public void removePlayer(String username) {
         if (username != null && !username.isEmpty()) {
             Player p = getPlayer(username);
             if (p != null) {

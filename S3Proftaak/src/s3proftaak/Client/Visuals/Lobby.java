@@ -22,14 +22,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import s3proftaak.Client.Visuals.Listeners.LobbyListener;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Client.Message;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
-import s3proftaak.Client.Visuals.Listeners.MultiplayerListener;
 import s3proftaak.Shared.IPlayer;
 
 /**
@@ -60,14 +58,13 @@ public final class Lobby extends BasicScene {
     private boolean isHost;
 
     public Lobby() {
-        System.out.println("abc");
         try {
             this.setListener(new LobbyListener(this));
             this.getListener().startListening();
         } catch (RemoteException ex) {
             Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         TableColumn readyCol = new TableColumn("Ready");
         readyCol.setCellValueFactory(new PropertyValueFactory<>("ready"));
         //readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
@@ -75,19 +72,15 @@ public final class Lobby extends BasicScene {
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
-        System.out.println("abcd");
-        
         Platform.runLater(new Runnable() {
 
             @Override
             public void run() {
-                System.out.println("abcsfad");
-                
                 if (playerList != null) {
                     nameCol.setMinWidth(playerList.getWidth() - readyCol.getWidth());
                     playerList.getColumns().addAll(readyCol, nameCol);
                 }
-                
+
                 try {
                     if (lblLobbyName != null) {
                         lblLobbyName.setText(ClientAdministration.getInstance().getCurrentLobby().getName());
@@ -103,12 +96,12 @@ public final class Lobby extends BasicScene {
                             Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
-                    
-                    if (playerList != null){
+
+                    if (playerList != null) {
                         playerList.setItems(FXCollections.observableArrayList(ClientAdministration.getInstance().getCurrentLobby().getPlayers()));
                     }
-                    
-                    if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())){
+
+                    if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                         setIsHost(true);
                     }
                 } catch (RemoteException ex) {
@@ -130,7 +123,17 @@ public final class Lobby extends BasicScene {
     }
 
     public void btnKickClick(Event e) {
-
+        if (playerList != null) {
+            if (isHost) {
+                if (playerList.getSelectionModel() != null && playerList.getSelectionModel().getSelectedItem() != null) {
+                    try {
+                        ClientAdministration.getInstance().getCurrentLobby().kickPlayer(((IPlayer) playerList.getSelectionModel().getSelectedItem()).getName());
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        }
     }
 
     public void btnReadyClick(Event e) {
@@ -142,10 +145,9 @@ public final class Lobby extends BasicScene {
     }
 
     public void btnLeaveClick(Event e) {
-        if (this.getListener() != null){
+        if (this.getListener() != null) {
             this.getListener().stopListening();
         }
-        
 
         changeScreen(ClientAdministration.Screens.Multiplayer);
     }
@@ -230,8 +232,8 @@ public final class Lobby extends BasicScene {
             }
         });
     }
-    
-    public TableView getPlayerList(){
+
+    public TableView getPlayerList() {
         return this.playerList;
     }
 }

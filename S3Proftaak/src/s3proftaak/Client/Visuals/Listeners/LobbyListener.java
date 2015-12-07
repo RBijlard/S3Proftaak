@@ -32,7 +32,6 @@ public class LobbyListener extends BasicListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        System.out.println("received property 2. " + evt.getPropertyName());
         switch (evt.getPropertyName()) {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
@@ -45,7 +44,6 @@ public class LobbyListener extends BasicListener {
                             }
                         });
                         
-                        System.out.println("gamelistening");
                         gameListener = new GameListener();
                         gameListener.startListening();
                         
@@ -59,6 +57,18 @@ public class LobbyListener extends BasicListener {
                     gameListener = null;
                     ClientAdministration.getInstance().stopGame();
                 }
+                
+                if (evt.getOldValue().toString().equals("Kick")){
+                    if (evt.getNewValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())){
+                        Platform.runLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                lobbyScreen.btnLeaveClick(null);
+                            }
+                        });
+                    }
+                }
                 break;
 
             case "Chat":
@@ -66,7 +76,6 @@ public class LobbyListener extends BasicListener {
                 break;
 
             case "Players":
-                System.out.println("received players");
                 if (evt.getNewValue() != null) {
                     this.players = (List<IPlayer>) evt.getNewValue();
                     this.lobbyScreen.updatePlayerList(this.players);
@@ -74,14 +83,10 @@ public class LobbyListener extends BasicListener {
                 break;
 
             case "Level":
-                // 
-                System.out.println(evt.getNewValue().toString());
                 this.lobbyScreen.comboboxSet(evt.getNewValue().toString());
                 break;
             case "Host":
-                System.out.println("received host");
                 if (ClientAdministration.getInstance().getAccount().getUsername().equals(evt.getNewValue().toString())) {
-                    System.out.println("Setting is host : ");
                     this.lobbyScreen.setIsHost(true);
                 }
                 break;
