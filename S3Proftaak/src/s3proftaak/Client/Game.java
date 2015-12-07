@@ -1,6 +1,7 @@
 package s3proftaak.Client;
 
 import java.awt.Font;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import s3proftaak.Client.GameObjects.Button;
@@ -363,6 +364,14 @@ public class Game extends BasicGame {
             ClientAdministration.getInstance().setGame(null);
         } catch (SlickException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (ClientAdministration.getInstance().getCurrentLobby() != null){
+            try {
+                ClientAdministration.getInstance().getCurrentLobby().closedGame();
+            } catch (RemoteException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         return super.closeRequested();
