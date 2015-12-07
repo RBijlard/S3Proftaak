@@ -68,7 +68,7 @@ public final class Lobby extends BasicScene {
         
         TableColumn readyCol = new TableColumn<>("Ready");
         readyCol.setCellValueFactory(new PropertyValueFactory<>("ready"));
-        readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
+        //readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
 
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -178,6 +178,7 @@ public final class Lobby extends BasicScene {
                 list.add(s);
                 if (!isHost) {
                     this.cbLevel.setItems(FXCollections.observableArrayList(list));
+                    this.cbLevel.setValue(list.get(0));
                 }
             }
         });
