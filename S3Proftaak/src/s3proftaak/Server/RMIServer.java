@@ -4,9 +4,17 @@
  */
 package s3proftaak.Server;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Example of RMI using Registry
@@ -14,7 +22,9 @@ import java.rmi.registry.Registry;
  * @author Nico Kuijpers
  */
 public class RMIServer {
+
     // Set port number
+
     private static final int portNumber = 1099;
 
     // Set binding name for MockEffectenbeurs
@@ -36,8 +46,8 @@ public class RMIServer {
             System.out.println("Server: Cannot create MockEffectenbeurs");
             System.out.println("Server: RemoteException: " + ex.getMessage());
         }
-        
-        if (ServerAdministration.getInstance() != null){
+
+        if (ServerAdministration.getInstance() != null) {
             // Create registry at port number
             try {
                 registry = LocateRegistry.createRegistry(portNumber);
@@ -55,7 +65,7 @@ public class RMIServer {
                 System.out.println("Server: Cannot bind MockEffectenbeurs");
                 System.out.println("Server: RemoteException: " + ex.getMessage());
             }
-        }else {
+        } else {
             System.out.println("Server: MockEffectenbeurs not bound");
         }
     }
@@ -66,9 +76,25 @@ public class RMIServer {
     public static void main(String[] args) {
         // Welcome message
         System.out.println("SERVER USING REGISTRY");
-        
-        System.setProperty("java.rmi.server.hostname", "145.93.168.100");
-        
+
+        try {
+            Enumeration e = NetworkInterface.getNetworkInterfaces();
+            while (e.hasMoreElements()) {
+                NetworkInterface n = (NetworkInterface) e.nextElement();
+                Enumeration ee = n.getInetAddresses();
+                while (ee.hasMoreElements()) {
+                    InetAddress i = (InetAddress) ee.nextElement();
+                    if (i.getHostAddress().startsWith("145")){
+                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                        break;
+                    }
+                }
+            }
+
+        } catch (SocketException ex) {
+            Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Create server
         new RMIServer();
     }
