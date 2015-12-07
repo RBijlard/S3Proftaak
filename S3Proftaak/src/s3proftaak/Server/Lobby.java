@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
@@ -76,13 +77,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void updateX(String username, float x) {
-        publisher.inform(this, "X", username, x);
+    public void updatePlayer(String username, Rectangle rect) {
+        publisher.inform(this, "Rect", username, rect);
     }
-
+    
     @Override
-    public void updateY(String username, float y) {
-        publisher.inform(this, "Y", username, y);
+    public void closedGame(){
+        stopGame();
     }
 
     @Override
@@ -182,6 +183,15 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                 }
             }
         }
+    }
+    
+    private void stopGame(){
+        for (Player p : players){
+            p.setReady(false);
+        }
+        
+        publisher.inform(this, "Administrative", "StopGame", level);
+        started = false;
     }
 
     private List<String> getNames() {

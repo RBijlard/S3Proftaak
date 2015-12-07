@@ -8,6 +8,7 @@ package s3proftaak.Shared;
 import s3proftaak.util.CustomException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.fontys.RemotePropertyListener;
 
 /**
@@ -24,9 +25,9 @@ public interface ILobby extends Remote {
 
     public void updatePlayers() throws RemoteException;
 
-    public void updateX(String username, float x) throws RemoteException;
-
-    public void updateY(String username, float y) throws RemoteException;
+    public void updatePlayer(String username, Rectangle rect) throws RemoteException;
+    
+    public void closedGame() throws RemoteException;
 
     public String getName() throws RemoteException;
     

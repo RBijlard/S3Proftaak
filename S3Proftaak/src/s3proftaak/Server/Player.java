@@ -36,4 +36,8 @@ public class Player extends UnicastRemoteObject implements IPlayer {
     public void toggleReady() {
         this.ready = !ready;
     }
+    
+    public void setReady(boolean ready){
+        this.ready = ready;
+    }
 }

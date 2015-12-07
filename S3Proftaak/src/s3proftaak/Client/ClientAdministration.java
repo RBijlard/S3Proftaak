@@ -172,16 +172,10 @@ public class ClientAdministration extends Application {
                 } catch (SlickException ex) {
                 }
             }
-
         }
-
     }
 
     public void stopGame() {
-        if (game.isMultiplayer()) {
-            //((Lobby) getCurrentScreen()).getChatController().stopGame();
-        }
-
         getApp().exit();
         //changeScreen(ClientAdministration.Screens.Highscores);
 

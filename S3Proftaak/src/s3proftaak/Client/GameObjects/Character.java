@@ -119,6 +119,19 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        if (game.isMultiplayer()){
+            if (oldY != getRect().getY() || oldX != getRect().getX()){
+                oldY = getRect().getY();
+                oldX = getRect().getX();
+                
+                try {
+                    ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), getRect());
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 
     @Override
@@ -166,17 +179,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         go.setX(go.getX() - vXtemp);
                         go.updateHitbox();
                     }
-                }
-            }
-        }
-        
-        if (game.isMultiplayer()){
-            if (oldX != getX()){
-                oldX = getX();
-                try {
-                    ClientAdministration.getInstance().getCurrentLobby().updateX(ClientAdministration.getInstance().getAccount().getUsername(), getX());
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -249,17 +251,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 this.setY(this.getY() - vYtemp);
                 this.updateHitbox();
                 this.vY = 0;
-            }
-        }
-        
-        if (game.isMultiplayer()){
-            if (oldY != getY()){
-                oldY = getY();
-                try {
-                    ClientAdministration.getInstance().getCurrentLobby().updateY(ClientAdministration.getInstance().getAccount().getUsername(), getY());
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-                }
             }
         }
     }
