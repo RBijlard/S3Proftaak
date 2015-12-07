@@ -120,12 +120,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         
         if (game.isMultiplayer() && isControllabe){
-            if (oldY != getRect().getY() || oldX != getRect().getX()){
+            Rectangle r = new Rectangle(this.offSetX, getRect().getY(), getRect().getWidth(), getRect().getHeight());
+            if (oldY != getRect().getY() || oldX != r.getX()){
                 oldY = getRect().getY();
-                oldX = getRect().getX();
+                oldX = r.getX();
                 
                 try {
-                    ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), getRect());
+                    ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), r);
                 } catch (RemoteException ex) {
                     Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                 }
