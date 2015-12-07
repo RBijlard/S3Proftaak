@@ -4,12 +4,19 @@
  */
 package s3proftaak.Client;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Enumeration;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
+import s3proftaak.Server.RMIServer;
 import s3proftaak.Shared.IServer;
 
 /**
@@ -81,13 +88,11 @@ public class RMIClient {
     private void testConnectionEffectenbeurs() {
         try {
             Application.launch(ClientAdministration.class);
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
-    
+
     // Main method
     public static void main(String[] args) {
         // Welcome message
@@ -96,17 +101,35 @@ public class RMIClient {
         // Get ip address of server
         Scanner input = new Scanner(System.in);
         System.out.print("Client: Enter IP address of server: ");
-        String ipAddress = "localhost";//input.nextLine();
+        String ipAddress = "145.93.168.100";//input.nextLine();
 
         // Get port number
         System.out.print("Client: Enter port number: ");
         int portNumber = 1099;//input.nextInt();
 
+        try {
+            Enumeration e = NetworkInterface.getNetworkInterfaces();
+            while (e.hasMoreElements()) {
+                NetworkInterface n = (NetworkInterface) e.nextElement();
+                Enumeration ee = n.getInetAddresses();
+                while (ee.hasMoreElements()) {
+                    InetAddress i = (InetAddress) ee.nextElement();
+                    if (i.getHostAddress().startsWith("145")) {
+                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                        break;
+                    }
+                }
+            }
+
+        } catch (SocketException ex) {
+            Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Create client
         new RMIClient(ipAddress, portNumber);
     }
-    
-    public static IServer getServerAdministration(){
+
+    public static IServer getServerAdministration() {
         return serverAdministration;
     }
 }
