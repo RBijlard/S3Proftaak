@@ -39,7 +39,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float vX = 0;
     private float vY = 0;
     private final int controlSet;
-
+    
     private float oldX, oldY;
 
     private Game game;
@@ -118,12 +118,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        if (game.isMultiplayer() && isControllabe) {
-            if (oldY != getRect().getY() || oldX != getRect().getX()) {
+        
+        if (game.isMultiplayer() && isControllabe){
+            if (oldY != getRect().getY() || oldX != getRect().getX()){
                 oldY = getRect().getY();
                 oldX = getRect().getX();
-
+                
                 try {
                     ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), getRect());
                 } catch (RemoteException ex) {
@@ -166,30 +166,15 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         //check collisions
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
-            if (!game.isMultiplayer()) {
+            for (GameObject go : game.getGameObjects()) {
+                if (go != this) {
+                    go.getRect().setX(go.getRect().getX() + vXtemp);
+                }
+            }
+            if (this.isColliding(gc)) {
                 for (GameObject go : game.getGameObjects()) {
                     if (go != this) {
-                        go.getRect().setX(go.getRect().getX() + vXtemp);
-                    }
-                }
-                if (this.isColliding(gc)) {
-                    for (GameObject go : game.getGameObjects()) {
-                        if (go != this) {
-                            go.getRect().setX(go.getRect().getX() - vXtemp);
-                        }
-                    }
-                }
-            } else {
-                for (GameObject go : game.getGameObjects()) {
-                    if (!(go instanceof Character)) {
-                        go.getRect().setX(go.getRect().getX() + vXtemp);
-                    }
-                }
-                if (this.isColliding(gc)) {
-                    for (GameObject go : game.getGameObjects()) {
-                        if (!(go instanceof Character)) {
-                            go.getRect().setX(go.getRect().getX() - vXtemp);
-                        }
+                        go.getRect().setX(go.getRect().getX() - vXtemp);
                     }
                 }
             }
@@ -385,10 +370,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void moveVertical1(GameContainer gc) {
         //move with arrow keys
-
+        
         this.vY += this.gravity;
-
-        if (!game.isMultiplayer()) {
+        
+        if (!game.isMultiplayer()){
             Input input = gc.getInput();
             if (input.isKeyDown(Input.KEY_W)) {
                 //move up -> y min
@@ -522,8 +507,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
         return false;
     }
-
-    public String getName() {
+    
+    public String getName(){
         return this.name;
     }
 }
