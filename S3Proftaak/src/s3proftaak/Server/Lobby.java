@@ -30,11 +30,12 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     private String level = "";
     private String currentHost;
     private boolean started;
+    private String currentUsername ;
     
     public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
         this.name = lobbyname;
         this.max = maxPlayers;
-        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host"});
+        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Host-rect", "May-move"});
     }
 
     @Override
@@ -59,6 +60,15 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
+    public void updateMove(Rectangle r, boolean b){
+        if(b){
+            publisher.inform(this, "Rect", this.currentUsername, r);        
+        }else{
+            //publisher.inform(this, "Rect", this.currentUsername, r);
+        }
+    }
+    
+    @Override
     public void updatePlayers() {
         if (!getNames().contains(currentHost)) {
             currentHost = null;
@@ -79,7 +89,9 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void updatePlayer(String username, Rectangle rect) {
-        publisher.inform(this, "Rect", username, rect);
+        this.currentUsername = username;
+        publisher.inform(this,"Host-rect", null, rect);
+        //publisher.inform(this, "Rect", username, rect);
     }
     
     @Override

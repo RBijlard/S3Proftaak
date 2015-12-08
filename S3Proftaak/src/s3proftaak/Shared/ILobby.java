@@ -40,6 +40,8 @@ public interface ILobby extends Remote {
     
     public List<IPlayer> getPlayers() throws RemoteException;
     
+    public void updateMove(Rectangle r, boolean b) throws RemoteException;
+    
     public String getAmountOfPlayers() throws RemoteException;
 
     public void addPlayer(String username) throws RemoteException, CustomException;
