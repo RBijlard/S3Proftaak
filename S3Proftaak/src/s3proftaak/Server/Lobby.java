@@ -35,7 +35,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
         this.name = lobbyname;
         this.max = maxPlayers;
-        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host"});
+        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }
 
     @Override
@@ -81,6 +81,11 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     @Override
     public void updatePlayer(String username, PlayerPosition pp) {
         publisher.inform(this, "Rect", username, pp);
+    }
+    
+    @Override
+    public void updateObject(int id, boolean state) throws RemoteException{
+        publisher.inform(this, "Objects", id, state);
     }
     
     @Override

@@ -11,7 +11,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
@@ -27,9 +26,12 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     private Image sprite1;
     
     private int minus = 0;
+    private float height;
     
     public Weight(float x, float y, float width, float height){
         super(x, y, width, height);
+        
+        this.height = height;
         
         try {
             sprite = new Image("Resources/Levels/weightChained.png");
@@ -41,10 +43,10 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     
     @Override
     public void update(GameContainer gc, int i) {
-        this.getRect().setHeight(this.getRect().getHeight() - minus);
+        this.getRect().setHeight(height - minus);
         
         if (isActive){
-            if (minus < this.getRect().getHeight() - 70){
+            if (minus < height - 70){
                 minus+=5;
             }
         }else{
@@ -58,15 +60,15 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     @Override
     public void render(GameContainer gc, Graphics g){
         //render door animation/img
-        
-        for (int i=0;this.getRect().getHeight() - i*70 + 70 - minus > 0;i++){
-            sprite1.draw(this.getRect().getX(), this.getRect().getHeight() - i*70 - 70 - minus);
+        for (int i=0;height - i*70 + 70 - minus > 0;i++){
+            sprite1.draw(this.getRect().getX(), height - i*70 - 70 - minus);
         }
+        
         sprite.draw(this.getRect().getX(),this.getRect().getY() - calculateOffset() - minus);
     }    
     
     public int calculateOffset(){
-        return (int) (70-this.getRect().getHeight());
+        return (int) (70-height);
     }
     
     @Override

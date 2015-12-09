@@ -312,7 +312,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         }
                     } else if (go instanceof Star) {
                         if (!((Star) go).isRemoved()) {
-                            ((Star) go).remove();
+                            ((Star) go).setActive(false);
                             SoundManager.getInstance().playSound(Sounds.COINPICKUP);
                         }
                     } else if (go instanceof Weight) {

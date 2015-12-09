@@ -68,6 +68,8 @@ public class Game extends BasicGame {
 
     private TrueTypeFont slickFontTimer;
     private TrueTypeFont slickFontUserName;
+    
+    private int objectId = 0;
 
     public Game(String title, int amountOfPlayers, String mapname, List<String> names) {
         super(title);
@@ -158,6 +160,7 @@ public class Game extends BasicGame {
 
         // Deze sick dubbele for lus linked alle gameobjects die met elkaar gelinked moeten worden
         for (GameObject g1 : this.getGameObjects()) {
+            g1.setId(nextObjectId());
             for (GameObject g2 : this.getGameObjects()) {
                 if (g1 != g2) {
                     if (g2 instanceof IPressable && g1 instanceof IStateChangeable) {
@@ -375,5 +378,13 @@ public class Game extends BasicGame {
         }
 
         return super.closeRequested();
+    }
+    
+    public int nextObjectId(){
+        return objectId++;
+    }
+    
+    public GameObject getGameObject(int id){
+        return this.gameObjects.get(id);
     }
 }

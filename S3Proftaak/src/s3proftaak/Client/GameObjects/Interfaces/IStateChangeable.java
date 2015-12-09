@@ -12,8 +12,7 @@ import s3proftaak.Client.GameObjects.GameObject;
  *
  * @author Stan
  */
-public interface IStateChangeable {
+public interface IStateChangeable extends IRemoteUpdatable {
     List<GameObject> getMatchedObjects();
-    void setActive(boolean active);
     boolean isActive();
 }

@@ -11,13 +11,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 
 /**
  *
  * @author Berry-PC
  */
-public class Star extends GameObject implements IRenderable {
+public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
 
     private Image sprite;
     private boolean removed;
@@ -44,7 +45,8 @@ public class Star extends GameObject implements IRenderable {
         return (int) (70 - this.getRect().getHeight());
     }
 
-    public void remove() {
+    @Override
+    public void setActive(boolean active) {
         this.sprite = null;
         this.removed = true;
     }

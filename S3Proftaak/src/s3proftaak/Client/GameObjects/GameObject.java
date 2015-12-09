@@ -16,6 +16,7 @@ import org.newdawn.slick.geom.Rectangle;
  * @author Berry-PC
  */
 public abstract class GameObject {
+    private int id;
     private ArrayList<Integer> matches;
     private Rectangle hitbox;
     private List<GameObject> matchedObjects;
@@ -46,6 +47,14 @@ public abstract class GameObject {
     
     public Rectangle getRect(){
         return this.hitbox;
+    }
+    
+    public int getId(){
+        return this.id;
+    }
+    
+    public void setId(int id){
+        this.id = id;
     }
     
     @Override

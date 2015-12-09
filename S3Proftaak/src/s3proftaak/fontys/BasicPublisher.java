@@ -1,6 +1,7 @@
 package s3proftaak.fontys;
 
 import java.beans.*;
+import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.Level;
@@ -125,7 +126,6 @@ public class BasicPublisher {
                 listener.propertyChange(evt);
             } catch (RemoteException ex) {
                 tempListeners.add(listener);
-                Logger.getLogger(BasicPublisher.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         }

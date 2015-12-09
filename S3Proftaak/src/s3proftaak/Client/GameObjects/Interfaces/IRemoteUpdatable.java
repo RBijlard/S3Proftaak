@@ -5,14 +5,10 @@
  */
 package s3proftaak.Client.GameObjects.Interfaces;
 
-import java.util.List;
-import s3proftaak.Client.GameObjects.GameObject;
-
 /**
  *
  * @author Stan
  */
-public interface IPressable extends IRemoteUpdatable {
-    List<GameObject> getMatchedObjects();
-    boolean isActive();
+public interface IRemoteUpdatable {
+    void setActive(boolean active);
 }

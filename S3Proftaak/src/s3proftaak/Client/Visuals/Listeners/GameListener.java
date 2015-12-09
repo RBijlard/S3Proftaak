@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
+import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Shared.PlayerPosition;
 
 /**
@@ -47,7 +48,7 @@ public class GameListener extends BasicListener {
                                     if (c.safeMoveTo(pp.getX() - offset, pp.getY())) {
                                         c.getRect().setX(pp.getX() - offset);
                                         c.getRect().setY(pp.getY());
-                                    }else{
+                                    } else {
                                         c.setvY(pp.getvY());
                                     }
 
@@ -58,6 +59,10 @@ public class GameListener extends BasicListener {
                             }
                         }
 
+                        break;
+
+                    case "Objects":
+                        ((IRemoteUpdatable) ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()))).setActive(Boolean.valueOf(evt.getNewValue().toString()));
                         break;
                 }
             }
@@ -72,6 +77,7 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
 
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Rect");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Objects");
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -85,6 +91,7 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Host");
 
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Rect");
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Objects");
 
         } catch (RemoteException ex) {
             Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
