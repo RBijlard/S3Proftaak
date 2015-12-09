@@ -80,7 +80,6 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
                         }
                     } else
                     if (go instanceof GameObject) {
-                        System.out.println(go.toString());
                         return true;
                     }
                 }
