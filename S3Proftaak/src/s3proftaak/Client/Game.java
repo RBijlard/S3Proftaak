@@ -203,11 +203,8 @@ public class Game extends BasicGame {
         startTime = System.currentTimeMillis();
     }
 
-    private long l1;
-
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        long l = System.currentTimeMillis();
         //update game and player
         //update currentTime
         this.currentTime += i;
@@ -252,13 +249,10 @@ public class Game extends BasicGame {
                 }
             }
         }
-
-        l1 = System.currentTimeMillis() - l;
     }
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
-        long l = System.currentTimeMillis();
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
         grphcs.setBackground(new Color(0, 191, 255));
@@ -281,11 +275,6 @@ public class Game extends BasicGame {
         grphcs.setColor(Color.white);
         grphcs.setFont(slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
-        
-        long l2 = System.currentTimeMillis() - l;
-        
-        grphcs.drawString("Update: " + l1, 200, 200);
-        grphcs.drawString("Render: " + l2, 200, 220);
     }
 
     public List<GameObject> getGameObjects() {
