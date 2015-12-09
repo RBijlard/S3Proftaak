@@ -412,7 +412,7 @@ public class Game extends BasicGame {
         return id < this.gameObjects.size() ? this.gameObjects.get(id) : null;
     }
 
-    public void waitingForOtherPlayers(boolean waitingforotherplayers) {
-        this.waitingforotherplayers = waitingforotherplayers;
+    public void waitingForOtherPlayers() {
+        this.waitingforotherplayers = false;
     }
 }

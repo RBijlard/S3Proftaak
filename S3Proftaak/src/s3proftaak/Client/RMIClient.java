@@ -125,7 +125,7 @@ public class RMIClient {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.setProperty("java.rmi.server.hostname", "192.168.1.128");
+        System.setProperty("java.rmi.server.hostname", "192.168.1.135");
         ipAddress = "192.168.1.135";
 
         new RMIClient(ipAddress, portNumber);

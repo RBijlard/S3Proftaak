@@ -53,6 +53,11 @@ public class LobbyListener extends BasicListener {
                         Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                
+                if (evt.getOldValue().toString().equals("ReallyStartGame")){
+                    ClientAdministration.getInstance().getGame().waitingForOtherPlayers();
+                }
+                
                 if (evt.getOldValue().toString().equals("RestartGame")) {
                     Platform.runLater(new Runnable() {
 
