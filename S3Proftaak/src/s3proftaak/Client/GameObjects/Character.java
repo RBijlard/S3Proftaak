@@ -371,9 +371,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     public void moveVertical1(GameContainer gc) {
         //move with arrow keys
         
-        this.vY += this.gravity;
-        
         if (!game.isMultiplayer()){
+            this.vY += this.gravity;
+            
             Input input = gc.getInput();
             if (input.isKeyDown(Input.KEY_W)) {
                 //move up -> y min
