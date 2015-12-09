@@ -95,6 +95,7 @@ public class RMIServer {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        System.setProperty("java.rmi.server.hostname","192.168.66.1");
         new RMIServer();
     }
 }

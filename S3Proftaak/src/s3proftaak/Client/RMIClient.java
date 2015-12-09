@@ -125,7 +125,8 @@ public class RMIClient {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        new RMIClient(ipAddress, portNumber);
+        System.setProperty("java.rmi.server.hostname", "192.168.66.1");
+        new RMIClient("192.168.66.1", portNumber);
     }
 
     public static IServer getServerAdministration() {
