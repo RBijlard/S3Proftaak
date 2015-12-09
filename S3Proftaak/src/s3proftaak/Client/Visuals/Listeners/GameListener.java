@@ -92,7 +92,7 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Rect");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Objects");
         } catch (RemoteException ex) {
-            Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+            ClientAdministration.getInstance().stopGame("");
         }
     }
 
@@ -107,7 +107,7 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Objects");
 
         } catch (RemoteException ex) {
-            Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+            ClientAdministration.getInstance().stopGame("");
         }
     }
 }

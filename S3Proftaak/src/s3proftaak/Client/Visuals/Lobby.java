@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.JOptionPane;
 import s3proftaak.Client.Visuals.Listeners.LobbyListener;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Client.Message;
@@ -62,7 +63,7 @@ public final class Lobby extends BasicScene {
             this.setListener(new LobbyListener(this));
             this.getListener().startListening();
         } catch (RemoteException ex) {
-            Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
 
         TableColumn readyCol = new TableColumn("Ready");
@@ -93,7 +94,7 @@ public final class Lobby extends BasicScene {
                             cbLevel.setItems(FXCollections.observableArrayList(lvl));
                             cbLevel.setValue(lvl.get(0));
                         } catch (RemoteException ex) {
-                            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                         }
                     }
 
@@ -105,7 +106,7 @@ public final class Lobby extends BasicScene {
                         setIsHost(true);
                     }
                 } catch (RemoteException ex) {
-                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                 }
             }
         });
@@ -117,7 +118,7 @@ public final class Lobby extends BasicScene {
                 ClientAdministration.getInstance().getCurrentLobby().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), chatText.getText()));
                 chatText.setText("");
             } catch (RemoteException ex) {
-                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
             }
         }
     }
@@ -129,7 +130,7 @@ public final class Lobby extends BasicScene {
                     try {
                         ClientAdministration.getInstance().getCurrentLobby().kickPlayer(((IPlayer) playerList.getSelectionModel().getSelectedItem()).getName());
                     } catch (RemoteException ex) {
-                        Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                     }
                 }
             }
@@ -140,7 +141,7 @@ public final class Lobby extends BasicScene {
         try {
             ClientAdministration.getInstance().getCurrentLobby().toggleReadyState(ClientAdministration.getInstance().getAccount().getUsername());
         } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
     }
 
@@ -177,7 +178,7 @@ public final class Lobby extends BasicScene {
                 try {
                     ClientAdministration.getInstance().getCurrentLobby().updateLevel(level);
                 } catch (RemoteException ex) {
-                    Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                 }
             }
         }
@@ -224,7 +225,7 @@ public final class Lobby extends BasicScene {
                                 lvl.add(ClientAdministration.getInstance().getCurrentLobby().getLevel());
                                 cbLevel.setItems(FXCollections.observableArrayList(lvl));
                             } catch (RemoteException ex) {
-                                Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                                JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                             }
                         }
                     }

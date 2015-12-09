@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javax.swing.JOptionPane;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
@@ -44,7 +45,7 @@ public class LobbyListener extends BasicListener {
                         gameListener.startListening();
 
                     } catch (RemoteException ex) {
-                        Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+                        ClientAdministration.getInstance().stopGame("");
                     }
                 }
 
@@ -59,7 +60,7 @@ public class LobbyListener extends BasicListener {
                 if (evt.getOldValue().toString().equals("StopGame")) {
                     gameListener.stopListening();
                     gameListener = null;
-                    ClientAdministration.getInstance().stopGame();
+                    ClientAdministration.getInstance().stopGame(null);
                 }
 
                 if (evt.getOldValue().toString().equals("Kick")) {
@@ -106,7 +107,7 @@ public class LobbyListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Host");
         } catch (RemoteException ex) {
-            Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
     }
 
@@ -126,7 +127,7 @@ public class LobbyListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
 
         } catch (RemoteException ex) {
-            Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
     }
 
@@ -142,6 +143,7 @@ public class LobbyListener extends BasicListener {
                 names.add(p.getName());
             }
         } catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
 
         return names;

@@ -127,7 +127,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
             } catch (RemoteException ex) {
-                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                ClientAdministration.getInstance().stopGame("");
             }
         }
     }
@@ -256,7 +256,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 try {
                     ClientAdministration.getInstance().getCurrentLobby().restartGame();
                 } catch (RemoteException ex) {
-                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                    ClientAdministration.getInstance().stopGame("");
                 }
             }
         }
@@ -280,7 +280,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                     try {
                                         ClientAdministration.getInstance().getCurrentLobby().updateMoveableObject(go.getId(), i);
                                     } catch (RemoteException ex) {
-                                        Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                        ClientAdministration.getInstance().stopGame("");
                                     }
                                 }
                             }
@@ -290,7 +290,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                     try {
                                         ClientAdministration.getInstance().getCurrentLobby().updateMoveableObject(go.getId(), i);
                                     } catch (RemoteException ex) {
-                                        Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                        ClientAdministration.getInstance().stopGame("");
                                     }
                                 }
                             }
@@ -322,7 +322,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                     try {
                                         ClientAdministration.getInstance().getCurrentLobby().updateObject(go.getId(), true);
                                     } catch (RemoteException ex) {
-                                        Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                        ClientAdministration.getInstance().stopGame("");
                                     }
                                 }
                             }
@@ -339,7 +339,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             try {
                                 ClientAdministration.getInstance().getCurrentLobby().updateObject(go.getId(), ((Lever) go).isActive());
                             } catch (RemoteException ex) {
-                                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                ClientAdministration.getInstance().stopGame("");
                             }
                         }
                     } else if (go instanceof Door) {
@@ -351,7 +351,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 try {
                                     ClientAdministration.getInstance().getCurrentLobby().stopGame();
                                 } catch (RemoteException ex) {
-                                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                    ClientAdministration.getInstance().stopGame("");
                                 }
                             }
                         }
@@ -364,7 +364,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 try {
                                     ClientAdministration.getInstance().getCurrentLobby().updateObject(go.getId(), false);
                                 } catch (RemoteException ex) {
-                                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                    ClientAdministration.getInstance().stopGame("");
                                 }
                             }
                         }

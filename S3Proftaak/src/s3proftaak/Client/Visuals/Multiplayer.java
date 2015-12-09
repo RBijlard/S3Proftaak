@@ -46,7 +46,7 @@ public class Multiplayer extends BasicScene {
             this.setListener(new MultiplayerListener(this));
             this.getListener().startListening();
         } catch (RemoteException ex) {
-            Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
 
         TableColumn name = new TableColumn("Name");
@@ -69,7 +69,7 @@ public class Multiplayer extends BasicScene {
                     try {
                         tableLobbies.setItems(FXCollections.observableArrayList(RMIClient.getServerAdministration().getLobbies()));
                     } catch (RemoteException ex) {
-                        Logger.getLogger(Multiplayer.class.getName()).log(Level.SEVERE, null, ex);
+                        JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                     }
                 }
             }
@@ -93,7 +93,7 @@ public class Multiplayer extends BasicScene {
             } catch (CustomException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
             } catch (RemoteException ex) {
-                System.out.println(ex);
+                JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
             }
         }
     }

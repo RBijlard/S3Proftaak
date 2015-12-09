@@ -214,7 +214,7 @@ public class Game extends BasicGame {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().loadedGame(ClientAdministration.getInstance().getAccount().getUsername());
             } catch (RemoteException ex) {
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                ClientAdministration.getInstance().stopGame("");
             }
         }
 
@@ -382,7 +382,7 @@ public class Game extends BasicGame {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            ClientAdministration.getInstance().stopGame();
+            ClientAdministration.getInstance().stopGame(null);
             SoundManager.getInstance().playMenuMusic();
         }
     }
@@ -407,7 +407,7 @@ public class Game extends BasicGame {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().closedGame();
             } catch (RemoteException ex) {
-                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                ClientAdministration.getInstance().stopGame("");
             }
         }
 

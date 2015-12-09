@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javax.swing.JOptionPane;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
@@ -181,9 +182,15 @@ public class ClientAdministration extends Application {
     }
 
     public void stopGame() {
+        stopGame(null);
+    }
+    
+    public void stopGame(String reason){
         getApp().exit();
-        //changeScreen(ClientAdministration.Screens.Highscores);
-
         this.game = null;
+        
+        if (reason != null){
+            JOptionPane.showMessageDialog(null, reason.isEmpty() ? "Connection lost." : reason, "Failed.", 1);
+        }
     }
 }

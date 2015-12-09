@@ -10,6 +10,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.Visuals.Multiplayer;
 import s3proftaak.Shared.ILobby;
@@ -36,7 +37,7 @@ public class MultiplayerListener extends BasicListener {
         try {
             RMIClient.getServerAdministration().addListener(this, "LobbyList");
         } catch (RemoteException ex) {
-            Logger.getLogger(MultiplayerListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
     }
     
@@ -45,7 +46,7 @@ public class MultiplayerListener extends BasicListener {
         try {
             RMIClient.getServerAdministration().removeListener(this, "LobbyList");
         } catch (RemoteException ex) {
-            Logger.getLogger(MultiplayerListener.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
     }
     
