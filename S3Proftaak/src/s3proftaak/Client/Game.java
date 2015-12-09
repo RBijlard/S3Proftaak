@@ -92,6 +92,8 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         //Set Fonts
+        this.objectId = 0;
+        
         this.slickFontTimer = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 40), false);
         this.slickFontUserName = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 18), false);
 
@@ -381,7 +383,7 @@ public class Game extends BasicGame {
     }
     
     public int nextObjectId(){
-        return objectId++;
+        return this.objectId++;
     }
     
     public GameObject getGameObject(int id){
