@@ -276,7 +276,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
                             if (game.isMultiplayer()) {
                                 try {
-                                    ClientAdministration.getInstance().getCurrentLobby().updateMoveableObject(go.getId(), (int) go.getRect().getX());
+                                    ClientAdministration.getInstance().getCurrentLobby().updateMoveableObject(go.getId(), Integer.parseInt(go.getRect().getX() + ""));
                                 } catch (RemoteException ex) {
                                     Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                                 }

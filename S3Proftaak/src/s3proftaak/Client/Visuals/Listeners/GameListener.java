@@ -68,7 +68,7 @@ public class GameListener extends BasicListener {
 
                         if (go != null) {
                             if (go instanceof MoveableBlock) {
-                                go.getRect().setX(Float.valueOf(evt.getNewValue().toString()));
+                                go.getRect().setX(Integer.valueOf(evt.getNewValue().toString()));
                             }
 
                             if (go instanceof IRemoteUpdatable) {
