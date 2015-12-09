@@ -96,4 +96,12 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     public void setDx(int dx) {
         this.dx = dx;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " -- MOVEABLEBLOCK";
+    }
+    
+    
+    
 }
