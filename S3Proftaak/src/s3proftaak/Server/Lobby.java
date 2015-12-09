@@ -87,6 +87,11 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public void updateObject(int id, boolean state) throws RemoteException{
         publisher.inform(this, "Objects", id, state);
     }
+        
+    @Override
+    public void updateMoveableObject(int id, int x) throws RemoteException{
+        publisher.inform(this, "Objects", id, x);
+    }
     
     @Override
     public void closedGame(){

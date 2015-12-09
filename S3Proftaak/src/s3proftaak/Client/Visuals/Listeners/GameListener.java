@@ -12,7 +12,9 @@ import java.util.logging.Logger;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
+import s3proftaak.Client.GameObjects.GameObject;
 import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
+import s3proftaak.Client.GameObjects.MoveableBlock;
 import s3proftaak.Shared.PlayerPosition;
 
 /**
@@ -62,7 +64,16 @@ public class GameListener extends BasicListener {
                         break;
 
                     case "Objects":
-                        ((IRemoteUpdatable) ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()))).setActive(Boolean.valueOf(evt.getNewValue().toString()));
+                        GameObject go = ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()));
+                        
+                        if (go instanceof MoveableBlock){
+                            go.getRect().setX(Float.valueOf(evt.getNewValue().toString()));
+                        }
+                        
+                        if (go instanceof IRemoteUpdatable){
+                            ((IRemoteUpdatable)go).setActive(Boolean.valueOf(evt.getNewValue().toString()));
+                        }
+                        
                         break;
                 }
             }
