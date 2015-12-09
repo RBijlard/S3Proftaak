@@ -186,7 +186,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
     
     public float getOffsetXMoveBlock(float x){
-        return (this.offSetX - this.marginx - (this.getRect().getX() - x));
+        return (this.offSetX - this.marginx + (this.getRect().getX() - x));
     }
 
     public void moveHorizontal(GameContainer gc) {
