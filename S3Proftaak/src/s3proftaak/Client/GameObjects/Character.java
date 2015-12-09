@@ -487,7 +487,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     this.getRect().setHeight(93);
                 }
 
-            } catch (SlickException ex) {
+            } catch (Exception ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
