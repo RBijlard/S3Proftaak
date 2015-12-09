@@ -14,14 +14,12 @@ import java.io.Serializable;
 public class PlayerPosition implements Serializable {
     private final float X;
     private final float Y;
-    private final float vX;
     private final float vY;
     private final boolean crouch;
 
-    public PlayerPosition(float X, float Y, float vX, float vY, boolean crouch) {
+    public PlayerPosition(float X, float Y, float vY, boolean crouch) {
         this.X = X;
         this.Y = Y;
-        this.vX = vX;
         this.vY = vY;
         this.crouch = crouch;
     }
@@ -32,10 +30,6 @@ public class PlayerPosition implements Serializable {
 
     public float getY() {
         return this.Y;
-    }
-
-    public float getvX() {
-        return this.vX;
     }
 
     public float getvY() {

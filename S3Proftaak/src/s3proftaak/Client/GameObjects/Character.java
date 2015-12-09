@@ -41,7 +41,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float vX = 0;
     private float vY = 0;
     private final int controlSet;
-    
+
     private float oldX, oldY;
 
     private Game game;
@@ -121,18 +121,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        if (game.isMultiplayer() && isControllabe){
-            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vX, vY, isCrouching);
-            if (oldY != pp.getY() || oldX != pp.getX()){
-                oldY = pp.getY();
-                oldX = pp.getX();
-                
-                try {
-                    ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
-                } catch (RemoteException ex) {
-                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
+        if (game.isMultiplayer() && isControllabe) {
+            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, isCrouching);
+
+            try {
+                ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -229,7 +225,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
             this.getRect().setY(this.getRect().getY() - 0.1f);
         }
-        
+
         this.checkCrouch(input.isKeyDown(Input.KEY_DOWN) || multicrouch);
 
         if (this.getRect().getY() > (70 * 15)) {
@@ -248,7 +244,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void die() {
-        try {            
+        try {
             SoundManager.getInstance().playSound(Sounds.GAMEOVER);
             SoundManager.getInstance().restartSound();
             ClientAdministration.getInstance().getApp().reinit();
@@ -370,10 +366,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void moveVertical1(GameContainer gc) {
         //move with arrow keys
-        
-        if (!game.isMultiplayer()){
+
+        if (!game.isMultiplayer()) {
             this.vY += this.gravity;
-            
+
             Input input = gc.getInput();
             if (input.isKeyDown(Input.KEY_W)) {
                 //move up -> y min
@@ -507,8 +503,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
         return false;
     }
-    
-    public String getName(){
+
+    public String getName() {
         return this.name;
     }
 
@@ -523,10 +519,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     public void setvY(float vY) {
         this.vY = vY;
     }
-    
-    public boolean safeMoveTo(float x, float y){
+
+    public boolean safeMoveTo(float x, float y) {
         GameObject tempGo = new Block(x, y, getRect().getWidth(), getRect().getHeight());
-        
+
         for (GameObject go : game.getGameObjects()) {
             //check if colliding
             if (go.getRect().intersects(tempGo.getRect()) || go.getRect().contains(tempGo.getRect())) {
@@ -538,7 +534,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 }
             }
         }
-        
+
         return true;
     }
 }

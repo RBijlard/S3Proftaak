@@ -48,7 +48,6 @@ public class GameListener extends BasicListener {
                                         c.getRect().setX(pp.getX() - offset);
                                         c.getRect().setY(pp.getY());
                                     }else{
-                                        c.setvX(pp.getvX());
                                         c.setvY(pp.getvY());
                                     }
 
