@@ -294,7 +294,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             }
 
             state = LobbyState.Loading;
-            System.out.println("Restarting");
             publisher.inform(this, "Administrative", "RestartGame", null);
         }
     }

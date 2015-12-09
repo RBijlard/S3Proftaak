@@ -192,7 +192,6 @@ public class Game extends BasicGame {
             if (!this.gameCharacters.contains(c)) {
                 this.gameCharacters.add(c);
             }
-
         }
 
         this.gameObjects.addAll(this.gameCharacters);
@@ -227,7 +226,6 @@ public class Game extends BasicGame {
             this.restart = false;
 
             try {
-                System.out.println("Restarting for real now.");
                 SoundManager.getInstance().restartSound();
                 ClientAdministration.getInstance().getApp().reinit();
             } catch (SlickException ex) {
@@ -309,7 +307,7 @@ public class Game extends BasicGame {
 
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";
-            grphcs.drawString(text, (Display.getWidth() / 2) - (text.getBytes().length / 2), Display.getHeight() / 2);
+            grphcs.drawString(text, (Display.getWidth() / 2) - (text.getBytes().length), Display.getHeight() / 2);
         }
     }
 

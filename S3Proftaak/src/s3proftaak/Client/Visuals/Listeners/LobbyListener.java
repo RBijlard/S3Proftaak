@@ -53,7 +53,6 @@ public class LobbyListener extends BasicListener {
                 }
 
                 if (evt.getOldValue().toString().equals("RestartGame")) {
-                    System.out.println("Restart signal received.");
                     ClientAdministration.getInstance().getGame().doRestart();
                 }
 
