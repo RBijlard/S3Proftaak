@@ -38,6 +38,10 @@ public interface ILobby extends Remote {
 
     public String getName() throws RemoteException;
     
+    public void stopGame() throws RemoteException;
+    
+    public void restartGame() throws RemoteException;
+    
     public String getCurrentHost() throws RemoteException;
     
     public String getLevel() throws RemoteException;

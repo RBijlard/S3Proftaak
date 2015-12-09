@@ -219,13 +219,19 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         }
     }
     
-    private void stopGame(){
+    @Override
+    public void stopGame(){
         for (Player p : players){
             p.setReady(false);
         }
         
-        publisher.inform(this, "Administrative", "StopGame", level);
+        publisher.inform(this, "Administrative", "StopGame", null);
         started = false;
+    }
+    
+    @Override
+    public void restartGame(){
+        publisher.inform(this, "Administrative", "RestartGame", null);
     }
 
     private List<String> getNames() {

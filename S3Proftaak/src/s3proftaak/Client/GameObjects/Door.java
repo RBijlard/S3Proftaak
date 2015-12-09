@@ -1,6 +1,5 @@
 package s3proftaak.Client.GameObjects;
 
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -15,7 +14,6 @@ import s3proftaak.Client.ClientAdministration;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Berry-PC
@@ -25,55 +23,59 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     private boolean isActive = false;
     private Image sprite;
     private Image sprite1;
-    
-    public Door(float x, float y, float width, float height){
+    private boolean finished;
+
+    public Door(float x, float y, float width, float height) {
         super(x, y, width, height);
         this.changeImage(isActive);
+        finished = false;
     }
-    
-    public void finish(){
-        ClientAdministration.getInstance().getGame().doFinish();
+
+    public void finish() {
+        if (!finished) {
+            finished = true;
+            ClientAdministration.getInstance().getGame().doFinish();
+        }
     }
-    
+
     @Override
-    public void render(GameContainer gc, Graphics g){
+    public void render(GameContainer gc, Graphics g) {
         //render door animation/img
-        sprite.draw(this.getRect().getX(),this.getRect().getY() - calculateOffset());
-        sprite1.draw(this.getRect().getX(),this.getRect().getY() + calculateOffset());
-    }    
-    
-    public int calculateOffset(){
-        return (int) (70-this.getRect().getHeight());
+        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
+        sprite1.draw(this.getRect().getX(), this.getRect().getY() + calculateOffset());
     }
-    
+
+    public int calculateOffset() {
+        return (int) (70 - this.getRect().getHeight());
+    }
+
     @Override
-    public boolean isActive(){
+    public boolean isActive() {
         return this.isActive;
     }
-    
+
     @Override
-    public void setActive(boolean active){
+    public void setActive(boolean active) {
         this.isActive = active;
         changeImage(active);
     }
-    
-    private void changeImage(boolean active){
-        try{
-            if(active){
+
+    private void changeImage(boolean active) {
+        try {
+            if (active) {
                 sprite = new Image("Resources/Levels/door_openMid.png");
                 sprite1 = new Image("Resources/Levels/door_openTop.png");
-            }
-            else{
+            } else {
                 sprite = new Image("Resources/Levels/door_closedMid.png");
-                sprite1 = new Image("Resources/Levels/door_closedTop.png");           
+                sprite1 = new Image("Resources/Levels/door_closedTop.png");
             }
+        } catch (Exception ex) {
         }
-        catch(Exception ex){}
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + " -- DOOR " + this.getMatches();
     }
-    
+
 }

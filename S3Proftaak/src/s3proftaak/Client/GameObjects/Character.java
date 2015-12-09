@@ -113,14 +113,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
 
-        if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
-            try {
-                SoundManager.getInstance().restartSound();
-                ClientAdministration.getInstance().getApp().reinit();
-            } catch (SlickException ex) {
-                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+//        if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
+//            try {
+//                SoundManager.getInstance().restartSound();
+//                ClientAdministration.getInstance().getApp().reinit();
+//            } catch (SlickException ex) {
+//                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
 
         if (game.isMultiplayer() && isControllabe) {
             PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, isCrouching);
@@ -244,13 +244,20 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void die() {
-        try {
-            SoundManager.getInstance().playSound(Sounds.GAMEOVER);
-            SoundManager.getInstance().restartSound();
-            ClientAdministration.getInstance().getApp().reinit();
+        if (!game.isMultiplayer()) {
+            try {
+                SoundManager.getInstance().restartSound();
+                ClientAdministration.getInstance().getApp().reinit();
 
-        } catch (SlickException ex) {
-            Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SlickException ex) {
+                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                ClientAdministration.getInstance().getCurrentLobby().restartGame();
+            } catch (RemoteException ex) {
+                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -331,6 +338,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             if (((Door) go).isActive()) {
                                 System.out.println("finish");
                                 ((Door) go).finish();
+                                try {
+                                    ClientAdministration.getInstance().getCurrentLobby().stopGame();
+                                } catch (RemoteException ex) {
+                                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                         }
                     } else if (go instanceof Star) {
