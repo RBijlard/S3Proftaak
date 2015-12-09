@@ -17,6 +17,7 @@ import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
+import s3proftaak.Client.Visuals.Listeners.GameListener;
 import s3proftaak.Shared.PlayerPosition;
 
 /*
@@ -246,7 +247,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void die() {
-        try {
+        try {            
             SoundManager.getInstance().playSound(Sounds.GAMEOVER);
             SoundManager.getInstance().restartSound();
             ClientAdministration.getInstance().getApp().reinit();
