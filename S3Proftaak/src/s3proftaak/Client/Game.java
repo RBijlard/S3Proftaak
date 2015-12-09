@@ -46,6 +46,7 @@ public class Game extends BasicGame {
 
     private final boolean multiplayer;
     private boolean waitingforotherplayers;
+    private boolean restart;
 
     private List<GameObject> gameObjects;
     private List<Character> gameCharacters;
@@ -222,7 +223,18 @@ public class Game extends BasicGame {
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        if (!this.waitingforotherplayers) {
+        if (this.restart) {
+            this.restart = false;
+
+            try {
+                System.out.println("Restarting for real now.");
+                SoundManager.getInstance().restartSound();
+                ClientAdministration.getInstance().getApp().reinit();
+            } catch (SlickException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else if (!this.waitingforotherplayers) {
             //update game and player
             //update currentTime
             this.currentTime += i;
@@ -414,5 +426,9 @@ public class Game extends BasicGame {
 
     public void waitingForOtherPlayers() {
         this.waitingforotherplayers = false;
+    }
+
+    public void doRestart() {
+        this.restart = true;
     }
 }

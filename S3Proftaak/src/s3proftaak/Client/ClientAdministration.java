@@ -144,8 +144,6 @@ public class ClientAdministration extends Application {
         return instance;
     }
 
-    private Thread gameThread;
-
     public void startGame(Game game) {
         if (this.game == null) {
             try {
@@ -155,7 +153,7 @@ public class ClientAdministration extends Application {
             }
 
             if (game != null) {
-                gameThread = new Thread(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -177,8 +175,7 @@ public class ClientAdministration extends Application {
                         } catch (SlickException ex) {
                         }
                     }
-                });
-                gameThread.start();
+                }).start();
             }
         }
     }
