@@ -45,8 +45,8 @@ public class GameListener extends BasicListener {
                                     PlayerPosition pp = (PlayerPosition) evt.getNewValue();
 
                                     if (c.safeMoveTo(pp.getX() - offset, pp.getY())) {
-                                        c.getRect().setX(pp.getvX());
-                                        c.getRect().setY(pp.getvY());
+                                        c.getRect().setX(pp.getX());
+                                        c.getRect().setY(pp.getY());
                                     }else{
                                         c.setvX(pp.getvX());
                                         c.setvY(pp.getvY());
