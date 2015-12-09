@@ -17,6 +17,7 @@ import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
+import s3proftaak.Shared.PlayerPosition;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -120,13 +121,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         
         if (game.isMultiplayer() && isControllabe){
-            Rectangle r = new Rectangle(this.getOffsetX() + getRect().getX(), getRect().getY(), getRect().getWidth(), getRect().getHeight());
-            if (oldY != getRect().getY() || oldX != r.getX()){
-                oldY = getRect().getY();
-                oldX = r.getX();
+            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vX, vY, isCrouching);
+            if (oldY != pp.getY() || oldX != pp.getX()){
+                oldY = pp.getY();
+                oldX = pp.getX();
                 
                 try {
-                    ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), r);
+                    ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
                 } catch (RemoteException ex) {
                     Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -511,5 +512,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     
     public String getName(){
         return this.name;
+    }
+
+    public void setIsCrouching(boolean isCrouching) {
+        this.isCrouching = isCrouching;
+        this.checkCrouch(isCrouching);
+    }
+
+    public void setvX(float vX) {
+        this.vX = vX;
+    }
+
+    public void setvY(float vY) {
+        this.vY = vY;
     }
 }

@@ -26,7 +26,7 @@ public interface ILobby extends Remote {
 
     public void updatePlayers() throws RemoteException;
 
-    public void updatePlayer(String username, Rectangle rect) throws RemoteException;
+    public void updatePlayer(String username, PlayerPosition pp) throws RemoteException;
     
     public void closedGame() throws RemoteException;
     
@@ -39,8 +39,6 @@ public interface ILobby extends Remote {
     public String getLevel() throws RemoteException;
     
     public List<IPlayer> getPlayers() throws RemoteException;
-    
-    public void updateMove(Rectangle r, boolean b) throws RemoteException;
     
     public String getAmountOfPlayers() throws RemoteException;
 

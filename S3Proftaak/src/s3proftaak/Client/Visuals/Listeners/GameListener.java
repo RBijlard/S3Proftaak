@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
+import s3proftaak.Shared.PlayerPosition;
 
 /**
  *
@@ -33,21 +34,23 @@ public class GameListener extends BasicListener {
                     case "Rect":
                         int offset = 0;
                         if (game.getGameCharacters() != null) {
-                            for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                                if (c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
-                                    offset = (int) c.getOffsetX();
+                            for(s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()){
+                                if(c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())){
+                                    offset = (int)c.getOffsetX();
                                 }
                             }
                             for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-
+                                
                                 if (c.getName().equals(evt.getOldValue().toString())) {
-
                                     
-                                    Rectangle rect = (Rectangle) evt.getNewValue();
+                                    PlayerPosition pp = (PlayerPosition) evt.getNewValue();
                                     
-                                        c.getRect().setX(c.getRect().getX() - offset);
-                                        c.getRect().setY(rect.getY());
-                                        c.getRect().setHeight(rect.getHeight());
+                                    c.getRect().setX(pp.getX() - offset);
+                                    c.getRect().setY(pp.getY());
+                                    c.setIsCrouching(pp.isCrouch());
+                                    c.setvX(pp.getvX());
+                                    c.setvY(pp.getvY());
+                                    
                                     break;
                                 }
                             }

@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
-import s3proftaak.Client.Host;
 import s3proftaak.Client.Visuals.Lobby;
 import s3proftaak.Shared.IPlayer;
 
@@ -89,11 +88,6 @@ public class LobbyListener extends BasicListener {
             case "Host":
                 if (ClientAdministration.getInstance().getAccount().getUsername().equals(evt.getNewValue().toString())) {
                     this.lobbyScreen.setIsHost(true);
-                    try {
-                        Host host = new Host();
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
-                    }
                 }
                 break;
         }
