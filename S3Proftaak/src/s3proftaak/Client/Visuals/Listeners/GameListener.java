@@ -45,8 +45,7 @@ public class GameListener extends BasicListener {
                                     
                                     PlayerPosition pp = (PlayerPosition) evt.getNewValue();
                                     
-                                    c.getRect().setX(pp.getX() - offset);
-                                    c.getRect().setY(pp.getY());
+                                    c.safeMoveTo(pp.getX() - offset, pp.getY());
                                     c.setIsCrouching(pp.isCrouch());
                                     c.setvX(pp.getvX());
                                     c.setvY(pp.getvY());

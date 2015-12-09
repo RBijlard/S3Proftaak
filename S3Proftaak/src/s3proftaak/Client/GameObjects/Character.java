@@ -526,4 +526,23 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     public void setvY(float vY) {
         this.vY = vY;
     }
+    
+    public void safeMoveTo(float x, float y){
+        GameObject tempGo = new Block(x, y, getRect().getWidth(), getRect().getHeight());
+        
+        for (GameObject go : game.getGameObjects()) {
+            //check if colliding
+            if (go.getRect().intersects(tempGo.getRect()) || go.getRect().contains(tempGo.getRect())) {
+                if (go != this) {
+                    //check what object
+                    if (go instanceof MoveableBlock || go instanceof Character) {
+                        return;
+                    }
+                }
+            }
+        }
+        
+        getRect().setX(x);
+        getRect().setY(y);
+    }
 }
