@@ -101,14 +101,12 @@ public class RMIClient {
         // Get ip address of server
         Scanner input = new Scanner(System.in);
         System.out.print("Client: Enter IP address of server: ");
-        String ipAddress = "145.93.168.100";//input.nextLine();
+        String ipAddress = "145.93.168.164";//input.nextLine();
 
         // Get port number
         System.out.print("Client: Enter port number: ");
         int portNumber = 1099;//input.nextInt();
         
-        boolean propertyAdded = false;
-
         try {
             Enumeration e = NetworkInterface.getNetworkInterfaces();
             while (e.hasMoreElements()) {
@@ -117,8 +115,7 @@ public class RMIClient {
                 while (ee.hasMoreElements()) {
                     InetAddress i = (InetAddress) ee.nextElement();
                     if (i.getHostAddress().startsWith("145")) {
-                        //System.setProperty("java.rmi.server.hostname", i.getHostAddress());
-                        propertyAdded = true;
+                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
                         break;
                     }
                 }
@@ -127,14 +124,8 @@ public class RMIClient {
         } catch (SocketException ex) {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (!propertyAdded){
-            ipAddress = "localhost";
-        }        
 
-        // Create client
-        System.setProperty("java.rmi.server.hostname", "192.168.1.135");
-        new RMIClient("192.168.1.135", portNumber);
+        new RMIClient(ipAddress, portNumber);
     }
 
     public static IServer getServerAdministration() {

@@ -85,7 +85,7 @@ public class RMIServer {
                 while (ee.hasMoreElements()) {
                     InetAddress i = (InetAddress) ee.nextElement();
                     if (i.getHostAddress().startsWith("145")){
-                        //System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
                         break;
                     }
                 }
@@ -95,8 +95,6 @@ public class RMIServer {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // Create server
-        System.setProperty("java.rmi.server.hostname", "192.168.1.135");
         new RMIServer();
     }
 }
