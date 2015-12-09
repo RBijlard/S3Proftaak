@@ -292,6 +292,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         if (this.getRect().getMinY() - 1 < go.getRect().getY()) {
                             if (!((Button) go).isActive()) {
                                 ((Button) go).setActive(true);
+
+                                if (game.isMultiplayer()) {
+                                    try {
+                                        ClientAdministration.getInstance().getCurrentLobby().updateObject(go.getId(), true);
+                                    } catch (RemoteException ex) {
+                                        Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
                             }
                         }
                         return true;
@@ -300,6 +308,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             ((Lever) go).setActive(true);
                         } else {
                             ((Lever) go).setActive(false);
+                        }
+
+                        if (game.isMultiplayer()) {
+                            try {
+                                ClientAdministration.getInstance().getCurrentLobby().updateObject(go.getId(), ((Lever) go).isActive());
+                            } catch (RemoteException ex) {
+                                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                         }
                         return true;
                     } else if (go instanceof Door) {
