@@ -203,8 +203,11 @@ public class Game extends BasicGame {
         startTime = System.currentTimeMillis();
     }
 
+    private long l1;
+
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
+        long l = System.currentTimeMillis();
         //update game and player
         //update currentTime
         this.currentTime += i;
@@ -249,10 +252,13 @@ public class Game extends BasicGame {
                 }
             }
         }
+
+        l1 = System.currentTimeMillis() - l;
     }
 
     @Override
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
+        long l = System.currentTimeMillis();
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
         grphcs.setBackground(new Color(0, 191, 255));
@@ -268,13 +274,18 @@ public class Game extends BasicGame {
         for (int i = 0; i < map.getLayerCount(); i++) {
             this.map.render(0 - (int) main_character.getOffsetX(), i);
         }
-        
+
         //render Timer
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
         String strDate = sdf.format(this.currentTime);
         grphcs.setColor(Color.white);
         grphcs.setFont(slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
+        
+        long l2 = System.currentTimeMillis() - l;
+        
+        grphcs.drawString("Update: " + l1, 200, 200);
+        grphcs.drawString("Render: " + l2, 200, 220);
     }
 
     public List<GameObject> getGameObjects() {
@@ -365,15 +376,15 @@ public class Game extends BasicGame {
         } catch (SlickException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if (ClientAdministration.getInstance().getCurrentLobby() != null){
+
+        if (ClientAdministration.getInstance().getCurrentLobby() != null) {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().closedGame();
             } catch (RemoteException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+
         return super.closeRequested();
     }
 }

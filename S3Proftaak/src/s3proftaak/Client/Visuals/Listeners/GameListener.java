@@ -33,22 +33,27 @@ public class GameListener extends BasicListener {
                     case "Rect":
                         int offset = 0;
                         if (game.getGameCharacters() != null) {
-                            for(s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()){
-                                if(c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())){
-                                    offset = (int)c.getOffsetX();
+                            for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+                                if (c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
+                                    offset = (int) c.getOffsetX();
                                 }
                             }
                             for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                                
+
                                 if (c.getName().equals(evt.getOldValue().toString())) {
-                                    
+
                                     PlayerPosition pp = (PlayerPosition) evt.getNewValue();
-                                    
-                                    c.setvX(pp.getvX());
-                                    c.setvY(pp.getvY());
-                                    c.safeMoveTo(pp.getX() - offset, pp.getY());
+
+                                    if (c.safeMoveTo(pp.getX() - offset, pp.getY())) {
+                                        c.getRect().setX(pp.getvX());
+                                        c.getRect().setY(pp.getvY());
+                                    }else{
+                                        c.setvX(pp.getvX());
+                                        c.setvY(pp.getvY());
+                                    }
+
                                     c.setIsCrouching(pp.isCrouch());
-                                    
+
                                     break;
                                 }
                             }
