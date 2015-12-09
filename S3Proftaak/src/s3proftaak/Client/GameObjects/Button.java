@@ -32,14 +32,14 @@ public class Button extends GameObject implements IPressable, IRenderable {
     public Button(float x, float y, float width, float height) {
         super(x, y, width, height);
         
-        this.changeImage(isActive);
-        
         try {
             spriteDown = new Image("Resources/Levels/buttonRed_pressed.png");
             spriteUp = new Image("Resources/Levels/buttonRed.png");
         } catch (SlickException ex) {
             Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        this.changeImage(isActive);
     }
     
     @Override
