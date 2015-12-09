@@ -58,7 +58,6 @@ public class LobbyListener extends BasicListener {
                         
                         @Override
                         public void run() {
-                            ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
                             try {
                                 SoundManager.getInstance().restartSound();
                                 ClientAdministration.getInstance().getApp().reinit();
