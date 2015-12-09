@@ -30,10 +30,10 @@ import s3proftaak.Shared.PlayerPosition;
  * @author Berry-PC
  */
 public class Character extends GameObject implements IRenderable, IUpdateable {
-
+    
     private final String name;
     private final boolean isControllabe;
-
+    
     private float gravity = 0.5f;
     private float jumpStrength = -12;
     private float speed = 4;
@@ -41,29 +41,29 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float vX = 0;
     private float vY = 0;
     private final int controlSet;
-
+    
     private float oldX, oldY;
-
+    
     private Game game;
     private SpriteSheet playerSheet;
     private Animation animate;
     private GameObject MLO;
     private float offSetX;
-
+    
     private boolean isCrouching;
     private boolean multicrouch;
-
+    
     float marginy, marginx;
-
+    
     public Character(Game game, float x, float y, float width, float height, int controlSet, String name) throws SlickException {
         super(x, y, width, height);
         this.name = name;
-
+        
         this.isControllabe = this.name.equals(ClientAdministration.getInstance().getAccount().getUsername());
-
+        
         this.game = game;
         this.controlSet = controlSet;
-
+        
         MLO = new Block(1f, 1f, 1f, 1f);
         this.game.getGameObjects().add(MLO);
         for (GameObject go : this.game.getGameObjects()) {
@@ -72,9 +72,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
         marginx = 0 - MLO.getRect().getX();
-
+        
         this.isCrouching = false;
-
+        
         try {
             playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
             animate = new Animation(playerSheet, 100);
@@ -82,7 +82,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     public void update(GameContainer gc, int i) {
         //update player (move)
@@ -95,7 +95,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 this.moveHorizontal1(gc);
                 this.moveVertical1(gc);
             }
-
+            
         } else {
             switch (this.controlSet) {
                 case 0:
@@ -123,7 +123,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 //        }
         if (game.isMultiplayer() && isControllabe) {
             PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, isCrouching);
-
+            
             try {
                 ClientAdministration.getInstance().getCurrentLobby().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
             } catch (RemoteException ex) {
@@ -131,23 +131,23 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     @Override
     public void render(GameContainer gc, Graphics g) {
         //render animation
         animate.draw(this.getRect().getX(), this.getRect().getY());
-
+        
         if (game.isMultiplayer()) {
             //Draw Username Above Character
             g.setColor(Color.yellow);
             g.setFont(game.getSlickFontUsername());
             g.drawString(name, this.getRect().getX() + 23, this.getRect().getY() - 23);
         }
-
+        
     }
-
+    
     public void moveHorizontalMap(GameContainer gc) {
-
+        
         this.offSetX = 0 - MLO.getRect().getX();
         //Move horizontal with arrow keys
         Input input = gc.getInput();
@@ -179,11 +179,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     public float getOffsetX() {
         return this.offSetX - this.marginx;
     }
-
+    
     public void moveHorizontal(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -209,7 +209,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     public void moveVertical(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -224,9 +224,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
             this.getRect().setY(this.getRect().getY() - 0.1f);
         }
-
+        
         this.checkCrouch(input.isKeyDown(Input.KEY_DOWN) || multicrouch);
-
+        
         if (this.getRect().getY() > (70 * 15)) {
             this.die();
         }
@@ -241,25 +241,27 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     public void die() {
         if (!game.isMultiplayer()) {
             try {
                 SoundManager.getInstance().restartSound();
                 ClientAdministration.getInstance().getApp().reinit();
-
+                
             } catch (SlickException ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            try {
-                ClientAdministration.getInstance().getCurrentLobby().restartGame();
-            } catch (RemoteException ex) {
-                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+            if (getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
+                try {
+                    ClientAdministration.getInstance().getCurrentLobby().restartGame();
+                } catch (RemoteException ex) {
+                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
-
+    
     public boolean isColliding(GameContainer gc) {
         Rectangle rect = this.getRect();
         for (GameObject go : game.getGameObjects()) {
@@ -295,10 +297,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             if (!game.isMultiplayer()) {
                                 ((MoveableBlock) go).setDx(i);
                             }
-
+                            
                         }
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
-
+                            
                             for (int b = 1; b < 20; b++) {
                                 if (this.getRect().getMinY() >= go.getRect().getMaxY() - b) {
                                     this.die();
@@ -306,7 +308,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 }
                             }
                         }
-
+                        
                         return true;
                     } else if (go instanceof Spike) {
                         this.die();
@@ -315,7 +317,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         if (this.getRect().getMinY() - 1 < go.getRect().getY()) {
                             if (!((Button) go).isActive()) {
                                 ((Button) go).setActive(true);
-
+                                
                                 if (game.isMultiplayer()) {
                                     try {
                                         ClientAdministration.getInstance().getCurrentLobby().updateObject(go.getId(), true);
@@ -332,7 +334,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         } else {
                             ((Lever) go).setActive(false);
                         }
-
+                        
                         if (game.isMultiplayer()) {
                             try {
                                 ClientAdministration.getInstance().getCurrentLobby().updateObject(go.getId(), ((Lever) go).isActive());
@@ -374,12 +376,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
         return false;
     }
-
+    
     @Override
     public String toString() {
         return super.toString() + " -- CHARACTER";
     }
-
+    
     public void moveHorizontal1(GameContainer gc) {
         //move with arrow keys
 
@@ -406,13 +408,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     public void moveVertical1(GameContainer gc) {
         //move with arrow keys
 
         if (!game.isMultiplayer()) {
             this.vY += this.gravity;
-
+            
             Input input = gc.getInput();
             if (input.isKeyDown(Input.KEY_W)) {
                 //move up -> y min
@@ -423,14 +425,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 }
                 this.getRect().setY(this.getRect().getY() - 0.1f);
             }
-
+            
             if (input.isKeyDown(Input.KEY_S)) {
                 this.checkCrouch(true);
             } else {
                 this.checkCrouch(false);
             }
         }
-
+        
         if (this.getRect().getY() > (70 * 15)) {
             this.die();
         }
@@ -445,7 +447,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     public void moveHorizontal2(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -469,7 +471,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     public void moveVertical2(GameContainer gc) {
         //move with arrow keys
         Input input = gc.getInput();
@@ -483,13 +485,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
             this.getRect().setY(this.getRect().getY() - 0.1f);
         }
-
+        
         if (input.isKeyDown(Input.KEY_K)) {
             this.checkCrouch(true);
         } else {
             this.checkCrouch(false);
         }
-
+        
         if (this.getRect().getY() > (70 * 15)) {
             this.die();
         }
@@ -504,7 +506,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
     }
-
+    
     private void checkCrouch(boolean crouching) {
         if (isCrouching != crouching) {
             if (!crouching) {
@@ -512,13 +514,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     return;
                 }
             }
-
+            
             isCrouching = crouching;
-
+            
             try {
                 playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (crouching ? "_crouch" : "") + ".png").getPath().replace("%20", " "), 70, !crouching ? 93 : 69);
                 animate = new Animation(playerSheet, 100);
-
+                
                 if (crouching) {
                     this.getRect().setHeight(69);
                     this.getRect().setY(this.getRect().getY() + 24);
@@ -526,13 +528,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     this.getRect().setY(this.getRect().getY() - 24);
                     this.getRect().setHeight(93);
                 }
-
+                
             } catch (Exception ex) {
                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
-
+    
     private boolean isObjectAbove() {
         for (GameObject go : game.getGameObjects()) {
             if (!(go instanceof Door) && !(go instanceof Star)) {
@@ -543,29 +545,29 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 }
             }
         }
-
+        
         return false;
     }
-
+    
     public String getName() {
         return this.name;
     }
-
+    
     public void setIsCrouching(boolean isCrouching) {
         multicrouch = isCrouching;
     }
-
+    
     public void setvX(float vX) {
         this.vX = vX;
     }
-
+    
     public void setvY(float vY) {
         this.vY = vY;
     }
-
+    
     public boolean safeMoveTo(float x, float y) {
         GameObject tempGo = new Block(x, y, getRect().getWidth(), getRect().getHeight());
-
+        
         for (GameObject go : game.getGameObjects()) {
             //check if colliding
             if (go.getRect().intersects(tempGo.getRect()) || go.getRect().contains(tempGo.getRect())) {
@@ -577,7 +579,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 }
             }
         }
-
+        
         return true;
     }
 }

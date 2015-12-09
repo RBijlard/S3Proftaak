@@ -59,11 +59,13 @@ public class LobbyListener extends BasicListener {
                 }
                 
                 if (evt.getOldValue().toString().equals("RestartGame")) {
+                    System.out.println("Restart signal received.");
                     Platform.runLater(new Runnable() {
 
                         @Override
                         public void run() {
                             try {
+                                System.out.println("Restarting for real now.");
                                 SoundManager.getInstance().restartSound();
                                 ClientAdministration.getInstance().getApp().reinit();
                             } catch (SlickException ex) {
