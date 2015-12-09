@@ -184,10 +184,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     public float getOffsetX() {
         return this.offSetX - this.marginx;
     }
-    
-    public float getOffsetXMoveBlock(float x){
-        return (this.offSetX - this.marginx + (this.getRect().getX() - x));
-    }
 
     public void moveHorizontal(GameContainer gc) {
         //move with arrow keys
@@ -280,7 +276,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
                             if (game.isMultiplayer()) {
                                 try {
-                                    ClientAdministration.getInstance().getCurrentLobby().updateMoveableObject(go.getId(), this.getOffsetXMoveBlock(go.getRect().getX()) + go.getRect().getX());
+                                    ClientAdministration.getInstance().getCurrentLobby().updateMoveableObject(go.getId(), i);
                                 } catch (RemoteException ex) {
                                     Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                                 }
