@@ -62,18 +62,18 @@ public class ClientAdministration extends Application {
     }
 
     public static void changeScreen(Screens s) {
-        if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null){
+        if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null) {
             getInstance().getCurrentScreen().getListener().stopListening();
         }
-        
+
         primaryStage.setScene(s.newInstance().getScene());
     }
 
     public BasicScene getCurrentScreen() {
         return currentScreen;
     }
-    
-    public void setCurrentScreen(BasicScene bs){
+
+    public void setCurrentScreen(BasicScene bs) {
         currentScreen = bs;
     }
 
@@ -144,6 +144,8 @@ public class ClientAdministration extends Application {
         return instance;
     }
 
+    private Thread gameThread;
+
     public void startGame(Game game) {
         if (this.game == null) {
             try {
@@ -153,24 +155,30 @@ public class ClientAdministration extends Application {
             }
 
             if (game != null) {
-                GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-                int width = gd.getDisplayMode().getWidth();
-                int height = gd.getDisplayMode().getHeight();
+                gameThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+                        int width = gd.getDisplayMode().getWidth();
+                        int height = gd.getDisplayMode().getHeight();
 
-                try {
-                    getApp().setDisplayMode(width, height, false);
-                    getApp().setTargetFrameRate(60);
-                    getApp().setForceExit(false);
-                    getApp().start();
+                        try {
+                            getApp().setDisplayMode(width, height, false);
+                            getApp().setTargetFrameRate(60);
+                            getApp().setForceExit(false);
+                            getApp().start();
 
-                    try {
-                        SoundManager.getInstance().restartSound();
-                        ClientAdministration.getInstance().getApp().reinit();
-                    } catch (Exception ex) {
+                            try {
+                                SoundManager.getInstance().restartSound();
+                                ClientAdministration.getInstance().getApp().reinit();
+                            } catch (Exception ex) {
+                            }
+
+                        } catch (SlickException ex) {
+                        }
                     }
-
-                } catch (SlickException ex) {
-                }
+                });
+                gameThread.start();
             }
         }
     }
