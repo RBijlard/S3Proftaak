@@ -60,7 +60,8 @@ public class LobbyListener extends BasicListener {
                 
                 if (evt.getOldValue().toString().equals("RestartGame")) {
                     System.out.println("Restart signal received.");
-                    Platform.runLater(new Runnable() {
+                    
+                    new Thread(new Runnable() {
 
                         @Override
                         public void run() {
@@ -72,7 +73,7 @@ public class LobbyListener extends BasicListener {
                                 Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
-                    });
+                    }).start();
                 }
 
                 if (evt.getOldValue().toString().equals("StopGame")) {
