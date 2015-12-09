@@ -54,18 +54,20 @@ public class LobbyListener extends BasicListener {
                     }
                 }
                 if (evt.getOldValue().toString().equals("RestartGame")) {
-                    Platform.runLater(new Runnable() {
-                        
-                        @Override
-                        public void run() {
-                            try {
-                                SoundManager.getInstance().restartSound();
-                                ClientAdministration.getInstance().getApp().reinit();
-                            } catch (SlickException ex) {
-                                Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+                    if (!ClientAdministration.getInstance().getGame().isRestarting()) {
+                        Platform.runLater(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                try {
+                                    SoundManager.getInstance().restartSound();
+                                    ClientAdministration.getInstance().getApp().reinit();
+                                } catch (SlickException ex) {
+                                    Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
 
                 if (evt.getOldValue().toString().equals("StopGame")) {

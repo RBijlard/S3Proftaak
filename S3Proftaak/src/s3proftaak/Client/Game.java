@@ -45,6 +45,7 @@ import s3proftaak.Client.SoundManager.Sounds;
 public class Game extends BasicGame {
 
     private final boolean multiplayer;
+    private boolean restarting;
 
     private List<GameObject> gameObjects;
     private List<Character> gameCharacters;
@@ -206,6 +207,8 @@ public class Game extends BasicGame {
         SoundManager.getInstance().playMusic();
 
         startTime = System.currentTimeMillis();
+        
+        this.restarting = false;
     }
 
     @Override
@@ -391,5 +394,13 @@ public class Game extends BasicGame {
     
     public GameObject getGameObject(int id){
         return id < this.gameObjects.size() ? this.gameObjects.get(id) : null;
+    }
+    
+    public boolean isRestarting(){
+        return this.restarting;
+    }
+    
+    public void setIsRestarting(boolean b){
+        this.restarting = b;
     }
 }

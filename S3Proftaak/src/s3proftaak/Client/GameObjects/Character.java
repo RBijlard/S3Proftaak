@@ -121,7 +121,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 //                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
 //            }
 //        }
-
         if (game.isMultiplayer() && isControllabe) {
             PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, isCrouching);
 
@@ -244,6 +243,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void die() {
+        this.game.setIsRestarting(true);
         if (!game.isMultiplayer()) {
             try {
                 SoundManager.getInstance().restartSound();
