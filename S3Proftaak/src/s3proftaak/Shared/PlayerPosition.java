@@ -45,10 +45,4 @@ public class PlayerPosition implements Serializable {
     public boolean isCrouch() {
         return this.crouch;
     }
-
-    @Override
-    public String toString() {
-        return "PlayerPosition{" + "X=" + X + ", Y=" + Y + ", vX=" + vX + ", vY=" + vY + ", crouch=" + crouch + '}';
-    }
-    
 }
