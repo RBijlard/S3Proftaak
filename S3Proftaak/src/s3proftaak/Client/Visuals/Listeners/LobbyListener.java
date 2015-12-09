@@ -54,27 +54,19 @@ public class LobbyListener extends BasicListener {
                     }
                 }
                 if (evt.getOldValue().toString().equals("RestartGame")) {
-                    try {
-                        Platform.runLater(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
-                                try {
-                                    SoundManager.getInstance().restartSound();
-                                    ClientAdministration.getInstance().getApp().reinit();
-                                } catch (SlickException ex) {
-                                    Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                    Platform.runLater(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
+                            try {
+                                SoundManager.getInstance().restartSound();
+                                ClientAdministration.getInstance().getApp().reinit();
+                            } catch (SlickException ex) {
+                                Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                        });
-
-                        gameListener = new GameListener();
-                        gameListener.startListening();
-
-                    } catch (RemoteException ex) {
-                        Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                        }
+                    });
                 }
 
                 if (evt.getOldValue().toString().equals("StopGame")) {
