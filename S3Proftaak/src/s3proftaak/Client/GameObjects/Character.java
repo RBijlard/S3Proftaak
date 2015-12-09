@@ -243,7 +243,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void die() {
-        this.game.setIsRestarting(true);
         if (!game.isMultiplayer()) {
             try {
                 SoundManager.getInstance().restartSound();

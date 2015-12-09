@@ -45,7 +45,7 @@ import s3proftaak.Client.SoundManager.Sounds;
 public class Game extends BasicGame {
 
     private final boolean multiplayer;
-    private boolean restarting;
+    private boolean waitingforotherplayers;
 
     private List<GameObject> gameObjects;
     private List<Character> gameCharacters;
@@ -69,7 +69,7 @@ public class Game extends BasicGame {
 
     private TrueTypeFont slickFontTimer;
     private TrueTypeFont slickFontUserName;
-    
+
     private int objectId = 0;
 
     public Game(String title, int amountOfPlayers, String mapname, List<String> names) {
@@ -94,7 +94,7 @@ public class Game extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
         //Set Fonts
         this.objectId = 0;
-        
+
         this.slickFontTimer = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 40), false);
         this.slickFontUserName = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 18), false);
 
@@ -207,53 +207,64 @@ public class Game extends BasicGame {
         SoundManager.getInstance().playMusic();
 
         startTime = System.currentTimeMillis();
-        
-        this.restarting = false;
+
+        if (isMultiplayer()) {
+            this.waitingforotherplayers = true;
+
+            try {
+                ClientAdministration.getInstance().getCurrentLobby().loadedGame(ClientAdministration.getInstance().getAccount().getUsername());
+            } catch (RemoteException ex) {
+                Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
-        //update game and player
-        //update currentTime
-        this.currentTime += i;
+        if (!this.waitingforotherplayers) {
+            //update game and player
+            //update currentTime
+            this.currentTime += i;
 
-        List<GameObject> tempStarList = new ArrayList<>();
+            List<GameObject> tempStarList = new ArrayList<>();
 
-        for (GameObject go : this.gameObjects) {
-            if (go instanceof Star) {
-                if (((Star) go).isRemoved()) {
-                    tempStarList.add(go);
-                    this.starsCollected++;
-                }
-            }
-        }
-
-        for (GameObject go : tempStarList) {
-            this.gameObjects.remove(go);
-        }
-
-        for (GameObject go : this.gameObjects) {
-
-            if (go instanceof IUpdateable) {
-                //move all characters & weights
-                ((IUpdateable) go).update(gc, i);
-            }
-
-            if (go instanceof IPressable && !(go instanceof Lever)) {
-                boolean bool = false;
-                Rectangle r = go.getRect();
-                Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
-
-                for (GameObject co : this.gameObjects) {
-                    if (co instanceof Character || co instanceof MoveableBlock) {
-                        if (co.getRect().intersects(temp)) {
-                            bool = true;
-                        }
+            for (GameObject go : this.gameObjects) {
+                if (go instanceof Star) {
+                    if (((Star) go).isRemoved()) {
+                        tempStarList.add(go);
+                        this.starsCollected++;
                     }
                 }
+            }
 
-                if (!bool) {
-                    this.checkMatchedObjects(go);
+            for (GameObject go : tempStarList) {
+                this.gameObjects.remove(go);
+            }
+
+            for (GameObject go : this.gameObjects) {
+
+                if (go instanceof IUpdateable) {
+                    //move all characters & weights
+                    ((IUpdateable) go).update(gc, i);
+                }
+
+                if (go instanceof IPressable && !(go instanceof Lever)) {
+                    boolean bool = false;
+                    Rectangle r = go.getRect();
+                    Rectangle temp = new Rectangle(r.getX(), r.getY() - 1, r.getWidth(), r.getHeight());
+
+                    for (GameObject co : this.gameObjects) {
+                        if (co instanceof Character || co instanceof MoveableBlock) {
+                            if (co.getRect().intersects(temp)) {
+                                bool = true;
+                            }
+                        }
+                    }
+
+                    if (!bool) {
+                        this.checkMatchedObjects(go);
+                    }
                 }
             }
         }
@@ -283,6 +294,11 @@ public class Game extends BasicGame {
         grphcs.setColor(Color.white);
         grphcs.setFont(slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
+
+        if (this.waitingforotherplayers) {
+            String text = "Waiting for other players.";
+            grphcs.drawString(text, (Display.getWidth() / 2) - (text.getBytes().length / 2), Display.getHeight() / 2);
+        }
     }
 
     public List<GameObject> getGameObjects() {
@@ -348,10 +364,10 @@ public class Game extends BasicGame {
 
             try {
                 this.score = new Score((int) timeDiff, starsCollected, ClientAdministration.getInstance().getAccount().getUsername(), this.mapname);
-                if (DBConnect.getInstance() != null){
+                if (DBConnect.getInstance() != null) {
                     DBConnect.getInstance().insertScore(this.score);
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -387,20 +403,16 @@ public class Game extends BasicGame {
 
         return super.closeRequested();
     }
-    
-    public int nextObjectId(){
+
+    public int nextObjectId() {
         return this.objectId++;
     }
-    
-    public GameObject getGameObject(int id){
+
+    public GameObject getGameObject(int id) {
         return id < this.gameObjects.size() ? this.gameObjects.get(id) : null;
     }
-    
-    public boolean isRestarting(){
-        return this.restarting;
-    }
-    
-    public void setIsRestarting(boolean b){
-        this.restarting = b;
+
+    public void waitingForOtherPlayers(boolean waitingforotherplayers) {
+        this.waitingforotherplayers = waitingforotherplayers;
     }
 }

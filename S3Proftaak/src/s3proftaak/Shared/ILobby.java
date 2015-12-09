@@ -34,6 +34,8 @@ public interface ILobby extends Remote {
     
     public void closedGame() throws RemoteException;
     
+    public void loadedGame(String username) throws RemoteException;
+    
     public void kickPlayer(String username) throws RemoteException;
 
     public String getName() throws RemoteException;

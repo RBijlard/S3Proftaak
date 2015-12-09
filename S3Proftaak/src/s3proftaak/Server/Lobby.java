@@ -10,7 +10,6 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
@@ -30,8 +29,15 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     private final BasicPublisher publisher;
     private String level = "";
     private String currentHost;
-    private boolean started;
-    
+    private LobbyState state = LobbyState.Waiting;
+
+    private enum LobbyState {
+
+        Waiting, // Waiting for players to join. (In lobby)
+        Loading, // Waiting for players to load. (In game)
+        Playing; // Playing.
+    }
+
     public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
         this.name = lobbyname;
         this.max = maxPlayers;
@@ -45,56 +51,78 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void updateLevel(String level) {
-        publisher.inform(this, "Level", null, this.level = level);
+        if (!hasStarted()) {
+            publisher.inform(this, "Level", null, this.level = level);
+        }
     }
 
     @Override
     public void toggleReadyState(String username) {
-        Player p = getPlayer(username);
-        if (p != null) {
-            p.toggleReady();
-            updatePlayers();
+        if (!hasStarted()) {
+            Player p = getPlayer(username);
+            if (p != null) {
+                p.toggleReady();
+                updatePlayers();
+                checkStartGame();
+            }
         }
+    }
 
-        checkStartGame();
+    @Override
+    public void loadedGame(String username) throws RemoteException {
+        if (hasStarted()) {
+            Player p = getPlayer(username);
+            if (p != null) {
+                p.toggleReady();
+                checkReallyStartGame();
+            }
+        }
     }
 
     @Override
     public void updatePlayers() {
-        if (!getNames().contains(currentHost)) {
-            currentHost = null;
-        }
+        if (!hasStarted()) {
+            if (!getNames().contains(currentHost)) {
+                currentHost = null;
+            }
 
-        if (players.size() == 1) {
-            currentHost = players.get(0).getName();
-        }
+            if (players.size() == 1) {
+                currentHost = players.get(0).getName();
+            }
 
-        if (currentHost != null) {
-            publisher.inform(this, "Host", null, currentHost);
-        }
+            if (currentHost != null) {
+                publisher.inform(this, "Host", null, currentHost);
+            }
 
-        if (!players.isEmpty()) {
-            publisher.inform(this, "Players", null, players);
+            if (!players.isEmpty()) {
+                publisher.inform(this, "Players", null, players);
+            }
         }
     }
 
     @Override
     public void updatePlayer(String username, PlayerPosition pp) {
-        publisher.inform(this, "Rect", username, pp);
+        if (hasStarted()) {
+            publisher.inform(this, "Rect", username, pp);
+        }
     }
-    
+
     @Override
-    public void updateObject(int id, boolean state) throws RemoteException{
-        publisher.inform(this, "Objects", id, state);
+    public void updateObject(int id, boolean state) throws RemoteException {
+        if (hasStarted()) {
+            publisher.inform(this, "Objects", id, state);
+        }
     }
-        
+
     @Override
-    public void updateMoveableObject(int id, int dx) throws RemoteException{
-        publisher.inform(this, "Objects", id, dx);
+    public void updateMoveableObject(int id, int dx) throws RemoteException {
+        if (hasStarted()) {
+            publisher.inform(this, "Objects", id, dx);
+        }
     }
-    
+
     @Override
-    public void closedGame(){
+    public void closedGame() {
         stopGame();
     }
 
@@ -112,43 +140,49 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public String getName() {
         return this.name;
     }
-    
+
     @Override
-    public List<IPlayer> getPlayers(){
+    public List<IPlayer> getPlayers() {
         List<IPlayer> playerz = new ArrayList<>();
         playerz.addAll(players);
         return playerz;
     }
-    
+
     @Override
-    public void kickPlayer(String username){
-        Player p = getPlayer(username);
-        if (p != null) {
-            this.removePlayer(username);
-            publisher.inform(this, "Administrative", "Kick", username);
-            updatePlayers();
+    public void kickPlayer(String username) {
+        if (!hasStarted()) {
+            Player p = getPlayer(username);
+            if (p != null) {
+                this.removePlayer(username);
+                publisher.inform(this, "Administrative", "Kick", username);
+                updatePlayers();
+            }
         }
     }
 
     @Override
     public void addPlayer(String username) throws RemoteException, CustomException {
 
-        if (username != null && !username.isEmpty()) {
-            if (players.size() < max) {
-                if (!getNames().contains(username)) {
-                    if (players.add(new Player(username))) {
-                        updatePlayers();
+        if (!hasStarted()) {
+            if (username != null && !username.isEmpty()) {
+                if (players.size() < max) {
+                    if (!getNames().contains(username)) {
+                        if (players.add(new Player(username))) {
+                            updatePlayers();
+                        } else {
+                            throw new CustomException("Failed to join this lobby.");
+                        }
                     } else {
-                        throw new CustomException("Failed to join this lobby.");
+                        throw new CustomException("Username is already in this lobby.");
                     }
                 } else {
-                    throw new CustomException("Username is already in this lobby.");
+                    throw new CustomException("Game is full.");
                 }
             } else {
-                throw new CustomException("Game is full.");
+                throw new CustomException("Username is empty.");
             }
         } else {
-            throw new CustomException("Username is empty.");
+            throw new CustomException("Game has already begun.");
         }
 
     }
@@ -180,11 +214,11 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     public boolean hasStarted() {
-        return this.started;
+        return state != LobbyState.Waiting;
     }
-    
+
     @Override
-    public String getCurrentHost(){
+    public String getCurrentHost() {
         return this.currentHost;
     }
 
@@ -211,27 +245,57 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                     }
 
                     if (allReady) {
-                        started = true;
+                        for (Player p : players) {
+                            p.setReady(false);
+                        }
+
+                        state = LobbyState.Loading;
                         publisher.inform(this, "Administrative", "StartGame", level);
                     }
                 }
             }
         }
     }
-    
-    @Override
-    public void stopGame(){
-        for (Player p : players){
-            p.setReady(false);
+
+    private void checkReallyStartGame() {
+        if (state == LobbyState.Loading) {
+            boolean allReady = true;
+
+            for (Player p : players) {
+                if (!p.isReady()) {
+                    allReady = false;
+                }
+            }
+
+            if (allReady) {
+                state = LobbyState.Playing;
+                publisher.inform(this, "Administrative", "ReallyStartGame", null);
+            }
         }
-        
-        publisher.inform(this, "Administrative", "StopGame", null);
-        started = false;
     }
-    
+
     @Override
-    public void restartGame(){
-        publisher.inform(this, "Administrative", "RestartGame", null);
+    public void stopGame() {
+        if (hasStarted()) {
+            for (Player p : players) {
+                p.setReady(false);
+            }
+
+            state = LobbyState.Waiting;
+            publisher.inform(this, "Administrative", "StopGame", null);
+        }
+    }
+
+    @Override
+    public void restartGame() {
+        if (state == LobbyState.Playing) {
+            for (Player p : players) {
+                p.setReady(false);
+            }
+
+            state = LobbyState.Loading;
+            publisher.inform(this, "Administrative", "RestartGame", null);
+        }
     }
 
     private List<String> getNames() {
