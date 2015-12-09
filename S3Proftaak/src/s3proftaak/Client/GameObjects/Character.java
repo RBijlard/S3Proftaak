@@ -516,7 +516,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void setIsCrouching(boolean isCrouching) {
-        this.isCrouching = isCrouching;
+        //this.isCrouching = isCrouching;
+        this.checkCrouch(isCrouching);
     }
 
     public void setvX(float vX) {
