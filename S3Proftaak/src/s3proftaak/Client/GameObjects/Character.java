@@ -531,13 +531,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 if (go != this) {
                     //check what object
                     if (go instanceof MoveableBlock || go instanceof Character) {
+                        this.vX = 0;
+                        this.vY = 0;
                         return;
                     }
                 }
             }
         }
         
-        System.out.println("x: " + x);
         getRect().setX(x);
         getRect().setY(y);
     }
