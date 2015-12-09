@@ -51,6 +51,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float offSetX;
 
     private boolean isCrouching;
+    private boolean multicrouch;
 
     float marginy, marginx;
 
@@ -228,12 +229,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
             this.getRect().setY(this.getRect().getY() - 0.1f);
         }
-
-        if (game.isMultiplayer()){
-            this.checkCrouch(isCrouching);
-        }else{
-            this.checkCrouch(input.isKeyDown(Input.KEY_DOWN));
-        }
+        
+        this.checkCrouch(input.isKeyDown(Input.KEY_DOWN) || multicrouch);
 
         if (this.getRect().getY() > (70 * 15)) {
             this.die();
@@ -516,8 +513,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void setIsCrouching(boolean isCrouching) {
-        //this.isCrouching = isCrouching;
-        this.checkCrouch(isCrouching);
+        multicrouch = isCrouching;
     }
 
     public void setvX(float vX) {
