@@ -89,7 +89,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
         
     @Override
-    public void updateMoveableObject(int id, int x) throws RemoteException{
+    public void updateMoveableObject(int id, float x) throws RemoteException{
         publisher.inform(this, "Objects", id, x);
     }
     

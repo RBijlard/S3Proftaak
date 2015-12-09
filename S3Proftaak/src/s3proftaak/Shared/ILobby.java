@@ -30,7 +30,7 @@ public interface ILobby extends Remote {
     
     public void updateObject(int id, boolean state) throws RemoteException;
     
-    public void updateMoveableObject(int id, int x) throws RemoteException;
+    public void updateMoveableObject(int id, float x) throws RemoteException;
     
     public void closedGame() throws RemoteException;
     
