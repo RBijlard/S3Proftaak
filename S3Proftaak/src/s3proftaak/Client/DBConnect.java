@@ -33,7 +33,7 @@ public class DBConnect {
                 instance = new DBConnect();
                 instance.connect();
             } catch (SQLException ex) {
-                Logger.getLogger(DBConnect.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
             }
         }
 

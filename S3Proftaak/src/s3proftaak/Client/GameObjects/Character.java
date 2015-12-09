@@ -317,7 +317,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
                             }
                         }
-                        return true;
                     } else if (go instanceof Door) {
                         if (this.getRect().getX() < go.getRect().getX() && this.getRect().getX() + this.getRect().getWidth() > go.getRect().getX() + go.getRect().getWidth()) {
                             System.out.println(((Door) go).isActive());

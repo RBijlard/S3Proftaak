@@ -345,7 +345,10 @@ public class Game extends BasicGame {
 
             try {
                 this.score = new Score((int) timeDiff, starsCollected, ClientAdministration.getInstance().getAccount().getUsername(), this.mapname);
-                DBConnect.getInstance().insertScore(this.score);
+                if (DBConnect.getInstance() != null){
+                    DBConnect.getInstance().insertScore(this.score);
+                }
+                
             } catch (SQLException ex) {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
