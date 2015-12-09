@@ -390,6 +390,6 @@ public class Game extends BasicGame {
     }
     
     public GameObject getGameObject(int id){
-        return this.gameObjects.get(id);
+        return id < this.gameObjects.size() ? this.gameObjects.get(id) : null;
     }
 }

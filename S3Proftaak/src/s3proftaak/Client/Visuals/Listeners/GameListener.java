@@ -65,15 +65,17 @@ public class GameListener extends BasicListener {
 
                     case "Objects":
                         GameObject go = ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()));
-                        
-                        if (go instanceof MoveableBlock){
-                            go.getRect().setX(Float.valueOf(evt.getNewValue().toString()));
+
+                        if (go != null) {
+                            if (go instanceof MoveableBlock) {
+                                go.getRect().setX(Float.valueOf(evt.getNewValue().toString()));
+                            }
+
+                            if (go instanceof IRemoteUpdatable) {
+                                ((IRemoteUpdatable) go).setActive(Boolean.valueOf(evt.getNewValue().toString()));
+                            }
                         }
-                        
-                        if (go instanceof IRemoteUpdatable){
-                            ((IRemoteUpdatable)go).setActive(Boolean.valueOf(evt.getNewValue().toString()));
-                        }
-                        
+
                         break;
                 }
             }
