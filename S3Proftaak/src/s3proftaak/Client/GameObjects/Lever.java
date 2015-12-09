@@ -85,7 +85,7 @@ public class Lever extends GameObject implements IPressable, IRenderable {
                 SoundManager.getInstance().playSound(Sounds.LEVERPUSH);
             }
         }
-        catch(SlickException ex){}
+        catch(Exception ex){}
     }
     
     @Override

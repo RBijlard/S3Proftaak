@@ -1,6 +1,8 @@
 package s3proftaak.Client.GameObjects;
 
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -25,10 +27,19 @@ public class Button extends GameObject implements IPressable, IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
+    private Image spriteUp, spriteDown;
     
     public Button(float x, float y, float width, float height) {
         super(x, y, width, height);
+        
         this.changeImage(isActive);
+        
+        try {
+            spriteDown = new Image("Resources/Levels/buttonRed_pressed.png");
+            spriteUp = new Image("Resources/Levels/buttonRed.png");
+        } catch (SlickException ex) {
+            Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     @Override
@@ -77,15 +88,15 @@ public class Button extends GameObject implements IPressable, IRenderable {
     private void changeImage(boolean active){
         try{
             if(active){
-                this.sprite = new Image("Resources/Levels/buttonRed_pressed.png");
+                this.sprite = spriteDown;
                 SoundManager.getInstance().playSound(Sounds.BUTTONPRESS);
             }
             else{
-                this.sprite = new Image("Resources/Levels/buttonRed.png");
+                this.sprite = spriteUp;
                 SoundManager.getInstance().playSound(Sounds.BUTTONRELEASE);
             }
         }
-        catch(SlickException ex){}
+        catch(Exception ex){}
     }
     
     @Override

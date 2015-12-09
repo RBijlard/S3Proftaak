@@ -27,7 +27,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
         super(x, y, width, height);
         try {
             this.sprite = new Image("Resources/Levels/lollipopRed.png");
-        } catch (SlickException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Star.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

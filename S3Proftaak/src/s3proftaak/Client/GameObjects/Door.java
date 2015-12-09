@@ -68,7 +68,7 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
                 sprite1 = new Image("Resources/Levels/door_closedTop.png");           
             }
         }
-        catch(SlickException ex){}
+        catch(Exception ex){}
     }
     
     @Override

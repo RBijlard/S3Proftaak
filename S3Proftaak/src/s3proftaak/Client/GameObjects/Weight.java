@@ -36,7 +36,7 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
         try {
             sprite = new Image("Resources/Levels/weightChained.png");
             sprite1 = new Image("Resources/Levels/chain.png"); 
-        } catch (SlickException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(Weight.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
