@@ -19,6 +19,7 @@ import s3proftaak.Client.DBConnect;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
 import s3proftaak.Client.RMIClient;
+import s3proftaak.Client.SoundManager;
 
 /**
  *
@@ -26,32 +27,38 @@ import s3proftaak.Client.RMIClient;
  */
 public class Login extends BasicScene {
 
-    @FXML TextField tfUsername;
-    @FXML PasswordField tfPassword;
-    @FXML Button btnLogin;
-    @FXML Button btnRegister;
-    
+    @FXML
+    TextField tfUsername;
+    @FXML
+    PasswordField tfPassword;
+    @FXML
+    Button btnLogin;
+    @FXML
+    Button btnRegister;
 
     public void btnLoginClick(Event e) {
-//        try {
-//            if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()) {
-//                if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
-//                    Account a = DBConnect.getInstance().getAccount("Stan"/*tfUsername.getText()*/);
-                    ClientAdministration.getInstance().setAccount(new Account(tfUsername.getText().isEmpty() ? "Stan" : tfUsername.getText(), "123", null)/*a*/);
-//
-//                    SoundManager.getInstance().playMenuMusic();
-//
-                    changeScreen(ClientAdministration.Screens.Menu);
-                    //changeScreen(ClientAdministration.Screens.MenuHandMade);
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Please Enter a Username and Password", "Registration Error", 0);
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        try {
+            if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()) {
+                if (DBConnect.getInstance() != null) {
+                    if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
+                        Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
+                        ClientAdministration.getInstance().setAccount(new Account(tfUsername.getText(), tfPassword.getText(), null));
+
+                        SoundManager.getInstance().playMenuMusic();
+
+                        changeScreen(ClientAdministration.Screens.Menu);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Username or Password invalid", "Login Error", 0);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Failed to connect with the database", "Database Error", 0);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please Enter a Username and Password", "Registration Error", 0);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public void btnRegisterClick(Event e) {

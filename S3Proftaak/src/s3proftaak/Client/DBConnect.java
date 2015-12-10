@@ -33,6 +33,7 @@ public class DBConnect {
                 instance = new DBConnect();
                 instance.connect();
             } catch (SQLException ex) {
+                System.out.println(ex);
                 return null;
             }
         }
@@ -46,7 +47,7 @@ public class DBConnect {
         if (conn != null) {
             conn.close();
         }
-        conn = DriverManager.getConnection("jdbc:mysql://athena01.fhict.local/dbi317440", "dbi317440", "31MhWIa03o");
+        conn = DriverManager.getConnection("jdbc:mysql://86.94.182.242:3306/S3proftaak", "S3proftaak", "P@ssword");
         //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
     }
 
