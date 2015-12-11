@@ -18,6 +18,7 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
@@ -217,7 +218,6 @@ public class Game extends BasicGame {
                 ClientAdministration.getInstance().stopGame("");
             }
         }
-
     }
 
     @Override
@@ -298,12 +298,17 @@ public class Game extends BasicGame {
             this.map.render(0 - (int) main_character.getOffsetX(), i);
         }
 
+        //Amount of stars in String format
+        String Stars = "x " + starsCollected;
+        
         //render Timer
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
         String strDate = sdf.format(this.currentTime);
         grphcs.setColor(Color.white);
         grphcs.setFont(slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
+        grphcs.drawImage(new Image("Resources/Levels/star.png"), 40, 90);        
+        grphcs.drawString(Stars, 100, 100);
 
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";

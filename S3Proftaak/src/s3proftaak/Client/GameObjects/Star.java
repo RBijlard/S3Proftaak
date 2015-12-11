@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 
@@ -26,7 +25,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
     public Star(float x, float y, float width, float height) {
         super(x, y, width, height);
         try {
-            this.sprite = new Image("Resources/Levels/lollipopRed.png");
+            this.sprite = new Image("Resources/Levels/star.png");
         } catch (Exception ex) {
             Logger.getLogger(Star.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -35,10 +34,10 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
     @Override
     public void render(GameContainer gc, Graphics g) {
         //render star animation/img
-        if (sprite != null){
+        if (sprite != null) {
             sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
         }
-        
+
     }
 
     public int calculateOffset() {
@@ -50,8 +49,8 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
         this.sprite = null;
         this.removed = true;
     }
-    
-    public boolean isRemoved(){
+
+    public boolean isRemoved() {
         return this.removed;
     }
 
