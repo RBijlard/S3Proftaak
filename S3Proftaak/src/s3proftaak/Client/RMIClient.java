@@ -115,7 +115,8 @@ public class RMIClient {
                 while (ee.hasMoreElements()) {
                     InetAddress i = (InetAddress) ee.nextElement();
                     if (i.getHostAddress().startsWith("145")) {
-                        //System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                        ipAddress = i.getHostAddress();
                         break;
                     }
                 }
@@ -125,8 +126,8 @@ public class RMIClient {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        System.setProperty("java.rmi.server.hostname", "192.168.1.135");
-        ipAddress = "192.168.1.135";
+        //System.setProperty("java.rmi.server.hostname", "192.168.178.13");
+        //ipAddress = "192.168.178.13";
 
         new RMIClient(ipAddress, portNumber);
     }
