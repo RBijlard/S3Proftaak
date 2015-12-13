@@ -42,8 +42,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float vY = 0;
     private final int controlSet;
     
-    private float oldX, oldY;
-    
     private Game game;
     private SpriteSheet playerSheet;
     private Animation animate;
@@ -358,7 +356,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     } else if (go instanceof Star) {
                         if (!((Star) go).isRemoved()) {
                             ((Star) go).setActive(false);
-                            SoundManager.getInstance().playSound(Sounds.COINPICKUP);
                             
                             if (game.isMultiplayer()) {
                                 try {
@@ -427,7 +424,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             if (input.isKeyDown(Input.KEY_W)) {
                 //move up -> y min
                 this.getRect().setY(this.getRect().getY() + 0.1f);
-                if (this.isColliding(gc)) {
+                if (this.isColliding(gc) && !isObjectAbove()) {
                     this.vY = this.jumpStrength;
                     SoundManager.getInstance().playSound(Sounds.JUMP);
                 }
@@ -489,7 +486,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         if (input.isKeyDown(Input.KEY_I)) {
             //move up -> y min
             this.getRect().setY(this.getRect().getY() + 0.1f);
-            if (this.isColliding(gc)) {
+            if (this.isColliding(gc) && !isObjectAbove()) {
                 this.vY = this.jumpStrength;
                 SoundManager.getInstance().playSound(Sounds.JUMP);
             }

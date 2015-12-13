@@ -12,6 +12,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
+import s3proftaak.Client.SoundManager;
 
 /**
  *
@@ -46,6 +47,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
 
     @Override
     public void setActive(boolean active) {
+        SoundManager.getInstance().playSound(SoundManager.Sounds.COINPICKUP);
         this.sprite = null;
         this.removed = true;
     }
