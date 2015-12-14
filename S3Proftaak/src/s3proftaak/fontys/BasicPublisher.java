@@ -8,17 +8,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <p>Title: </p>
+ * <p>
+ * Title: </p>
  *
- * <p>Description: </p>
+ * <p>
+ * Description: </p>
  *
- * <p>Copyright: Copyright (c) 2010</p>
+ * <p>
+ * Copyright: Copyright (c) 2010</p>
  *
- * <p>Company: Fontys Hogeschool ICT</p>
+ * <p>
+ * Company: Fontys Hogeschool ICT</p>
  *
  * @author Frank Peeters
- * @version 1.4 Usage of Publisher-interface is removed because this interface is
- * Remote and objects of this class work locally within the same virtual
+ * @version 1.4 Usage of Publisher-interface is removed because this interface
+ * is Remote and objects of this class work locally within the same virtual
  * machine;
  */
 public class BasicPublisher {
@@ -115,22 +119,26 @@ public class BasicPublisher {
                 alertable.addAll(listenersTable.get(key));
             }
         }
-        
+
         List<RemotePropertyListener> tempListeners = new ArrayList<>();
 
-        for (RemotePropertyListener listener : alertable) {
+        try {
+            for (RemotePropertyListener listener : alertable) {
 
-            PropertyChangeEvent evt = new PropertyChangeEvent(
-                    source, property, oldValue, newValue);
-            try {
-                listener.propertyChange(evt);
-            } catch (RemoteException ex) {
-                tempListeners.add(listener);
+                PropertyChangeEvent evt = new PropertyChangeEvent(
+                        source, property, oldValue, newValue);
+                try {
+                    listener.propertyChange(evt);
+                } catch (RemoteException ex) {
+                    tempListeners.add(listener);
+                }
+
             }
-
+        } catch (Exception ex) {
+            
         }
-        
-        for (RemotePropertyListener listener : tempListeners){
+
+        for (RemotePropertyListener listener : tempListeners) {
             removeListener(listener, null);
         }
     }
