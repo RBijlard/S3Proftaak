@@ -5,8 +5,6 @@
  */
 package s3proftaak.Client;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -31,24 +29,24 @@ public class ResourceManager {
         BUTTONRED_PRESSED("buttonRed_pressed.png"),
         BUTTONRED("buttonRed.png");
 
+        private final String path;
         private Image image;
 
         Images(String path) {
-            if (image == null){
-                try {
-                    image = new Image(getClass().getResource("/Resources/Levels/" + path).getPath().replace("%20", " "));
-                } catch (SlickException ex) {
-                    System.out.println(ex);
-                }
-            }
+            this.path = path;
+            this.reloadImage();
         }
         
-        public Image getImage(){
-            return image;
+        public void reloadImage(){
+            try {
+                this.image = new Image(getClass().getResource("/Resources/Levels/" + this.path).getPath().replace("%20", " "));
+            } catch (SlickException ex) {
+                System.out.println(ex);
+            }
         }
-    }
 
-    public static Image getImage(Images i) {
-        return i != null ? i.getImage() : null;
+        public Image getImage() {
+            return this.image;
+        }
     }
 }

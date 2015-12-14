@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.ResourceManager;
@@ -21,7 +22,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
 
     public Star(float x, float y, float width, float height) {
         super(x, y, width, height);
-        this.sprite = ResourceManager.getImage(ResourceManager.Images.STAR);
+        this.sprite = ResourceManager.Images.STAR.getImage();
     }
 
     @Override
@@ -42,6 +43,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
         SoundManager.getInstance().playSound(SoundManager.Sounds.COINPICKUP);
         this.sprite = null;
         this.removed = true;
+        ClientAdministration.getInstance().getGame().removeGameObject(this);
     }
 
     public boolean isRemoved() {

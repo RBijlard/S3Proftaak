@@ -69,10 +69,10 @@ public class Lever extends GameObject implements IPressable, IRenderable {
 
     private void changeImage(boolean active) {
         if (active) {
-            this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHLEFT);
+            this.sprite = ResourceManager.Images.SWITCHLEFT.getImage();
             SoundManager.getInstance().playSound(Sounds.LEVERPULL);
         } else {
-            this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHRIGHT);
+            this.sprite = ResourceManager.Images.SWITCHRIGHT.getImage();
             SoundManager.getInstance().playSound(Sounds.LEVERPUSH);
         }
     }

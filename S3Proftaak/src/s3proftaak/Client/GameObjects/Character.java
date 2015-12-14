@@ -95,12 +95,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     this.moveVertical(gc);
                     break;
                 case 1:
+                case 2:
                     this.moveHorizontal1(gc);
                     this.moveVertical1(gc);
-                    break;
-                case 2:
-                    this.moveHorizontal2(gc);
-                    this.moveVertical2(gc);
                     break;
             }
         }
@@ -384,15 +381,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void moveHorizontal1(GameContainer gc) {
-        //move with arrow keys
-
         if (!game.isMultiplayer()) {
-            Input input = gc.getInput();
-            if (input.isKeyDown(Input.KEY_A)) {
-                //move leftt -> x min
+            if ((controlSet == 1 && gc.getInput().isKeyDown(Input.KEY_A)) || (controlSet == 2 && gc.getInput().isKeyDown(Input.KEY_J))) {
                 this.vX = -this.speed;
-            } else if (input.isKeyDown(Input.KEY_D)) {
-                //move right -> x plus
+            } else if ((controlSet == 1 && gc.getInput().isKeyDown(Input.KEY_D)) || (controlSet == 2 && gc.getInput().isKeyDown(Input.KEY_L))) {
                 this.vX = this.speed;
             } else {
                 this.vX = 0;
@@ -411,14 +403,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void moveVertical1(GameContainer gc) {
-        //move with arrow keys
-
         if (!game.isMultiplayer()) {
             this.vY += this.gravity;
-
-            Input input = gc.getInput();
-            if (input.isKeyDown(Input.KEY_W)) {
-                //move up -> y min
+            if ((controlSet == 1 && gc.getInput().isKeyDown(Input.KEY_W)) || (controlSet == 2 && gc.getInput().isKeyDown(Input.KEY_I))) {
                 this.getRect().setY(this.getRect().getY() + 0.1f);
                 if (this.isColliding(gc) && !isObjectAbove()) {
                     this.vY = this.jumpStrength;
@@ -427,72 +414,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 this.getRect().setY(this.getRect().getY() - 0.1f);
             }
 
-            if (input.isKeyDown(Input.KEY_S)) {
+            if ((controlSet == 1 && gc.getInput().isKeyDown(Input.KEY_S)) || (controlSet == 2 && gc.getInput().isKeyDown(Input.KEY_K))) {
                 this.checkCrouch(true);
             } else {
                 this.checkCrouch(false);
             }
+
         } else {
             this.checkCrouch(this.multicrouch);
-        }
-
-        if (this.getRect().getY() > (70 * 15)) {
-            this.die();
-        }
-
-        //check for collision in 5 small steps for higher precision
-        float vYtemp = this.vY / this.interations;
-        for (int i = 0; i < this.interations; i++) {
-            this.getRect().setY(this.getRect().getY() + vYtemp);
-            if (this.isColliding(gc)) {
-                this.getRect().setY(this.getRect().getY() - vYtemp);
-                this.vY = 0;
-            }
-        }
-    }
-
-    public void moveHorizontal2(GameContainer gc) {
-        //move with arrow keys
-        Input input = gc.getInput();
-        if (input.isKeyDown(Input.KEY_J)) {
-            //move leftt -> x min
-            this.vX = -this.speed;
-        } else if (input.isKeyDown(Input.KEY_L)) {
-            //move right -> x plus
-            this.vX = this.speed;
-        } else {
-            this.vX = 0;
-        }
-
-        //check for collision in 5 small steps for higher precision
-        float vXtemp = this.vX / this.interations;
-        for (int i = 0; i < this.interations; i++) {
-            this.getRect().setX(this.getRect().getX() + vXtemp);
-            if (this.isColliding(gc)) {
-                this.getRect().setX(this.getRect().getX() - vXtemp);
-                this.vX = 0;
-            }
-        }
-    }
-
-    public void moveVertical2(GameContainer gc) {
-        //move with arrow keys
-        Input input = gc.getInput();
-        this.vY += this.gravity;
-        if (input.isKeyDown(Input.KEY_I)) {
-            //move up -> y min
-            this.getRect().setY(this.getRect().getY() + 0.1f);
-            if (this.isColliding(gc) && !isObjectAbove()) {
-                this.vY = this.jumpStrength;
-                SoundManager.getInstance().playSound(Sounds.JUMP);
-            }
-            this.getRect().setY(this.getRect().getY() - 0.1f);
-        }
-
-        if (input.isKeyDown(Input.KEY_K)) {
-            this.checkCrouch(true);
-        } else {
-            this.checkCrouch(false);
         }
 
         if (this.getRect().getY() > (70 * 15)) {

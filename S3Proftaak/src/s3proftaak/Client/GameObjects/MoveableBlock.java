@@ -19,7 +19,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
 
     public MoveableBlock(float x, float y, float width, float height) {
         super(x, y, width, height);
-        this.sprite = ResourceManager.getImage(ResourceManager.Images.BOXITEM);
+        this.sprite = ResourceManager.Images.BOXITEM.getImage();
     }
 
     @Override

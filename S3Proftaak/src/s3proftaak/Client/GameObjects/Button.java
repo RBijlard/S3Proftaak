@@ -23,8 +23,8 @@ public class Button extends GameObject implements IPressable, IRenderable {
     public Button(float x, float y, float width, float height) {
         super(x, y, width, height);
 
-        spriteDown = ResourceManager.getImage(ResourceManager.Images.BUTTONRED_PRESSED);
-        spriteUp = ResourceManager.getImage(ResourceManager.Images.BUTTONRED);
+        spriteDown = ResourceManager.Images.BUTTONRED_PRESSED.getImage();
+        spriteUp = ResourceManager.Images.BUTTONRED.getImage();
 
         this.changeImage(isActive);
     }

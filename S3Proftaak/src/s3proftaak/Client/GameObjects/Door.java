@@ -56,11 +56,11 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
 
     private void changeImage(boolean active) {
         if (active) {
-            sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENMID);
-            sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENTOP);
+            sprite = ResourceManager.Images.DOOR_OPENMID.getImage();
+            sprite1 = ResourceManager.Images.DOOR_OPENTOP.getImage();
         } else {
-            sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDMID);
-            sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDTOP);
+            sprite = ResourceManager.Images.DOOR_CLOSEDMID.getImage();
+            sprite1 = ResourceManager.Images.DOOR_CLOSEDTOP.getImage();
         }
     }
 

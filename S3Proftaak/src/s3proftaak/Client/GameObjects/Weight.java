@@ -27,8 +27,8 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
         super(x, y, width, height);
 
         this.height = height;
-        sprite = ResourceManager.getImage(ResourceManager.Images.WEIGHTCHAINED);
-        sprite1 = ResourceManager.getImage(ResourceManager.Images.CHAIN);
+        sprite = ResourceManager.Images.WEIGHTCHAINED.getImage();
+        sprite1 = ResourceManager.Images.CHAIN.getImage();
     }
 
     @Override

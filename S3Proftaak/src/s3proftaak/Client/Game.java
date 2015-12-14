@@ -95,6 +95,11 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
+        // Reload resources or images go wild.
+        for (ResourceManager.Images image : ResourceManager.Images.values()){
+            image.reloadImage();
+        }
+        
         //set stars
         this.starsCollected = 0;
 
@@ -292,7 +297,7 @@ public class Game extends BasicGame {
         grphcs.setBackground(new Color(0, 191, 255));
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
-            // grphcs.draw(go.getRect());
+            grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {
                 ((IRenderable) go).render(gc, grphcs);
@@ -312,7 +317,7 @@ public class Game extends BasicGame {
         grphcs.setColor(Color.white);
         grphcs.setFont(slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
-        grphcs.drawImage(ResourceManager.getImage(ResourceManager.Images.STAR), 40, 90);
+        grphcs.drawImage(ResourceManager.Images.STAR.getImage(), 40, 90);
         grphcs.drawString(Stars, 100, 100);
 
         if (this.waitingforotherplayers) {
