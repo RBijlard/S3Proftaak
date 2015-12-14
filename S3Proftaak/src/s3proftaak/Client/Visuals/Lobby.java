@@ -176,7 +176,12 @@ public final class Lobby extends BasicScene {
             if (isHost) {
                 String level = cbLevel.getSelectionModel().getSelectedItem().toString();
                 try {
-                    ClientAdministration.getInstance().getCurrentLobby().updateLevel(level);
+                    int amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")") - 1));
+                    if (amount >= ClientAdministration.getInstance().getCurrentLobby().getPlayers().size()){
+                        ClientAdministration.getInstance().getCurrentLobby().updateLevel(level);
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Too many players in the lobby for this map. (Kick some?)", "Failed.", 1);
+                    }
                 } catch (RemoteException ex) {
                     JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                 }
