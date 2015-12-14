@@ -381,7 +381,16 @@ public class Game extends BasicGame {
             long timeDiff = endTime - startTime;
 
             try {
-                this.score = new Score((int) timeDiff, starsCollected, ClientAdministration.getInstance().getAccount().getUsername(), this.mapname);
+                String players = "";
+                for (String s : gameCharacterNames){
+                    players += s + ", ";
+                }
+                
+                if (players.endsWith(", ")){
+                    players = players.substring(0, players.length() - 2);
+                }
+                
+                this.score = new Score((int) timeDiff, starsCollected, players, this.mapname);
                 if (DBConnect.getInstance() != null) {
                     DBConnect.getInstance().insertScore(this.score);
                 }

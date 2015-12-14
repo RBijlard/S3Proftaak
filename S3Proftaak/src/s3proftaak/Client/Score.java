@@ -12,7 +12,8 @@ package s3proftaak.Client;
 public class Score implements Comparable<Score>{
     private int time;
     private int amountOfStars;
-    private String playerNames, gamename;
+    private String playerNames;
+    private String gamename;
     private int totalScore;
 
     public Score(int time, int amountOfStars, String playerNames, String gamename) {
