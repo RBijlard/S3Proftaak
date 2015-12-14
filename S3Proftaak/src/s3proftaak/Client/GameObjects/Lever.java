@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package s3proftaak.Client.GameObjects;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.GameObjects.Interfaces.IPressable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
@@ -25,72 +18,67 @@ public class Lever extends GameObject implements IPressable, IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
-    
+
     public Lever(float x, float y, float width, float height) {
         super(x, y, width, height);
         this.changeImage(isActive);
     }
-    
+
     @Override
-    public void render(GameContainer gc, Graphics g){
-        //render button animation/img
-        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());        
+    public void render(GameContainer gc, Graphics g) {
+        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
     }
-    
-    public int calculateOffset(){
-        return (int) (70-this.getRect().getHeight());
+
+    public int calculateOffset() {
+        return (int) (70 - this.getRect().getHeight());
     }
-    
+
     @Override
-    public boolean isActive(){
+    public boolean isActive() {
         return this.isActive;
     }
-    
+
     @Override
-    public void setActive(boolean active){
-        if (isActive != active){
+    public void setActive(boolean active) {
+        if (isActive != active) {
             this.isActive = active;
             changeImage(active);
-        
-            if (!getMatchedObjects().isEmpty()){
-                
-                for (GameObject po : getMatchedObjects()){
+
+            if (!getMatchedObjects().isEmpty()) {
+
+                for (GameObject po : getMatchedObjects()) {
                     boolean enable = true;
-                    
-                    for (GameObject mo : po.getMatchedObjects()){
-                        if(mo instanceof IPressable && mo != this){
-                            if (!((IPressable) mo).isActive()){
+
+                    for (GameObject mo : po.getMatchedObjects()) {
+                        if (mo instanceof IPressable && mo != this) {
+                            if (!((IPressable) mo).isActive()) {
                                 enable = false;
                                 break;
                             }
                         }
                     }
-                    
-                    if (enable){
+
+                    if (enable) {
                         ((IStateChangeable) po).setActive(active);
-                    } 
-                }                 
+                    }
+                }
             }
-            
+
         }
     }
-    
-    private void changeImage(boolean active){
-        try{
-            if(active){
-                this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHLEFT);
-                SoundManager.getInstance().playSound(Sounds.LEVERPULL);
-            }
-            else{
-                this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHRIGHT);            
-                SoundManager.getInstance().playSound(Sounds.LEVERPUSH);
-            }
+
+    private void changeImage(boolean active) {
+        if (active) {
+            this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHLEFT);
+            SoundManager.getInstance().playSound(Sounds.LEVERPULL);
+        } else {
+            this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHRIGHT);
+            SoundManager.getInstance().playSound(Sounds.LEVERPUSH);
         }
-        catch(Exception ex){}
     }
-    
+
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + " -- LEVER " + this.getMatches();
     }
 }

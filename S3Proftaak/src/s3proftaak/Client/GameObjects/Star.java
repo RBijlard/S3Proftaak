@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package s3proftaak.Client.GameObjects;
 
 import java.util.logging.Level;
@@ -26,11 +21,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
 
     public Star(float x, float y, float width, float height) {
         super(x, y, width, height);
-        try {
-            this.sprite = ResourceManager.getImage(ResourceManager.Images.STAR);
-        } catch (Exception ex) {
-            Logger.getLogger(Star.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.sprite = ResourceManager.getImage(ResourceManager.Images.STAR);
     }
 
     @Override

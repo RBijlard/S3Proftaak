@@ -3,18 +3,11 @@ package s3proftaak.Client.GameObjects;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.ResourceManager;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
  *
  * @author Berry-PC
@@ -62,15 +55,12 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     }
 
     private void changeImage(boolean active) {
-        try {
-            if (active) {
-                sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENMID);
-                sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENTOP);
-            } else {
-                sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDMID);
-                sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDTOP);
-            }
-        } catch (Exception ex) {
+        if (active) {
+            sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENMID);
+            sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENTOP);
+        } else {
+            sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDMID);
+            sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDTOP);
         }
     }
 

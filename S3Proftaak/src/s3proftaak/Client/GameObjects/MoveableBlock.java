@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package s3proftaak.Client.GameObjects;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.ClientAdministration;
@@ -98,7 +92,5 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     public String toString() {
         return super.toString() + " -- MOVEABLEBLOCK";
     }
-    
-    
     
 }
