@@ -54,7 +54,7 @@ public class Score implements Comparable<Score>{
     
     @Override
     public String toString(){
-        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + this.gamename + " " +  (10000 - (getTime()/100) + (getAmountOfStars() * 100));
+        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + this.gamename + " " + this.totalScore;
     }
 
     @Override
