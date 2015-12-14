@@ -76,7 +76,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     @Override
-    public void update(GameContainer gc, int i) {
+    public void update(GameContainer gc) {
         //update player (move)
 
         if (game.isMultiplayer()) {

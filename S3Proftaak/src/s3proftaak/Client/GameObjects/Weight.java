@@ -32,7 +32,7 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     }
 
     @Override
-    public void update(GameContainer gc, int i) {
+    public void update(GameContainer gc) {
         this.getRect().setHeight(height - minus);
 
         if (isActive) {

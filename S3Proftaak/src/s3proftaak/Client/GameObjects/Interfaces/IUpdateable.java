@@ -12,5 +12,5 @@ import org.newdawn.slick.GameContainer;
  * @author Stan
  */
 public interface IUpdateable {
-    void update(GameContainer gc, int i);
+    void update(GameContainer gc);
 }

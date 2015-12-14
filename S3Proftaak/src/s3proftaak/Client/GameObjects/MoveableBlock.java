@@ -23,7 +23,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     }
 
     @Override
-    public void update(GameContainer gc, int i) {
+    public void update(GameContainer gc) {
         for (int a = 0; a < 5; a++) {
             if (dx != 0) {
                 if (!this.isColliding(gc)) {

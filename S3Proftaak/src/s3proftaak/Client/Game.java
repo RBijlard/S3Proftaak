@@ -52,6 +52,7 @@ public class Game extends BasicGame {
     private List<GameObject> gameObjects;
     private List<Character> gameCharacters;
     private List<String> gameCharacterNames;
+    private List<GameObject> removableGameObjects;
 
     private TiledMap map;
     private float x = 70f, y = 70f;
@@ -239,27 +240,27 @@ public class Game extends BasicGame {
             //update game and player
             //update currentTime
             this.currentTime += i;
-
-            List<GameObject> tempStarList = new ArrayList<>();
-
-            for (GameObject go : this.gameObjects) {
-                if (go instanceof Star) {
-                    if (((Star) go).isRemoved()) {
-                        tempStarList.add(go);
+            
+            // Handle GameObjects that should be removed.
+            if (!removableGameObjects.isEmpty()){
+                List<GameObject> tempObjects = new ArrayList<>();
+                tempObjects.addAll(removableGameObjects);
+                
+                for (GameObject go : tempObjects){
+                    
+                    if (go instanceof Star){
                         this.starsCollected++;
                     }
+                    
+                    gameObjects.remove(go);
+                    removableGameObjects.remove(go);
                 }
-            }
-
-            for (GameObject go : tempStarList) {
-                this.gameObjects.remove(go);
             }
 
             for (GameObject go : this.gameObjects) {
 
                 if (go instanceof IUpdateable) {
-                    //move all characters & weights
-                    ((IUpdateable) go).update(gc, i);
+                    ((IUpdateable) go).update(gc);
                 }
 
                 if (go instanceof IPressable && !(go instanceof Lever)) {
@@ -450,5 +451,9 @@ public class Game extends BasicGame {
 
     public void doRestart() {
         this.restart = true;
+    }
+    
+    public void removeGameObject(GameObject go){
+        removableGameObjects.add(go);
     }
 }
