@@ -114,6 +114,7 @@ public class Game extends BasicGame {
         this.map = new TiledMap(path);
         this.gameObjects = new ArrayList<>();
         this.gameCharacters = new ArrayList<>();
+        this.removableGameObjects = new ArrayList<>();
 
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {

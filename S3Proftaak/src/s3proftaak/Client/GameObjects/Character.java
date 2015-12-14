@@ -136,7 +136,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             //Draw Username Above Character
             g.setColor(Color.yellow);
             g.setFont(game.getSlickFontUsername());
-            g.drawString(name, this.getRect().getX() + 23, this.getRect().getY() - 23);
+            g.drawString(name, this.getRect().getX() + 35 - (g.getFont().getWidth(name) / 2), this.getRect().getY() - 25);
         }
     }
 
