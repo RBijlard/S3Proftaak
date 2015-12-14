@@ -25,7 +25,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     private final List<Player> players = new ArrayList<>();
     private final String name;
-    private final int max;
+    private int max;
     private final BasicPublisher publisher;
     private String level = "";
     private String currentHost;
@@ -38,9 +38,9 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         Playing; // Playing.
     }
 
-    public Lobby(String lobbyname, int maxPlayers) throws RemoteException {
+    public Lobby(String lobbyname) throws RemoteException {
         this.name = lobbyname;
-        this.max = maxPlayers;
+        this.max = 1;
         this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }
 
@@ -52,6 +52,14 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     @Override
     public void updateLevel(String level) {
         if (!hasStarted()) {
+            int amount = 1;
+
+            if (!level.isEmpty()) {
+                amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")")));
+            }
+            
+            max = amount;
+
             publisher.inform(this, "Level", null, this.level = level);
         }
     }

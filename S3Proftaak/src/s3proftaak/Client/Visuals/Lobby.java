@@ -176,10 +176,16 @@ public final class Lobby extends BasicScene {
             if (isHost) {
                 String level = cbLevel.getSelectionModel().getSelectedItem().toString();
                 try {
-                    int amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")") - 1));
+                    int amount = 1;
+                    
+                    if (!level.isEmpty()){
+                        amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")")));
+                    }
+                    
                     if (amount >= ClientAdministration.getInstance().getCurrentLobby().getPlayers().size()){
                         ClientAdministration.getInstance().getCurrentLobby().updateLevel(level);
                     }else{
+                        // TODO: CANCEL DAADWERLIJK DIT EVENT
                         JOptionPane.showMessageDialog(null, "Too many players in the lobby for this map. (Kick some?)", "Failed.", 1);
                     }
                 } catch (RemoteException ex) {

@@ -30,12 +30,12 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         this.publisher = new BasicPublisher(new String[]{"LobbyList"});
 
         // Remove later
-        this.lobbies.add(new Lobby("Awesome", 1));
+        this.lobbies.add(new Lobby("Awesome"));
     }
 
     @Override
     public ILobby createLobby(String lobbyname) throws RemoteException {
-        Lobby tempLobby = new Lobby(lobbyname, 1);
+        Lobby tempLobby = new Lobby(lobbyname);
         this.lobbies.add(tempLobby);
         this.informLobbyListMembers();
         return tempLobby;
