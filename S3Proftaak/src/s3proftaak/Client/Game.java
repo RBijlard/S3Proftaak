@@ -94,6 +94,9 @@ public class Game extends BasicGame {
 
     @Override
     public void init(GameContainer gc) throws SlickException {
+        //set stars
+        this.starsCollected = 0;
+        
         //Set Fonts
         this.objectId = 0;
 
