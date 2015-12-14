@@ -20,7 +20,7 @@
    H4sIAAAAAAAAC2NgGAW0BpqMmBibHCE9+MyhhhvpCUbto759tEgX+OyjJxis9lErT1I7j7sgYUqAKtB+HjphXiAGACDsB/qQBgAA
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="1330" height="70">
+ <objectgroup name="Object Layer 1">
   <object id="13" x="1" y="840" width="350" height="70"/>
   <object id="14" x="350" y="210" width="340" height="70"/>
   <object id="15" x="1" y="980" width="1960" height="70"/>
@@ -30,41 +30,39 @@
   <object id="23" x="1330" y="560" width="210" height="70"/>
   <object id="24" x="1330" y="840" width="420" height="70"/>
  </objectgroup>
- <objectgroup name="Object Layer 2" width="1330" height="70">
+ <objectgroup name="Object Layer 2">
   <object id="18" x="1402" y="536" width="66" height="22">
    <properties>
     <property name="button" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 3" width="1330" height="70">
+ <objectgroup name="Object Layer 3">
   <object id="19" x="1410" y="742" width="46" height="96">
    <properties>
     <property name="door" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 4" width="1330" height="70">
+ <objectgroup name="Object Layer 4">
   <object id="16" x="910" y="140" width="70" height="70">
    <properties>
     <property name="lever" value="2"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 5" width="1330" height="70">
+ <objectgroup name="Object Layer 5">
   <object id="17" x="1120" y="1" width="70" height="979">
    <properties>
     <property name="weight" value="2"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 6" width="1330" height="70">
+ <objectgroup name="Object Layer 6">
   <object id="6" x="699" y="942" width="216" height="34"/>
  </objectgroup>
- <objectgroup name="Object Layer 7" width="1330" height="70">
-  <object id="8" x="420" y="140" width="70" height="70"/>
- </objectgroup>
- <objectgroup name="Object Layer 8" width="1330" height="70">
+ <objectgroup name="Object Layer 7"/>
+ <objectgroup name="Object Layer 8">
   <object id="9" x="1" y="910" width="70" height="70"/>
  </objectgroup>
 </map>
