@@ -4,6 +4,7 @@
  */
 package s3proftaak.Client;
 
+import java.lang.reflect.Field;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -95,18 +96,31 @@ public class RMIClient {
 
     // Main method
     public static void main(String[] args) {
+        String path = SoundManager.class.getResource("/Resources/Slick2D").getPath().replace("%20", " ");
+        path = path.substring(1);
+        System.out.println(path);
+        System.setProperty("java.library.path", path);
+
+        try {
+            Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+            fieldSysPath.setAccessible(true);
+            fieldSysPath.set(null, null);
+        } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
+            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         // Welcome message
         System.out.println("CLIENT USING REGISTRY");
 
         // Get ip address of server
         Scanner input = new Scanner(System.in);
         System.out.print("Client: Enter IP address of server: ");
-        String ipAddress = "145.93.168.164";//input.nextLine();
+        String ipAddress = "145.93.168.123";//input.nextLine();
 
         // Get port number
         System.out.print("Client: Enter port number: ");
         int portNumber = 1099;//input.nextInt();
-        
+
         try {
             Enumeration e = NetworkInterface.getNetworkInterfaces();
             while (e.hasMoreElements()) {
@@ -125,10 +139,9 @@ public class RMIClient {
         } catch (SocketException ex) {
             Logger.getLogger(RMIServer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         //System.setProperty("java.rmi.server.hostname", "192.168.178.13");
         //ipAddress = "192.168.178.13";
-
         new RMIClient(ipAddress, portNumber);
     }
 
