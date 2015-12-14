@@ -12,6 +12,7 @@ import org.newdawn.slick.SlickException;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.ClientAdministration;
+import s3proftaak.Client.ResourceManager;
 
 /**
  *
@@ -24,10 +25,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
 
     public MoveableBlock(float x, float y, float width, float height) {
         super(x, y, width, height);
-        try {
-            this.sprite = new Image("Resources/Levels/boxItem.png");
-        } catch (SlickException ex) {
-        }
+        this.sprite = ResourceManager.getImage(ResourceManager.Images.BOXITEM);
     }
 
     @Override

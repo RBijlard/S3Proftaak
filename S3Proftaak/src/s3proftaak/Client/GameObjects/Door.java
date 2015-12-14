@@ -8,6 +8,7 @@ import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Client.ClientAdministration;
+import s3proftaak.Client.ResourceManager;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -63,11 +64,11 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     private void changeImage(boolean active) {
         try {
             if (active) {
-                sprite = new Image("Resources/Levels/door_openMid.png");
-                sprite1 = new Image("Resources/Levels/door_openTop.png");
+                sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENMID);
+                sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_OPENTOP);
             } else {
-                sprite = new Image("Resources/Levels/door_closedMid.png");
-                sprite1 = new Image("Resources/Levels/door_closedTop.png");
+                sprite = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDMID);
+                sprite1 = ResourceManager.getImage(ResourceManager.Images.DOOR_CLOSEDTOP);
             }
         } catch (Exception ex) {
         }

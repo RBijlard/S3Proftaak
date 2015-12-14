@@ -13,6 +13,7 @@ import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.GameObjects.Interfaces.IPressable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
+import s3proftaak.Client.ResourceManager;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
 
@@ -77,11 +78,11 @@ public class Lever extends GameObject implements IPressable, IRenderable {
     private void changeImage(boolean active){
         try{
             if(active){
-                this.sprite = new Image("Resources/Levels/switchLeft.png");
+                this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHLEFT);
                 SoundManager.getInstance().playSound(Sounds.LEVERPULL);
             }
             else{
-                this.sprite = new Image("Resources/Levels/switchRight.png");            
+                this.sprite = ResourceManager.getImage(ResourceManager.Images.SWITCHRIGHT);            
                 SoundManager.getInstance().playSound(Sounds.LEVERPUSH);
             }
         }

@@ -96,7 +96,7 @@ public class Game extends BasicGame {
     public void init(GameContainer gc) throws SlickException {
         //set stars
         this.starsCollected = 0;
-        
+
         //Set Fonts
         this.objectId = 0;
 
@@ -290,7 +290,7 @@ public class Game extends BasicGame {
         grphcs.setBackground(new Color(0, 191, 255));
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
-           // grphcs.draw(go.getRect());
+            // grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {
                 ((IRenderable) go).render(gc, grphcs);
@@ -303,14 +303,14 @@ public class Game extends BasicGame {
 
         //Amount of stars in String format
         String Stars = "x " + starsCollected;
-        
+
         //render Timer
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
         String strDate = sdf.format(this.currentTime);
         grphcs.setColor(Color.white);
         grphcs.setFont(slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
-        grphcs.drawImage(new Image("Resources/Levels/star.png"), 40, 90);        
+        grphcs.drawImage(ResourceManager.getImage(ResourceManager.Images.STAR), 40, 90);
         grphcs.drawString(Stars, 100, 100);
 
         if (this.waitingforotherplayers) {
@@ -382,14 +382,19 @@ public class Game extends BasicGame {
 
             try {
                 String players = "";
-                for (String s : gameCharacterNames){
-                    players += s + ", ";
+
+                if (isMultiplayer()) {
+                    for (String s : gameCharacterNames) {
+                        players += s + ", ";
+                    }
+
+                    if (players.endsWith(", ")) {
+                        players = players.substring(0, players.length() - 2);
+                    }
+                }else{
+                    players = ClientAdministration.getInstance().getAccount().getUsername();
                 }
-                
-                if (players.endsWith(", ")){
-                    players = players.substring(0, players.length() - 2);
-                }
-                
+
                 this.score = new Score((int) timeDiff, starsCollected, players, this.mapname);
                 if (DBConnect.getInstance() != null) {
                     DBConnect.getInstance().insertScore(this.score);

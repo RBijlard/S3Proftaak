@@ -12,6 +12,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
+import s3proftaak.Client.ResourceManager;
 import s3proftaak.Client.SoundManager;
 
 /**
@@ -26,7 +27,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
     public Star(float x, float y, float width, float height) {
         super(x, y, width, height);
         try {
-            this.sprite = new Image("Resources/Levels/star.png");
+            this.sprite = ResourceManager.getImage(ResourceManager.Images.STAR);
         } catch (Exception ex) {
             Logger.getLogger(Star.class.getName()).log(Level.SEVERE, null, ex);
         }

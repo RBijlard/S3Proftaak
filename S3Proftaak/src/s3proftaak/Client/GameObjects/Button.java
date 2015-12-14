@@ -10,6 +10,7 @@ import org.newdawn.slick.SlickException;
 import s3proftaak.Client.GameObjects.Interfaces.IPressable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
+import s3proftaak.Client.ResourceManager;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
 
@@ -27,17 +28,13 @@ public class Button extends GameObject implements IPressable, IRenderable {
 
     private boolean isActive = false;
     private Image sprite;
-    private Image spriteUp, spriteDown;
+    private final Image spriteUp, spriteDown;
     
     public Button(float x, float y, float width, float height) {
         super(x, y, width, height);
         
-        try {
-            spriteDown = new Image("Resources/Levels/buttonRed_pressed.png");
-            spriteUp = new Image("Resources/Levels/buttonRed.png");
-        } catch (SlickException ex) {
-            Logger.getLogger(Button.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        spriteDown = ResourceManager.getImage(ResourceManager.Images.BUTTONRED_PRESSED);
+        spriteUp = ResourceManager.getImage(ResourceManager.Images.BUTTONRED);
         
         this.changeImage(isActive);
     }

@@ -14,6 +14,7 @@ import org.newdawn.slick.SlickException;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
+import s3proftaak.Client.ResourceManager;
 
 /**
  *
@@ -34,8 +35,8 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
         this.height = height;
         
         try {
-            sprite = new Image("Resources/Levels/weightChained.png");
-            sprite1 = new Image("Resources/Levels/chain.png"); 
+            sprite = ResourceManager.getImage(ResourceManager.Images.WEIGHTCHAINED);
+            sprite1 = ResourceManager.getImage(ResourceManager.Images.CHAIN); 
         } catch (Exception ex) {
             Logger.getLogger(Weight.class.getName()).log(Level.SEVERE, null, ex);
         }

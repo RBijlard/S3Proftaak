@@ -17,7 +17,7 @@ import org.newdawn.slick.Sound;
  *
  * @author Berry-PC
  */
-public final class SoundManager {
+public class SoundManager {
 
     private Music music = null;
     private boolean playDeathSound;
