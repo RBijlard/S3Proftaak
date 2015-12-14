@@ -5,7 +5,12 @@
  */
 package s3proftaak.Client.Visuals;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +19,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.DBConnect;
 
 /**
  *
@@ -62,7 +68,14 @@ public class Highscores extends BasicScene {
 
             @Override
             public void run() {
-                // 
+                try {
+                    if(tableHighscore != null)
+                    {
+                        tableHighscore.setItems(FXCollections.observableArrayList(DBConnect.getInstance().getScores()));
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(Highscores.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
