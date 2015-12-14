@@ -28,10 +28,6 @@ public class CreateLobby extends BasicScene {
     @FXML
     Button btnCreateLobby;
 
-    public CreateLobby() {
-
-    }
-
     public void btnBackClick(Event e) {
         changeScreen(ClientAdministration.Screens.Multiplayer);
     }
