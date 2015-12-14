@@ -96,10 +96,8 @@ public class RMIClient {
 
     // Main method
     public static void main(String[] args) {
-        String path = SoundManager.class.getResource("/Resources/Slick2D").getPath().replace("%20", " ");
-        path = path.substring(1);
-        System.out.println(path);
-        System.setProperty("java.library.path", path);
+        // Dynamisch path van Slick2D instellen
+        System.setProperty("java.library.path", RMIClient.class.getResource("/Resources/Slick2D").getPath().replace("%20", " ").substring(1));
 
         try {
             Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
@@ -108,6 +106,7 @@ public class RMIClient {
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
         }
+        // Path ingesteld
 
         // Welcome message
         System.out.println("CLIENT USING REGISTRY");
