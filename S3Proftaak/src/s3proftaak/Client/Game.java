@@ -290,7 +290,7 @@ public class Game extends BasicGame {
         grphcs.setBackground(new Color(0, 191, 255));
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
-            grphcs.draw(go.getRect());
+           // grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {
                 ((IRenderable) go).render(gc, grphcs);
