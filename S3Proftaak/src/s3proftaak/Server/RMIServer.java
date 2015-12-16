@@ -53,7 +53,11 @@ public class RMIServer {
             }
         } catch (Exception ex) {
         }
-
-        new RMIServer();
+        
+        if (!ip.isEmpty()){
+            new RMIServer();
+        }else{
+            System.out.println("Failed to start the Server. (IP lookup)");
+        }
     }
 }
