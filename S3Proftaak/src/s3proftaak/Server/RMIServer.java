@@ -13,6 +13,8 @@ public class RMIServer {
 
     private final int portNumber = 1099;
     private final String bindingName = "S3Proftaak";
+    
+    private static String ip;
 
     // Constructor
     public RMIServer() {
@@ -23,7 +25,7 @@ public class RMIServer {
                 LocateRegistry.createRegistry(portNumber).rebind(bindingName, ServerAdministration.getInstance());
             }
 
-            System.out.println("Server is online.");
+            System.out.println("Server is online at: '" + ip + "'.");
 
         } catch (RemoteException ex) {
             System.out.println("Server is offline. \n" + ex);
@@ -44,7 +46,7 @@ public class RMIServer {
                     Enumeration ee = n.getInetAddresses();
                     while (ee.hasMoreElements()) {
                         InetAddress i = (InetAddress) ee.nextElement();
-                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                        System.setProperty("java.rmi.server.hostname", ip = i.getHostAddress());
                         break;
                     }
                 }
