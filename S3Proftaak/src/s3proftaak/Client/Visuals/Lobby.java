@@ -9,11 +9,10 @@ import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -23,6 +22,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javax.swing.JOptionPane;
 import s3proftaak.Client.Visuals.Listeners.LobbyListener;
 import s3proftaak.Shared.IMessage;
@@ -57,6 +58,7 @@ public final class Lobby extends BasicScene {
     ComboBox cbLevel;
 
     private boolean isHost;
+    private String currentlySelected;
 
     public Lobby() {
         try {
@@ -93,6 +95,7 @@ public final class Lobby extends BasicScene {
                             lvl.add(ClientAdministration.getInstance().getCurrentLobby().getLevel());
                             cbLevel.setItems(FXCollections.observableArrayList(lvl));
                             cbLevel.setValue(lvl.get(0));
+                            currentlySelected = lvl.get(0);
                         } catch (RemoteException ex) {
                             JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                         }
@@ -104,6 +107,17 @@ public final class Lobby extends BasicScene {
 
                     if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                         setIsHost(true);
+                    }
+
+                    if (chatText != null) {
+                        chatText.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                            @Override
+                            public void handle(KeyEvent ke) {
+                                if (ke.getCode().equals(KeyCode.ENTER)) {
+                                    btnSendClick(null);
+                                }
+                            }
+                        });
                     }
                 } catch (RemoteException ex) {
                     JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
@@ -177,15 +191,16 @@ public final class Lobby extends BasicScene {
                 String level = cbLevel.getSelectionModel().getSelectedItem().toString();
                 try {
                     int amount = 1;
-                    
-                    if (!level.isEmpty()){
+
+                    if (!level.isEmpty()) {
                         amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")")));
                     }
-                    
-                    if (amount >= ClientAdministration.getInstance().getCurrentLobby().getPlayers().size()){
+
+                    if (amount >= ClientAdministration.getInstance().getCurrentLobby().getPlayers().size()) {
                         ClientAdministration.getInstance().getCurrentLobby().updateLevel(level);
-                    }else{
-                        // TODO: CANCEL DAADWERLIJK DIT EVENT
+                        currentlySelected = level;
+                    } else {
+                        cbLevel.getSelectionModel().select(currentlySelected);
                         JOptionPane.showMessageDialog(null, "Too many players in the lobby for this map. (Kick some?)", "Failed.", 1);
                     }
                 } catch (RemoteException ex) {
