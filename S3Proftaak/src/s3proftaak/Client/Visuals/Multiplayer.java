@@ -122,6 +122,7 @@ public class Multiplayer extends BasicScene {
             @Override
             public void run() {
                 if (tableLobbies != null) {
+                    tableLobbies.getItems().clear();
                     tableLobbies.setItems(FXCollections.observableArrayList(lobbies));
                 }
             }
