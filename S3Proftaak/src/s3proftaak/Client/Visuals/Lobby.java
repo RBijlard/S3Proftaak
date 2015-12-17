@@ -9,6 +9,8 @@ import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
@@ -18,18 +20,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.util.Callback;
 import javax.swing.JOptionPane;
 import s3proftaak.Client.Visuals.Listeners.LobbyListener;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Client.Message;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.Visuals.Lobby_Utils.CheckBoxTableCell;
+import s3proftaak.Client.Visuals.Lobby_Utils.LocalPlayer;
 import s3proftaak.Shared.IPlayer;
 
 /**
@@ -70,8 +76,15 @@ public final class Lobby extends BasicScene {
 
         TableColumn readyCol = new TableColumn("Ready");
         readyCol.setCellValueFactory(new PropertyValueFactory<>("ready"));
-        //readyCol.setCellFactory(CheckBoxTableCell.forTableColumn(readyCol));
-
+        
+        // Adds the checkbox
+        readyCol.setCellFactory(new Callback<TableColumn<IPlayer, Boolean>, TableCell<IPlayer, Boolean>>() {
+            @Override
+            public TableCell<IPlayer, Boolean> call(TableColumn<IPlayer, Boolean> p) {
+                return new CheckBoxTableCell<>();
+            }
+        });
+        
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -102,7 +115,7 @@ public final class Lobby extends BasicScene {
                     }
 
                     if (playerList != null) {
-                        playerList.setItems(FXCollections.observableArrayList(ClientAdministration.getInstance().getCurrentLobby().getPlayers()));
+                        updatePlayerList(ClientAdministration.getInstance().getCurrentLobby().getPlayers());
                     }
 
                     if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
@@ -180,7 +193,16 @@ public final class Lobby extends BasicScene {
             if (playerList != null && players != null) {
                 // We have to clear the items first or it doesn't update the ready state.
                 playerList.getItems().clear();
-                playerList.setItems(FXCollections.observableArrayList(players));
+                
+                List<LocalPlayer> tempPlayers = new ArrayList<>();
+                for (IPlayer p : players){
+                    try {
+                        tempPlayers.add(new LocalPlayer(p.getName(), p.isReady()));
+                    } catch (RemoteException ex) {
+                        Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                playerList.setItems(FXCollections.observableArrayList(tempPlayers));
             }
         });
     }
