@@ -469,7 +469,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     private boolean isObjectAbove() {
         for (GameObject go : game.getGameObjects()) {
-            if (!(go instanceof Door) && !(go instanceof Star)) {
+            if (!(go instanceof Door) && !(go instanceof Star) && !(go instanceof Lever)) {
                 if (getRect().getMinX() <= go.getRect().getMaxX() && getRect().getMaxX() >= go.getRect().getMinX()) {
                     if (getRect().getMinY() - 23 <= go.getRect().getMaxY() && getRect().getMaxY() > go.getRect().getMaxY()) {
                         return true;
