@@ -5,15 +5,12 @@
  */
 package s3proftaak.Client;
 
-import s3proftaak.Client.Account;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * database inlog gegevens host: athena01.fhict.local user: dbi317440 password:
@@ -160,7 +157,7 @@ public class DBConnect {
         ps.setInt(1, s.getTime());
         ps.setInt(2, s.getAmountOfStars());
         ps.setString(3, s.getPlayerNames());
-        ps.setString(4, s.getMap());
+        ps.setString(4, s.getGamename());
         ps.execute();
     }
     // </editor-fold>

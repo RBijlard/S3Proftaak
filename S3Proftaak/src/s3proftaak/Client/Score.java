@@ -9,12 +9,12 @@ package s3proftaak.Client;
  *
  * @author S33D
  */
-public class Score implements Comparable<Score>{
+public class Score {
     private int time;
     private int amountOfStars;
     private String playerNames;
-    private String gamename;
-    private int totalScore;
+    private final String gamename;
+    private final int totalScore;
 
     public Score(int time, int amountOfStars, String playerNames, String gamename) {
         this.time = time;
@@ -43,9 +43,13 @@ public class Score implements Comparable<Score>{
     public String getPlayerNames() {
         return playerNames;
     }
-    
-    public String getMap() {
+
+    public String getGamename() {
         return gamename;
+    }
+
+    public int getTotalScore() {
+        return totalScore;
     }
 
     public void setPlayerNames(String playerNames) {
@@ -55,10 +59,5 @@ public class Score implements Comparable<Score>{
     @Override
     public String toString(){
         return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + this.gamename + " " + this.totalScore;
-    }
-
-    @Override
-    public int compareTo(Score t) {
-        return this.getTime() - t.getTime();
     }
 }
