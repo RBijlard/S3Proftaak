@@ -155,7 +155,7 @@ public final class Lobby extends BasicScene {
             if (isHost) {
                 if (playerList.getSelectionModel() != null && playerList.getSelectionModel().getSelectedItem() != null) {
                     try {
-                        ClientAdministration.getInstance().getCurrentLobby().kickPlayer(((IPlayer) playerList.getSelectionModel().getSelectedItem()).getName());
+                        ClientAdministration.getInstance().getCurrentLobby().kickPlayer(((LocalPlayer) playerList.getSelectionModel().getSelectedItem()).getName());
                     } catch (RemoteException ex) {
                         JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                     }
