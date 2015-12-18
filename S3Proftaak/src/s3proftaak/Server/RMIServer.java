@@ -20,12 +20,8 @@ public class RMIServer {
     public RMIServer() {
         try {
             new ServerAdministration();
-
-            if (ServerAdministration.getInstance() != null) {
-                LocateRegistry.createRegistry(portNumber).rebind(bindingName, ServerAdministration.getInstance());
-            }
-
-            System.out.println("Server is online at: '" + ip + "'.");
+            LocateRegistry.createRegistry(portNumber).rebind(bindingName, ServerAdministration.getInstance());
+            System.out.println("Server is offline at: '" + ip + "'.");
 
         } catch (RemoteException ex) {
             System.out.println("Server is offline. \n" + ex);
