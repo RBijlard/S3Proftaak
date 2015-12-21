@@ -10,9 +10,9 @@ package s3proftaak.Client;
  * @author S33D
  */
 public class Score {
-    private int time;
-    private int amountOfStars;
-    private String playerNames;
+    private final int time;
+    private final int amountOfStars;
+    private final String playerNames;
     private final String gamename;
     private final int totalScore;
 
@@ -28,16 +28,8 @@ public class Score {
         return time;
     }
 
-    public void setTime(int time) {
-        this.time = time;
-    }
-
     public int getAmountOfStars() {
         return amountOfStars;
-    }
-
-    public void setAmountOfStars(int amountOfStars) {
-        this.amountOfStars = amountOfStars;
     }
 
     public String getPlayerNames() {
@@ -50,10 +42,6 @@ public class Score {
 
     public int getTotalScore() {
         return totalScore;
-    }
-
-    public void setPlayerNames(String playerNames) {
-        this.playerNames = playerNames;
     }
     
     @Override
