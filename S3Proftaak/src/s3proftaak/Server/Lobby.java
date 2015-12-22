@@ -57,7 +57,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             if (!level.isEmpty()) {
                 amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")")));
             }
-            
+
             max = amount;
 
             publisher.inform(this, "Level", null, this.level = level);
@@ -158,13 +158,15 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
 
     @Override
     public void kickPlayer(String username) {
-        if (!hasStarted()) {
-            Player p = getPlayer(username);
-            if (p != null) {
-                this.removePlayer(username);
-                publisher.inform(this, "Administrative", "Kick", username);
-                updatePlayers();
-            }
+        Player p = getPlayer(username);
+        if (p != null) {
+            this.removePlayer(username);
+            publisher.inform(this, "Administrative", "Kick", username);
+            updatePlayers();
+        }
+
+        if (hasStarted()) {
+            stopGame();
         }
     }
 
