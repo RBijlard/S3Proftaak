@@ -16,8 +16,9 @@ import s3proftaak.fontys.RemotePropertyListener;
  */
 public abstract class BasicListener extends UnicastRemoteObject implements Serializable, RemotePropertyListener {
     
-    public BasicListener() throws RemoteException {};
+    public BasicListener() throws RemoteException {}
     
     public void startListening(){}
     public void stopListening(){}
+    
 }

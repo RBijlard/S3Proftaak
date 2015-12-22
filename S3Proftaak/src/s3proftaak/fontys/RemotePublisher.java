@@ -23,12 +23,14 @@ public interface RemotePublisher extends Remote {
     /**
      * listener abonneert zich op PropertyChangeEvent's zodra property is 
      * gewijzigd
+     * @param username
      * @param listener
      * @param property mag null zijn, dan abonneert listener zich op alle
      * properties; property moet wel een eigenschap zijn waarop je je kunt
      * abonneren
+     * @throws java.rmi.RemoteException
      */
-    void addListener(RemotePropertyListener listener, String property)
+    void addListener(String username, RemotePropertyListener listener, String property)
             throws RemoteException;
 
     /**
@@ -37,6 +39,7 @@ public interface RemotePublisher extends Remote {
      * @param listener PropertyListener
      * @param property mag null zijn, dan worden alle abonnementen van listener
      * opgezegd
+     * @throws java.rmi.RemoteException
      */
     void removeListener(RemotePropertyListener listener, String property)
             throws RemoteException;

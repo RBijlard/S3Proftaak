@@ -5,14 +5,10 @@ import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javax.swing.JOptionPane;
-import org.newdawn.slick.SlickException;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
-import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.Visuals.Lobby;
 import s3proftaak.Shared.IPlayer;
 
@@ -101,11 +97,13 @@ public class LobbyListener extends BasicListener {
     @Override
     public void startListening() {
         try {
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Administrative");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Chat");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Level");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Host");
+            String username = ClientAdministration.getInstance().getAccount().getUsername();
+            
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Administrative");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Chat");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }

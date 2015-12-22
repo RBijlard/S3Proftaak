@@ -6,19 +6,15 @@
 package s3proftaak.Shared;
 
 import java.rmi.RemoteException;
-import s3proftaak.fontys.RemotePropertyListener;
+import s3proftaak.fontys.RemotePublisher;
 
 /**
  *
  * @author Berry-PC
  */
-public interface IHost {
+public interface IHost extends RemotePublisher {
 
     public void sendMessage(IMessage message) throws RemoteException;
 
     public void askForMove(float vX, float vY, int id, boolean isEntering) throws RemoteException;
-
-    public void addListener(RemotePropertyListener listener, String property) throws RemoteException;
-
-    public void removeListener(RemotePropertyListener listener, String property) throws RemoteException;
 }

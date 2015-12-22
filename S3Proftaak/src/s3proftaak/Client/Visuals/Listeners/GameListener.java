@@ -7,9 +7,6 @@ package s3proftaak.Client.Visuals.Listeners;
 
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.newdawn.slick.geom.Rectangle;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.GameObjects.GameObject;
@@ -89,8 +86,10 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
 
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Rect");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Objects");
+            String username = ClientAdministration.getInstance().getAccount().getUsername();
+            
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Rect");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Objects");
         } catch (RemoteException ex) {
             ClientAdministration.getInstance().stopGame("");
         }
@@ -99,9 +98,11 @@ public class GameListener extends BasicListener {
     @Override
     public void stopListening() {
         try {
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Level");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(this, "Host");
+            String username = ClientAdministration.getInstance().getAccount().getUsername();
+            
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
 
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Rect");
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Objects");

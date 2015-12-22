@@ -1,11 +1,11 @@
 package s3proftaak.fontys;
 
 import java.beans.*;
-import java.net.ConnectException;
 import java.rmi.RemoteException;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import s3proftaak.Server.Lobby;
+import s3proftaak.Server.Player;
+import s3proftaak.Server.ServerAdministration;
 
 /**
  * <p>
@@ -31,7 +31,12 @@ public class BasicPublisher {
      * de listeners die onder de null-String staan geregistreerd zijn listeners
      * die op alle properties zijn geabonneerd
      */
-    private HashMap<String, Set<RemotePropertyListener>> listenersTable;
+    private final HashMap<String, Set<RemotePropertyListener>> listenersTable;
+    /**
+     * de listeners die onder de null-String staan geregistreerd zijn listeners
+     * die op alle properties zijn geabonneerd
+     */
+    private final HashMap<RemotePropertyListener, String> namesTable;
     /**
      * als een listener zich bij een onbekende property registreert wordt de
      * lijst met bekende properties in een RuntimeException meegegeven (zie
@@ -48,6 +53,7 @@ public class BasicPublisher {
      * @param properties
      */
     public BasicPublisher(String[] properties) {
+        namesTable = new HashMap<>();
         listenersTable = new HashMap<>();
         listenersTable.put(null, new HashSet<>());
         for (String s : properties) {
@@ -60,15 +66,17 @@ public class BasicPublisher {
      * listener abonneert zich op PropertyChangeEvent's zodra property is
      * gewijzigd
      *
+     * @param username
      * @param listener
      * @param property mag null zijn, dan abonneert listener zich op alle
      * properties; property moet wel een eigenschap zijn waarop je je kunt
      * abonneren
      */
-    public void addListener(RemotePropertyListener listener, String property) {
+    public void addListener(String username, RemotePropertyListener listener, String property) {
         checkInBehalfOfProgrammer(property);
 
         listenersTable.get(property).add(listener);
+        namesTable.put(listener, username);
     }
 
     /**
@@ -85,11 +93,13 @@ public class BasicPublisher {
             if (propertyListeners != null) {
                 propertyListeners.remove(listener);
                 listenersTable.get(null).remove(listener);
+                namesTable.remove(listener);
             }
         } else { //property == null, dus alle abonnementen van listener verwijderen
             Set<String> keyset = listenersTable.keySet();
             for (String key : keyset) {
                 listenersTable.get(key).remove(listener);
+                namesTable.remove(listener);
             }
         }
     }
@@ -109,8 +119,7 @@ public class BasicPublisher {
     public void inform(Object source, String property, Object oldValue, Object newValue) {
         checkInBehalfOfProgrammer(property);
 
-        Set<RemotePropertyListener> alertable;
-        alertable = listenersTable.get(property);
+        Set<RemotePropertyListener> alertable = listenersTable.get(property);
         if (property != null) {
             alertable.addAll(listenersTable.get(null));
         } else {
@@ -130,12 +139,25 @@ public class BasicPublisher {
                 try {
                     listener.propertyChange(evt);
                 } catch (RemoteException ex) {
+
+                    // Remove player from current game
+                    String playerName = namesTable.get(listener);
+                    if (playerName != null && !playerName.isEmpty()) {
+                        for (Lobby l : ServerAdministration.getInstance().getLocalLobbies()) {
+
+                            Player p = l.getPlayer(playerName);
+                            if (p != null){
+                                l.kickPlayer(playerName);
+                            }
+                        }
+                    }
+
                     tempListeners.add(listener);
                 }
 
             }
         } catch (Exception ex) {
-            
+            System.out.println("wow this catch is usefull: " + ex);
         }
 
         for (RemotePropertyListener listener : tempListeners) {

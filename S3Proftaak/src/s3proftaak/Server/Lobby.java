@@ -175,7 +175,9 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             if (username != null && !username.isEmpty()) {
                 if (players.size() < max) {
                     if (!getNames().contains(username)) {
-                        if (players.add(new Player(username))) {
+                        Player tempPlayer = new Player(username);
+                        if (players.add(tempPlayer)) {
+                            tempPlayer.setCurrentLobby(this);
                             updatePlayers();
                         } else {
                             throw new CustomException("Failed to join this lobby.");
@@ -198,9 +200,10 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     @Override
     public void removePlayer(String username) {
         if (username != null && !username.isEmpty()) {
-            Player p = getPlayer(username);
-            if (p != null) {
-                if (players.remove(p)) {
+            Player tempPlayer = getPlayer(username);
+            if (tempPlayer != null) {
+                if (players.remove(tempPlayer)) {
+                    tempPlayer.setCurrentLobby(null);
                     updatePlayers();
                 }
 
@@ -212,8 +215,8 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void addListener(RemotePropertyListener listener, String property) throws RemoteException {
-        publisher.addListener(listener, property);
+    public void addListener(String username, RemotePropertyListener listener, String property) throws RemoteException {
+        publisher.addListener(username, listener, property);
     }
 
     @Override
@@ -230,7 +233,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         return this.currentHost;
     }
 
-    private Player getPlayer(String username) {
+    public Player getPlayer(String username) {
         for (Player p : players) {
             if (p.getName().equals(username)) {
                 return p;

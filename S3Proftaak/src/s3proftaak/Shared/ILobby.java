@@ -9,14 +9,13 @@ import s3proftaak.util.CustomException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
-import org.newdawn.slick.geom.Rectangle;
-import s3proftaak.fontys.RemotePropertyListener;
+import s3proftaak.fontys.RemotePublisher;
 
 /**
  *
  * @author Stan
  */
-public interface ILobby extends Remote {
+public interface ILobby extends Remote, RemotePublisher {
 
     public void sendMessage(IMessage message) throws RemoteException;
 
@@ -55,8 +54,4 @@ public interface ILobby extends Remote {
     public void addPlayer(String username) throws RemoteException, CustomException;
 
     public void removePlayer(String username) throws RemoteException;
-
-    public void addListener(RemotePropertyListener listener, String property) throws RemoteException;
-
-    public void removeListener(RemotePropertyListener listener, String property) throws RemoteException;
 }

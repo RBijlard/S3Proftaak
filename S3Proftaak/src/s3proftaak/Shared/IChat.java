@@ -7,14 +7,12 @@ package s3proftaak.Shared;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import s3proftaak.fontys.RemotePropertyListener;
+import s3proftaak.fontys.RemotePublisher;
 
 /**
  *
  * @author Stan
  */
-public interface IChat extends Remote {
+public interface IChat extends Remote, RemotePublisher {
     public void sendMessage(IMessage message) throws RemoteException;
-    public void addListener(RemotePropertyListener listener, String property) throws RemoteException;
-    public void removeListener(RemotePropertyListener listener, String property) throws RemoteException;
 }

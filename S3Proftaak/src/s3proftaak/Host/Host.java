@@ -185,8 +185,8 @@ public class Host extends UnicastRemoteObject implements IHost {
     }
 
     @Override
-    public void addListener(RemotePropertyListener listener, String property) throws RemoteException {
-        this.publisher.addListener(listener, property);
+    public void addListener(String username, RemotePropertyListener listener, String property) throws RemoteException {
+        this.publisher.addListener(username, listener, property);
     }
 
     @Override

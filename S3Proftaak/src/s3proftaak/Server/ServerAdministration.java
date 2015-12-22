@@ -40,6 +40,10 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         this.informLobbyListMembers();
         return tempLobby;
     }
+    
+    public List<Lobby> getLocalLobbies(){
+        return lobbies;
+    }
 
     @Override
     public List<ILobby> getLobbies() throws RemoteException {
@@ -56,8 +60,8 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
     }
 
     @Override
-    public void addListener(RemotePropertyListener listener, String property) throws RemoteException {
-        publisher.addListener(listener, property);
+    public void addListener(String username, RemotePropertyListener listener, String property) throws RemoteException {
+        publisher.addListener(username, listener, property);
     }
 
     @Override
