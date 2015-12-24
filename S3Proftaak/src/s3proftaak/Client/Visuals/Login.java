@@ -62,18 +62,6 @@ public class Login extends BasicScene {
     }
 
     public void btnRegisterClick(Event e) {
-        try {
-            if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()) {
-                if (!DBConnect.getInstance().hasAccount(tfUsername.getText())) {
-                    Account a = new Account(tfUsername.getText(), tfPassword.getText(), null);
-                    DBConnect.getInstance().insertAccount(a);
-                    JOptionPane.showMessageDialog(null, "Account Registered!", "Registration", 1);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please Enter a Username and Password", "Registration Error", 0);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        changeScreen(ClientAdministration.Screens.Register);
     }
 }

@@ -88,6 +88,7 @@ public class ClientAdministration extends Application {
         CreateLobby,
         Lobby,
         Highscores,
+        Register,
         Gameover;
 
         private BasicScene bs;
