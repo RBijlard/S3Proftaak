@@ -50,7 +50,7 @@ public class RMIServer {
         } catch (Exception ex) {
         }
         
-        if (!ip.isEmpty()){
+        if (ip != null){
             new RMIServer();
         }else{
             System.out.println("Failed to start the Server. (IP lookup)");
