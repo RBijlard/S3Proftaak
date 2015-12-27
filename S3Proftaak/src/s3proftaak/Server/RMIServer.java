@@ -13,7 +13,7 @@ public class RMIServer {
 
     private final int portNumber = 1099;
     private final String bindingName = "S3Proftaak";
-    
+
     private static String ip;
 
     // Constructor
@@ -46,13 +46,15 @@ public class RMIServer {
                         break;
                     }
                 }
+                System.setProperty("java.rmi.server.hostname", "localhost");
+                ip = "localhost";
             }
         } catch (Exception ex) {
         }
-        
-        if (ip != null){
+
+        if (ip != null) {
             new RMIServer();
-        }else{
+        } else {
             System.out.println("Failed to start the Server. (IP lookup)");
         }
     }

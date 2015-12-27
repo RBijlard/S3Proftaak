@@ -79,7 +79,6 @@ public class ClientAdministration extends Application {
     }
 
     public enum Screens {
-
         Login,
         Menu,
         Settings,

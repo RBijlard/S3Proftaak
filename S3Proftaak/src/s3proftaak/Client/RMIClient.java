@@ -25,19 +25,19 @@ public class RMIClient {
     public RMIClient(String ipAddress, int portNumber) {
         try {
             Registry registry = LocateRegistry.getRegistry(ipAddress, portNumber);
-            
-            if (registry != null){
+
+            if (registry != null) {
                 serverAdministration = (IServer) registry.lookup(bindingName);
-                if (serverAdministration != null){
+                if (serverAdministration != null) {
                     System.out.println("Client started.");
                     Application.launch(ClientAdministration.class);
-                }else{
+                } else {
                     System.out.println("Client failed to connect to the Server. (Lookup failed)");
                 }
-            }else{
+            } else {
                 System.out.println("Client failed to connect to the Server. (Locate registry failed)");
             }
-            
+
         } catch (RemoteException | NotBoundException ex) {
             System.out.println("Client failed to connect to the Server. \n" + ex);
         }
@@ -46,7 +46,7 @@ public class RMIClient {
     // Main method
     public static void main(String[] args) {
         System.out.println("Starting client.");
-        
+
         // Dynamisch path van Slick2D instellen
         System.setProperty("java.library.path", RMIClient.class.getResource("/Resources/Slick2D").getPath().replace("%20", " ").substring(1));
 
@@ -56,6 +56,7 @@ public class RMIClient {
             fieldSysPath.set(null, null);
         } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
             Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
         // Path ingesteld
 
@@ -73,6 +74,8 @@ public class RMIClient {
                 }
             }
         } catch (Exception ex) {
+            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex);
         }
 
         new RMIClient("localhost", 1099);

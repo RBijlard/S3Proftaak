@@ -8,6 +8,7 @@ package s3proftaak.Client.Visuals;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +19,6 @@ import s3proftaak.Client.Account;
 import s3proftaak.Client.DBConnect;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
-import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.SoundManager;
 
 /**
@@ -35,6 +35,20 @@ public class Login extends BasicScene {
     Button btnLogin;
     @FXML
     Button btnRegister;
+
+    private static String registerUsername = null;
+
+    public Login() {
+        if (this.registerUsername != null) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    tfUsername.setText(registerUsername);
+                    tfPassword.requestFocus();
+                }
+            });
+        }
+    }
 
     public void btnLoginClick(Event e) {
         try {
@@ -63,5 +77,10 @@ public class Login extends BasicScene {
 
     public void btnRegisterClick(Event e) {
         changeScreen(ClientAdministration.Screens.Register);
+    }
+
+    //sets the username if the user just registered an account
+    public static void EnterUsername(String Username) {
+        registerUsername = Username;
     }
 }

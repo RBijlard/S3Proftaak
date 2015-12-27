@@ -76,7 +76,7 @@ public final class Lobby extends BasicScene {
 
         TableColumn readyCol = new TableColumn("Ready");
         readyCol.setCellValueFactory(new PropertyValueFactory<>("ready"));
-        
+
         // Adds the checkbox
         readyCol.setCellFactory(new Callback<TableColumn<IPlayer, Boolean>, TableCell<IPlayer, Boolean>>() {
             @Override
@@ -84,7 +84,7 @@ public final class Lobby extends BasicScene {
                 return new CheckBoxTableCell<>();
             }
         });
-        
+
         TableColumn nameCol = new TableColumn("Name");
         nameCol.setCellValueFactory(new PropertyValueFactory<>("name"));
 
@@ -120,6 +120,9 @@ public final class Lobby extends BasicScene {
 
                     if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                         setIsHost(true);
+                    } else {
+                        //disables the button if not host
+                        btnKick.setDisable(true);
                     }
 
                     if (chatText != null) {
@@ -193,9 +196,9 @@ public final class Lobby extends BasicScene {
             if (playerList != null && players != null) {
                 // We have to clear the items first or it doesn't update the ready state.
                 playerList.getItems().clear();
-                
+
                 List<LocalPlayer> tempPlayers = new ArrayList<>();
-                for (IPlayer p : players){
+                for (IPlayer p : players) {
                     try {
                         tempPlayers.add(new LocalPlayer(p.getName(), p.isReady()));
                     } catch (RemoteException ex) {

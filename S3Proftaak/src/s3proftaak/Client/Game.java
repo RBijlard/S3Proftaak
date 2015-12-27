@@ -18,7 +18,6 @@ import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
@@ -96,10 +95,10 @@ public class Game extends BasicGame {
     @Override
     public void init(GameContainer gc) throws SlickException {
         // Reload resources or images go wild.
-        for (ResourceManager.Images image : ResourceManager.Images.values()){
+        for (ResourceManager.Images image : ResourceManager.Images.values()) {
             image.reloadImage();
         }
-        
+
         //set stars
         this.starsCollected = 0;
 
@@ -194,10 +193,10 @@ public class Game extends BasicGame {
 
         for (int i = 0; i < this.amountOfPlayers; i++) {
 
-            Character c = new Character(this, (72f * i + 500f), 72f, 70f, 93f, i, multiplayer ? gameCharacterNames.get(i) : "");
+            Character c = new Character(this, (72f * i + 500f), 72f, 70f, 93f, i, this.multiplayer ? this.gameCharacterNames.get(i) : "");
 
-            if ((!multiplayer && i == 0) || (multiplayer && ClientAdministration.getInstance().getAccount().getUsername().equals(gameCharacterNames.get(i)))) {
-                this.gameCharacters.add(main_character = c);
+            if ((!this.multiplayer && i == 0) || (this.multiplayer && ClientAdministration.getInstance().getAccount().getUsername().equals(this.gameCharacterNames.get(i)))) {
+                this.gameCharacters.add(this.main_character = c);
             }
 
             if (!this.gameCharacters.contains(c)) {
@@ -217,7 +216,7 @@ public class Game extends BasicGame {
 
         SoundManager.getInstance().playMusic();
 
-        startTime = System.currentTimeMillis();
+        this.startTime = System.currentTimeMillis();
 
         if (isMultiplayer()) {
             this.waitingforotherplayers = true;
@@ -246,20 +245,20 @@ public class Game extends BasicGame {
             //update game and player
             //update currentTime
             this.currentTime += i;
-            
+
             // Handle GameObjects that should be removed.
-            if (!removableGameObjects.isEmpty()){
+            if (!this.removableGameObjects.isEmpty()) {
                 List<GameObject> tempObjects = new ArrayList<>();
-                tempObjects.addAll(removableGameObjects);
-                
-                for (GameObject go : tempObjects){
-                    
-                    if (go instanceof Star){
+                tempObjects.addAll(this.removableGameObjects);
+
+                for (GameObject go : tempObjects) {
+
+                    if (go instanceof Star) {
                         this.starsCollected++;
                     }
-                    
-                    gameObjects.remove(go);
-                    removableGameObjects.remove(go);
+
+                    this.gameObjects.remove(go);
+                    this.removableGameObjects.remove(go);
                 }
             }
 
@@ -294,7 +293,10 @@ public class Game extends BasicGame {
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
+        
+        //set background color
         grphcs.setBackground(new Color(0, 191, 255));
+        
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
             grphcs.draw(go.getRect());
@@ -304,22 +306,25 @@ public class Game extends BasicGame {
             }
         }
         //render game and player
-        for (int i = 0; i < map.getLayerCount(); i++) {
+        for (int i = 0; i < this.map.getLayerCount(); i++) {
             this.map.render(0 - (int) main_character.getOffsetX(), i);
         }
 
         //Amount of stars in String format
-        String Stars = "x " + starsCollected;
+        String Stars = "x " + this.starsCollected;
 
         //render Timer
         SimpleDateFormat sdf = new SimpleDateFormat("mm:ss");
         String strDate = sdf.format(this.currentTime);
         grphcs.setColor(Color.white);
-        grphcs.setFont(slickFontTimer);
+        grphcs.setFont(this.slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
+        
+        //render star image
         grphcs.drawImage(ResourceManager.Images.STAR.getImage(), 40, 90);
         grphcs.drawString(Stars, 100, 100);
-
+        
+        //Waiting for other players
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";
             grphcs.drawString(text, (Display.getWidth() / 2) - (text.getBytes().length), Display.getHeight() / 2);
@@ -377,32 +382,32 @@ public class Game extends BasicGame {
 
     public void doFinish() {
 
-        if (!gameOver) {
-            gameOver = true;
+        if (!this.gameOver) {
+            this.gameOver = true;
 
             //add stop
             SoundManager.getInstance().playSound(Sounds.GAMEOVER);
 
-            endTime = System.currentTimeMillis();
+            this.endTime = System.currentTimeMillis();
 
-            long timeDiff = endTime - startTime;
+            long timeDiff = this.endTime - this.startTime;
 
             try {
                 String players = "";
 
                 if (isMultiplayer()) {
-                    for (String s : gameCharacterNames) {
+                    for (String s : this.gameCharacterNames) {
                         players += s + ", ";
                     }
 
                     if (players.endsWith(", ")) {
                         players = players.substring(0, players.length() - 2);
                     }
-                }else{
+                } else {
                     players = ClientAdministration.getInstance().getAccount().getUsername();
                 }
 
-                this.score = new Score((int) timeDiff, starsCollected, players, this.mapname);
+                this.score = new Score((int) timeDiff, this.starsCollected, players, this.mapname);
                 if (DBConnect.getInstance() != null) {
                     DBConnect.getInstance().insertScore(this.score);
                 }
@@ -458,8 +463,8 @@ public class Game extends BasicGame {
     public void doRestart() {
         this.restart = true;
     }
-    
-    public void removeGameObject(GameObject go){
-        removableGameObjects.add(go);
+
+    public void removeGameObject(GameObject go) {
+        this.removableGameObjects.add(go);
     }
 }
