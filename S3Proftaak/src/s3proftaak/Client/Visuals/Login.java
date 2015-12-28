@@ -39,11 +39,12 @@ public class Login extends BasicScene {
     private static String registerUsername = null;
 
     public Login() {
-        if (this.registerUsername != null) {
+        //sets the username if the user just registered an account
+        if (Login.registerUsername != null) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    tfUsername.setText(registerUsername);
+                    tfUsername.setText(Login.registerUsername);
                     tfPassword.requestFocus();
                 }
             });
@@ -52,13 +53,29 @@ public class Login extends BasicScene {
 
     public void btnLoginClick(Event e) {
         try {
-            if (!tfUsername.getText().isEmpty() && !tfPassword.getText().isEmpty()) {
-                if (DBConnect.getInstance() != null) {
-                    if (DBConnect.getInstance().doUserLogin(tfUsername.getText(), tfPassword.getText())) {
-                        Account a = DBConnect.getInstance().getAccount(tfUsername.getText());
-                        ClientAdministration.getInstance().setAccount(new Account(tfUsername.getText(), tfPassword.getText(), null));
+            String username = this.tfUsername.getText();
+            String password = this.tfPassword.getText();
 
-                        SoundManager.getInstance().playMenuMusic();
+            if (!username.isEmpty() && !password.isEmpty()) {
+                if (DBConnect.getInstance() != null) {
+                    if (DBConnect.getInstance().doUserLogin(username, password)) {
+                        Account a = DBConnect.getInstance().getAccount(username);
+
+                        s3proftaak.Client.Settings settings = DBConnect.getInstance().getSettings(username);
+
+                        if (settings != null) {
+                            a.setSettings(settings);
+                            ClientAdministration.getInstance().setAccount(new Account(username, password, settings));
+                            if (!settings.isSoundMute()) {
+                                SoundManager.getInstance().playMenuMusic();
+                            }
+                            if (settings.isFullscreen()) {
+                                //implement fullscreen
+                            }
+                        } else {
+                            ClientAdministration.getInstance().setAccount(new Account(username, password, null));
+                            SoundManager.getInstance().playMenuMusic();
+                        }
 
                         changeScreen(ClientAdministration.Screens.Menu);
                     } else {
@@ -80,7 +97,7 @@ public class Login extends BasicScene {
     }
 
     //sets the username if the user just registered an account
-    public static void EnterUsername(String Username) {
-        registerUsername = Username;
+    public static void EnterUsername(String username) {
+        Login.registerUsername = username;
     }
 }

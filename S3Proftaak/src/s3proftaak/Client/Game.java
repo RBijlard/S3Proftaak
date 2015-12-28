@@ -214,7 +214,9 @@ public class Game extends BasicGame {
         // set current Time to 0
         this.currentTime = 0;
 
-        SoundManager.getInstance().playMusic();
+        if (!ClientAdministration.getInstance().getAccount().getSettings().isSoundMute()) {
+            SoundManager.getInstance().playMusic();
+        }
 
         this.startTime = System.currentTimeMillis();
 
@@ -293,10 +295,10 @@ public class Game extends BasicGame {
     public void render(GameContainer gc, Graphics grphcs) throws SlickException {
         //scaling the game to your resolution
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
-        
+
         //set background color
         grphcs.setBackground(new Color(0, 191, 255));
-        
+
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
             grphcs.draw(go.getRect());
@@ -319,11 +321,11 @@ public class Game extends BasicGame {
         grphcs.setColor(Color.white);
         grphcs.setFont(this.slickFontTimer);
         grphcs.drawString(("Time: " + strDate), 50, 50);
-        
+
         //render star image
         grphcs.drawImage(ResourceManager.Images.STAR.getImage(), 40, 90);
         grphcs.drawString(Stars, 100, 100);
-        
+
         //Waiting for other players
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";
@@ -417,7 +419,10 @@ public class Game extends BasicGame {
             }
 
             ClientAdministration.getInstance().stopGame(null);
-            SoundManager.getInstance().playMenuMusic();
+
+            if (!ClientAdministration.getInstance().getAccount().getSettings().isSoundMute()) {
+                SoundManager.getInstance().playMenuMusic();
+            }
         }
     }
 

@@ -79,6 +79,7 @@ public class ClientAdministration extends Application {
     }
 
     public enum Screens {
+
         Login,
         Menu,
         Settings,
@@ -184,12 +185,12 @@ public class ClientAdministration extends Application {
     public void stopGame() {
         stopGame(null);
     }
-    
-    public void stopGame(String reason){
+
+    public void stopGame(String reason) {
         getApp().exit();
         this.game = null;
-        
-        if (reason != null){
+
+        if (reason != null) {
             JOptionPane.showMessageDialog(null, reason.isEmpty() ? "Connection lost." : reason, "Failed.", 1);
         }
     }
