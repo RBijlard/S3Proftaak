@@ -8,7 +8,6 @@ package s3proftaak.Client.Visuals;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -40,7 +39,7 @@ public class Register extends BasicScene {
     @FXML
     Button btnRegister;
 
-    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    private final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     public void btnRegisterClick(Event e) {
         try {
@@ -94,8 +93,7 @@ public class Register extends BasicScene {
     }
 
     //Valedates the email address on the right characters
-    public static boolean validate(String emailStr) {
-        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
-        return matcher.find();
+    private boolean validate(String emailStr) {
+        return VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr).find();
     }
 }
