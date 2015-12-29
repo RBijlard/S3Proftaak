@@ -36,21 +36,6 @@ public class Login extends BasicScene {
     @FXML
     Button btnRegister;
 
-    private static String registerUsername = null;
-
-    public Login() {
-        //sets the username if the user just registered an account
-        if (Login.registerUsername != null) {
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    tfUsername.setText(Login.registerUsername);
-                    tfPassword.requestFocus();
-                }
-            });
-        }
-    }
-
     public void btnLoginClick(Event e) {
         try {
             String username = this.tfUsername.getText();
@@ -97,7 +82,13 @@ public class Login extends BasicScene {
     }
 
     //sets the username if the user just registered an account
-    public static void EnterUsername(String username) {
-        Login.registerUsername = username;
+    public void enterUsername(String username) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                tfUsername.setText(username);
+                tfPassword.requestFocus();
+            }
+        });
     }
 }
