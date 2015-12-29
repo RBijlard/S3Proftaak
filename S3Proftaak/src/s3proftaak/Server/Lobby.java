@@ -61,6 +61,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             max = amount;
 
             publisher.inform(this, "Level", null, this.level = level);
+            ServerAdministration.getInstance().informLobbyListMembers();
         }
     }
 
@@ -105,6 +106,8 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             if (!players.isEmpty()) {
                 publisher.inform(this, "Players", null, players);
             }
+            
+            ServerAdministration.getInstance().informLobbyListMembers();
         }
     }
 

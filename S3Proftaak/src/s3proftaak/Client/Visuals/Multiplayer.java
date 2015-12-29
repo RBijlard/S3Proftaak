@@ -115,8 +115,8 @@ public class Multiplayer extends BasicScene {
 
     public void updateList(List<ILobby> lobbies) {
         // The line below prevents: 'java.lang.IllegalStateException: Toolkit not initialized'
-        new JFXPanel();
-
+        //new JFXPanel();
+        
         Platform.runLater(new Runnable() {
 
             @Override

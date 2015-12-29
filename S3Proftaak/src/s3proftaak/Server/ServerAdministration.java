@@ -81,7 +81,7 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         return tempLobbies;
     }
 
-    private void informLobbyListMembers() {
+    public void informLobbyListMembers() {
         this.publisher.inform(this, "LobbyList", null, getLobbiesInLobby());
     }
 }
