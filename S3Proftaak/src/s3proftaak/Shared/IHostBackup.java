@@ -31,8 +31,6 @@ public interface IHostBackup extends Remote, RemotePublisher {
 
     public void loadedGame(String username) throws RemoteException;
 
-    public String getName() throws RemoteException;
-
     public void stopGame() throws RemoteException;
 
     public void restartGame() throws RemoteException;

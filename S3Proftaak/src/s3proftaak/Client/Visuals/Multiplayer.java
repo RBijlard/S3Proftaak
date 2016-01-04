@@ -42,6 +42,7 @@ public class Multiplayer extends BasicScene {
     Button btnJoin;
 
     public Multiplayer() {
+      
         try {
             this.setListener(new MultiplayerListener(this));
             this.getListener().startListening();
@@ -67,7 +68,7 @@ public class Multiplayer extends BasicScene {
                 if (tableLobbies != null) {
                     tableLobbies.getColumns().addAll(name, level, players);
                     try {
-                        tableLobbies.setItems(FXCollections.observableArrayList(RMIClient.getServerAdministration().getLobbies()));
+                        tableLobbies.setItems(FXCollections.observableArrayList(RMIClient.getInstance().getServerAdministration().getLobbies()));
                     } catch (RemoteException ex) {
                         JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
                     }

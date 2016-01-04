@@ -5,6 +5,7 @@
  */
 package s3proftaak.Host;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
@@ -26,11 +27,15 @@ import s3proftaak.util.CustomException;
  */
 public class HostBackup extends UnicastRemoteObject implements IHostBackup {
 
+    private static Remote getInstance() {
+        return instance;
+    }
+
     private final List<Player> players = new ArrayList<>();
-    private final String name;
     private int max;
     private final BasicPublisher publisher;
     private String level = "";
+    private static HostBackup instance;
     private String currentHost;
     private LobbyState state = LobbyState.Waiting;
 
@@ -41,18 +46,18 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup {
         Playing; // Playing.
     }
 
-    public HostBackup(String ipAddress, String lobbyname) throws RemoteException {
-        
+    public HostBackup(String ipAddress) throws RemoteException {
+        instance = (HostBackup)this;
         try {
             //new ServerAdministration();
-            LocateRegistry.createRegistry(1099).rebind("HostGame", ServerAdministration.getInstance());
+            LocateRegistry.createRegistry(1098).rebind("HostGame", HostBackup.getInstance());
             System.out.println("Host is online at: '" + ipAddress + "'.");
+            System.out.println("Using port: 1098");
 
         } catch (RemoteException ex) {
             System.out.println("Server is offline. \n" + ex);
         }
         
-        this.name = lobbyname;
         this.max = 1;
         this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }
@@ -125,11 +130,6 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup {
     @Override
     public String getAmountOfPlayers() {
         return this.players.size() + "/" + this.max;
-    }
-
-    @Override
-    public String getName() {
-        return this.name;
     }
 
     @Override

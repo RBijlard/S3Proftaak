@@ -36,7 +36,7 @@ public class CreateLobby extends BasicScene {
         if (txtLobbyName != null) {
             if (!txtLobbyName.getText().isEmpty()) {
                 try {
-                    ILobby tempLobby = RMIClient.getServerAdministration().createLobby(txtLobbyName.getText());
+                    ILobby tempLobby = RMIClient.getInstance().getServerAdministration().createLobby(txtLobbyName.getText());
                     tempLobby.addPlayer(ClientAdministration.getInstance().getAccount().getUsername(), ClientAdministration.getInstance().getAccount().getIp());
                     ClientAdministration.getInstance().setCurrentLobby(tempLobby);
                     changeScreen(ClientAdministration.Screens.Lobby);

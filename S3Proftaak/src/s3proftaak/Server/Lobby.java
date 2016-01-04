@@ -266,7 +266,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                         }
 
                         state = LobbyState.Loading;
-                        publisher.inform(this,"Administrative", "ipAddress", "ip van de host");
+                        publisher.inform(this,"Administrative", "ipAddress", this.getPlayer(this.currentHost).getIpAddress());
                         publisher.inform(this, "Administrative", "StartGame", level);
                     }
                 }

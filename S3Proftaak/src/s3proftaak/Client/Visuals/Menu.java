@@ -10,8 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javax.swing.JOptionPane;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.RMIClient;
 
 /**
  *
@@ -19,20 +21,34 @@ import static s3proftaak.Client.ClientAdministration.changeScreen;
  */
 public class Menu extends BasicScene {
 
-    @FXML Button btnSingleplayer;
-    @FXML Button btnMultiplayer;
-    @FXML Button btnSettings;
-    @FXML Button btnHighscores;
-    @FXML Button btnQuit;
-    @FXML Label lblTitle;
-    @FXML GridPane grid;
+    @FXML
+    Button btnSingleplayer;
+    @FXML
+    Button btnMultiplayer;
+    @FXML
+    Button btnSettings;
+    @FXML
+    Button btnHighscores;
+    @FXML
+    Button btnQuit;
+    @FXML
+    Label lblTitle;
+    @FXML
+    GridPane grid;
 
     public void btnSingleplayerClick(Event e) {
         changeScreen(ClientAdministration.Screens.Singleplayer);
     }
 
     public void btnMultiplayerClick(Event e) {
-        changeScreen(ClientAdministration.Screens.Multiplayer);
+
+        new RMIClient("145.93.40.144", 1099);
+
+        if (RMIClient.getInstance() != null) {
+            changeScreen(ClientAdministration.Screens.Multiplayer);
+        } else {
+            JOptionPane.showMessageDialog(null, "Connection unsuccessfull!", "Connection Error", 0);
+        }
     }
 
     public void btnSettingsClick(Event e) {

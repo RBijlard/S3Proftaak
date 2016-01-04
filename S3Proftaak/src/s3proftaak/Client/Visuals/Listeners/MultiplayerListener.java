@@ -21,34 +21,37 @@ import s3proftaak.Shared.ILobby;
 public class MultiplayerListener extends BasicListener {
 
     private final Multiplayer multiplayerScreen;
-    
+
     public MultiplayerListener(Multiplayer multiplayerScreen) throws RemoteException {
         this.multiplayerScreen = multiplayerScreen;
     }
-    
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         multiplayerScreen.updateList((List<ILobby>) evt.getNewValue());
     }
-    
+
     @Override
-    public void startListening(){
+    public void startListening() {
         try {
             String username = ClientAdministration.getInstance().getAccount().getUsername();
+
+            System.out.println(RMIClient.getInstance());
+            System.out.println(RMIClient.getInstance().getServerAdministration());
             
-            RMIClient.getServerAdministration().addListener(username, this, "LobbyList");
+            RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
     }
-    
+
     @Override
-    public void stopListening(){
+    public void stopListening() {
         try {
-            RMIClient.getServerAdministration().removeListener(this, "LobbyList");
+            RMIClient.getInstance().getServerAdministration().removeListener(this, "LobbyList");
         } catch (RemoteException ex) {
             JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
         }
     }
-    
+
 }

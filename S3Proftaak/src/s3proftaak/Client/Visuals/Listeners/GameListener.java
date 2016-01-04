@@ -97,8 +97,13 @@ public class GameListener extends BasicListener {
 
             String username = ClientAdministration.getInstance().getAccount().getUsername();
 
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Rect");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Objects");
+//            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Rect");
+//            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Objects");
+            
+            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Rect");
+            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
+            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
+            
         } catch (RemoteException ex) {
             ClientAdministration.getInstance().stopGame("");
         }
@@ -113,8 +118,9 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
 
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Rect");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Objects");
+            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Rect");
+            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Objects");
+            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Chat");
 
         } catch (RemoteException ex) {
             ClientAdministration.getInstance().stopGame("");

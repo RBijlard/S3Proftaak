@@ -2,15 +2,23 @@ package s3proftaak.Client.Visuals.Listeners;
 
 import s3proftaak.Shared.IMessage;
 import java.beans.PropertyChangeEvent;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javax.swing.JOptionPane;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.Visuals.Lobby;
+import s3proftaak.Host.HostBackup;
+import s3proftaak.Shared.IHostBackup;
 import s3proftaak.Shared.IPlayer;
+import s3proftaak.Shared.IServer;
 
 /**
  *
@@ -37,13 +45,41 @@ public class LobbyListener extends BasicListener {
                     try {
                         ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
 
-                        
-                        
                         gameListener = new GameListener();
                         gameListener.startListening();
 
                     } catch (RemoteException ex) {
                         ClientAdministration.getInstance().stopGame("");
+                    }
+                } 
+                
+                if(evt.getOldValue().toString().equals("ipAddress")){
+                    String hostip = evt.getNewValue().toString();
+                    if(hostip.equals(ClientAdministration.getInstance().getAccount().getIp())){
+                        try {
+                            //CREATE HOST
+                            new HostBackup(hostip);
+                        } catch (RemoteException ex) {
+                            Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    } else {
+                        try {
+                            Registry registry = LocateRegistry.getRegistry(hostip, 1098);
+
+                            if (registry != null) {
+                                IHostBackup hb = (IHostBackup) registry.lookup("HostGame");
+                                if (hb == null) {
+                                    System.out.println("Client failed to connect to the Server. (Lookup failed)");
+                                } else {
+                                    ClientAdministration.getInstance().setHostbackup(hb);
+                                }
+                            } else {
+                                System.out.println("Client failed to connect to the Server. (Locate registry failed)");
+                            }
+
+                        } catch (RemoteException | NotBoundException ex) {
+                            System.out.println("Client failed to connect to the Server. \n" + ex);
+                        }
                     }
                 }
 

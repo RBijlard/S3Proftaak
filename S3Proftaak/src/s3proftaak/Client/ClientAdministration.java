@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
+import s3proftaak.Shared.IHostBackup;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -35,6 +36,7 @@ public class ClientAdministration extends Application {
     private Game game;
     private Account account;
     private ILobby currentLobby;
+    private IHostBackup hostbackup;
 
     private BasicScene currentScreen;
 
@@ -70,6 +72,14 @@ public class ClientAdministration extends Application {
         primaryStage.setScene(s.newInstance().getScene());
     }
 
+    public IHostBackup getHostbackup() {
+        return hostbackup;
+    }
+
+    public void setHostbackup(IHostBackup hostbackup) {
+        this.hostbackup = hostbackup;
+    }
+    
     public BasicScene getCurrentScreen() {
         return currentScreen;
     }
