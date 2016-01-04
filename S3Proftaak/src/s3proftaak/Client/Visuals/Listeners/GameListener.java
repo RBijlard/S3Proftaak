@@ -102,7 +102,7 @@ public class GameListener extends BasicListener {
             
             ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Rect");
             ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
-            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
+            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Chat");
             
         } catch (RemoteException ex) {
             ClientAdministration.getInstance().stopGame("");

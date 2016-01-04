@@ -103,23 +103,23 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup {
 
     @Override
     public void updatePlayer(String username, PlayerPosition pp) {
-        if (hasStarted()) {
+        //if (hasStarted()) {
             publisher.inform(this, "Rect", username, pp);
-        }
+        //}
     }
 
     @Override
     public void updateObject(int id, boolean state) throws RemoteException {
-        if (hasStarted()) {
+        //if (hasStarted()) {
             publisher.inform(this, "Objects", id, state);
-        }
+        //}
     }
 
     @Override
     public void updateMoveableObject(int id, int dx) throws RemoteException {
-        if (hasStarted()) {
+        //if (hasStarted()) {
             publisher.inform(this, "Objects", id, dx);
-        }
+        //}
     }
 
     @Override
@@ -141,6 +141,7 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup {
 
     @Override
     public void addListener(String username, RemotePropertyListener listener, String property) throws RemoteException {
+        System.out.println("username added to listeners:  " + username + ", to property:  " + property);
         publisher.addListener(username, listener, property);
     }
 
