@@ -118,6 +118,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 Game game = ClientAdministration.getInstance().getGame();
 
                 if (game.isTextFieldEnabled()) {
+                    game.sendTextFieldMessage();
                     game.isTextFieldEnabled(false);
                 } else {
                     game.isTextFieldEnabled(true);
