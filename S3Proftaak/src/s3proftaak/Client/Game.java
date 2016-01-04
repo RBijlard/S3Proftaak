@@ -34,7 +34,6 @@ import s3proftaak.Client.GameObjects.Spike;
 import s3proftaak.Client.GameObjects.Star;
 import s3proftaak.Client.GameObjects.Weight;
 import s3proftaak.Client.SoundManager.Sounds;
-import s3proftaak.Shared.IMessage;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -77,9 +76,10 @@ public class Game extends BasicGame {
 
     private int objectId = 0;
 
+    //ingame chat
     private TextField textField;
-
     private boolean textFieldEnabled;
+    private InGameMessage inGameMessage;
 
     public Game(String title, int amountOfPlayers, String mapname, List<String> names) {
         super(title);
@@ -115,6 +115,9 @@ public class Game extends BasicGame {
         //set textFieldEnabled to false
         this.textFieldEnabled = false;
 
+        //set IngameMessage
+        inGameMessage = new InGameMessage();
+        
         //set stars
         this.starsCollected = 0;
 
@@ -505,11 +508,15 @@ public class Game extends BasicGame {
 
         if (!this.textField.getText().isEmpty()) {
             try {
-                ClientAdministration.getInstance().getCurrentLobby().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), this.textField.getText()));
+                ClientAdministration.getInstance().getHostbackup().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), this.textField.getText()));
                 this.isTextFieldEnabled(false);
             } catch (RemoteException ex) {
                 JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
             }
         }
+    }
+    
+    public InGameMessage getInGameMessage(){
+        return this.inGameMessage;
     }
 }

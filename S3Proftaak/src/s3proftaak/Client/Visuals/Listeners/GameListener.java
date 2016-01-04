@@ -12,6 +12,7 @@ import s3proftaak.Client.Game;
 import s3proftaak.Client.GameObjects.GameObject;
 import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Client.GameObjects.MoveableBlock;
+import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.PlayerPosition;
 
 /**
@@ -81,6 +82,9 @@ public class GameListener extends BasicListener {
                             }
                         }
 
+                        break;
+                    case "Chat":
+                        ClientAdministration.getInstance().getGame().getInGameMessage().addMessage((IMessage) evt.getNewValue());
                         break;
                 }
             }
