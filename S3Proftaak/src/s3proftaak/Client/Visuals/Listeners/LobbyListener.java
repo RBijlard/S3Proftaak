@@ -79,6 +79,7 @@ public class LobbyListener extends BasicListener {
                             if (hb == null) {
                                 System.out.println("Client failed to connect to the HOST. (Lookup failed)");
                             } else {
+                                System.out.println("SETTING HOST -- ip: " + hostip);
                                 ClientAdministration.getInstance().setHostbackup(hb);
                             }
                         } else {
