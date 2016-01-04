@@ -24,25 +24,33 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
 
     @Override
     public void update(GameContainer gc) {
-        for (int a = 0; a < 5; a++) {
-            if (dx != 0) {
-                if (!this.isColliding(gc)) {
-                    this.getRect().setX(this.getRect().getX() + dx);
-                }
-                dx = 0;
-            }
-        }
+        
+        ///ALTERED BY BERRY
+        
+//        for (int a = 0; a < 5; a++) {
+//            if (dx != 0) {
+//                if (!this.isColliding(gc)) {
+//                    this.getRect().setX(this.getRect().getX() + dx);
+//                }
+//                dx = 0;
+//            }
+//        }
 
+        if (!this.isColliding(gc)) {
+            this.getRect().setX(this.getRect().getX() + dx);
+        }
+        
+        ///END
+        
         boolean verticalCollision = false;
         for (GameObject go : ClientAdministration.getInstance().getGame().getGameObjects()) {
             if (go != this) {
                 if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && !((go instanceof Spike) || (go instanceof Button))) {
                     verticalCollision = true;
-                }
-                else if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && (go instanceof Button)){
+                } else if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && (go instanceof Button)) {
                     if (!((Button) go).isActive()) {
                         ((Button) go).setActive(true);
-                    }                    
+                    }
                     verticalCollision = true;
                 }
             }
@@ -70,8 +78,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
                         if (this.getRect().getMaxY() != go.getRect().getMinY()) {
                             return true;
                         }
-                    } else
-                    if (go instanceof GameObject) {
+                    } else if (go instanceof GameObject) {
                         return true;
                     }
                 }
@@ -92,5 +99,5 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     public String toString() {
         return super.toString() + " -- MOVEABLEBLOCK";
     }
-    
+
 }

@@ -6,6 +6,7 @@
 package s3proftaak.Shared;
 
 import java.rmi.RemoteException;
+import s3proftaak.fontys.RemotePropertyListener;
 import s3proftaak.fontys.RemotePublisher;
 
 /**

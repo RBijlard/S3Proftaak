@@ -66,6 +66,15 @@ public class GameListener extends BasicListener {
                         if (go != null) {
                             if (go instanceof MoveableBlock) {
                                 ((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
+
+                                ///ALTERED BY BERRY
+                                
+//                                for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+//                                    offset = (int) c.getOffsetX();
+//                                    ((MoveableBlock) go).getRect().setX(Integer.parseInt(evt.getNewValue().toString()) - offset);
+//                                }
+
+                                ///END
                             }
 
                             if (go instanceof IRemoteUpdatable) {
@@ -87,7 +96,7 @@ public class GameListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
 
             String username = ClientAdministration.getInstance().getAccount().getUsername();
-            
+
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Rect");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Objects");
         } catch (RemoteException ex) {
@@ -99,7 +108,7 @@ public class GameListener extends BasicListener {
     public void stopListening() {
         try {
             String username = ClientAdministration.getInstance().getAccount().getUsername();
-            
+
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");

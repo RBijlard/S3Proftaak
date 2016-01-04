@@ -96,7 +96,7 @@ public class Multiplayer extends BasicScene {
 
         if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null) {
             try {
-                ((ILobby) tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getInstance().getAccount().getUsername());
+                ((ILobby) tableLobbies.getSelectionModel().getSelectedItem()).addPlayer(ClientAdministration.getInstance().getAccount().getUsername(), ClientAdministration.getInstance().getAccount().getIp());
                 ClientAdministration.getInstance().setCurrentLobby((ILobby) tableLobbies.getSelectionModel().getSelectedItem());
                 changeScreen(ClientAdministration.Screens.Lobby);
             } catch (CustomException ex) {

@@ -174,13 +174,13 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     }
 
     @Override
-    public void addPlayer(String username) throws RemoteException, CustomException {
+    public void addPlayer(String username, String ipAddress) throws RemoteException, CustomException {
 
         if (!hasStarted()) {
             if (username != null && !username.isEmpty()) {
                 if (players.size() < max) {
                     if (!getNames().contains(username)) {
-                        Player tempPlayer = new Player(username);
+                        Player tempPlayer = new Player(username, ipAddress);
                         if (players.add(tempPlayer)) {
                             tempPlayer.setCurrentLobby(this);
                             updatePlayers();
@@ -266,6 +266,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                         }
 
                         state = LobbyState.Loading;
+                        publisher.inform(this,"Administrative", "ipAddress", "ip van de host");
                         publisher.inform(this, "Administrative", "StartGame", level);
                     }
                 }

@@ -46,12 +46,10 @@ public class RMIServer {
                         break;
                     }
                 }
-                System.setProperty("java.rmi.server.hostname", "localhost");
-                ip = "localhost";
             }
         } catch (Exception ex) {
         }
-
+        
         if (ip != null) {
             new RMIServer();
         } else {

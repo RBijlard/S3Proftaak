@@ -15,12 +15,18 @@ import s3proftaak.Shared.IPlayer;
  */
 public class Player extends UnicastRemoteObject implements IPlayer {
     
-    private final String name;
+    private final String name, ipAddress;
     private boolean ready;
     private Lobby currentLobby;
 
-    public Player(String name) throws RemoteException {
+    public Player(String name, String ipAddress) throws RemoteException {
         this.name = name;
+        this.ipAddress = ipAddress;
+    }
+
+    @Override
+    public String getIpAddress() {
+        return ipAddress;
     }
 
     @Override

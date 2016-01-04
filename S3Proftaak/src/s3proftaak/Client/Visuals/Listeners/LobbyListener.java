@@ -37,6 +37,8 @@ public class LobbyListener extends BasicListener {
                     try {
                         ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
 
+                        
+                        
                         gameListener = new GameListener();
                         gameListener.startListening();
 

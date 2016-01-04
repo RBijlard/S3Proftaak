@@ -78,7 +78,8 @@ public class RMIClient {
             System.out.println(ex);
         }
 
-        new RMIClient("localhost", 1099);
+        //System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+        new RMIClient("145.93.40.144", 1099);
     }
 
     public static IServer getServerAdministration() {
