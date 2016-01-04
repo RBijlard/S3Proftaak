@@ -132,30 +132,36 @@ public class BasicPublisher {
         List<RemotePropertyListener> tempListeners = new ArrayList<>();
         List<RemotePropertyListener> tempAlertable = new ArrayList<>();
         tempAlertable.addAll(alertable);
-        
+
         try {
             for (RemotePropertyListener listener : tempAlertable) {
 
-                PropertyChangeEvent evt = new PropertyChangeEvent(
-                        source, property, oldValue, newValue);
-                try {
-                    listener.propertyChange(evt);
-                } catch (RemoteException ex) {
+                new Thread(new Runnable() {
 
-                    // Remove player from current game
-                    String playerName = namesTable.get(listener);
-                    if (playerName != null && !playerName.isEmpty()) {
-                        for (Lobby l : ServerAdministration.getInstance().getLocalLobbies()) {
+                    @Override
+                    public void run() {
+                        PropertyChangeEvent evt = new PropertyChangeEvent(
+                                source, property, oldValue, newValue);
+                        try {
+                            listener.propertyChange(evt);
+                        } catch (RemoteException ex) {
 
-                            Player p = l.getPlayer(playerName);
-                            if (p != null){
-                                l.kickPlayer(playerName);
+                            // Remove player from current game
+                            String playerName = namesTable.get(listener);
+                            if (playerName != null && !playerName.isEmpty()) {
+                                for (Lobby l : ServerAdministration.getInstance().getLocalLobbies()) {
+
+                                    Player p = l.getPlayer(playerName);
+                                    if (p != null) {
+                                        l.kickPlayer(playerName);
+                                    }
+                                }
                             }
+
+                            tempListeners.add(listener);
                         }
                     }
-
-                    tempListeners.add(listener);
-                }
+                }).start();
 
             }
         } catch (Exception ex) {
