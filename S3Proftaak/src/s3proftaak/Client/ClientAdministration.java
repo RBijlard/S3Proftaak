@@ -8,6 +8,8 @@ package s3proftaak.Client;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -70,6 +72,11 @@ public class ClientAdministration extends Application {
         }
 
         primaryStage.setScene(s.newInstance().getScene());
+        try {
+            primaryStage.getScene().getStylesheets().add(new URL(getInstance().getClass().getResource("/Resources/Visuals/style.css").toExternalForm()).toString());
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     public IHostBackup getHostbackup() {
