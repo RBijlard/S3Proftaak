@@ -113,6 +113,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
 
+        if (game.isMultiplayer()) {
+            if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
+                Game game = ClientAdministration.getInstance().getGame();
+
+                if (game.isTextFieldEnabled()) {
+                    game.isTextFieldEnabled(false);
+                } else {
+                    game.isTextFieldEnabled(true);
+                }
+            }
+        }
+
         if (game.isMultiplayer() && isControllabe) {
             PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, isCrouching);
 
@@ -288,7 +300,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             if (!game.isMultiplayer()) {
                                 ((MoveableBlock) go).setDx(i);
                             }
-                            
+
                             ///ALTERED BY BERRY
 //                            ((MoveableBlock) go).setDx(i);
 //                            try {
@@ -297,8 +309,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 //                                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
 //                            }
                             ///END
-                            
-
                         }
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
 
@@ -329,7 +339,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             }
                         }
                         return true;
-                    } else if (go instanceof Lever && gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
+                    } else if (go instanceof Lever && gc.getInput().isKeyPressed(Input.KEY_E)) {
                         if (!((Lever) go).isActive()) {
                             ((Lever) go).setActive(true);
                         } else {

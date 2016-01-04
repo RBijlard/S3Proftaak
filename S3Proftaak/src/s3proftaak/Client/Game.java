@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -21,6 +22,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.tiled.TiledMap;
 import s3proftaak.Client.GameObjects.Interfaces.IPressable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
@@ -32,6 +34,7 @@ import s3proftaak.Client.GameObjects.Spike;
 import s3proftaak.Client.GameObjects.Star;
 import s3proftaak.Client.GameObjects.Weight;
 import s3proftaak.Client.SoundManager.Sounds;
+import s3proftaak.Shared.IMessage;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -74,6 +77,10 @@ public class Game extends BasicGame {
 
     private int objectId = 0;
 
+    private TextField textField;
+
+    private boolean textFieldEnabled;
+
     public Game(String title, int amountOfPlayers, String mapname, List<String> names) {
         super(title);
 
@@ -99,14 +106,20 @@ public class Game extends BasicGame {
             image.reloadImage();
         }
 
-        //set stars
-        this.starsCollected = 0;
-
         //Set Fonts
         this.objectId = 0;
 
         this.slickFontTimer = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 40), false);
         this.slickFontUserName = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 18), false);
+
+        //set textFieldEnabled to false
+        this.textFieldEnabled = false;
+
+        //set stars
+        this.starsCollected = 0;
+
+        //set Textfield
+        this.textField = new TextField(gc, slickFontTimer, gc.getScreenWidth(), gc.getScreenHeight(), 500, 50);
 
         //play deathsound
         SoundManager.getInstance().playDeathSound();
@@ -326,6 +339,12 @@ public class Game extends BasicGame {
         grphcs.drawImage(ResourceManager.Images.STAR.getImage(), 40, 90);
         grphcs.drawString(Stars, 100, 100);
 
+        //render TextField
+        if (this.isTextFieldEnabled()) {
+            this.textField.render(gc, grphcs);
+            this.textField.setFocus(true);
+        }
+
         //Waiting for other players
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";
@@ -471,5 +490,26 @@ public class Game extends BasicGame {
 
     public void removeGameObject(GameObject go) {
         this.removableGameObjects.add(go);
+    }
+
+    public void isTextFieldEnabled(boolean input) {
+        this.textFieldEnabled = input;
+        this.textField.setText("");
+    }
+
+    public boolean isTextFieldEnabled() {
+        return this.textFieldEnabled;
+    }
+
+    public void sendTextFieldMessage() {
+
+        if (!this.textField.getText().isEmpty()) {
+            try {
+                ClientAdministration.getInstance().getCurrentLobby().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), this.textField.getText()));
+                this.isTextFieldEnabled(false);
+            } catch (RemoteException ex) {
+                JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            }
+        }
     }
 }
