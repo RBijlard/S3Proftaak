@@ -133,14 +133,12 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void moveHorizontalMap(GameContainer gc) {
-
         this.offSetX = 0 - MLO.getRect().getX();
         //Move horizontal with arrow keys
-        Input input = gc.getInput();
-        if (input.isKeyDown(Input.KEY_LEFT)) {
+        if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             //move map right -> x minus speed
             this.vX = this.speed;
-        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
+        } else if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             //move map left -> x plus speed
             this.vX = -this.speed;
         } else {
@@ -168,32 +166,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public float getOffsetX() {
         return this.offSetX - this.marginx;
-    }
-
-    public void moveHorizontal(GameContainer gc) {
-        //move with arrow keys
-        Input input = gc.getInput();
-        if (input.isKeyDown(Input.KEY_LEFT)) {
-            //move leftt -> x min
-            this.vX = -this.speed;
-        } else if (input.isKeyDown(Input.KEY_RIGHT)) {
-            //move right -> x plus
-            this.vX = this.speed;
-        } else {
-            this.vX = 0;
-        }
-
-        //check for collision in 5 small steps for higher precision
-        float vXtemp = this.vX / this.interations;
-        for (int i = 0; i < this.interations; i++) {
-            //ipv setx -> render map
-            this.getRect().setX(this.getRect().getX() + vXtemp);
-            if (this.isColliding(gc)) {
-                //ipv setx -> render map 
-                this.getRect().setX(this.getRect().getX() - vXtemp);
-                this.vX = 0;
-            }
-        }
     }
 
     public void moveVertical(GameContainer gc) {
@@ -489,7 +461,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void setIsCrouching(boolean isCrouching) {
-        //this.isCrouching = isCrouching;
         this.multicrouch = isCrouching;
     }
 
