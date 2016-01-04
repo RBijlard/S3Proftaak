@@ -20,6 +20,8 @@ public class RMIClient {
 
     // Constructor
     public RMIClient() {
+        System.out.println("Starting client.");
+        
         try {
             Enumeration e = NetworkInterface.getNetworkInterfaces();
             while (e.hasMoreElements()) {
@@ -35,7 +37,7 @@ public class RMIClient {
                 }
             }
         } catch (SocketException ex) {
-            System.out.println(ex);
+            System.out.println("Client failed to connect to the Server. \n" + ex);
             return;
         }
         
@@ -47,6 +49,7 @@ public class RMIClient {
         }
         
         instance = (RMIClient) this;
+        System.out.println("Client started.");
     }
 
     public static RMIClient getInstance() {

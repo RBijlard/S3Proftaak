@@ -6,9 +6,6 @@
 package s3proftaak.Client;
 
 import java.lang.reflect.Field;
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -20,8 +17,7 @@ import javafx.application.Application;
 public class ClientStart {
 
     public static void main(String[] args) {
-
-        System.out.println("Starting client.");
+        System.out.println("Starting application.");
 
         // Dynamisch path van Slick2D instellen
         System.setProperty("java.library.path", RMIClient.class.getResource("/Resources/Slick2D").getPath().replace("%20", " ").substring(1));
@@ -35,7 +31,7 @@ public class ClientStart {
         }
         // Path ingesteld
         
-        System.out.println("Client started.");
+        System.out.println("Application started.");
         Application.launch(ClientAdministration.class);
 
     }

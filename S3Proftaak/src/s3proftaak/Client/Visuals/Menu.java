@@ -47,7 +47,7 @@ public class Menu extends BasicScene {
         if (RMIClient.getInstance() != null) {
             changeScreen(ClientAdministration.Screens.Multiplayer);
         } else {
-            JOptionPane.showMessageDialog(null, "Connection unsuccessfull!", "Connection Error", 0);
+            JOptionPane.showMessageDialog(null, "Failed to connect to the Server. (Offline / Firewall?)", "Connection Error", 0);
         }
     }
 
