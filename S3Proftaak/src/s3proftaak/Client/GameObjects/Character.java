@@ -245,7 +245,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         } else {
             if (getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                 try {
-                    ClientAdministration.getInstance().getHostbackup().restartGame();
+                    ClientAdministration.getInstance().getCurrentLobby().restartGame();
                 } catch (RemoteException ex) {
                     ClientAdministration.getInstance().stopGame("");
                 }
@@ -350,7 +350,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 System.out.println("finish");
                                 ((Door) go).finish();
                                 try {
-                                    ClientAdministration.getInstance().getHostbackup().stopGame();
+                                    ClientAdministration.getInstance().getCurrentLobby().stopGame();
                                 } catch (RemoteException ex) {
                                     ClientAdministration.getInstance().stopGame("");
                                 }
