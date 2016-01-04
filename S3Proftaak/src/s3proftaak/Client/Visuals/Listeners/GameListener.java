@@ -65,15 +65,14 @@ public class GameListener extends BasicListener {
 
                         if (go != null) {
                             if (go instanceof MoveableBlock) {
+                                System.out.println("dx: " + Integer.parseInt(evt.getNewValue().toString()));
                                 ((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
 
                                 ///ALTERED BY BERRY
-                                
 //                                for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
 //                                    offset = (int) c.getOffsetX();
 //                                    ((MoveableBlock) go).getRect().setX(Integer.parseInt(evt.getNewValue().toString()) - offset);
 //                                }
-
                                 ///END
                             }
 
@@ -99,11 +98,10 @@ public class GameListener extends BasicListener {
 
 //            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Rect");
 //            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Objects");
-            
             ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Rect");
             ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
             ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Chat");
-            
+
         } catch (RemoteException ex) {
             ClientAdministration.getInstance().stopGame("");
         }

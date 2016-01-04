@@ -25,20 +25,15 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     @Override
     public void update(GameContainer gc) {
 
-        ///ALTERED BY BERRY
-//        for (int a = 0; a < 5; a++) {
-//            if (dx != 0) {
-//                if (!this.isColliding(gc)) {
-//                    this.getRect().setX(this.getRect().getX() + dx);
-//                }
-//                dx = 0;
-//            }
-//        }
-        if (!this.isColliding(gc)) {
-            this.getRect().setX(this.getRect().getX() + dx);
+        System.out.println("DX: " + dx);
+        for (int a = 0; a < 5; a++) {
+            if (dx != 0) {
+                if (!this.isColliding(gc)) {
+                    this.getRect().setX(this.getRect().getX() + (dx));
+                }
+                dx = 0;
+            }
         }
-        this.dx = 0;
-        ///END
 
         boolean verticalCollision = false;
         for (GameObject go : ClientAdministration.getInstance().getGame().getGameObjects()) {
