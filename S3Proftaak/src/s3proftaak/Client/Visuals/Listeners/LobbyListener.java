@@ -49,7 +49,7 @@ public class LobbyListener extends BasicListener {
                         gameListener.startListening();
 
                     } catch (RemoteException ex) {
-                        ClientAdministration.getInstance().stopGame("");
+                        ClientAdministration.getInstance().connectionLost();
                     }
                 }
 
@@ -64,7 +64,7 @@ public class LobbyListener extends BasicListener {
                                 ClientAdministration.getInstance().getCurrentLobby().hostReady();
                             }
                         } catch (RemoteException ex) {
-                            Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
+                            ClientAdministration.getInstance().connectionLost();
                         }
                     }
                 }
@@ -87,7 +87,8 @@ public class LobbyListener extends BasicListener {
                         }
 
                     } catch (RemoteException | NotBoundException ex) {
-                        System.out.println("Client failed to connect to the HOST. \n" + ex);
+                        // Omdat dit Host verbinding is zou dit anders kunnen afgevangen worden maar normaal RemoteException -> .connectionLost methode.
+                        ClientAdministration.getInstance().connectionLost();
                     }
 
                 }
@@ -103,7 +104,7 @@ public class LobbyListener extends BasicListener {
                 if (evt.getOldValue().toString().equals("StopGame")) {
                     gameListener.stopListening();
                     gameListener = null;
-                    ClientAdministration.getInstance().stopGame(null);
+                    ClientAdministration.getInstance().connectionLost();
                 }
 
                 if (evt.getOldValue().toString().equals("Kick")) {
@@ -152,7 +153,7 @@ public class LobbyListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            ClientAdministration.getInstance().connectionLost();
         }
     }
 
@@ -172,7 +173,7 @@ public class LobbyListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
 
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            ClientAdministration.getInstance().connectionLost();
         }
     }
 
@@ -188,7 +189,7 @@ public class LobbyListener extends BasicListener {
                 names.add(p.getName());
             }
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            ClientAdministration.getInstance().connectionLost();
         }
 
         return names;

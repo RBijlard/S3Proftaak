@@ -132,7 +132,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             try {
                 ClientAdministration.getInstance().getHostbackup().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
             } catch (RemoteException ex) {
-                ClientAdministration.getInstance().stopGame("");
+                ClientAdministration.getInstance().connectionLost();
             }
         }
     }
@@ -260,7 +260,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 try {
                     ClientAdministration.getInstance().getCurrentLobby().restartGame();
                 } catch (RemoteException ex) {
-                    ClientAdministration.getInstance().stopGame("");
+                    ClientAdministration.getInstance().connectionLost();
                 }
             }
         }
@@ -284,7 +284,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                     try {
                                         ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
                                     } catch (RemoteException ex) {
-                                        ClientAdministration.getInstance().stopGame("");
+                                        ClientAdministration.getInstance().connectionLost();
                                     }
                                 }
                             }
@@ -294,7 +294,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                     try {
                                         ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
                                     } catch (RemoteException ex) {
-                                        ClientAdministration.getInstance().stopGame("");
+                                        ClientAdministration.getInstance().connectionLost();
                                     }
                                 }
                             }
@@ -334,7 +334,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                     try {
                                         ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), true);
                                     } catch (RemoteException ex) {
-                                        ClientAdministration.getInstance().stopGame("");
+                                        ClientAdministration.getInstance().connectionLost();
                                     }
                                 }
                             }
@@ -351,7 +351,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             try {
                                 ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), ((Lever) go).isActive());
                             } catch (RemoteException ex) {
-                                ClientAdministration.getInstance().stopGame("");
+                                ClientAdministration.getInstance().connectionLost();
                             }
                         }
                     } else if (go instanceof Door) {
@@ -363,7 +363,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 try {
                                     ClientAdministration.getInstance().getCurrentLobby().stopGame();
                                 } catch (RemoteException ex) {
-                                    ClientAdministration.getInstance().stopGame("");
+                                    ClientAdministration.getInstance().connectionLost();
                                 }
                             }
                         }
@@ -375,7 +375,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 try {
                                     ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), false);
                                 } catch (RemoteException ex) {
-                                    ClientAdministration.getInstance().stopGame("");
+                                    ClientAdministration.getInstance().connectionLost();
                                 }
                             }
                         }

@@ -245,7 +245,7 @@ public class Game extends BasicGame {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().loadedGame(ClientAdministration.getInstance().getAccount().getUsername());
             } catch (RemoteException ex) {
-                ClientAdministration.getInstance().stopGame("");
+                ClientAdministration.getInstance().connectionLost();
             }
         }
     }
@@ -446,7 +446,7 @@ public class Game extends BasicGame {
                 Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            ClientAdministration.getInstance().stopGame(null);
+            ClientAdministration.getInstance().stopGame();
 
             if (!ClientAdministration.getInstance().getAccount().getSettings().isSoundMute()) {
                 SoundManager.getInstance().playMenuMusic();
@@ -474,7 +474,7 @@ public class Game extends BasicGame {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().closedGame();
             } catch (RemoteException ex) {
-                ClientAdministration.getInstance().stopGame("");
+                ClientAdministration.getInstance().connectionLost();
             }
         }
 
@@ -517,7 +517,7 @@ public class Game extends BasicGame {
                 ClientAdministration.getInstance().getHostbackup().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), this.textField.getText()));
                 this.isTextFieldEnabled(false);
             } catch (RemoteException ex) {
-                JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                ClientAdministration.getInstance().connectionLost();
             }
         }
     }

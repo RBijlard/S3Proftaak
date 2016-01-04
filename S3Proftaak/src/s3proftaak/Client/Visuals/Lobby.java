@@ -71,7 +71,7 @@ public final class Lobby extends BasicScene {
             this.setListener(new LobbyListener(this));
             this.getListener().startListening();
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            ClientAdministration.getInstance().connectionLost();
         }
 
         TableColumn readyCol = new TableColumn("Ready");
@@ -110,7 +110,7 @@ public final class Lobby extends BasicScene {
                             cbLevel.setValue(lvl.get(0));
                             currentlySelected = lvl.get(0);
                         } catch (RemoteException ex) {
-                            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                            ClientAdministration.getInstance().connectionLost();
                         }
                     }
 
@@ -136,7 +136,7 @@ public final class Lobby extends BasicScene {
                         });
                     }
                 } catch (RemoteException ex) {
-                    JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                    ClientAdministration.getInstance().connectionLost();
                 }
             }
         });
@@ -148,7 +148,7 @@ public final class Lobby extends BasicScene {
                 ClientAdministration.getInstance().getCurrentLobby().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), chatText.getText()));
                 chatText.setText("");
             } catch (RemoteException ex) {
-                JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                ClientAdministration.getInstance().connectionLost();
             }
         }
     }
@@ -160,7 +160,7 @@ public final class Lobby extends BasicScene {
                     try {
                         ClientAdministration.getInstance().getCurrentLobby().kickPlayer(((LocalPlayer) playerList.getSelectionModel().getSelectedItem()).getName());
                     } catch (RemoteException ex) {
-                        JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                        ClientAdministration.getInstance().connectionLost();
                     }
                 }
             }
@@ -171,7 +171,7 @@ public final class Lobby extends BasicScene {
         try {
             ClientAdministration.getInstance().getCurrentLobby().toggleReadyState(ClientAdministration.getInstance().getAccount().getUsername());
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            ClientAdministration.getInstance().connectionLost();
         }
     }
 
@@ -202,7 +202,7 @@ public final class Lobby extends BasicScene {
                     try {
                         tempPlayers.add(new LocalPlayer(p.getName(), p.isReady()));
                     } catch (RemoteException ex) {
-                        Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+                        ClientAdministration.getInstance().connectionLost();
                     }
                 }
                 playerList.setItems(FXCollections.observableArrayList(tempPlayers));
@@ -229,7 +229,7 @@ public final class Lobby extends BasicScene {
                         JOptionPane.showMessageDialog(null, "Too many players in the lobby for this map. (Kick some?)", "Failed.", 1);
                     }
                 } catch (RemoteException ex) {
-                    JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                    ClientAdministration.getInstance().connectionLost();
                 }
             }
         }
@@ -276,7 +276,7 @@ public final class Lobby extends BasicScene {
                                 lvl.add(ClientAdministration.getInstance().getCurrentLobby().getLevel());
                                 cbLevel.setItems(FXCollections.observableArrayList(lvl));
                             } catch (RemoteException ex) {
-                                JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                                ClientAdministration.getInstance().connectionLost();
                             }
                         }
                     }

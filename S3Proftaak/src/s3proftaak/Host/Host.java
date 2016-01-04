@@ -121,7 +121,7 @@ public class Host extends UnicastRemoteObject implements IHost {
                                 try {
                                     ClientAdministration.getInstance().getCurrentLobby().stopGame();
                                 } catch (RemoteException ex) {
-                                    ClientAdministration.getInstance().stopGame("");
+                                    ClientAdministration.getInstance().stopGame();
                                 }
                             }
                         }

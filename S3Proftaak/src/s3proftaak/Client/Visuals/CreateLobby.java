@@ -43,7 +43,7 @@ public class CreateLobby extends BasicScene {
                 } catch(CustomException ex){
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
                 } catch (RemoteException ex){
-                    JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+                    ClientAdministration.getInstance().connectionLost();
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Specify a lobby name.", "Failed.", 1);

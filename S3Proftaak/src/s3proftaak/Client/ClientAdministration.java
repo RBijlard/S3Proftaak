@@ -198,17 +198,25 @@ public class ClientAdministration extends Application {
             }
         }
     }
-
-    public void stopGame() {
-        stopGame(null);
-    }
-
-    public void stopGame(String reason) {
+    
+    public void stopGame(){
         getApp().exit();
         this.game = null;
+    }
+    
+    public void connectionLost(){
+        connectionLost("");
+    }
 
-        if (reason != null) {
+    public void connectionLost(String reason){
+        if (this.game != null){
+            this.stopGame();
+        }
+        
+        if (reason != null){
             JOptionPane.showMessageDialog(null, reason.isEmpty() ? "Connection lost." : reason, "Failed.", 1);
         }
+        
+        changeScreen(ClientAdministration.Screens.Menu);
     }
 }

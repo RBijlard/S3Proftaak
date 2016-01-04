@@ -41,7 +41,7 @@ public class MultiplayerListener extends BasicListener {
             
             RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            ClientAdministration.getInstance().connectionLost();
         }
     }
 
@@ -50,7 +50,7 @@ public class MultiplayerListener extends BasicListener {
         try {
             RMIClient.getInstance().getServerAdministration().removeListener(this, "LobbyList");
         } catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Connection lost.", "Failed.", 1);
+            ClientAdministration.getInstance().connectionLost();
         }
     }
 
