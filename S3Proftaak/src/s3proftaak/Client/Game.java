@@ -116,13 +116,16 @@ public class Game extends BasicGame {
         this.textFieldEnabled = false;
 
         //set IngameMessage
-        inGameMessage = new InGameMessage();
+        this.inGameMessage = new InGameMessage();
         
         //set stars
         this.starsCollected = 0;
 
         //set Textfield
-        this.textField = new TextField(gc, slickFontTimer, gc.getScreenWidth(), gc.getScreenHeight(), 500, 50);
+        System.out.println(gc.getHeight());
+        System.out.println(gc.getWidth());
+        
+        this.textField = new TextField(gc, slickFontTimer, 1, gc.getHeight() - 51, 500, 50);
 
         //play deathsound
         SoundManager.getInstance().playDeathSound();
