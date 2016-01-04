@@ -51,36 +51,44 @@ public class LobbyListener extends BasicListener {
                     } catch (RemoteException ex) {
                         ClientAdministration.getInstance().stopGame("");
                     }
-                } 
-                
-                if(evt.getOldValue().toString().equals("ipAddress")){
+                }
+
+                if (evt.getOldValue().toString().equals("ipAddress")) {
                     String hostip = evt.getNewValue().toString();
-                    if(hostip.equals(ClientAdministration.getInstance().getAccount().getIp())){
+                    if (hostip.equals(ClientAdministration.getInstance().getAccount().getIp())) {
                         try {
                             //CREATE HOST
-                            new HostBackup(hostip);
+                            HostBackup hb1 = new HostBackup(hostip);
+                            if (hb1 != null) {
+                                System.out.println("HostReady calling");
+                                ClientAdministration.getInstance().getCurrentLobby().hostReady();
+                            }
                         } catch (RemoteException ex) {
                             Logger.getLogger(LobbyListener.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    } else {
-                        try {
-                            Registry registry = LocateRegistry.getRegistry(hostip, 1098);
-
-                            if (registry != null) {
-                                IHostBackup hb = (IHostBackup) registry.lookup("HostGame");
-                                if (hb == null) {
-                                    System.out.println("Client failed to connect to the Server. (Lookup failed)");
-                                } else {
-                                    ClientAdministration.getInstance().setHostbackup(hb);
-                                }
-                            } else {
-                                System.out.println("Client failed to connect to the Server. (Locate registry failed)");
-                            }
-
-                        } catch (RemoteException | NotBoundException ex) {
-                            System.out.println("Client failed to connect to the Server. \n" + ex);
-                        }
                     }
+                }
+
+                if (evt.getOldValue().toString().equals("ipAddressForNotHost")) {
+                    String hostip = evt.getNewValue().toString();
+                    try {
+                        Registry registry = LocateRegistry.getRegistry(hostip, 1098);
+
+                        if (registry != null) {
+                            IHostBackup hb = (IHostBackup) registry.lookup("HostGame");
+                            if (hb == null) {
+                                System.out.println("Client failed to connect to the HOST. (Lookup failed)");
+                            } else {
+                                ClientAdministration.getInstance().setHostbackup(hb);
+                            }
+                        } else {
+                            System.out.println("Client failed to connect to the HOST. (Locate registry failed)");
+                        }
+
+                    } catch (RemoteException | NotBoundException ex) {
+                        System.out.println("Client failed to connect to the HOST. \n" + ex);
+                    }
+
                 }
 
                 if (evt.getOldValue().toString().equals("ReallyStartGame")) {
@@ -136,7 +144,7 @@ public class LobbyListener extends BasicListener {
     public void startListening() {
         try {
             String username = ClientAdministration.getInstance().getAccount().getUsername();
-            
+
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Administrative");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Chat");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
