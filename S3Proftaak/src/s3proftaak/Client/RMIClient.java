@@ -55,6 +55,10 @@ public class RMIClient {
     public static RMIClient getInstance() {
         return instance;
     }
+    
+    public static void clearInstance(){
+        instance = null;
+    }
 
     public IServer getServerAdministration() {
         return serverAdministration;

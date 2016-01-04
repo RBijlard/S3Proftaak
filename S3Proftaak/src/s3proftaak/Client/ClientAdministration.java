@@ -67,8 +67,14 @@ public class ClientAdministration extends Application {
     }
 
     public static void changeScreen(Screens s) {
-        if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null) {
-            getInstance().getCurrentScreen().getListener().stopListening();
+        changeScreen(s, false);
+    }
+
+    public static void changeScreen(Screens s, boolean force) {
+        if (!force) {
+            if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null) {
+                getInstance().getCurrentScreen().getListener().stopListening();
+            }
         }
 
         primaryStage.setScene(s.newInstance().getScene());
@@ -86,7 +92,7 @@ public class ClientAdministration extends Application {
     public void setHostbackup(IHostBackup hostbackup) {
         this.hostbackup = hostbackup;
     }
-    
+
     public BasicScene getCurrentScreen() {
         return currentScreen;
     }
@@ -198,25 +204,27 @@ public class ClientAdministration extends Application {
             }
         }
     }
-    
-    public void stopGame(){
+
+    public void stopGame() {
         getApp().exit();
         this.game = null;
     }
-    
-    public void connectionLost(){
+
+    public void connectionLost() {
         connectionLost("");
     }
 
-    public void connectionLost(String reason){
-        if (this.game != null){
+    public void connectionLost(String reason) {
+        if (this.game != null) {
             this.stopGame();
         }
-        
-        if (reason != null){
+
+        if (reason != null) {
             JOptionPane.showMessageDialog(null, reason.isEmpty() ? "Connection lost." : reason, "Failed.", 1);
         }
         
-        changeScreen(ClientAdministration.Screens.Menu);
+        RMIClient.clearInstance();
+
+        changeScreen(ClientAdministration.Screens.Menu, true);
     }
 }
