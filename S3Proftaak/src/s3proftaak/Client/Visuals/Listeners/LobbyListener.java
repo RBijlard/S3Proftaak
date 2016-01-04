@@ -114,6 +114,7 @@ public class LobbyListener extends BasicListener {
                             @Override
                             public void run() {
                                 lobbyScreen.btnLeaveClick(null);
+                                JOptionPane.showMessageDialog(null, "You got kicked!", "Kick", 0);
                             }
                         });
                     }
