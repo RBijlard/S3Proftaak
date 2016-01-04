@@ -2,13 +2,11 @@ package s3proftaak.Client;
 
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import s3proftaak.Shared.IServer;
 
 /**
@@ -22,8 +20,6 @@ public class RMIClient {
 
     // Constructor
     public RMIClient() {
-        instance = (RMIClient) this;
-        
         try {
             Enumeration e = NetworkInterface.getNetworkInterfaces();
             while (e.hasMoreElements()) {
@@ -34,31 +30,23 @@ public class RMIClient {
                         InetAddress i = (InetAddress) ee.nextElement();
                         System.setProperty("java.rmi.server.hostname", i.getHostAddress());
                         ClientAdministration.getInstance().getAccount().setIp(i.getHostAddress());
-                        System.out.println("JOUW IP ; " + ClientAdministration.getInstance().getAccount().getIp());
                         break;
                     }
                 }
             }
-        } catch (Exception ex) {
-            Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SocketException ex) {
             System.out.println(ex);
+            return;
         }
         
         try {
-            Registry registry = LocateRegistry.getRegistry("145.93.40.144", 1099);
-
-            if (registry != null) {
-                serverAdministration = (IServer) registry.lookup(bindingName);
-                if (serverAdministration == null) {
-                    System.out.println("Client failed to connect to the Server. (Lookup failed)");
-                }
-            } else {
-                System.out.println("Client failed to connect to the Server. (Locate registry failed)");
-            }
-
+            serverAdministration = (IServer) LocateRegistry.getRegistry("localhost", 1099).lookup(bindingName);
         } catch (RemoteException | NotBoundException ex) {
             System.out.println("Client failed to connect to the Server. \n" + ex);
+            return;
         }
+        
+        instance = (RMIClient) this;
     }
 
     public static RMIClient getInstance() {
