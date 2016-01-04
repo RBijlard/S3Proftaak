@@ -106,7 +106,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
             if (!players.isEmpty()) {
                 publisher.inform(this, "Players", null, players);
             }
-            
+
             ServerAdministration.getInstance().informLobbyListMembers();
         }
     }
@@ -248,6 +248,11 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
         return null;
     }
 
+    @Override
+    public void hostReady() {
+        publisher.inform(this, "Administrative", "ipAddressForNotHost", this.getPlayer(this.currentHost).getIpAddress());
+    }
+
     private void checkStartGame() {
         if (!hasStarted()) {
             if (level != null) {
@@ -266,7 +271,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
                         }
 
                         state = LobbyState.Loading;
-                        publisher.inform(this,"Administrative", "ipAddress", this.getPlayer(this.currentHost).getIpAddress());
+                        publisher.inform(this, "Administrative", "ipAddress", this.getPlayer(this.currentHost).getIpAddress());
                         publisher.inform(this, "Administrative", "StartGame", level);
                     }
                 }
