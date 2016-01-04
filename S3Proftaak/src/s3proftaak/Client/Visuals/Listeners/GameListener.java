@@ -29,60 +29,62 @@ public class GameListener extends BasicListener {
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
         Game game = ClientAdministration.getInstance().getGame();
         if (game != null) {
-            if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
-                switch (evt.getPropertyName()) {
-                    case "Rect":
-                        int offset = 0;
-                        if (game.getGameCharacters() != null) {
-                            for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                                if (c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
-                                    offset = (int) c.getOffsetX();
-                                }
-                            }
-                            for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-
-                                if (c.getName().equals(evt.getOldValue().toString())) {
-
-                                    PlayerPosition pp = (PlayerPosition) evt.getNewValue();
-
-                                    if (c.safeMoveTo(pp.getX() - offset, pp.getY())) {
-                                        c.getRect().setX(pp.getX() - offset);
-                                        c.getRect().setY(pp.getY());
-                                    } else {
-                                        c.setvY(pp.getvY());
+            if (evt.getOldValue() != null) {
+                if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
+                    switch (evt.getPropertyName()) {
+                        case "Rect":
+                            int offset = 0;
+                            if (game.getGameCharacters() != null) {
+                                for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+                                    if (c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
+                                        offset = (int) c.getOffsetX();
                                     }
+                                }
+                                for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
 
-                                    c.setIsCrouching(pp.isCrouch());
+                                    if (c.getName().equals(evt.getOldValue().toString())) {
 
-                                    break;
+                                        PlayerPosition pp = (PlayerPosition) evt.getNewValue();
+
+                                        if (c.safeMoveTo(pp.getX() - offset, pp.getY())) {
+                                            c.getRect().setX(pp.getX() - offset);
+                                            c.getRect().setY(pp.getY());
+                                        } else {
+                                            c.setvY(pp.getvY());
+                                        }
+
+                                        c.setIsCrouching(pp.isCrouch());
+
+                                        break;
+                                    }
                                 }
                             }
-                        }
 
-                        break;
+                            break;
 
-                    case "Objects":
-                        GameObject go = ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()));
+                        case "Objects":
+                            GameObject go = ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()));
 
-                        if (go != null) {
-                            if (go instanceof MoveableBlock) {
-                                System.out.println("dx: " + Integer.parseInt(evt.getNewValue().toString()));
-                                ((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
+                            if (go != null) {
+                                if (go instanceof MoveableBlock) {
+                                    System.out.println("dx: " + Integer.parseInt(evt.getNewValue().toString()));
+                                    ((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
 
                                 ///ALTERED BY BERRY
 //                                for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
 //                                    offset = (int) c.getOffsetX();
 //                                    ((MoveableBlock) go).getRect().setX(Integer.parseInt(evt.getNewValue().toString()) - offset);
 //                                }
-                                ///END
+                                    ///END
+                                }
+
+                                if (go instanceof IRemoteUpdatable) {
+                                    ((IRemoteUpdatable) go).setActive(Boolean.valueOf(evt.getNewValue().toString()));
+                                }
                             }
 
-                            if (go instanceof IRemoteUpdatable) {
-                                ((IRemoteUpdatable) go).setActive(Boolean.valueOf(evt.getNewValue().toString()));
-                            }
-                        }
-
-                        break;
+                            break;
+                    }
                 }
             } else {
                 if (evt.getPropertyName().equals("Chat")) {
