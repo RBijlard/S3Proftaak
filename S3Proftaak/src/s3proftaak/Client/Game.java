@@ -329,7 +329,7 @@ public class Game extends BasicGame {
         //Waiting for other players
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";
-            grphcs.drawString(text, (Display.getWidth() / 2) - (text.getBytes().length), Display.getHeight() / 2);
+            grphcs.drawString(text, (Display.getWidth() / 2) - (grphcs.getFont().getWidth(text) / 2), Display.getHeight() / 2);
         }
     }
 
