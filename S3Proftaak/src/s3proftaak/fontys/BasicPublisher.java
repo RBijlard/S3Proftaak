@@ -130,9 +130,11 @@ public class BasicPublisher {
         }
 
         List<RemotePropertyListener> tempListeners = new ArrayList<>();
-
+        List<RemotePropertyListener> tempAlertable = new ArrayList<>();
+        tempAlertable.addAll(alertable);
+        
         try {
-            for (RemotePropertyListener listener : alertable) {
+            for (RemotePropertyListener listener : tempAlertable) {
 
                 PropertyChangeEvent evt = new PropertyChangeEvent(
                         source, property, oldValue, newValue);
