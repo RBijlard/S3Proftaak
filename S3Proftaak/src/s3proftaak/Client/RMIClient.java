@@ -21,7 +21,7 @@ public class RMIClient {
     private IServer serverAdministration = null;
 
     // Constructor
-    public RMIClient(String ipAddress, int portNumber) {
+    public RMIClient() {
         instance = (RMIClient) this;
         
         try {
@@ -45,7 +45,7 @@ public class RMIClient {
         }
         
         try {
-            Registry registry = LocateRegistry.getRegistry(ipAddress, portNumber);
+            Registry registry = LocateRegistry.getRegistry("145.93.40.144", 1099);
 
             if (registry != null) {
                 serverAdministration = (IServer) registry.lookup(bindingName);

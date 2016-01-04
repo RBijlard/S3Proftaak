@@ -42,7 +42,7 @@ public class Menu extends BasicScene {
 
     public void btnMultiplayerClick(Event e) {
 
-        new RMIClient("145.93.40.144", 1099);
+        new RMIClient();
 
         if (RMIClient.getInstance() != null) {
             changeScreen(ClientAdministration.Screens.Multiplayer);
