@@ -351,6 +351,9 @@ public class Game extends BasicGame {
             this.textField.setFocus(true);
         }
 
+        //draw chatmessages
+        this.inGameMessage.draw(grphcs, gc.getHeight());
+        
         //Waiting for other players
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";

@@ -7,6 +7,7 @@ package s3proftaak.Client;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.newdawn.slick.Graphics;
 import s3proftaak.Shared.IMessage;
 
 /**
@@ -22,10 +23,19 @@ public class InGameMessage {
     }
 
     public void addMessage(IMessage m) {
-        if (this.gameMessages != null) {
-            if (!this.gameMessages.contains(m)) {
-                this.gameMessages.add(m);
+        if (!this.gameMessages.contains(m)) {
+            if (this.gameMessages.size() > 9) {
+                this.gameMessages.remove(0);
             }
+            this.gameMessages.add(m);
+        }
+    }
+
+    public void draw(Graphics grp, int hgt) {
+        int count = 0;
+        for (IMessage im : this.gameMessages) {
+            grp.drawString(im.toString(), 1, hgt - 320 + count);
+            count += grp.getFont().getHeight(im.toString()) + 2;
         }
     }
 }
