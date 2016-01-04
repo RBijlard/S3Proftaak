@@ -83,9 +83,10 @@ public class GameListener extends BasicListener {
                         }
 
                         break;
-                    case "Chat":
-                        ClientAdministration.getInstance().getGame().getInGameMessage().addMessage((IMessage) evt.getNewValue());
-                        break;
+                }
+            } else {
+                if (evt.getPropertyName().equals("Chat")) {
+                    ClientAdministration.getInstance().getGame().getInGameMessage().addMessage((IMessage) evt.getNewValue());
                 }
             }
         }
