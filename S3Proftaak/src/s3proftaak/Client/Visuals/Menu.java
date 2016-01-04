@@ -58,6 +58,11 @@ public class Menu extends BasicScene {
     public void btnHighscoresClick(Event e) {
         changeScreen(ClientAdministration.Screens.Highscores);
     }
+    
+    public void btnLogoutClick(Event e){
+        ClientAdministration.getInstance().setAccount(null);
+        changeScreen(ClientAdministration.Screens.Login);
+    }
 
     public void btnQuitClick(Event e) {
         System.exit(0);
