@@ -77,29 +77,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     @Override
     public void update(GameContainer gc) {
-        //update player (move)
-
-        if (game.isMultiplayer()) {
-            if (isControllabe) {
-                this.moveHorizontalMap(gc);
-                this.moveVertical(gc);
-            } else {
-                this.moveHorizontal1(gc);
-                this.moveVertical1(gc);
-            }
-
+        // Update player move met advanced if statement
+        if ((game.isMultiplayer() && isControllabe) || (!game.isMultiplayer() && this.controlSet == 0)) {
+            this.moveHorizontalMap(gc);
+            this.moveVertical(gc);
         } else {
-            switch (this.controlSet) {
-                case 0:
-                    this.moveHorizontalMap(gc);
-                    this.moveVertical(gc);
-                    break;
-                case 1:
-                case 2:
-                    this.moveHorizontal1(gc);
-                    this.moveVertical1(gc);
-                    break;
-            }
+            this.moveHorizontal1(gc);
+            this.moveVertical1(gc);
         }
 
         if (!game.isMultiplayer()) {
@@ -115,8 +99,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
         if (game.isMultiplayer()) {
             if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
-                Game game = ClientAdministration.getInstance().getGame();
-
                 if (game.isTextFieldEnabled()) {
                     game.sendTextFieldMessage();
                     game.isTextFieldEnabled(false);
