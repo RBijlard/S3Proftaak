@@ -118,12 +118,7 @@ public final class Lobby extends BasicScene {
                         updatePlayerList(ClientAdministration.getInstance().getCurrentLobby().getPlayers());
                     }
 
-                    if (ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
-                        setIsHost(true);
-                    } else {
-                        //disables the button if not host
-                        btnKick.setDisable(true);
-                    }
+                    setIsHost(ClientAdministration.getInstance().getCurrentLobby().getCurrentHost() != null && ClientAdministration.getInstance().getCurrentLobby().getCurrentHost().equals(ClientAdministration.getInstance().getAccount().getUsername()));
 
                     if (chatText != null) {
                         chatText.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -253,6 +248,12 @@ public final class Lobby extends BasicScene {
 
             @Override
             public void run() {
+                if (b) {
+                    btnKick.setDisable(false);
+                } else {
+                    btnKick.setDisable(true);
+                }
+
                 if (cbLevel != null) {
                     if (b != isHost) {
                         isHost = b;

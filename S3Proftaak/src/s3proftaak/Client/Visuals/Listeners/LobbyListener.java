@@ -8,8 +8,6 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javax.swing.JOptionPane;
 import s3proftaak.Client.ClientAdministration;
@@ -18,7 +16,6 @@ import s3proftaak.Client.Visuals.Lobby;
 import s3proftaak.Host.HostBackup;
 import s3proftaak.Shared.IHostBackup;
 import s3proftaak.Shared.IPlayer;
-import s3proftaak.Shared.IServer;
 
 /**
  *
@@ -136,9 +133,7 @@ public class LobbyListener extends BasicListener {
                 this.lobbyScreen.comboboxSet(evt.getNewValue().toString());
                 break;
             case "Host":
-                if (ClientAdministration.getInstance().getAccount().getUsername().equals(evt.getNewValue().toString())) {
-                    this.lobbyScreen.setIsHost(true);
-                }
+                this.lobbyScreen.setIsHost(ClientAdministration.getInstance().getAccount().getUsername().equals(evt.getNewValue().toString()));
                 break;
         }
     }

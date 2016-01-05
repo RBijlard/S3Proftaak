@@ -8,7 +8,6 @@ package s3proftaak.Client.Visuals.Listeners;
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.util.List;
-import javax.swing.JOptionPane;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.Visuals.Multiplayer;
@@ -35,10 +34,6 @@ public class MultiplayerListener extends BasicListener {
     public void startListening() {
         try {
             String username = ClientAdministration.getInstance().getAccount().getUsername();
-
-            System.out.println(RMIClient.getInstance());
-            System.out.println(RMIClient.getInstance().getServerAdministration());
-            
             RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
         } catch (RemoteException ex) {
             ClientAdministration.getInstance().connectionLost();
