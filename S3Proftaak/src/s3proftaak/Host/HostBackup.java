@@ -19,13 +19,13 @@ import s3proftaak.Shared.IPlayer;
 import s3proftaak.Shared.PlayerPosition;
 import s3proftaak.fontys.BasicPublisher;
 import s3proftaak.fontys.RemotePropertyListener;
-import s3proftaak.util.CustomException;
+import s3proftaak.util.ICare;
 
 /**
  *
  * @author Berry-PC
  */
-public class HostBackup extends UnicastRemoteObject implements IHostBackup {
+public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICare {
 
     private static Remote getInstance() {
         return instance;
@@ -38,6 +38,15 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup {
     private static HostBackup instance;
     private String currentHost;
     private LobbyState state = LobbyState.Waiting;
+
+    @Override
+    public void playerLostConnection(String playerName) {
+        // BERRY, vul hier in wat er moet gebeuren wanneer 1 speler connectie verliest
+        // dus game afsluite en weet ik ut wat nog meer
+        // Moet trouwens ook nog als game is afgelope terug met de Server connecte, anders krijg je Connection Lost zoals nu want er is geen verbinding
+        // meer met server door deze host ^^
+        stopGame();
+    }
 
     private enum LobbyState {
 
@@ -59,7 +68,7 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup {
         }
         
         this.max = 1;
-        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
+        this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }
 
     @Override

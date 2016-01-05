@@ -25,19 +25,20 @@ import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.PlayerPosition;
 import s3proftaak.fontys.BasicPublisher;
 import s3proftaak.fontys.RemotePropertyListener;
+import s3proftaak.util.ICare;
 
 /**
  *
  * @author Berry-PC
  */
-public class Host extends UnicastRemoteObject implements IHost {
+public class Host extends UnicastRemoteObject implements IHost, ICare {
 
     private List<GameObject> gameObjects;
     private BasicPublisher publisher;
 
     public Host(List<GameObject> gameObjects) throws RemoteException {
         this.gameObjects = gameObjects;
-        this.publisher = new BasicPublisher(new String[]{"PlayerPosition", "ObjectPosition", "GameRestart", "GameStop", "ObjectActivation"});
+        this.publisher = new BasicPublisher(this, new String[]{"PlayerPosition", "ObjectPosition", "GameRestart", "GameStop", "ObjectActivation"});
     }
 
     public void collisionCheck(float vX, float vY, int id, boolean isEntering) {
@@ -197,5 +198,10 @@ public class Host extends UnicastRemoteObject implements IHost {
     @Override
     public void sendMessage(IMessage message) throws RemoteException {
         //#ROEL BIJLARD -> INGAME CHAT FUNCTIE
+    }
+
+    @Override
+    public void playerLostConnection(String playerName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -16,12 +16,13 @@ import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.IPlayer;
 import s3proftaak.Shared.PlayerPosition;
 import s3proftaak.fontys.RemotePropertyListener;
+import s3proftaak.util.ICare;
 
 /**
  *
  * @author S33D
  */
-public class Lobby extends UnicastRemoteObject implements ILobby {
+public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
 
     private final List<Player> players = new ArrayList<>();
     private final String name;
@@ -41,7 +42,14 @@ public class Lobby extends UnicastRemoteObject implements ILobby {
     public Lobby(String lobbyname) throws RemoteException {
         this.name = lobbyname;
         this.max = 1;
-        this.publisher = new BasicPublisher(new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
+        this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
+    }
+
+    @Override
+    public void playerLostConnection(String playerName) {
+        if (players.contains(getPlayer(playerName))){
+            kickPlayer(playerName);
+        }
     }
 
     @Override

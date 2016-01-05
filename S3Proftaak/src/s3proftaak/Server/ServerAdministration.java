@@ -27,7 +27,7 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
     public ServerAdministration() throws RemoteException {
         instance = (ServerAdministration) this;
         this.lobbies = new ArrayList<>();
-        this.publisher = new BasicPublisher(new String[]{"LobbyList"});
+        this.publisher = new BasicPublisher(null, new String[]{"LobbyList"});
 
         // Remove later
         this.lobbies.add(new Lobby("Awesome"));

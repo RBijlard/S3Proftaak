@@ -5,10 +5,7 @@ import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import s3proftaak.Server.Lobby;
-import s3proftaak.Server.Player;
-import s3proftaak.Server.ServerAdministration;
-import s3proftaak.util.CustomException;
+import s3proftaak.util.ICare;
 
 /**
  * <p>
@@ -40,6 +37,7 @@ public class BasicPublisher {
      */
     private final HashMap<RemotePropertyListener, String> namesTable;
     private final ExecutorService cachedThreadPool;
+    private final ICare iCare;
 
     /**
      * als een listener zich bij een onbekende property registreert wordt de
@@ -55,9 +53,11 @@ public class BasicPublisher {
      * propertylisteners bij die zich op alle properties hebben geabonneerd.
      *
      * @param properties
+     * @param iCare
      */
-    public BasicPublisher(String[] properties) {
+    public BasicPublisher(ICare iCare, String[] properties) {
         cachedThreadPool = Executors.newCachedThreadPool();
+        this.iCare = iCare;
 
         namesTable = new HashMap<>();
         listenersTable = new HashMap<>();
@@ -121,7 +121,6 @@ public class BasicPublisher {
      * @param oldValue oorspronkelijke waarde van de property van de publisher
      * (mag null zijn)
      * @param newValue nieuwe waarde van de property van de publisher
-     * @throws s3proftaak.util.CustomException
      */
     public void inform(Object source, String property, Object oldValue, Object newValue) {
         checkInBehalfOfProgrammer(property);
@@ -156,18 +155,15 @@ public class BasicPublisher {
 
                             // Remove player from current game
                             String playerName = namesTable.get(listener);
-                            if (playerName != null && !playerName.isEmpty()) {
-                                System.out.println("Disconnection: " + playerName);
-                                for (Lobby l : ServerAdministration.getInstance().getLocalLobbies()) {
 
-                                    Player p = l.getPlayer(playerName);
-                                    if (p != null) {
-                                        l.kickPlayer(playerName);
-                                    }
+                            if (playerName != null && !playerName.isEmpty()) {
+                                if (iCare != null) {
+                                    informDisconnectedPlayer(playerName);
                                 }
                             }
 
                             removeListener(listener, null);
+
                         }
                     }
                 });
@@ -178,6 +174,10 @@ public class BasicPublisher {
             System.out.println("Original: " + debugg.size() + "\n" + debug);
             System.out.println("Current: " + alertable.size() + "\n" + alertable.toString());
         }
+    }
+
+    public synchronized void informDisconnectedPlayer(String playerName) {
+        iCare.playerLostConnection(playerName);
     }
 
     /**
