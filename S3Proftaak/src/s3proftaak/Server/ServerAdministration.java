@@ -40,10 +40,6 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         this.informLobbyListMembers();
         return tempLobby;
     }
-    
-    public List<Lobby> getLocalLobbies(){
-        return lobbies;
-    }
 
     @Override
     public List<ILobby> getLobbies() throws RemoteException {

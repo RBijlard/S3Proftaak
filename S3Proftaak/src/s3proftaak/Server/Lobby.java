@@ -246,7 +246,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         return this.currentHost;
     }
 
-    public Player getPlayer(String username) {
+    private Player getPlayer(String username) {
         for (Player p : players) {
             if (p.getName().equals(username)) {
                 return p;
