@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -77,6 +78,20 @@ public class ClientAdministration extends Application {
             }
         }
 
+        if (Platform.isFxApplicationThread()) {
+            changeStage(s);
+        } else {
+            Platform.runLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    changeStage(s);
+                }
+            });
+        }
+    }
+
+    private static void changeStage(Screens s) {
         primaryStage.setScene(s.newInstance().getScene());
         try {
             primaryStage.getScene().getStylesheets().add(new URL(getInstance().getClass().getResource("/Resources/Visuals/style.css").toExternalForm()).toString());
@@ -222,7 +237,7 @@ public class ClientAdministration extends Application {
         if (reason != null) {
             JOptionPane.showMessageDialog(null, reason.isEmpty() ? "Connection lost." : reason, "Failed.", 1);
         }
-        
+
         RMIClient.clearInstance();
 
         changeScreen(ClientAdministration.Screens.Menu, true);
