@@ -75,7 +75,7 @@ public class GameListener extends BasicListener {
 //                                    offset = (int) c.getOffsetX();
 //                                    ((MoveableBlock) go).getRect().setX(Integer.parseInt(evt.getNewValue().toString()) - offset);
 //                                }
-                                    ///END
+                                ///END
                                 }
 
                                 if (go instanceof IRemoteUpdatable) {

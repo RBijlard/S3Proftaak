@@ -45,6 +45,9 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
         // dus game afsluite en weet ik ut wat nog meer
         // Moet trouwens ook nog als game is afgelope terug met de Server connecte, anders krijg je Connection Lost zoals nu want er is geen verbinding
         // meer met server door deze host ^^
+        
+        //YO, player connection lost: game stopt -> players naar lobby, de player zonder connection wordt gekickt.
+        //JA, connection van de server moet opnieuw opgezet worden wanneer de game gefinished wordt..
         stopGame();
     }
 
