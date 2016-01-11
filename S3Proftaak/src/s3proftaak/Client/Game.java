@@ -278,7 +278,12 @@ public class Game extends BasicGame {
             // Handle GameObjects that should be removed.
             if (!this.removableGameObjects.isEmpty()) {
                 List<GameObject> tempObjects = new ArrayList<>();
-                tempObjects.addAll(this.removableGameObjects);
+                for(GameObject go : this.removableGameObjects){
+                    if(go instanceof Star){
+                        System.out.println("star found : " + go.getId());
+                    }
+                    tempObjects.add(go);
+                }
 
                 for (GameObject go : tempObjects) {
 
