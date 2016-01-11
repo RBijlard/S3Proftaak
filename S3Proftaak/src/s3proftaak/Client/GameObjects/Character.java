@@ -137,6 +137,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     public void moveHorizontalMap(GameContainer gc) {
+        this.offSetX = 0 - MLO.getRect().getX();
         //Move horizontal with arrow keys
         if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             //move map right -> x minus speed
