@@ -272,8 +272,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
                             for (int b = 1; b < 20; b++) {
                                 if (this.getRect().getMinY() >= go.getRect().getMaxY() - b) {
-                                    this.die();
-                                    return true;
+                                    if (((MoveableBlock) go).isFalling()) {
+                                        this.die();
+                                        return true;
+                                    }
                                 }
                             }
                         }
@@ -503,8 +505,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
         return true;
     }
-    
-    public void setOldWalkingDirection(int oldWalkingDirection){
+
+    public void setOldWalkingDirection(int oldWalkingDirection) {
         this.oldWalkingDirection = oldWalkingDirection;
     }
 
@@ -540,8 +542,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void setWalking(boolean walking){
+
+    public void setWalking(boolean walking) {
         this.walking = walking;
     }
 

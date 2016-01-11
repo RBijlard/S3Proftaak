@@ -16,10 +16,12 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
 
     private int dx;
     private Image sprite;
+    private boolean isFalling;
 
     public MoveableBlock(float x, float y, float width, float height) {
         super(x, y, width, height);
         this.sprite = ResourceManager.Images.BOXITEM.getImage();
+        this.isFalling = false;
     }
 
     @Override
@@ -48,8 +50,10 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
             }
         }
         if (verticalCollision) {
+            this.isFalling = true;
             //dont fall down
         } else {
+            this.isFalling = false;
             //verticalCollision = false, fall down
             for (int b = 0; b < 5; b++) {
                 this.getRect().setY(this.getRect().getY() + 2);
@@ -57,6 +61,10 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         }
     }
 
+    public boolean isFalling(){
+        return this.isFalling;
+    }
+    
     @Override
     public void render(GameContainer gc, Graphics g) {
         sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
