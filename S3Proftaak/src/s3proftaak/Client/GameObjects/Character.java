@@ -325,14 +325,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         }
                     } else if (go instanceof Star) {
                         if (!((Star) go).isRemoved()) {
-                            ((Star) go).setActive(false);
-
                             if (game.isMultiplayer()) {
                                 try {
                                     ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), false);
                                 } catch (RemoteException ex) {
                                     ClientAdministration.getInstance().connectionLost();
                                 }
+                            } else {
+                                ((Star) go).setActive(false);
                             }
                         }
                     } else if (go instanceof Weight) {
