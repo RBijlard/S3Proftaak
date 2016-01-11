@@ -149,53 +149,53 @@ public class Game extends BasicGame {
 
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {
-            GameObject block = new Block(map.getObjectX(0, i) + xOffset, map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i));
+            GameObject block = new Block(map.getObjectX(0, i), map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i));
             this.gameObjects.add(block);
         }
 
         //spikes
         for (int i = 0; i < map.getObjectCount(5); i++) {
-            GameObject spike = new Spike(map.getObjectX(5, i) + xOffset, map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i));
+            GameObject spike = new Spike(map.getObjectX(5, i) , map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i));
             this.gameObjects.add(spike);
         }
 
         //buttons
         for (int i = 0; i < map.getObjectCount(1); i++) {
-            GameObject button = new Button(map.getObjectX(1, i) + xOffset, map.getObjectY(1, i), map.getObjectWidth(1, i), map.getObjectHeight(1, i));
+            GameObject button = new Button(map.getObjectX(1, i), map.getObjectY(1, i), map.getObjectWidth(1, i), map.getObjectHeight(1, i));
             button.setMatches(this.getProperty(map, 1, i, "button"));
             this.gameObjects.add(button);
         }
 
         //doors
         for (int i = 0; i < map.getObjectCount(2); i++) {
-            GameObject door = new Door(map.getObjectX(2, i) + xOffset, map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i));
+            GameObject door = new Door(map.getObjectX(2, i), map.getObjectY(2, i), map.getObjectWidth(2, i), map.getObjectHeight(2, i));
             door.setMatches(this.getProperty(map, 2, i, "door"));
             this.gameObjects.add(door);
         }
 
         //levers
         for (int i = 0; i < map.getObjectCount(3); i++) {
-            GameObject lever = new Lever(map.getObjectX(3, i) + xOffset, map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i));
+            GameObject lever = new Lever(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i));
             lever.setMatches(this.getProperty(map, 3, i, "lever"));
             this.gameObjects.add(lever);
         }
 
         //weights
         for (int i = 0; i < map.getObjectCount(4); i++) {
-            GameObject weight = new Weight(map.getObjectX(4, i) + xOffset, map.getObjectY(4, i), map.getObjectWidth(4, i), map.getObjectHeight(4, i));
+            GameObject weight = new Weight(map.getObjectX(4, i), map.getObjectY(4, i), map.getObjectWidth(4, i), map.getObjectHeight(4, i));
             weight.setMatches(this.getProperty(map, 4, i, "weight"));
             this.gameObjects.add(weight);
         }
 
         //moveblock
         for (int i = 0; i < map.getObjectCount(6); i++) {
-            GameObject moveblock = new MoveableBlock(map.getObjectX(6, i) + xOffset, map.getObjectY(6, i), map.getObjectWidth(6, i), map.getObjectHeight(6, i));
+            GameObject moveblock = new MoveableBlock(map.getObjectX(6, i), map.getObjectY(6, i), map.getObjectWidth(6, i), map.getObjectHeight(6, i));
             this.gameObjects.add(moveblock);
         }
 
         //stars
         for (int i = 0; i < map.getObjectCount(7); i++) {
-            GameObject star = new Star(map.getObjectX(7, i) + xOffset, map.getObjectY(7, i), map.getObjectWidth(7, i), map.getObjectHeight(7, i));
+            GameObject star = new Star(map.getObjectX(7, i), map.getObjectY(7, i), map.getObjectWidth(7, i), map.getObjectHeight(7, i));
             this.gameObjects.add(star);
         }
 
