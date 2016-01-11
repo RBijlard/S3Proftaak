@@ -234,26 +234,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             int i = 0;
                             if (go.getRect().getX() > rect.getX()) {
                                 i = 1;
-                                if (game.isMultiplayer()) {
-                                    try {
-                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
-                                    } catch (RemoteException ex) {
-                                        ClientAdministration.getInstance().connectionLost();
-                                    }
-                                }
                             }
                             if (go.getRect().getX() < rect.getX()) {
                                 i = -1;
-                                if (game.isMultiplayer()) {
-                                    try {
-                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
-                                    } catch (RemoteException ex) {
-                                        ClientAdministration.getInstance().connectionLost();
-                                    }
-                                }
                             }
                             if (!game.isMultiplayer()) {
                                 ((MoveableBlock) go).setDx(i);
+                            } else {
+                                try {
+                                    ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
+                                } catch (RemoteException ex) {
+                                    ClientAdministration.getInstance().connectionLost();
+                                }
                             }
 
 //                            if (game.isMultiplayer()) {

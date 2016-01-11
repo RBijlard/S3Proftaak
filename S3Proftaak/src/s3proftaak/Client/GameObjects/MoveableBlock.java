@@ -31,6 +31,9 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
             if (dx != 0) {
                 if (!this.isColliding(gc)) {
                     this.getRect().setX(this.getRect().getX() + (dx));
+                    if (this.isColliding(gc)){
+                        this.getRect().setX(this.getRect().getX() - (dx));
+                    }
                 }
                 dx = 0;
             }
