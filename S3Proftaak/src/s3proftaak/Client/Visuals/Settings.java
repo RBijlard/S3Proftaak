@@ -7,9 +7,12 @@ package s3proftaak.Client.Visuals;
 
 import java.sql.SQLException;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import s3proftaak.Client.ClientAdministration;
@@ -28,9 +31,9 @@ public class Settings extends BasicScene {
     @FXML
     ToggleButton btnFullscreen;
     @FXML
-    TextField tfPath;
-    @FXML
     Button btnBack;
+    @FXML
+    ComboBox cbSkin;
 
     private ClientAdministration instance;
     private SoundManager Soundinstance;
