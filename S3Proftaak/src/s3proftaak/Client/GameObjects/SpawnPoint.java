@@ -14,5 +14,10 @@ public class SpawnPoint extends GameObject{
     public SpawnPoint(float x, float y, float width, float height) {
         super(x, y, width, height);
     }
+        
+    @Override
+    public String toString(){
+        return super.toString() + " -- SPAWNPOINT";
+    }
     
 }
