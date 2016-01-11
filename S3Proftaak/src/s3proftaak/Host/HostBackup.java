@@ -31,7 +31,6 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
     private final List<Player> players = new ArrayList<>();
     private final BasicPublisher publisher;
     private static HostBackup instance;
-    private LobbyState state = LobbyState.Waiting;
 
     @Override
     public void playerLostConnection(String playerName) {
@@ -43,13 +42,6 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
         //YO, player connection lost: game stopt -> players naar lobby, de player zonder connection wordt gekickt.
         //JA, connection van de server moet opnieuw opgezet worden wanneer de game gefinished wordt..
         stopGame();
-    }
-
-    private enum LobbyState {
-
-        Waiting, // Waiting for players to join. (In lobby)
-        Loading, // Waiting for players to load. (In game)
-        Playing; // Playing.
     }
 
     public HostBackup(String ipAddress) throws RemoteException {
@@ -64,25 +56,18 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
 
     @Override
     public void updatePlayer(String username, PlayerPosition pp) {
-        if (hasStarted()) {
         publisher.inform(this, "Rect", username, pp);
-        }
     }
 
     @Override
     public void updateObject(int id, boolean state) throws RemoteException {
-        if (hasStarted()) {
         publisher.inform(this, "Objects", id, state);
-        }
     }
 
     @Override
     public void updateMoveableObject(int id, int dx) throws RemoteException {
-        if (hasStarted()) {
         publisher.inform(this, "Objects", id, dx);
-        }
     }
-
 
     @Override
     public void addListener(String username, RemotePropertyListener listener, String property) throws RemoteException {
@@ -95,19 +80,12 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
         publisher.removeListener(listener, property);
     }
 
-    public boolean hasStarted() {
-        return state != LobbyState.Waiting;
-    }
-
     @Override
     public void stopGame() {
-        if (hasStarted()) {
-            for (Player p : players) {
-                p.setReady(false);
-            }
-
-            state = LobbyState.Waiting;
-            publisher.inform(this, "Administrative", "StopGame", null);
+        for (Player p : players) {
+            p.setReady(false);
         }
+
+        publisher.inform(this, "Administrative", "StopGame", null);
     }
 }
