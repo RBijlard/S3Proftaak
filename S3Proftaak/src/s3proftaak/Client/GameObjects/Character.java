@@ -41,7 +41,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private Animation animate;
     private GameObject MLO;
     private float offSetX;
-    
+
     private int walkingDirection, oldWalkingDirection;
 
     private boolean isCrouching;
@@ -114,7 +114,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 ClientAdministration.getInstance().connectionLost();
             }
         }
-        
+
         this.updateAnimation();
     }
 
@@ -144,7 +144,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             //dont move the map
             this.setvX(0);
         }
-        
+
         //check collisions
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
@@ -233,39 +233,39 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             int i = 0;
                             if (go.getRect().getX() > rect.getX()) {
                                 i = 1;
-//                                if (game.isMultiplayer()) {
-//                                    try {
-//                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
-//                                    } catch (RemoteException ex) {
-//                                        ClientAdministration.getInstance().connectionLost();
-//                                    }
-//                                }
+                                if (game.isMultiplayer()) {
+                                    try {
+                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
+                                    } catch (RemoteException ex) {
+                                        ClientAdministration.getInstance().connectionLost();
+                                    }
+                                }
                             }
                             if (go.getRect().getX() < rect.getX()) {
                                 i = -1;
-//                                if (game.isMultiplayer()) {
-//                                    try {
-//                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
-//                                    } catch (RemoteException ex) {
-//                                        ClientAdministration.getInstance().connectionLost();
-//                                    }
-//                                }
+                                if (game.isMultiplayer()) {
+                                    try {
+                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
+                                    } catch (RemoteException ex) {
+                                        ClientAdministration.getInstance().connectionLost();
+                                    }
+                                }
                             }
                             if (!game.isMultiplayer()) {
                                 ((MoveableBlock) go).setDx(i);
                             }
 
-                            if (game.isMultiplayer()) {
-                                ///ALTERED BY BERRY
-                                ((MoveableBlock) go).setDx(i);
-                                try {
-                                    ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), (int) go.getRect().getX());
-                                } catch (RemoteException ex) {
-                                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                ((MoveableBlock) go).setDx((-1 * i));
-                            }
-                            ///END
+//                            if (game.isMultiplayer()) {
+//                                ///ALTERED BY BERRY
+//                                ((MoveableBlock) go).setDx(i);
+//                                try {
+//                                    ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), (int) go.getRect().getX());
+//                                } catch (RemoteException ex) {
+//                                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+//                                }
+//                                ((MoveableBlock) go).setDx((-1 * i));
+//                            }
+//                            ///END
                         }
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
 
@@ -467,17 +467,17 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void setvX(float vX) {
         this.vX = vX;
-        
-        if (this.vX > 0){
+
+        if (this.vX > 0) {
             oldWalkingDirection = walkingDirection;
             walkingDirection = 1;
         }
-        
-        if (this.vX < 0){
+
+        if (this.vX < 0) {
             oldWalkingDirection = walkingDirection;
             walkingDirection = -1;
         }
-        
+
         updateAnimation();
     }
 
@@ -502,42 +502,46 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
         return true;
     }
-    
-    public void setWalkingDirection(int walkingDirection){
+
+    public void setWalkingDirection(int walkingDirection) {
         this.walkingDirection = walkingDirection;
         this.updateAnimation();
     }
-    
-    private void updateAnimation(){
-        if (oldWalkingDirection != walkingDirection){
+
+    private void updateAnimation() {
+        if (oldWalkingDirection != walkingDirection) {
             this.setAnimation();
         }
-        
-        if (this.isWalking()){
-            if (animate.isStopped()){
+
+        if (this.isWalking()) {
+            if (animate.isStopped()) {
                 animate.start();
             }
-        }else{
-            if (!animate.isStopped()){
+        } else {
+            if (!animate.isStopped()) {
                 animate.stop();
             }
         }
     }
-    
-    private void setAnimation(){
+
+    private void setAnimation() {
         try {
             playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (isCrouching ? "_crouch" : "") + (isLeft() ? "_left" : "") + ".png").getPath().replace("%20", " "), 70, !isCrouching ? 93 : 69);
-            animate = new Animation(playerSheet, 100);
+            System.out.println("sheet : " + playerSheet);
+            try {
+                animate = new Animation(playerSheet, 100);
+            } catch (ArrayIndexOutOfBoundsException x) {
+            }
         } catch (SlickException ex) {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    private boolean isWalking(){
+
+    private boolean isWalking() {
         return this.vX != 0;
     }
-    
-    private boolean isLeft(){
+
+    private boolean isLeft() {
         return walkingDirection > 0;
     }
 }
