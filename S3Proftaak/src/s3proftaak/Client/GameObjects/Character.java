@@ -274,8 +274,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 if (this.getRect().getMinY() >= go.getRect().getMaxY() - b) {
                                     if (((MoveableBlock) go).isFalling()) {
                                         this.die();
-                                        return true;
                                     }
+                                    return true;
                                 }
                             }
                         }
