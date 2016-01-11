@@ -155,6 +155,7 @@ public class LobbyListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
 
         } catch (RemoteException ex) {
+            System.out.println(ex);
             ClientAdministration.getInstance().connectionLost();
         }
     }
@@ -171,6 +172,7 @@ public class LobbyListener extends BasicListener {
                 names.add(p.getName());
             }
         } catch (RemoteException ex) {
+            System.out.println(ex);
             ClientAdministration.getInstance().connectionLost();
         }
 

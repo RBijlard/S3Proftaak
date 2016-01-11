@@ -18,9 +18,7 @@ public class XorServerSocketFactory
     public ServerSocket createServerSocket(int port)
         throws IOException
     {
-        ServerSocket socket = new XorServerSocket(port, pattern);
-        socket.setSoTimeout(5000);
-        return socket;
+        return new XorServerSocket(port, pattern);
     }
     
     @Override

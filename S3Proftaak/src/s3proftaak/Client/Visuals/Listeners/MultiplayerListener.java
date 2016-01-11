@@ -36,6 +36,7 @@ public class MultiplayerListener extends BasicListener {
             String username = ClientAdministration.getInstance().getAccount().getUsername();
             RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
         } catch (RemoteException ex) {
+            System.out.println(ex);
             ClientAdministration.getInstance().connectionLost();
         }
     }
@@ -45,6 +46,7 @@ public class MultiplayerListener extends BasicListener {
         try {
             RMIClient.getInstance().getServerAdministration().removeListener(this, "LobbyList");
         } catch (RemoteException ex) {
+            System.out.println(ex);
             ClientAdministration.getInstance().connectionLost();
         }
     }
