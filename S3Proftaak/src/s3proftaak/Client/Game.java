@@ -123,7 +123,7 @@ public class Game extends BasicGame {
         this.starsCollected = 0;
 
         //set Textfield       
-        this.textField = new TextField(gc, chatTextBoxFont, 1, gc.getHeight() - 51, 500, 50);
+        this.textField = new TextField(gc, chatTextBoxFont, 1, gc.getHeight() - (chatTextBoxFont.getHeight() + 2), 500, chatTextBoxFont.getHeight() + 2);
 
         //play deathsound
         SoundManager.getInstance().playDeathSound();
@@ -350,7 +350,7 @@ public class Game extends BasicGame {
         }
 
         //draw chatmessages
-        this.inGameMessage.draw(grphcs, gc.getHeight());
+        this.inGameMessage.draw(grphcs, gc.getHeight() - 50);
         
         //Waiting for other players
         if (this.waitingforotherplayers) {

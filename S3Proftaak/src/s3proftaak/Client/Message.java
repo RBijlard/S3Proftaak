@@ -14,6 +14,7 @@ import s3proftaak.Shared.IMessage;
 public class Message implements IMessage {
     private final String message;
     private final String sender;
+    private final long time = System.currentTimeMillis() + 5000;
 
     public Message(String sender, String message){
         this.sender = sender;
@@ -28,6 +29,10 @@ public class Message implements IMessage {
     @Override
     public String getSender() {
         return sender;
+    }
+    
+    public long getTime(){
+        return time;
     }
     
     @Override

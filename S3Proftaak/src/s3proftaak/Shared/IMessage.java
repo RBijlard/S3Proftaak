@@ -14,6 +14,7 @@ import java.io.Serializable;
 public interface IMessage extends Serializable {
     public String getSender();
     public String getMessage();
+    public long getTime();
     @Override
     public String toString();
 }
