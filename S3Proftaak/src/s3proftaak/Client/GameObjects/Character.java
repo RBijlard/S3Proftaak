@@ -60,7 +60,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         this.controlSet = controlSet;
 
         MLO = new Block(1f, 1f, 1f, 1f);
-        this.offSetX = 0 - MLO.getRect().getX();
         
         this.game.getGameObjects().add(MLO);
         for (GameObject go : this.game.getGameObjects()) {
@@ -68,6 +67,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 MLO.getRect().setX(go.getRect().getX());
             }
         }
+        
+        this.offSetX = 0 - MLO.getRect().getX();
         marginx = 0 - MLO.getRect().getX();
 
         this.isCrouching = false;
