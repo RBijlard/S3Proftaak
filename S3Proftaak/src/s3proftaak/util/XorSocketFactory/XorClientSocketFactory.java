@@ -23,8 +23,9 @@ public class XorClientSocketFactory
     public Socket createSocket(String host, int port)
         throws IOException
     {
-        Socket socket = new XorSocket(host, port, pattern);
+        Socket socket = new XorSocket(pattern);
         socket.setSoTimeout(5000);
+        socket.connect(new InetSocketAddress(host, port));
         return socket;
     }
     
