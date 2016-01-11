@@ -87,7 +87,7 @@ public class LobbyListener extends BasicListener {
                     gameListener.stopListening();
                     gameListener = null;
                     System.out.println("Received StopGame");
-                    ClientAdministration.getInstance().connectionLost();
+                    ClientAdministration.getInstance().stopGame();
                 }
 
                 if (evt.getOldValue().toString().equals("Kick")) {

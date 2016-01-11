@@ -100,9 +100,9 @@ public class GameListener extends BasicListener {
     @Override
     public void startListening() {
         try {
-            //ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
-            //ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
-            //ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
 
             String username = ClientAdministration.getInstance().getAccount().getUsername();
 
