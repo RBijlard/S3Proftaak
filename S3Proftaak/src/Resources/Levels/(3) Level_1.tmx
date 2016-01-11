@@ -156,6 +156,6 @@
   <object id="133" x="7420" y="210" width="70" height="70"/>
  </objectgroup>
  <objectgroup name="spawnpoint" width="70" height="210">
-  <object id="149" x="787" y="892" width="70" height="70"/>
+  <object id="149" x="787" y="862" width="70" height="70"/>
  </objectgroup>
 </map>
