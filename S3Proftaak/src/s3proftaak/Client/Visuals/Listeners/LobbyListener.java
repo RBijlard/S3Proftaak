@@ -57,6 +57,7 @@ public class LobbyListener extends BasicListener {
                             //CREATE HOST
                             System.out.println("hostip: " + hostip);
                             HostBackup hb1 = new HostBackup(hostip);
+                            ClientAdministration.getInstance().getCurrentLobby().bindHost(hb1, hostip);
                             if (hb1 != null) {
                                 System.out.println("HostReady calling");
                                 ClientAdministration.getInstance().getCurrentLobby().hostReady();
@@ -70,7 +71,7 @@ public class LobbyListener extends BasicListener {
                 if (evt.getOldValue().toString().equals("ipAddressForNotHost")) {
                     String hostip = evt.getNewValue().toString();
                     try {
-                        Registry registry = LocateRegistry.getRegistry(hostip, 1099);
+                        Registry registry = LocateRegistry.getRegistry("145.93.73.48", 1099);
 
                         if (registry != null) {
                             IHostBackup hb = (IHostBackup) registry.lookup(hostip);

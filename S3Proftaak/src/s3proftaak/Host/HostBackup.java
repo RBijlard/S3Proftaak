@@ -65,16 +65,6 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
 
     public HostBackup(String ipAddress) throws RemoteException {
         instance = (HostBackup) this;
-        try {
-            
-            LocateRegistry.getRegistry(1099).rebind(ipAddress, HostBackup.getInstance());
-            System.out.println("Host is online at: '" + ipAddress + "'.");
-            System.out.println("Using port: 1099");
-
-        } catch (RemoteException ex) {
-            System.out.println("Server is offline. \n" + ex);
-        }
-
         this.max = 1;
         this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }

@@ -9,6 +9,7 @@ import s3proftaak.util.CustomException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
+import s3proftaak.Host.HostBackup;
 import s3proftaak.fontys.RemotePublisher;
 
 /**
@@ -56,4 +57,6 @@ public interface ILobby extends Remote, RemotePublisher {
     public void addPlayer(String username, String ipAddress) throws RemoteException, CustomException;
 
     public void removePlayer(String username) throws RemoteException;
+    
+    public void bindHost(HostBackup bh1, String ip) throws RemoteException;
 }

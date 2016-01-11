@@ -7,9 +7,13 @@ package s3proftaak.Server;
 
 import s3proftaak.fontys.BasicPublisher;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import s3proftaak.Host.HostBackup;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
@@ -340,5 +344,14 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         }
 
         return names;
+    }
+    
+    @Override
+    public void bindHost(HostBackup hb1, String ipAddress){
+        try {
+            LocateRegistry.getRegistry(1099).rebind(ipAddress, hb1);
+        } catch (RemoteException ex) {
+            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
