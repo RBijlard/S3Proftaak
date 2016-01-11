@@ -5,6 +5,8 @@ import java.net.NetworkInterface;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Enumeration;
+import s3proftaak.util.XorSocketFactory.XorClientSocketFactory;
+import s3proftaak.util.XorSocketFactory.XorServerSocketFactory;
 
 /**
  * @author S33D
@@ -20,7 +22,7 @@ public class RMIServer {
     public RMIServer() {
         try {
             new ServerAdministration();
-            LocateRegistry.createRegistry(portNumber).rebind(bindingName, ServerAdministration.getInstance());
+            LocateRegistry.createRegistry(portNumber, new XorClientSocketFactory(), new XorServerSocketFactory()).rebind(bindingName, ServerAdministration.getInstance());
             System.out.println("Server is online at: '" + ip + "'.");
 
         } catch (RemoteException ex) {

@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.util.Enumeration;
 import s3proftaak.Shared.IServer;
+import s3proftaak.util.XorSocketFactory.XorClientSocketFactory;
 
 /**
  * @author S33D
@@ -42,7 +43,7 @@ public class RMIClient {
         }
         
         try {
-            serverAdministration = (IServer) LocateRegistry.getRegistry("192.168.1.135", 1099).lookup(bindingName);
+            serverAdministration = (IServer) LocateRegistry.getRegistry("192.168.1.135", 1099, new XorClientSocketFactory()).lookup(bindingName);
         } catch (RemoteException | NotBoundException ex) {
             System.out.println("Client failed to connect to the Server. \n" + ex);
             return;
