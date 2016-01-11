@@ -119,7 +119,7 @@ public class Game extends BasicGame {
 
         //set IngameMessage
         this.inGameMessage = new InGameMessage();
-        
+
         //set stars
         this.starsCollected = 0;
 
@@ -144,9 +144,9 @@ public class Game extends BasicGame {
         //spawn
         for (int i = 0; i < map.getObjectCount(8); i++) {
             spawn = new SpawnPoint(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i));
-            xOffset = spawn.getRect().getX() - (float)(gc.getWidth()*0.4) ;
+            xOffset = spawn.getRect().getX() - (float) (gc.getWidth() * 0.4);
         }
-        
+
         //blocks
         for (int i = 0; i < map.getObjectCount(0); i++) {
             GameObject block = new Block(map.getObjectX(0, i) + xOffset, map.getObjectY(0, i), map.getObjectWidth(0, i), map.getObjectHeight(0, i));
@@ -220,7 +220,7 @@ public class Game extends BasicGame {
 
         for (int i = 0; i < this.amountOfPlayers; i++) {
 
-            Character c = new Character(this, (spawn != null ? spawn.getRect().getX() : 72f * i + 500f), 72f, 70f, 93f, i, this.multiplayer ? this.gameCharacterNames.get(i) : "");
+            Character c = new Character(this, (spawn != null ? spawn.getRect().getX() : 72f * i + 500f), (spawn != null ? spawn.getRect().getY() : 72f), 70f, 93f, i, this.multiplayer ? this.gameCharacterNames.get(i) : "");
 
             if ((!this.multiplayer && i == 0) || (this.multiplayer && ClientAdministration.getInstance().getAccount().getUsername().equals(this.gameCharacterNames.get(i)))) {
                 this.gameCharacters.add(this.main_character = c);
@@ -361,7 +361,7 @@ public class Game extends BasicGame {
 
         //draw chatmessages
         this.inGameMessage.draw(grphcs, gc.getHeight() - 50);
-        
+
         //Waiting for other players
         if (this.waitingforotherplayers) {
             String text = "Waiting for other players.";
@@ -529,8 +529,8 @@ public class Game extends BasicGame {
             }
         }
     }
-    
-    public InGameMessage getInGameMessage(){
+
+    public InGameMessage getInGameMessage() {
         return this.inGameMessage;
     }
 }
