@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import s3proftaak.Host.HostBackup;
+import s3proftaak.Shared.IHostBackup;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
@@ -342,7 +343,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
     }
     
     @Override
-    public void bindHost(HostBackup hb1, String ipAddress){
+    public void bindHost(IHostBackup hb1, String ipAddress){
         this.publisher.inform(this, "Administrative", "ipAddressForNotHost", hb1);
     }
 }

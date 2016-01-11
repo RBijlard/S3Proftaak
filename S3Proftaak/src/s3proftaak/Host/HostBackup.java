@@ -61,7 +61,6 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
         instance = (HostBackup) this;
         this.max = 1;
         this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
-        System.out.println(this);
     }
 
     @Override

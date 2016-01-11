@@ -55,8 +55,7 @@ public class LobbyListener extends BasicListener {
                     if (hostip.equals(ClientAdministration.getInstance().getAccount().getIp())) {
                         try {
                             //CREATE HOST
-                            System.out.println("hostip: " + hostip);
-                            HostBackup hb1 = new HostBackup(hostip);
+                            IHostBackup hb1 = new HostBackup(hostip);
                             ClientAdministration.getInstance().getCurrentLobby().bindHost(hb1, hostip);
                         } catch (RemoteException ex) {
                             ClientAdministration.getInstance().connectionLost();
