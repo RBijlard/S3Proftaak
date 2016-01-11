@@ -123,27 +123,27 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
             ServerAdministration.getInstance().informLobbyListMembers();
         }
     }
-
-    @Override
-    public void updatePlayer(String username, PlayerPosition pp) {
-        if (hasStarted()) {
-            publisher.inform(this, "Rect", username, pp);
-        }
-    }
-
-    @Override
-    public void updateObject(int id, boolean state) throws RemoteException {
-        if (hasStarted()) {
-            publisher.inform(this, "Objects", id, state);
-        }
-    }
-
-    @Override
-    public void updateMoveableObject(int id, int dx) throws RemoteException {
-        if (hasStarted()) {
-            publisher.inform(this, "Objects", id, dx);
-        }
-    }
+//
+//    @Override
+//    public void updatePlayer(String username, PlayerPosition pp) {
+//        if (hasStarted()) {
+//            publisher.inform(this, "Rect", username, pp);
+//        }
+//    }
+//
+//    @Override
+//    public void updateObject(int id, boolean state) throws RemoteException {
+//        if (hasStarted()) {
+//            publisher.inform(this, "Objects", id, state);
+//        }
+//    }
+//
+//    @Override
+//    public void updateMoveableObject(int id, int dx) throws RemoteException {
+//        if (hasStarted()) {
+//            publisher.inform(this, "Objects", id, dx);
+//        }
+//    }
 
     @Override
     public void closedGame() {

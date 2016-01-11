@@ -26,11 +26,11 @@ public interface ILobby extends Remote, RemotePublisher {
 
     public void updatePlayers() throws RemoteException;
 
-    public void updatePlayer(String username, PlayerPosition pp) throws RemoteException;
-    
-    public void updateObject(int id, boolean state) throws RemoteException;
-    
-    public void updateMoveableObject(int id, int dx) throws RemoteException;
+//    public void updatePlayer(String username, PlayerPosition pp) throws RemoteException;
+//    
+//    public void updateObject(int id, boolean state) throws RemoteException;
+//    
+//    public void updateMoveableObject(int id, int dx) throws RemoteException;
     
     public void closedGame() throws RemoteException;
     

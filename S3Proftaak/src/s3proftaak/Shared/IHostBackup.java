@@ -17,26 +17,26 @@ import s3proftaak.fontys.RemotePublisher;
 public interface IHostBackup extends Remote, RemotePublisher {
 
     public void sendMessage(IMessage message) throws RemoteException;
-
-    public void updatePlayers() throws RemoteException;
+//
+//    public void updatePlayers() throws RemoteException;
 
     public void updatePlayer(String username, PlayerPosition pp) throws RemoteException;
 
     public void updateObject(int id, boolean state) throws RemoteException;
 
     public void updateMoveableObject(int id, int dx) throws RemoteException;
-
-    public void closedGame() throws RemoteException;
-
-    public void loadedGame(String username) throws RemoteException;
-
+//
+//    public void closedGame() throws RemoteException;
+//
+//    public void loadedGame(String username) throws RemoteException;
+//
     public void stopGame() throws RemoteException;
-
-    public void restartGame() throws RemoteException;
-
-    public String getCurrentHost() throws RemoteException;
-
-    public List<IPlayer> getPlayers() throws RemoteException;
-
-    public String getAmountOfPlayers() throws RemoteException;
+//
+//    public void restartGame() throws RemoteException;
+//
+//    public String getCurrentHost() throws RemoteException;
+//
+//    public List<IPlayer> getPlayers() throws RemoteException;
+//
+//    public String getAmountOfPlayers() throws RemoteException;
 }

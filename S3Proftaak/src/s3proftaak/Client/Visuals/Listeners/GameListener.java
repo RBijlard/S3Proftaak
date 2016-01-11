@@ -69,7 +69,7 @@ public class GameListener extends BasicListener {
 
                             if (go != null) {
                                 if (go instanceof MoveableBlock) {
-                                    System.out.println("dx: " + Integer.parseInt(evt.getNewValue().toString()));
+                                    //System.out.println("dx: " + Integer.parseInt(evt.getNewValue().toString()));
                                     ((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
 
                                 ///ALTERED BY BERRY
