@@ -201,7 +201,7 @@ public class ClientAdministration extends Application {
                         int height = gd.getDisplayMode().getHeight();
 
                         try {
-                            getApp().setDisplayMode(width, height, false);
+                            getApp().setDisplayMode(width, height, getAccount().getSettings().isFullscreen());
                             getApp().setTargetFrameRate(60);
                             getApp().setForceExit(false);
                             getApp().start();

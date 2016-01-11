@@ -40,6 +40,7 @@ public class Settings extends BasicScene {
         this.instance = ClientAdministration.getInstance();
         this.Soundinstance = SoundManager.getInstance();
         this.settings = ClientAdministration.getInstance().getAccount().getSettings();
+        
 
         Platform.runLater(new Runnable() {
             @Override
@@ -48,6 +49,12 @@ public class Settings extends BasicScene {
                     btnSound.setText("UnMute");
                 } else {
                     btnSound.setText("Mute");
+                }
+                if(instance.getAccount().getSettings().isFullscreen()){
+                    btnFullscreen.setText("Deactivate");
+                }
+                else{
+                    btnFullscreen.setText("Activate");
                 }
             }
         });
@@ -71,11 +78,27 @@ public class Settings extends BasicScene {
         }
     }
 
-    public void btnFullscreenClick(Event e) {
-        // Todo
+    public void btnFullscreenClick(Event e){
+        setFullScreen();
     }
 
     public void btnBackClick(Event e) {
         changeScreen(ClientAdministration.Screens.Menu);
+    }
+    
+    public void setFullScreen(){
+        try{
+            this.settings.setFullscreen(!this.settings.isFullscreen());
+            if(this.settings.isFullscreen()){
+                btnFullscreen.setText("Deactivate");
+            }
+            else{
+                btnFullscreen.setText("Activate");
+            }
+            DBConnect.getInstance().updateSettings(this.instance.getAccount().getUsername(), this.settings);
+            }
+        catch(SQLException se){
+            System.err.println(se.fillInStackTrace());
+        }
     }
 }
