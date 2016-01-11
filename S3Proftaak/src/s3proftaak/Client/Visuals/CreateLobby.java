@@ -40,9 +40,10 @@ public class CreateLobby extends BasicScene {
                     tempLobby.addPlayer(ClientAdministration.getInstance().getAccount().getUsername(), ClientAdministration.getInstance().getAccount().getIp());
                     ClientAdministration.getInstance().setCurrentLobby(tempLobby);
                     changeScreen(ClientAdministration.Screens.Lobby);
-                } catch(CustomException ex){
+                } catch (CustomException ex) {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
-                } catch (RemoteException ex){
+                } catch (RemoteException ex) {
+                    System.out.println(ex);
                     ClientAdministration.getInstance().connectionLost();
                 }
             } else {

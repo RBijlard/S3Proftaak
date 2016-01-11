@@ -122,6 +122,7 @@ public class Host extends UnicastRemoteObject implements IHost, ICare {
                                 try {
                                     ClientAdministration.getInstance().getCurrentLobby().stopGame();
                                 } catch (RemoteException ex) {
+                                    System.out.println(ex);
                                     ClientAdministration.getInstance().stopGame();
                                 }
                             }

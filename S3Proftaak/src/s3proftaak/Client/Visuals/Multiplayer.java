@@ -42,11 +42,12 @@ public class Multiplayer extends BasicScene {
     Button btnJoin;
 
     public Multiplayer() {
-      
+
         try {
             this.setListener(new MultiplayerListener(this));
             this.getListener().startListening();
         } catch (RemoteException ex) {
+            System.out.println(ex);
             ClientAdministration.getInstance().connectionLost();
         }
 
@@ -70,6 +71,7 @@ public class Multiplayer extends BasicScene {
                     try {
                         tableLobbies.setItems(FXCollections.observableArrayList(RMIClient.getInstance().getServerAdministration().getLobbies()));
                     } catch (RemoteException ex) {
+                        System.out.println(ex);
                         ClientAdministration.getInstance().connectionLost();
                     }
 
@@ -103,6 +105,7 @@ public class Multiplayer extends BasicScene {
             } catch (CustomException ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Failed.", 1);
             } catch (RemoteException ex) {
+                System.out.println(ex);
                 ClientAdministration.getInstance().connectionLost();
             }
         }
@@ -117,7 +120,7 @@ public class Multiplayer extends BasicScene {
     public void updateList(List<ILobby> lobbies) {
         // The line below prevents: 'java.lang.IllegalStateException: Toolkit not initialized'
         //new JFXPanel();
-        
+
         Platform.runLater(new Runnable() {
 
             @Override

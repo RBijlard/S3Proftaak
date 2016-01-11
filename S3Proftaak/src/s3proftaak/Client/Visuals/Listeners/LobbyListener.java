@@ -2,10 +2,7 @@ package s3proftaak.Client.Visuals.Listeners;
 
 import s3proftaak.Shared.IMessage;
 import java.beans.PropertyChangeEvent;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
@@ -46,6 +43,7 @@ public class LobbyListener extends BasicListener {
                         gameListener.startListening();
 
                     } catch (RemoteException ex) {
+                        System.out.println(ex);
                         ClientAdministration.getInstance().connectionLost();
                     }
                 }
@@ -58,13 +56,14 @@ public class LobbyListener extends BasicListener {
                             IHostBackup hb1 = new HostBackup(hostip);
                             ClientAdministration.getInstance().getCurrentLobby().bindHost(hb1, hostip);
                         } catch (RemoteException ex) {
+                            System.out.println(ex);
                             ClientAdministration.getInstance().connectionLost();
                         }
                     }
                 }
 
                 if (evt.getOldValue().toString().equals("ipAddressForNotHost")) {
-            // Omdat dit Host verbinding is zou dit anders kunnen afgevangen worden maar normaal RemoteException -> .connectionLost methode.
+                    // Omdat dit Host verbinding is zou dit anders kunnen afgevangen worden maar normaal RemoteException -> .connectionLost methode.
 
                     IHostBackup hb = (IHostBackup) evt.getNewValue();
                     if (hb == null) {
@@ -135,6 +134,7 @@ public class LobbyListener extends BasicListener {
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
             ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
         } catch (RemoteException ex) {
+            System.out.println(ex);
             ClientAdministration.getInstance().connectionLost();
         }
     }

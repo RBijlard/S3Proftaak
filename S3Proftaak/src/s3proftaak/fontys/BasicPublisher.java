@@ -157,8 +157,12 @@ public class BasicPublisher {
                             String playerName = namesTable.get(listener);
 
                             if (playerName != null && !playerName.isEmpty()) {
+                                System.out.println("Player died: " + playerName);
                                 if (iCare != null) {
-                                    informDisconnectedPlayer(playerName);
+                                    System.out.println("Sent player died");
+                                    synchronized(BasicPublisher.this){
+                                        iCare.playerLostConnection(playerName);
+                                    }
                                 }
                             }
 
@@ -174,10 +178,6 @@ public class BasicPublisher {
             System.out.println("Original: " + debugg.size() + "\n" + debug);
             System.out.println("Current: " + alertable.size() + "\n" + alertable.toString());
         }
-    }
-
-    public synchronized void informDisconnectedPlayer(String playerName) {
-        iCare.playerLostConnection(playerName);
     }
 
     /**

@@ -253,6 +253,7 @@ public class Game extends BasicGame {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().loadedGame(ClientAdministration.getInstance().getAccount().getUsername());
             } catch (RemoteException ex) {
+                System.out.println(ex);
                 ClientAdministration.getInstance().connectionLost();
             }
         }
@@ -478,6 +479,7 @@ public class Game extends BasicGame {
             try {
                 ClientAdministration.getInstance().getCurrentLobby().closedGame();
             } catch (RemoteException ex) {
+                System.out.println(ex);
                 ClientAdministration.getInstance().connectionLost();
             }
         }
@@ -521,6 +523,7 @@ public class Game extends BasicGame {
                 ClientAdministration.getInstance().getHostbackup().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), this.textField.getText()));
                 this.isTextFieldEnabled(false);
             } catch (RemoteException ex) {
+                System.out.println(ex);
                 ClientAdministration.getInstance().connectionLost();
             }
         }
