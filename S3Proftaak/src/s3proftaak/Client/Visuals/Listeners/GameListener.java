@@ -29,7 +29,6 @@ public class GameListener extends BasicListener {
     public void propertyChange(PropertyChangeEvent evt) throws RemoteException {
         Game game = ClientAdministration.getInstance().getGame();
         if (game != null) {
-            System.out.println(evt.toString());
             if (evt.getOldValue() != null) {
                 if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                     switch (evt.getPropertyName()) {
@@ -55,6 +54,7 @@ public class GameListener extends BasicListener {
                                         }
 
                                         c.setWalking(pp.isWalking());
+                                        c.setOldWalkingDirection(pp.getOldWalkingDirection());
                                         c.setWalkingDirection(pp.getWalkingDirection());
                                         c.setIsCrouching(pp.isCrouch());
 

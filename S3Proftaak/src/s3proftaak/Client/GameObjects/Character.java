@@ -107,7 +107,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         if (game.isMultiplayer() && isControllabe) {
-            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, isCrouching, isWalking());
+            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, oldWalkingDirection, isCrouching, isWalking());
 
             try {
                 ClientAdministration.getInstance().getHostbackup().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
@@ -503,6 +503,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
         return true;
     }
+    
+    public void setOldWalkingDirection(int oldWalkingDirection){
+        this.oldWalkingDirection = oldWalkingDirection;
+    }
 
     public void setWalkingDirection(int walkingDirection) {
         this.walkingDirection = walkingDirection;
@@ -528,7 +532,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private void setAnimation() {
         try {
             playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (isCrouching ? "_crouch" : "") + (isLeft() ? "_left" : "") + ".png").getPath().replace("%20", " "), 70, !isCrouching ? 93 : 69);
-            //System.out.println("sheet : " + playerSheet);
             try {
                 animate = new Animation(playerSheet, 100);
             } catch (ArrayIndexOutOfBoundsException x) {

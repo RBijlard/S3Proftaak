@@ -16,14 +16,16 @@ public class PlayerPosition implements Serializable {
     private final float Y;
     private final float vY;
     private final int walkingDirection;
+    private final int oldWakingDirection;
     private final boolean crouch;
     private final boolean walking;
 
-    public PlayerPosition(float X, float Y, float vY, int walkingDirection, boolean crouch, boolean walking) {
+    public PlayerPosition(float X, float Y, float vY, int walkingDirection, int oldWalkingDirection, boolean crouch, boolean walking) {
         this.X = X;
         this.Y = Y;
         this.vY = vY;
         this.walkingDirection = walkingDirection;
+        this.oldWakingDirection = oldWalkingDirection;
         this.crouch = crouch;
         this.walking = walking;
     }
@@ -42,6 +44,10 @@ public class PlayerPosition implements Serializable {
     
     public int getWalkingDirection(){
         return this.walkingDirection;
+    }
+    
+    public int getOldWalkingDirection(){
+        return this.oldWakingDirection;
     }
 
     public boolean isCrouch() {
