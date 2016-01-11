@@ -156,9 +156,9 @@ public class Host extends UnicastRemoteObject implements IHost, ICare {
 
             PlayerPosition pp = null;
             if (this.gameObjects.get(id).getRect().getHeight() > 69) {
-                pp = new PlayerPosition(this.gameObjects.get(id).getRect().getX(), this.gameObjects.get(id).getRect().getY(), 0, false);
+                //pp = new PlayerPosition(this.gameObjects.get(id).getRect().getX(), this.gameObjects.get(id).getRect().getY(), 0, false);
             } else {
-                pp = new PlayerPosition(this.gameObjects.get(id).getRect().getX(), this.gameObjects.get(id).getRect().getY(), 0, true);
+                //pp = new PlayerPosition(this.gameObjects.get(id).getRect().getX(), this.gameObjects.get(id).getRect().getY(), 0, true);
             }
 
             updatePositionPlayer(pp, id);

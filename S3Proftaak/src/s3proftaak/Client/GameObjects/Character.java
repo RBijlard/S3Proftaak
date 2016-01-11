@@ -41,6 +41,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private Animation animate;
     private GameObject MLO;
     private float offSetX;
+    
+    private int walkingDirection, oldWalkingDirection;
 
     private boolean isCrouching;
     private boolean multicrouch;
@@ -67,12 +69,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
         this.isCrouching = false;
 
-        try {
-            playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites.png").getPath().replace("%20", " "), 70, 93);
-            animate = new Animation(playerSheet, 100);
-        } catch (SlickException ex) {
-            Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.setAnimation();
     }
 
     @Override
@@ -109,12 +106,22 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         if (game.isMultiplayer() && isControllabe) {
-            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, isCrouching);
+            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, isCrouching);
 
             try {
                 ClientAdministration.getInstance().getHostbackup().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
             } catch (RemoteException ex) {
                 ClientAdministration.getInstance().connectionLost();
+            }
+        }
+        
+        if (this.isWalking()){
+            if (animate.isStopped()){
+                animate.start();
+            }
+        }else{
+            if (!animate.isStopped()){
+                animate.stop();
             }
         }
     }
@@ -137,15 +144,15 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         //Move horizontal with arrow keys
         if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             //move map right -> x minus speed
-            this.vX = this.speed;
+            this.setvX(this.speed);
         } else if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
             //move map left -> x plus speed
-            this.vX = -this.speed;
+            this.setvX(-this.speed);
         } else {
             //dont move the map
-            this.vX = 0;
+            this.setvX(0);
         }
-
+        
         //check collisions
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
@@ -358,11 +365,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     public void moveHorizontal1(GameContainer gc) {
         if (!game.isMultiplayer()) {
             if ((controlSet == 1 && gc.getInput().isKeyDown(Input.KEY_A)) || (controlSet == 2 && gc.getInput().isKeyDown(Input.KEY_J))) {
-                this.vX = -this.speed;
+                this.setvX(-this.speed);
             } else if ((controlSet == 1 && gc.getInput().isKeyDown(Input.KEY_D)) || (controlSet == 2 && gc.getInput().isKeyDown(Input.KEY_L))) {
-                this.vX = this.speed;
+                this.setvX(this.speed);
             } else {
-                this.vX = 0;
+                this.setvX(0);
             }
         }
 
@@ -372,7 +379,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.getRect().setX(this.getRect().getX() + vXtemp);
             if (this.isColliding(gc)) {
                 this.getRect().setX(this.getRect().getX() - vXtemp);
-                this.vX = 0;
+                this.setvX(0);
             }
         }
     }
@@ -425,8 +432,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             isCrouching = crouching;
 
             try {
-                playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (crouching ? "_crouch" : "") + ".png").getPath().replace("%20", " "), 70, !crouching ? 93 : 69);
-                animate = new Animation(playerSheet, 100);
+                this.setAnimation();
 
                 if (crouching) {
                     this.getRect().setY(this.getRect().getY() + 24);
@@ -466,6 +472,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void setvX(float vX) {
         this.vX = vX;
+        
+        if (this.vX > 0){
+            oldWalkingDirection = walkingDirection;
+            walkingDirection = 1;
+        }
+        
+        if (this.vX < 0){
+            oldWalkingDirection = walkingDirection;
+            walkingDirection = -1;
+        }
+        
+        updateAnimation();
     }
 
     public void setvY(float vY) {
@@ -488,5 +506,33 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         return true;
+    }
+    
+    public void setWalkingDirection(int walkingDirection){
+        this.walkingDirection = walkingDirection;
+        this.updateAnimation();
+    }
+    
+    private void updateAnimation(){
+        if (oldWalkingDirection != walkingDirection){
+            this.setAnimation();
+        }
+    }
+    
+    private void setAnimation(){
+        try {
+            playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (isCrouching ? "_crouch" : "") + (isLeft() ? "_left" : "") + ".png").getPath().replace("%20", " "), 70, !isCrouching ? 93 : 69);
+            animate = new Animation(playerSheet, 100);
+        } catch (SlickException ex) {
+            Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private boolean isWalking(){
+        return this.vX != 0;
+    }
+    
+    private boolean isLeft(){
+        return walkingDirection > 0;
     }
 }
