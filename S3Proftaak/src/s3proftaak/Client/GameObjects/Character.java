@@ -514,7 +514,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             this.setAnimation();
         }
 
-        if (this.isWalking()) {
+        if (this.isWalking() || walking) {
             if (animate.isStopped()) {
                 animate.start();
             }
@@ -543,7 +543,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     }
 
     private boolean isWalking() {
-        return this.vX != 0 || walking;
+        return this.vX != 0;
     }
 
     private boolean isLeft() {
