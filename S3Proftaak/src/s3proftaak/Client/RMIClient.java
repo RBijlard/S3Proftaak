@@ -42,7 +42,7 @@ public class RMIClient {
         }
         
         try {
-            serverAdministration = (IServer) LocateRegistry.getRegistry("145.93.73.48", 1099).lookup(bindingName);
+            serverAdministration = (IServer) LocateRegistry.getRegistry("192.168.1.135", 1099).lookup(bindingName);
         } catch (RemoteException | NotBoundException ex) {
             System.out.println("Client failed to connect to the Server. \n" + ex);
             return;
