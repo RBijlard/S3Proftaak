@@ -528,7 +528,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private void setAnimation() {
         try {
             playerSheet = new SpriteSheet(getClass().getResource("/Resources/Levels/player" + (controlSet + 1 < 3 ? controlSet + 1 : 3) + "_sprites" + (isCrouching ? "_crouch" : "") + (isLeft() ? "_left" : "") + ".png").getPath().replace("%20", " "), 70, !isCrouching ? 93 : 69);
-            System.out.println("sheet : " + playerSheet);
+            //System.out.println("sheet : " + playerSheet);
             try {
                 animate = new Animation(playerSheet, 100);
             } catch (ArrayIndexOutOfBoundsException x) {
