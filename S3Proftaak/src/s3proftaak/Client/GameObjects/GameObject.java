@@ -16,9 +16,13 @@ public abstract class GameObject {
     private List<GameObject> matchedObjects;
     
     public GameObject(float x, float y, float width, float height){
+        this(x,y,width,height,0);        
+    }
+    
+    public GameObject(float x, float y, float width, float height, float offset){
         this.matches = new ArrayList<>();
         this.matchedObjects = new ArrayList<>();
-        this.hitbox = new Rectangle(x, y, width, height);
+        this.hitbox = new Rectangle(x + offset, y, width, height);
     }
     
     public void addMatchedObject(GameObject match){
