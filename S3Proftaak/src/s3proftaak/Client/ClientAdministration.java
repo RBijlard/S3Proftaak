@@ -78,17 +78,7 @@ public class ClientAdministration extends Application {
             }
         }
 
-        if (Platform.isFxApplicationThread()) {
-            changeStage(s);
-        } else {
-            Platform.runLater(new Runnable() {
-
-                @Override
-                public void run() {
-                    changeStage(s);
-                }
-            });
-        }
+        changeStage(s);
     }
 
     private static void changeStage(Screens s) {

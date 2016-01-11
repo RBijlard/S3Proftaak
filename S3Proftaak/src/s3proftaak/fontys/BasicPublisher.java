@@ -157,9 +157,7 @@ public class BasicPublisher {
                             String playerName = namesTable.get(listener);
 
                             if (playerName != null && !playerName.isEmpty()) {
-                                System.out.println("Player died: " + playerName);
                                 if (iCare != null) {
-                                    System.out.println("Sent player died");
                                     synchronized(BasicPublisher.this){
                                         iCare.playerLostConnection(playerName);
                                     }
