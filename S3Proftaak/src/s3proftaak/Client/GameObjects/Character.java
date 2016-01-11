@@ -106,7 +106,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         if (game.isMultiplayer() && isControllabe) {
-            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, isCrouching);
+            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vX, vY, walkingDirection, isCrouching);
 
             try {
                 ClientAdministration.getInstance().getHostbackup().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
@@ -115,15 +115,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             }
         }
         
-        if (this.isWalking()){
-            if (animate.isStopped()){
-                animate.start();
-            }
-        }else{
-            if (!animate.isStopped()){
-                animate.stop();
-            }
-        }
+        this.updateAnimation();
     }
 
     @Override
@@ -519,6 +511,16 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private void updateAnimation(){
         if (oldWalkingDirection != walkingDirection){
             this.setAnimation();
+        }
+        
+        if (this.isWalking()){
+            if (animate.isStopped()){
+                animate.start();
+            }
+        }else{
+            if (!animate.isStopped()){
+                animate.stop();
+            }
         }
     }
     
