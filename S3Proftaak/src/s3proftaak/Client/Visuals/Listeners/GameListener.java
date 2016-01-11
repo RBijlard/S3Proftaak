@@ -54,7 +54,7 @@ public class GameListener extends BasicListener {
                                             c.setvY(pp.getvY());
                                         }
 
-                                        //c.setvX(pp.getvX());
+                                        c.setWalking(pp.isWalking());
                                         c.setWalkingDirection(pp.getWalkingDirection());
                                         c.setIsCrouching(pp.isCrouch());
 

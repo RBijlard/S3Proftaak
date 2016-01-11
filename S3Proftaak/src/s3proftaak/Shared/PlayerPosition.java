@@ -14,18 +14,18 @@ import java.io.Serializable;
 public class PlayerPosition implements Serializable {
     private final float X;
     private final float Y;
-    private final float vX;
     private final float vY;
     private final int walkingDirection;
     private final boolean crouch;
+    private final boolean walking;
 
-    public PlayerPosition(float X, float Y, float vX, float vY, int walkingDirection, boolean crouch) {
+    public PlayerPosition(float X, float Y, float vY, int walkingDirection, boolean crouch, boolean walking) {
         this.X = X;
         this.Y = Y;
-        this.vX = vX;
         this.vY = vY;
         this.walkingDirection = walkingDirection;
         this.crouch = crouch;
+        this.walking = walking;
     }
 
     public float getX() {
@@ -34,10 +34,6 @@ public class PlayerPosition implements Serializable {
 
     public float getY() {
         return this.Y;
-    }
-    
-    public float getvX(){
-        return this.vX;
     }
 
     public float getvY() {
@@ -50,5 +46,9 @@ public class PlayerPosition implements Serializable {
 
     public boolean isCrouch() {
         return this.crouch;
+    }
+    
+    public boolean isWalking(){
+        return this.walking;
     }
 }

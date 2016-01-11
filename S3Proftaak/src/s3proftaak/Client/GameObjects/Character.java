@@ -46,6 +46,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     private boolean isCrouching;
     private boolean multicrouch;
+    private boolean walking;
 
     float marginy, marginx;
 
@@ -106,7 +107,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         if (game.isMultiplayer() && isControllabe) {
-            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vX, vY, walkingDirection, isCrouching);
+            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, isCrouching, isWalking());
 
             try {
                 ClientAdministration.getInstance().getHostbackup().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
@@ -536,9 +537,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void setWalking(boolean walking){
+        this.walking = walking;
+    }
 
     private boolean isWalking() {
-        return this.vX != 0;
+        return this.vX != 0 || walking;
     }
 
     private boolean isLeft() {
