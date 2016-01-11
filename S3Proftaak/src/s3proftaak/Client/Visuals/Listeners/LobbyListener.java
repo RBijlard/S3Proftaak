@@ -58,10 +58,6 @@ public class LobbyListener extends BasicListener {
                             System.out.println("hostip: " + hostip);
                             HostBackup hb1 = new HostBackup(hostip);
                             ClientAdministration.getInstance().getCurrentLobby().bindHost(hb1, hostip);
-                            if (hb1 != null) {
-                                System.out.println("HostReady calling");
-                                ClientAdministration.getInstance().getCurrentLobby().hostReady();
-                            }
                         } catch (RemoteException ex) {
                             ClientAdministration.getInstance().connectionLost();
                         }
@@ -69,25 +65,14 @@ public class LobbyListener extends BasicListener {
                 }
 
                 if (evt.getOldValue().toString().equals("ipAddressForNotHost")) {
-                    String hostip = evt.getNewValue().toString();
-                    try {
-                        Registry registry = LocateRegistry.getRegistry("145.93.73.48", 1099);
+            // Omdat dit Host verbinding is zou dit anders kunnen afgevangen worden maar normaal RemoteException -> .connectionLost methode.
 
-                        if (registry != null) {
-                            IHostBackup hb = (IHostBackup) registry.lookup(hostip);
-                            if (hb == null) {
-                                System.out.println("Client failed to connect to the HOST. (Lookup failed)");
-                            } else {
-                                System.out.println("SETTING HOST -- ip: " + hostip);
-                                ClientAdministration.getInstance().setHostbackup(hb);
-                            }
-                        } else {
-                            System.out.println("Client failed to connect to the HOST. (Locate registry failed)");
-                        }
-
-                    } catch (RemoteException | NotBoundException ex) {
-                        // Omdat dit Host verbinding is zou dit anders kunnen afgevangen worden maar normaal RemoteException -> .connectionLost methode.
-                        ClientAdministration.getInstance().connectionLost();
+                    IHostBackup hb = (IHostBackup) evt.getNewValue();
+                    if (hb == null) {
+                        System.out.println("Client failed to connect to the HOST. (Lookup failed)");
+                    } else {
+                        System.out.println("setting host hb : " + hb);
+                        ClientAdministration.getInstance().setHostbackup(hb);
                     }
 
                 }

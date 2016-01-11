@@ -260,11 +260,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         return null;
     }
 
-    @Override
-    public void hostReady() {
-        publisher.inform(this, "Administrative", "ipAddressForNotHost", this.getPlayer(this.currentHost).getIpAddress());
-    }
-
     private void checkStartGame() {
         if (!hasStarted()) {
             if (level != null) {
@@ -348,10 +343,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
     
     @Override
     public void bindHost(HostBackup hb1, String ipAddress){
-        try {
-            LocateRegistry.getRegistry(1099).rebind(ipAddress, hb1);
-        } catch (RemoteException ex) {
-            Logger.getLogger(Lobby.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        this.publisher.inform(this, "Administrative", "ipAddressForNotHost", hb1);
     }
 }

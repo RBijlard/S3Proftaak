@@ -5,17 +5,11 @@
  */
 package s3proftaak.Host;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Server.Player;
 import s3proftaak.Server.ServerAdministration;
 import s3proftaak.Shared.IHostBackup;
