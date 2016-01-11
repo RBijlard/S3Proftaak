@@ -143,7 +143,7 @@ public class Game extends BasicGame {
 
         //spawn
         for (int i = 0; i < map.getObjectCount(8); i++) {
-            spawn = new SpawnPoint(map.getObjectX(3, i), map.getObjectY(3, i), map.getObjectWidth(3, i), map.getObjectHeight(3, i));
+            spawn = new SpawnPoint(map.getObjectX(8, i), map.getObjectY(8, i), map.getObjectWidth(8, i), map.getObjectHeight(8, i));
             xOffset = spawn.getRect().getX() - (float) (gc.getWidth() * 0.4);
         }
 
