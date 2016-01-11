@@ -43,6 +43,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
         SoundManager.getInstance().playSound(SoundManager.Sounds.COINPICKUP);
         this.sprite = null;
         this.removed = true;
+        ClientAdministration.getInstance().getGame().starCollected();
         ClientAdministration.getInstance().getGame().removeGameObject(this);
     }
 

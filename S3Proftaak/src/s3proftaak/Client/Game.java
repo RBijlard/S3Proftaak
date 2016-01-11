@@ -278,24 +278,15 @@ public class Game extends BasicGame {
             // Handle GameObjects that should be removed.
             if (!this.removableGameObjects.isEmpty()) {
                 List<GameObject> tempObjects = new ArrayList<>();
-                for(GameObject go : this.removableGameObjects){
-                    if(go instanceof Star){
-                        System.out.println("star found : " + go.getId());
-                    }
-                    tempObjects.add(go);
-                }
+                tempObjects.addAll(this.removableGameObjects);
 
                 for (GameObject go : tempObjects) {
-
-                    if (go instanceof Star) {
-                        this.starsCollected++;
-                    }
-
                     this.gameObjects.remove(go);
                     this.removableGameObjects.remove(go);
                 }
             }
 
+            // Handle Game
             for (GameObject go : this.gameObjects) {
 
                 if (go instanceof IUpdateable) {
@@ -537,5 +528,9 @@ public class Game extends BasicGame {
 
     public InGameMessage getInGameMessage() {
         return this.inGameMessage;
+    }
+    
+    public void starCollected(){
+        this.starsCollected++;
     }
 }
