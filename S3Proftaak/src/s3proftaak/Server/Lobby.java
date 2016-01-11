@@ -7,19 +7,14 @@ package s3proftaak.Server;
 
 import s3proftaak.fontys.BasicPublisher;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import s3proftaak.Host.HostBackup;
 import s3proftaak.Shared.IHostBackup;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.IPlayer;
-import s3proftaak.Shared.PlayerPosition;
 import s3proftaak.fontys.RemotePropertyListener;
 import s3proftaak.util.ICare;
 
@@ -123,27 +118,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
             ServerAdministration.getInstance().informLobbyListMembers();
         }
     }
-//
-//    @Override
-//    public void updatePlayer(String username, PlayerPosition pp) {
-//        if (hasStarted()) {
-//            publisher.inform(this, "Rect", username, pp);
-//        }
-//    }
-//
-//    @Override
-//    public void updateObject(int id, boolean state) throws RemoteException {
-//        if (hasStarted()) {
-//            publisher.inform(this, "Objects", id, state);
-//        }
-//    }
-//
-//    @Override
-//    public void updateMoveableObject(int id, int dx) throws RemoteException {
-//        if (hasStarted()) {
-//            publisher.inform(this, "Objects", id, dx);
-//        }
-//    }
 
     @Override
     public void closedGame() {
