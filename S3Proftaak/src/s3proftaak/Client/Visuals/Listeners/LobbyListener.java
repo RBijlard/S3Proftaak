@@ -40,7 +40,7 @@ public class LobbyListener extends BasicListener {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
                     try {
-                        ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
+                        ClientAdministration.getInstance().startGame(new Game("SpaceMen Adventures", players.size(), evt.getNewValue().toString(), getNames()));
 
                         gameListener = new GameListener();
                         gameListener.startListening();
