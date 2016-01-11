@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.Color;
@@ -73,6 +72,7 @@ public class Game extends BasicGame {
 
     private TrueTypeFont slickFontTimer;
     private TrueTypeFont slickFontUserName;
+    private TrueTypeFont chatTextBoxFont;
 
     private int objectId = 0;
 
@@ -111,6 +111,7 @@ public class Game extends BasicGame {
 
         this.slickFontTimer = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 40), false);
         this.slickFontUserName = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 18), false);
+        this.chatTextBoxFont = new TrueTypeFont(new Font("Montserrat", Font.BOLD, 18), false);
 
         //set textFieldEnabled to false
         this.textFieldEnabled = false;
@@ -121,11 +122,8 @@ public class Game extends BasicGame {
         //set stars
         this.starsCollected = 0;
 
-        //set Textfield
-        System.out.println(gc.getHeight());
-        System.out.println(gc.getWidth());
-        
-        this.textField = new TextField(gc, slickFontTimer, 1, gc.getHeight() - 51, 500, 50);
+        //set Textfield       
+        this.textField = new TextField(gc, chatTextBoxFont, 1, gc.getHeight() - 51, 500, 50);
 
         //play deathsound
         SoundManager.getInstance().playDeathSound();

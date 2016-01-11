@@ -5,12 +5,17 @@
  */
 package s3proftaak.Host;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Server.Player;
 import s3proftaak.Server.ServerAdministration;
 import s3proftaak.Shared.IHostBackup;
@@ -45,7 +50,7 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
         // dus game afsluite en weet ik ut wat nog meer
         // Moet trouwens ook nog als game is afgelope terug met de Server connecte, anders krijg je Connection Lost zoals nu want er is geen verbinding
         // meer met server door deze host ^^
-        
+
         //YO, player connection lost: game stopt -> players naar lobby, de player zonder connection wordt gekickt.
         //JA, connection van de server moet opnieuw opgezet worden wanneer de game gefinished wordt..
         stopGame();
@@ -59,17 +64,17 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
     }
 
     public HostBackup(String ipAddress) throws RemoteException {
-        instance = (HostBackup)this;
+        instance = (HostBackup) this;
         try {
-            //new ServerAdministration();
-            LocateRegistry.createRegistry(1098).rebind("HostGame", HostBackup.getInstance());
+            
+            LocateRegistry.getRegistry(1099).rebind(ipAddress, HostBackup.getInstance());
             System.out.println("Host is online at: '" + ipAddress + "'.");
-            System.out.println("Using port: 1098");
+            System.out.println("Using port: 1099");
 
         } catch (RemoteException ex) {
             System.out.println("Server is offline. \n" + ex);
         }
-        
+
         this.max = 1;
         this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }
@@ -116,21 +121,21 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
     @Override
     public void updatePlayer(String username, PlayerPosition pp) {
         //if (hasStarted()) {
-            publisher.inform(this, "Rect", username, pp);
+        publisher.inform(this, "Rect", username, pp);
         //}
     }
 
     @Override
     public void updateObject(int id, boolean state) throws RemoteException {
         //if (hasStarted()) {
-            publisher.inform(this, "Objects", id, state);
+        publisher.inform(this, "Objects", id, state);
         //}
     }
 
     @Override
     public void updateMoveableObject(int id, int dx) throws RemoteException {
         //if (hasStarted()) {
-            publisher.inform(this, "Objects", id, dx);
+        publisher.inform(this, "Objects", id, dx);
         //}
     }
 

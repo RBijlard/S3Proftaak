@@ -241,35 +241,38 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             int i = 0;
                             if (go.getRect().getX() > rect.getX()) {
                                 i = 1;
-                                if (game.isMultiplayer()) {
-                                    try {
-                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
-                                    } catch (RemoteException ex) {
-                                        ClientAdministration.getInstance().connectionLost();
-                                    }
-                                }
+//                                if (game.isMultiplayer()) {
+//                                    try {
+//                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
+//                                    } catch (RemoteException ex) {
+//                                        ClientAdministration.getInstance().connectionLost();
+//                                    }
+//                                }
                             }
                             if (go.getRect().getX() < rect.getX()) {
                                 i = -1;
-                                if (game.isMultiplayer()) {
-                                    try {
-                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
-                                    } catch (RemoteException ex) {
-                                        ClientAdministration.getInstance().connectionLost();
-                                    }
-                                }
+//                                if (game.isMultiplayer()) {
+//                                    try {
+//                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
+//                                    } catch (RemoteException ex) {
+//                                        ClientAdministration.getInstance().connectionLost();
+//                                    }
+//                                }
                             }
                             if (!game.isMultiplayer()) {
                                 ((MoveableBlock) go).setDx(i);
                             }
 
-                            ///ALTERED BY BERRY
-//                            ((MoveableBlock) go).setDx(i);
-//                            try {
-//                                ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), (int)go.getRect().getX());
-//                            } catch (RemoteException ex) {
-//                                Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
+                            if (game.isMultiplayer()) {
+                                ///ALTERED BY BERRY
+                                ((MoveableBlock) go).setDx(i);
+                                try {
+                                    ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), (int) go.getRect().getX());
+                                } catch (RemoteException ex) {
+                                    Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                ((MoveableBlock) go).setDx((-1 * i));
+                            }
                             ///END
                         }
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {

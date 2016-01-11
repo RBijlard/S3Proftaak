@@ -5,9 +5,11 @@
  */
 package s3proftaak.Client;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.TrueTypeFont;
 import s3proftaak.Shared.IMessage;
 
 /**
@@ -16,9 +18,11 @@ import s3proftaak.Shared.IMessage;
  */
 public class InGameMessage {
 
+    private TrueTypeFont chatFont;
     private List<IMessage> gameMessages;
 
     public InGameMessage() {
+        this.chatFont = new TrueTypeFont(new Font("Montserrat", Font.PLAIN, 16), false);
         this.gameMessages = new ArrayList<IMessage>();
     }
 
@@ -33,6 +37,7 @@ public class InGameMessage {
 
     public void draw(Graphics grp, int hgt) {
         int count = 0;
+        grp.setFont(chatFont);
         for (IMessage im : this.gameMessages) {
             grp.drawString(im.toString(), 1, hgt - 320 + count);
             count += grp.getFont().getHeight(im.toString()) + 2;

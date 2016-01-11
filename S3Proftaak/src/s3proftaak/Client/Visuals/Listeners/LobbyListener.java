@@ -40,7 +40,7 @@ public class LobbyListener extends BasicListener {
             case "Administrative":
                 if (evt.getOldValue().toString().equals("StartGame")) {
                     try {
-                        ClientAdministration.getInstance().startGame(new Game("De Game", players.size(), evt.getNewValue().toString(), getNames()));
+                        ClientAdministration.getInstance().startGame(new Game("SpaceMen Adventures", players.size(), evt.getNewValue().toString(), getNames()));
 
                         gameListener = new GameListener();
                         gameListener.startListening();
@@ -55,6 +55,7 @@ public class LobbyListener extends BasicListener {
                     if (hostip.equals(ClientAdministration.getInstance().getAccount().getIp())) {
                         try {
                             //CREATE HOST
+                            System.out.println("hostip: " + hostip);
                             HostBackup hb1 = new HostBackup(hostip);
                             if (hb1 != null) {
                                 System.out.println("HostReady calling");
@@ -69,10 +70,10 @@ public class LobbyListener extends BasicListener {
                 if (evt.getOldValue().toString().equals("ipAddressForNotHost")) {
                     String hostip = evt.getNewValue().toString();
                     try {
-                        Registry registry = LocateRegistry.getRegistry(hostip, 1098);
+                        Registry registry = LocateRegistry.getRegistry(hostip, 1099);
 
                         if (registry != null) {
-                            IHostBackup hb = (IHostBackup) registry.lookup("HostGame");
+                            IHostBackup hb = (IHostBackup) registry.lookup(hostip);
                             if (hb == null) {
                                 System.out.println("Client failed to connect to the HOST. (Lookup failed)");
                             } else {
