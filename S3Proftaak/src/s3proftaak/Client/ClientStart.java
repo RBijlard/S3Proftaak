@@ -30,7 +30,7 @@ public class ClientStart {
             Logger.getLogger(RMIClient.class.getName()).log(Level.SEVERE, null, ex);
         }
         // Path ingesteld
-        
+
         System.out.println("Application started.");
         Application.launch(ClientAdministration.class);
 

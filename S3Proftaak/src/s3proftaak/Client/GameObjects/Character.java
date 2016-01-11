@@ -429,11 +429,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 animate = new Animation(playerSheet, 100);
 
                 if (crouching) {
-                    this.getRect().setHeight(69);
                     this.getRect().setY(this.getRect().getY() + 24);
+                    this.getRect().setHeight(69);
                 } else {
-                    this.getRect().setY(this.getRect().getY() - 24);
                     this.getRect().setHeight(93);
+                    this.getRect().setY(this.getRect().getY() - 24);
                 }
 
             } catch (Exception ex) {
