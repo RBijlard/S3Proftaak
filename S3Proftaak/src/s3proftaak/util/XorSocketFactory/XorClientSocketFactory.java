@@ -25,7 +25,7 @@ public class XorClientSocketFactory
     {
         Socket socket = new XorSocket(pattern);
         socket.setSoTimeout(5000);
-        socket.connect(new InetSocketAddress(host, port));
+        socket.connect(new InetSocketAddress(host, port), 5000);
         return socket;
     }
     
