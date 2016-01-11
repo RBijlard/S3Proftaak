@@ -5,6 +5,8 @@ import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javax.swing.JOptionPane;
 import s3proftaak.Client.ClientAdministration;
@@ -84,7 +86,13 @@ public class LobbyListener extends BasicListener {
                 }
 
                 if (evt.getOldValue().toString().equals("StopGame")) {
-                    gameListener.stopListening();
+                    try {
+                        gameListener.stopListening();
+                    } catch (RemoteException ex) {
+                        System.out.println(ex);
+                        // No need to return to the Lobby since we ended the game.
+                    }
+                    
                     gameListener = null;
                     System.out.println("Received StopGame");
                     ClientAdministration.getInstance().stopGame();
@@ -125,40 +133,30 @@ public class LobbyListener extends BasicListener {
     }
 
     @Override
-    public void startListening() {
-        try {
-            String username = ClientAdministration.getInstance().getAccount().getUsername();
+    public void startListening() throws RemoteException {
+        String username = ClientAdministration.getInstance().getAccount().getUsername();
 
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Administrative");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Chat");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Administrative");
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Chat");
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
+
     }
 
     @Override
-    public void stopListening() {
-        try {
-            if (gameListener != null) {
-                gameListener.stopListening();
-            }
-
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Administrative");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Chat");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
-
-            ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
-
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
+    public void stopListening() throws RemoteException {
+        if (gameListener != null) {
+            gameListener.stopListening();
         }
+
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Administrative");
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Chat");
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
+
+        ClientAdministration.getInstance().getCurrentLobby().removePlayer(ClientAdministration.getInstance().getAccount().getUsername());
     }
 
     private List<String> getNames() {

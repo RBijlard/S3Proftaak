@@ -7,6 +7,8 @@ package s3proftaak.Client.Visuals;
 
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.embed.swing.JFXPanel;
@@ -89,13 +91,23 @@ public class Multiplayer extends BasicScene {
     }
 
     public void btnCreateClick(Event e) {
-        this.getListener().stopListening();
+        try {
+            this.getListener().stopListening();
+        } catch (RemoteException ex) {
+            System.out.println(ex);
+            ClientAdministration.getInstance().connectionLost();
+        }
 
         changeScreen(ClientAdministration.Screens.CreateLobby);
     }
 
     public void btnJoinClick(Event e) {
-        this.getListener().stopListening();
+        try {
+            this.getListener().stopListening();
+        } catch (RemoteException ex) {
+            System.out.println(ex);
+            ClientAdministration.getInstance().connectionLost();
+        }
 
         if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null) {
             try {
@@ -112,7 +124,12 @@ public class Multiplayer extends BasicScene {
     }
 
     public void btnBackClick(Event e) {
-        this.getListener().stopListening();
+        try {
+            this.getListener().stopListening();
+        } catch (RemoteException ex) {
+            System.out.println(ex);
+            ClientAdministration.getInstance().connectionLost();
+        }
 
         changeScreen(ClientAdministration.Screens.Menu);
     }

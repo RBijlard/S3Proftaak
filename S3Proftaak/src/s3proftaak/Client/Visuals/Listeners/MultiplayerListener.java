@@ -31,24 +31,14 @@ public class MultiplayerListener extends BasicListener {
     }
 
     @Override
-    public void startListening() {
-        try {
-            String username = ClientAdministration.getInstance().getAccount().getUsername();
-            RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+    public void startListening() throws RemoteException {
+        String username = ClientAdministration.getInstance().getAccount().getUsername();
+        RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
     }
 
     @Override
-    public void stopListening() {
-        try {
-            RMIClient.getInstance().getServerAdministration().removeListener(this, "LobbyList");
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+    public void stopListening() throws RemoteException {
+        RMIClient.getInstance().getServerAdministration().removeListener(this, "LobbyList");
     }
 
 }

@@ -9,6 +9,8 @@ import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
@@ -176,7 +178,12 @@ public final class Lobby extends BasicScene {
 
     public void btnLeaveClick(Event e) {
         if (this.getListener() != null) {
-            this.getListener().stopListening();
+            try {
+                this.getListener().stopListening();
+            } catch (RemoteException ex) {
+                System.out.println(ex);
+                ClientAdministration.getInstance().connectionLost();
+            }
         }
 
         changeScreen(ClientAdministration.Screens.Multiplayer);

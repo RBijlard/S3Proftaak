@@ -10,6 +10,7 @@ import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
@@ -53,7 +54,12 @@ public class ClientAdministration extends Application {
             @Override
             public void handle(WindowEvent event) {
                 if (getCurrentScreen().getListener() != null) {
-                    getCurrentScreen().getListener().stopListening();
+                    try {
+                        getCurrentScreen().getListener().stopListening();
+                    } catch (RemoteException ex) {
+                        System.out.println(ex);
+                        ClientAdministration.getInstance().connectionLost();
+                    }
                 }
 
                 System.exit(0);
@@ -74,7 +80,12 @@ public class ClientAdministration extends Application {
     public static void changeScreen(Screens s, boolean force) {
         if (!force) {
             if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null) {
-                getInstance().getCurrentScreen().getListener().stopListening();
+                try {
+                    getInstance().getCurrentScreen().getListener().stopListening();
+                } catch (RemoteException ex) {
+                    System.out.println(ex);
+                    ClientAdministration.getInstance().connectionLost();
+                }
             }
         }
 

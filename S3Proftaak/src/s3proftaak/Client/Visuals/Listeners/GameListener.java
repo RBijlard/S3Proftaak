@@ -78,7 +78,7 @@ public class GameListener extends BasicListener {
 //                                    offset = (int) c.getOffsetX();
 //                                    ((MoveableBlock) go).getRect().setX(Integer.parseInt(evt.getNewValue().toString()) - offset);
 //                                }
-                                ///END
+                                    ///END
                                 }
 
                                 if (go instanceof IRemoteUpdatable) {
@@ -98,42 +98,30 @@ public class GameListener extends BasicListener {
     }
 
     @Override
-    public void startListening() {
-        try {
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
-            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
+    public void startListening() throws RemoteException {
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
+        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
 
-            String username = ClientAdministration.getInstance().getAccount().getUsername();
+        String username = ClientAdministration.getInstance().getAccount().getUsername();
 
 //            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Rect");
 //            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Objects");
-            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Rect");
-            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
-            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Chat");
-
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+        ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Rect");
+        ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
+        ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Chat");
     }
 
     @Override
-    public void stopListening() {
-        try {
-            String username = ClientAdministration.getInstance().getAccount().getUsername();
+    public void stopListening() throws RemoteException {
+        String username = ClientAdministration.getInstance().getAccount().getUsername();
 
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
-            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
+        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
 
-            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Rect");
-            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Objects");
-            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Chat");
-
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+        ClientAdministration.getInstance().getHostbackup().removeListener(this, "Rect");
+        ClientAdministration.getInstance().getHostbackup().removeListener(this, "Objects");
+        ClientAdministration.getInstance().getHostbackup().removeListener(this, "Chat");
     }
 }
