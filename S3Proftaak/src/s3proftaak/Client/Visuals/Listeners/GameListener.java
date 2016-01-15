@@ -83,7 +83,7 @@ public class GameListener extends BasicListener {
                                             if (mbp.getDx() < 0){
                                                 mb.getRect().setX(mbp.getX() - offset);
                                                 mb.getRect().setY(mbp.getY());
-                                            }else{
+                                            }else if (mbp.getDx() > 0){
                                                 mb.getRect().setX(mbp.getX() - offset + 3);
                                                 mb.getRect().setY(mbp.getY());
                                             }

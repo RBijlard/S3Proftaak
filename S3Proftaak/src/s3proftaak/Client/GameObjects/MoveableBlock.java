@@ -99,7 +99,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     }
     
     public boolean safeMoveTo(float x, float y) {
-        GameObject tempGo = new Block(x, y, getRect().getWidth(), getRect().getHeight());
+        GameObject tempGo = new Block(x+3, y, getRect().getWidth()-3, getRect().getHeight());
         
         for (GameObject go : ClientAdministration.getInstance().getGame().getGameObjects()) {
             //check if colliding
