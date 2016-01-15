@@ -29,9 +29,9 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
 
         for (int a = 0; a < 5; a++) {
             if (dx != 0) {
-                if (!this.isColliding(gc)) {
+                if (!this.isColliding()) {
                     this.getRect().setX(this.getRect().getX() + (dx));
-                    if (this.isColliding(gc)){
+                    if (this.isColliding()){
                         this.getRect().setX(this.getRect().getX() - (dx));
                     }
                 }
@@ -73,7 +73,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
     }
 
-    public boolean isColliding(GameContainer gc) {
+    public boolean isColliding() {
         for (GameObject go : ClientAdministration.getInstance().getGame().getGameObjects()) {
             if (go != this) {
                 if (go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) {
@@ -96,6 +96,26 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
 
     public void setDx(int dx) {
         this.dx = dx;
+    }
+    
+    public boolean safeMoveTo(float x, float y) {
+        GameObject tempGo = new Block(x, y, getRect().getWidth(), getRect().getHeight());
+        
+        for (GameObject go : ClientAdministration.getInstance().getGame().getGameObjects()) {
+            //check if colliding
+            
+            GameObject tempGo2 = new Block(go.getRect().getX(), go.getRect().getY(), go.getRect().getWidth(), go.getRect().getHeight());
+            if (tempGo2.getRect().intersects(tempGo.getRect()) || tempGo2.getRect().contains(tempGo.getRect())) {
+                if (go != this) {
+                    //check what object
+                    if (go instanceof MoveableBlock || go instanceof Character) {
+                        return false;
+                    }
+                }
+            }
+        }
+        
+        return true;
     }
 
     @Override

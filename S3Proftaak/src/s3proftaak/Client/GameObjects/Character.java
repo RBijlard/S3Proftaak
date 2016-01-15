@@ -17,7 +17,8 @@ import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
-import s3proftaak.Shared.PlayerPosition;
+import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
+import s3proftaak.Shared.Wrappers.PlayerPosition;
 
 /**
  *
@@ -243,11 +244,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             if (go.getRect().getX() < rect.getX()) {
                                 i = -1;
                             }
+                            
                             if (!game.isMultiplayer()) {
                                 ((MoveableBlock) go).setDx(i);
                             } else {
                                 try {
-                                    ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), i);
+                                    MoveableBlock mb = (MoveableBlock) go;
+                                    ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), new MoveableBlockPosition(mb.getRect().getX() + offSetX, mb.getRect().getY(), i));
                                 } catch (RemoteException ex) {
                                     System.out.println(ex);
                                     ClientAdministration.getInstance().connectionLost();

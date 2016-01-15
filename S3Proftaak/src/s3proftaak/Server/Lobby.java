@@ -47,7 +47,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
 
     @Override
     public void playerLostConnection(String playerName) {
-        if (players.contains(getPlayer(playerName))){
+        if (players.contains(getPlayer(playerName))) {
             kickPlayer(playerName);
         }
     }
@@ -90,7 +90,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         if (hasStarted()) {
             Player p = getPlayer(username);
             if (p != null) {
-                p.toggleReady();
+                p.setReady(true);
                 checkReallyStartGame();
             }
         }
@@ -239,40 +239,45 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         if (!hasStarted()) {
             if (level != null) {
                 if (players.size() == max) {
-                    boolean allReady = true;
-
-                    for (Player p : players) {
-                        if (!p.isReady()) {
-                            allReady = false;
-                        }
-                    }
-
-                    if (allReady) {
+                    if (allReady()) {
                         state = LobbyState.Loading;
-                        
-                        for (Player p : players) {
-                            p.setReady(false);
-                        }
-                        
                         publisher.inform(this, "Administrative", "ipAddress", this.getPlayer(this.currentHost).getIpAddress());
-                        publisher.inform(this, "Administrative", "StartGame", level);
                     }
                 }
             }
         }
     }
 
+    private boolean allReady() {
+        boolean allReady = true;
+
+        for (Player p : players) {
+            if (!p.isReady()) {
+                allReady = false;
+            }
+        }
+
+        if (allReady) {
+            // Everyone is ready, toggle it since we need the ready state for more stuff.
+            for (Player p : players) {
+                p.setReady(false);
+            }
+        }
+
+        return allReady;
+    }
+
+    private void checkHostReceived() {
+        if (state == LobbyState.Loading) {
+            if (allReady()) {
+                publisher.inform(this, "Administrative", "StartGame", level);
+            }
+        }
+    }
+
     private void checkReallyStartGame() {
         if (state == LobbyState.Loading) {
-            boolean allReady = true;
-
-            for (Player p : players) {
-                if (!p.isReady()) {
-                    allReady = false;
-                }
-            }
-
-            if (allReady) {
+            if (allReady()) {
                 state = LobbyState.Playing;
                 publisher.inform(this, "Administrative", "ReallyStartGame", null);
             }
@@ -282,10 +287,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
     @Override
     public void stopGame() {
         if (hasStarted()) {
-            for (Player p : players) {
-                p.setReady(false);
-            }
-
             state = LobbyState.Waiting;
             publisher.inform(this, "Administrative", "StopGame", null);
         }
@@ -294,10 +295,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
     @Override
     public void restartGame() {
         if (state == LobbyState.Playing) {
-            for (Player p : players) {
-                p.setReady(false);
-            }
-
             state = LobbyState.Loading;
             publisher.inform(this, "Administrative", "RestartGame", null);
         }
@@ -316,9 +313,20 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
 
         return names;
     }
-    
+
     @Override
-    public void bindHost(IHostBackup hb1, String ipAddress){
+    public void bindHost(IHostBackup hb1, String ipAddress) {
         this.publisher.inform(this, "Administrative", "ipAddressForNotHost", hb1);
+    }
+
+    @Override
+    public void receivedHost(String username) throws RemoteException {
+        if (state == LobbyState.Loading) {
+            Player p = getPlayer(username);
+            if (p != null) {
+                p.setReady(true);
+                checkHostReceived();
+            }
+        }
     }
 }

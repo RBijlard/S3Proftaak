@@ -56,4 +56,6 @@ public interface ILobby extends Remote, RemotePublisher {
     public void removePlayer(String username) throws RemoteException;
     
     public void bindHost(IHostBackup bh1, String ip) throws RemoteException;
+    
+    public void receivedHost(String username) throws RemoteException;
 }

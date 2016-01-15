@@ -178,12 +178,7 @@ public final class Lobby extends BasicScene {
 
     public void btnLeaveClick(Event e) {
         if (this.getListener() != null) {
-            try {
-                this.getListener().stopListening();
-            } catch (RemoteException ex) {
-                System.out.println(ex);
-                ClientAdministration.getInstance().connectionLost();
-            }
+            this.getListener().stopListening();
         }
 
         changeScreen(ClientAdministration.Screens.Multiplayer);

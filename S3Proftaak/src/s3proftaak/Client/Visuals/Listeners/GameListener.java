@@ -7,13 +7,16 @@ package s3proftaak.Client.Visuals.Listeners;
 
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.GameObjects.GameObject;
 import s3proftaak.Client.GameObjects.Interfaces.IRemoteUpdatable;
 import s3proftaak.Client.GameObjects.MoveableBlock;
 import s3proftaak.Shared.IMessage;
-import s3proftaak.Shared.PlayerPosition;
+import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
+import s3proftaak.Shared.Wrappers.PlayerPosition;
 
 /**
  *
@@ -31,15 +34,17 @@ public class GameListener extends BasicListener {
         if (game != null) {
             if (evt.getOldValue() != null) {
                 if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
-                    switch (evt.getPropertyName()) {
-                        case "Rect":
-                            int offset = 0;
-                            if (game.getGameCharacters() != null) {
-                                for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
-                                    if (c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
-                                        offset = (int) c.getOffsetX();
-                                    }
-                                }
+
+                    int offset = 0;
+                    if (game.getGameCharacters() != null) {
+                        for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
+                            if (c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
+                                offset = (int) c.getOffsetX();
+                            }
+                        }
+
+                        switch (evt.getPropertyName()) {
+                            case "Rect":
                                 for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
 
                                     if (c.getName().equals(evt.getOldValue().toString())) {
@@ -61,32 +66,47 @@ public class GameListener extends BasicListener {
                                         break;
                                     }
                                 }
-                            }
 
-                            break;
+                                break;
 
-                        case "Objects":
-                            GameObject go = ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()));
+                            case "Objects":
+                                GameObject go = ClientAdministration.getInstance().getGame().getGameObject(Integer.parseInt(evt.getOldValue().toString()));
 
-                            if (go != null) {
-                                if (go instanceof MoveableBlock) {
-                                    //System.out.println("dx: " + Integer.parseInt(evt.getNewValue().toString()));
-                                    ((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
+                                if (go != null) {
+                                    if (go instanceof MoveableBlock) {
+                                        //System.out.println("dx: " + Integer.parseInt(evt.getNewValue().toString()));
+                                        MoveableBlockPosition mbp = (MoveableBlockPosition) evt.getNewValue();
+                                        MoveableBlock mb = (MoveableBlock) go;
 
-                                ///ALTERED BY BERRY
+                                        if (mb.safeMoveTo(mbp.getX() - offset, mbp.getY())) {
+                                            //mb.setDx(mbp.getDx());
+                                            if (mbp.getDx() < 0){
+                                                mb.getRect().setX(mbp.getX() - offset);
+                                                mb.getRect().setY(mbp.getY());
+                                            }else{
+                                                mb.getRect().setX(mbp.getX() - offset + 3);
+                                                mb.getRect().setY(mbp.getY());
+                                            }
+                                            //mb.setDx(mbp.getDx());
+                                        }
+
+                                        //((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
+
+                                    ///ALTERED BY BERRY
 //                                for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
 //                                    offset = (int) c.getOffsetX();
 //                                    ((MoveableBlock) go).getRect().setX(Integer.parseInt(evt.getNewValue().toString()) - offset);
 //                                }
-                                    ///END
+                                        ///END
+                                    }
+
+                                    if (go instanceof IRemoteUpdatable) {
+                                        ((IRemoteUpdatable) go).setActive(Boolean.valueOf(evt.getNewValue().toString()));
+                                    }
                                 }
 
-                                if (go instanceof IRemoteUpdatable) {
-                                    ((IRemoteUpdatable) go).setActive(Boolean.valueOf(evt.getNewValue().toString()));
-                                }
-                            }
-
-                            break;
+                                break;
+                        }
                     }
                 }
             } else {
@@ -98,30 +118,40 @@ public class GameListener extends BasicListener {
     }
 
     @Override
-    public void startListening() throws RemoteException {
-        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
-        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
-        ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
-
-        String username = ClientAdministration.getInstance().getAccount().getUsername();
-
+    public void startListening() {
+        try {
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Players");
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Level");
+            ClientAdministration.getInstance().getCurrentLobby().removeListener(this, "Host");
+            
+            String username = ClientAdministration.getInstance().getAccount().getUsername();
+            
 //            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Rect");
 //            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Objects");
-        ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Rect");
-        ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
-        ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Chat");
+            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Rect");
+            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Objects");
+            ClientAdministration.getInstance().getHostbackup().addListener(username, this, "Chat");
+        } catch (RemoteException ex) {
+            System.out.println(ex);
+            ClientAdministration.getInstance().connectionLost();
+        }
     }
 
     @Override
-    public void stopListening() throws RemoteException {
-        String username = ClientAdministration.getInstance().getAccount().getUsername();
-
-        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
-        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
-        ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
-
-        ClientAdministration.getInstance().getHostbackup().removeListener(this, "Rect");
-        ClientAdministration.getInstance().getHostbackup().removeListener(this, "Objects");
-        ClientAdministration.getInstance().getHostbackup().removeListener(this, "Chat");
+    public void stopListening() {
+        try {
+            String username = ClientAdministration.getInstance().getAccount().getUsername();
+            
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Players");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Level");
+            ClientAdministration.getInstance().getCurrentLobby().addListener(username, this, "Host");
+            
+            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Rect");
+            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Objects");
+            ClientAdministration.getInstance().getHostbackup().removeListener(this, "Chat");
+        } catch (RemoteException ex) {
+            System.out.println(ex);
+            ClientAdministration.getInstance().connectionLost();
+        }
     }
 }

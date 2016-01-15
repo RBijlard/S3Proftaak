@@ -91,23 +91,13 @@ public class Multiplayer extends BasicScene {
     }
 
     public void btnCreateClick(Event e) {
-        try {
-            this.getListener().stopListening();
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+        this.getListener().stopListening();
 
         changeScreen(ClientAdministration.Screens.CreateLobby);
     }
 
     public void btnJoinClick(Event e) {
-        try {
-            this.getListener().stopListening();
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+        this.getListener().stopListening();
 
         if (tableLobbies.getSelectionModel() != null && tableLobbies.getSelectionModel().getSelectedItem() != null) {
             try {
@@ -124,12 +114,7 @@ public class Multiplayer extends BasicScene {
     }
 
     public void btnBackClick(Event e) {
-        try {
-            this.getListener().stopListening();
-        } catch (RemoteException ex) {
-            System.out.println(ex);
-            ClientAdministration.getInstance().connectionLost();
-        }
+        this.getListener().stopListening();
 
         changeScreen(ClientAdministration.Screens.Menu);
     }

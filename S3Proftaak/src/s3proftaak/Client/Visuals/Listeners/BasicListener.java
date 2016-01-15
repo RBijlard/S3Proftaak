@@ -18,7 +18,7 @@ public abstract class BasicListener extends UnicastRemoteObject implements Seria
     
     public BasicListener() throws RemoteException {}
     
-    public void startListening() throws RemoteException {}
-    public void stopListening() throws RemoteException {}
+    public void startListening() {}
+    public void stopListening() {}
     
 }

@@ -54,12 +54,7 @@ public class ClientAdministration extends Application {
             @Override
             public void handle(WindowEvent event) {
                 if (getCurrentScreen().getListener() != null) {
-                    try {
-                        getCurrentScreen().getListener().stopListening();
-                    } catch (RemoteException ex) {
-                        System.out.println(ex);
-                        ClientAdministration.getInstance().connectionLost();
-                    }
+                    getCurrentScreen().getListener().stopListening();
                 }
 
                 System.exit(0);
@@ -80,12 +75,7 @@ public class ClientAdministration extends Application {
     public static void changeScreen(Screens s, boolean force) {
         if (!force) {
             if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null) {
-                try {
-                    getInstance().getCurrentScreen().getListener().stopListening();
-                } catch (RemoteException ex) {
-                    System.out.println(ex);
-                    ClientAdministration.getInstance().connectionLost();
-                }
+                getInstance().getCurrentScreen().getListener().stopListening();
             }
         }
 

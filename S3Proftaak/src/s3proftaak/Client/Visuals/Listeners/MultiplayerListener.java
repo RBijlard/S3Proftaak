@@ -8,6 +8,8 @@ package s3proftaak.Client.Visuals.Listeners;
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.Visuals.Multiplayer;
@@ -31,14 +33,24 @@ public class MultiplayerListener extends BasicListener {
     }
 
     @Override
-    public void startListening() throws RemoteException {
-        String username = ClientAdministration.getInstance().getAccount().getUsername();
-        RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
+    public void startListening() {
+        try {
+            String username = ClientAdministration.getInstance().getAccount().getUsername();
+            RMIClient.getInstance().getServerAdministration().addListener(username, this, "LobbyList");
+        } catch (RemoteException ex) {
+            System.out.println(ex);
+            ClientAdministration.getInstance().connectionLost();
+        }
     }
 
     @Override
-    public void stopListening() throws RemoteException {
-        RMIClient.getInstance().getServerAdministration().removeListener(this, "LobbyList");
+    public void stopListening() {
+        try {
+            RMIClient.getInstance().getServerAdministration().removeListener(this, "LobbyList");
+        } catch (RemoteException ex) {
+            System.out.println(ex);
+            ClientAdministration.getInstance().connectionLost();
+        }
     }
 
 }

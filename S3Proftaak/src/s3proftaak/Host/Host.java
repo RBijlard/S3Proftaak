@@ -22,7 +22,7 @@ import s3proftaak.Client.GameObjects.Star;
 import s3proftaak.Client.GameObjects.Weight;
 import s3proftaak.Shared.IHost;
 import s3proftaak.Shared.IMessage;
-import s3proftaak.Shared.PlayerPosition;
+import s3proftaak.Shared.Wrappers.PlayerPosition;
 import s3proftaak.fontys.BasicPublisher;
 import s3proftaak.fontys.RemotePropertyListener;
 import s3proftaak.util.ICare;

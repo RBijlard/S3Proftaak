@@ -13,7 +13,8 @@ import java.util.List;
 import s3proftaak.Server.Player;
 import s3proftaak.Shared.IHostBackup;
 import s3proftaak.Shared.IMessage;
-import s3proftaak.Shared.PlayerPosition;
+import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
+import s3proftaak.Shared.Wrappers.PlayerPosition;
 import s3proftaak.fontys.BasicPublisher;
 import s3proftaak.fontys.RemotePropertyListener;
 import s3proftaak.util.ICare;
@@ -65,8 +66,8 @@ public class HostBackup extends UnicastRemoteObject implements IHostBackup, ICar
     }
 
     @Override
-    public void updateMoveableObject(int id, int dx) throws RemoteException {
-        publisher.inform(this, "Objects", id, dx);
+    public void updateMoveableObject(int id, MoveableBlockPosition mb) throws RemoteException {
+        publisher.inform(this, "Objects", id, mb);
     }
 
     @Override

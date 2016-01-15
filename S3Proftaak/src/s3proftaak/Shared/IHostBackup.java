@@ -5,9 +5,10 @@
  */
 package s3proftaak.Shared;
 
+import s3proftaak.Shared.Wrappers.PlayerPosition;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
+import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
 import s3proftaak.fontys.RemotePublisher;
 
 /**
@@ -24,7 +25,7 @@ public interface IHostBackup extends Remote, RemotePublisher {
 
     public void updateObject(int id, boolean state) throws RemoteException;
 
-    public void updateMoveableObject(int id, int dx) throws RemoteException;
+    public void updateMoveableObject(int id, MoveableBlockPosition mb) throws RemoteException;
 //
 //    public void closedGame() throws RemoteException;
 //
