@@ -220,7 +220,7 @@ public class Game extends BasicGame {
 
         for (int i = 0; i < this.amountOfPlayers; i++) {
 
-            Character c = new Character(this, (spawn != null ? spawn.getRect().getX() : 500f) + (72f * i), (spawn != null ? spawn.getRect().getY() : 72f), 70f, 93f, i, this.multiplayer ? this.gameCharacterNames.get(i) : "");
+            Character c = new Character(this, (spawn != null ? spawn.getRect().getX() : 500f) + (72f * i), (spawn != null ? spawn.getRect().getY() : 72f), 68f, 93f, i, this.multiplayer ? this.gameCharacterNames.get(i) : "");
 
             if ((!this.multiplayer && i == 0) || (this.multiplayer && ClientAdministration.getInstance().getAccount().getUsername().equals(this.gameCharacterNames.get(i)))) {
                 this.gameCharacters.add(this.main_character = c);
