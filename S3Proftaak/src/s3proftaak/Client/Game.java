@@ -61,7 +61,7 @@ public class Game extends BasicGame {
 
     private TiledMap map;
     private final float x = 70f;
-    private float y = 70f;
+    private final float y = 70f;
     private String path;
     private int amountOfPlayers = 0;
     private Character main_character;
