@@ -156,42 +156,41 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         //check collisions
         float vXtemp = this.vX / this.interations;
         for (int i = 0; i < this.interations; i++) {
-
-            boolean collision = false;
-
-            for (GameObject go : game.getGameObjects()) {
-                if (go != this) {
-                    if (go instanceof Block || go instanceof MoveableBlock || go instanceof Weight || go instanceof Character || go instanceof Button || go instanceof Spike) {
-                        Rectangle rect = new Rectangle(go.getRect().getX() + vXtemp, go.getRect().getY(), go.getRect().getWidth(), go.getRect().getHeight());
-                        if (this.getRect().contains(rect) || this.getRect().intersects(rect)) {
-                            collision = true;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (!collision) {
-                for (GameObject go : game.getGameObjects()) {
-                    if (go != this) {
-                        go.getRect().setX(go.getRect().getX() + vXtemp);
-                    }
-                }
-            }
-
             /*
+             boolean collision = false;
+
+             for (GameObject go : game.getGameObjects()) {
+             if (go != this) {
+             if (go instanceof Block || go instanceof MoveableBlock || go instanceof Weight || go instanceof Character || go instanceof Button || go instanceof Spike) {
+             Rectangle rect = new Rectangle(go.getRect().getX() + vXtemp, go.getRect().getY(), go.getRect().getWidth(), go.getRect().getHeight());
+             if (this.getRect().contains(rect) || this.getRect().intersects(rect)) {
+             collision = true;
+             break;
+             }
+             }
+             }
+             }
+
+             if (!collision) {
              for (GameObject go : game.getGameObjects()) {
              if (go != this) {
              go.getRect().setX(go.getRect().getX() + vXtemp);
              }
              }
-             if (this.isColliding(gc)) {
-             for (GameObject go : game.getGameObjects()) {
-             if (go != this) {
-             go.getRect().setX(go.getRect().getX() - vXtemp);
-             }
-             }
              }*/
+
+            for (GameObject go : game.getGameObjects()) {
+                if (go != this) {
+                    go.getRect().setX(go.getRect().getX() + vXtemp);
+                }
+            }
+            if (this.isColliding(gc)) {
+                for (GameObject go : game.getGameObjects()) {
+                    if (go != this) {
+                        go.getRect().setX(go.getRect().getX() - vXtemp);
+                    }
+                }
+            }
         }
     }
 
