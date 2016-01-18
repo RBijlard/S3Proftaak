@@ -46,13 +46,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float offSetX;
 
     private int walkingDirection, oldWalkingDirection;
-    private boolean wasCrouching;
 
     private boolean isCrouching;
     private boolean multicrouch;
     private boolean walking;
-    
-    private float oldX, oldY;
 
     float marginy, marginx;
 
@@ -116,19 +113,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         if (game.isMultiplayer() && isControllabe) {
-            if (oldX != getRect().getX() || oldY != getRect().getY() || walkingDirection != oldWalkingDirection || isWalking() || isCrouching != wasCrouching) {
-                oldX = getRect().getX();
-                oldY = getRect().getY();
-                wasCrouching = isCrouching;
-                
-                PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, oldWalkingDirection, isCrouching, isWalking());
+            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, oldWalkingDirection, isCrouching, isWalking());
 
-                try {
-                    ClientAdministration.getInstance().getHost().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
-                } catch (RemoteException ex) {
-                    System.out.println(ex);
-                    ClientAdministration.getInstance().connectionLost();
-                }
+            try {
+                ClientAdministration.getInstance().getHost().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
+            } catch (RemoteException ex) {
+                System.out.println(ex);
+                ClientAdministration.getInstance().connectionLost();
             }
         }
 
