@@ -27,7 +27,8 @@ public class ResourceManager {
         SWITCHLEFT("switchLeft.png"),
         SWITCHRIGHT("switchRight.png"),
         BUTTONRED_PRESSED("buttonRed_pressed.png"),
-        BUTTONRED("buttonRed.png");
+        BUTTONRED("buttonRed.png"),
+        SPAWNBLOCK("boxItem.png");
 
         private final String path;
         private Image image;
