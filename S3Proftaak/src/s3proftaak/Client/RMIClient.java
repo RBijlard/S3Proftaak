@@ -22,18 +22,30 @@ public class RMIClient {
     // Constructor
     public RMIClient() {
         System.out.println("Starting client.");
-        
+
         try {
+            InetAddress i = null;
             Enumeration e = NetworkInterface.getNetworkInterfaces();
-            while (e.hasMoreElements()) {
-                NetworkInterface n = (NetworkInterface) e.nextElement();
-                if (n.getDisplayName().contains("Wireless")) {
-                    Enumeration ee = n.getInetAddresses();
-                    while (ee.hasMoreElements()) {
-                        InetAddress i = (InetAddress) ee.nextElement();
-                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
-                        ClientAdministration.getInstance().getAccount().setIp(i.getHostAddress());
-                        break;
+            NetworkInterface n = NetworkInterface.getByName("Ethernet adapter Ethernet");
+            if (n != null) {
+                Enumeration ee = n.getInetAddresses();
+                while (ee.hasMoreElements()) {
+                    i = (InetAddress) ee.nextElement();
+                    System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                    ClientAdministration.getInstance().getAccount().setIp(i.getHostAddress());
+                    break;
+                }
+            } else {
+                while (e.hasMoreElements()) {
+                    n = (NetworkInterface) e.nextElement();
+                    if (n.getDisplayName().contains("Wireless")) {
+                        Enumeration ee = n.getInetAddresses();
+                        while (ee.hasMoreElements()) {
+                            i = (InetAddress) ee.nextElement();
+                            System.setProperty("java.rmi.server.hostname", i.getHostAddress());
+                            ClientAdministration.getInstance().getAccount().setIp(i.getHostAddress());
+                            break;
+                        }
                     }
                 }
             }
@@ -41,14 +53,14 @@ public class RMIClient {
             System.out.println("Client failed to connect to the Server. \n" + ex);
             return;
         }
-        
+
         try {
-            serverAdministration = (IServer) LocateRegistry.getRegistry("localhost", 1099, new XorClientSocketFactory()).lookup(bindingName);
+            serverAdministration = (IServer) LocateRegistry.getRegistry("192.168.1.100", 1099, new XorClientSocketFactory()).lookup(bindingName);
         } catch (RemoteException | NotBoundException ex) {
             System.out.println("Client failed to connect to the Server. \n" + ex);
             return;
         }
-        
+
         instance = (RMIClient) this;
         System.out.println("Client started.");
     }
@@ -56,8 +68,8 @@ public class RMIClient {
     public static RMIClient getInstance() {
         return instance;
     }
-    
-    public static void clearInstance(){
+
+    public static void clearInstance() {
         instance = null;
     }
 
