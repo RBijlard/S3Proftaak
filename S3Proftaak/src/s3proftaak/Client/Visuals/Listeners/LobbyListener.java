@@ -72,7 +72,7 @@ public class LobbyListener extends BasicListener {
                         System.out.println("Client failed to connect to the HOST. (Lookup failed)");
                     } else {
                         System.out.println("setting host hb : " + hb);
-                        ClientAdministration.getInstance().setHostbackup(hb);
+                        ClientAdministration.getInstance().setHost(hb);
                         try {
                             ClientAdministration.getInstance().getCurrentLobby().receivedHost(ClientAdministration.getInstance().getAccount().getUsername());
                         } catch (RemoteException ex) {

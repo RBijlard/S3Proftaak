@@ -93,7 +93,7 @@ public class ClientAdministration extends Application {
         return host;
     }
 
-    public void setHostbackup(IHost host) {
+    public void setHost(IHost host) {
         this.host = host;
     }
 

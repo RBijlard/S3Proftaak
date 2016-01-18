@@ -151,7 +151,10 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         Player p = getPlayer(username);
         if (p != null) {
             this.removePlayer(username);
-            publisher.inform(this, "Administrative", "Kick", username);
+            
+            if (!hasStarted()){
+                publisher.inform(this, "Administrative", "Kick", username);
+            }
             updatePlayers();
         }
 

@@ -31,7 +31,7 @@ public interface IHost extends Remote, RemotePublisher {
 //
 //    public void loadedGame(String username) throws RemoteException;
 //
-    public void stopGame() throws RemoteException;
+//    public void stopGame() throws RemoteException;
 //
 //    public void restartGame() throws RemoteException;
 //

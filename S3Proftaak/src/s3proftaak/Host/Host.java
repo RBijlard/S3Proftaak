@@ -81,7 +81,6 @@ public class Host extends UnicastRemoteObject implements IHost, ICare {
         publisher.removeListener(listener, property);
     }
 
-    @Override
     public void stopGame() {
         for (Player p : players) {
             p.setReady(false);
