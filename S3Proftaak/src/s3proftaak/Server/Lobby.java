@@ -27,7 +27,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
     private final List<Player> players = new ArrayList<>();
     private final String name;
     private int max;
-    private final BasicPublisher publisher;
+    transient private final BasicPublisher publisher;
     private String level = "";
     private String currentHost;
     private LobbyState state = LobbyState.Waiting;

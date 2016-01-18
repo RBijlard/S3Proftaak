@@ -81,7 +81,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
                         if (this.getRect().getMaxY() != go.getRect().getMinY()) {
                             return true;
                         }
-                    } else if (go instanceof GameObject) {
+                    } else {
                         return true;
                     }
                 }

@@ -20,11 +20,7 @@ import s3proftaak.util.ICare;
 public class Host extends UnicastRemoteObject implements IHost, ICare {
     private static Host instance;
 
-    private static Remote getInstance() {
-        return instance;
-    }
-
-    private final BasicPublisher publisher;
+    transient private final BasicPublisher publisher;
 
     public Host(String ipAddress) throws RemoteException {
         instance = (Host) this;

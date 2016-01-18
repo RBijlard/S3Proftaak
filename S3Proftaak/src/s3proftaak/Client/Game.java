@@ -73,7 +73,7 @@ public class Game extends BasicGame {
 
     private final float baseWidht = 1920;
     private final float baseHight = 1080;
-    
+
     private float offsetX;
 
     private boolean gameOver;
@@ -145,16 +145,15 @@ public class Game extends BasicGame {
         this.gameCharacters = new ArrayList<>();
         this.removableGameObjects = new ArrayList<>();
 
-        float xOffset = 0;
         SpawnPoint spawn = null;
-        
+
         //platform
         for (int i = 0; i < map.getObjectCount(10); i++) {
             GameObject platform = new Platform(map.getObjectX(10, i), map.getObjectY(10, i), map.getObjectWidth(10, i), map.getObjectHeight(10, i));
             platform.setMatches(this.getProperty(map, 10, i, "platform"));
             this.gameObjects.add(platform);
         }
-        
+
         //points
         for (int i = 0; i < map.getObjectCount(11); i++) {
             GameObject point = new Point(map.getObjectX(11, i), map.getObjectY(11, i), map.getObjectWidth(11, i), map.getObjectHeight(11, i));
@@ -165,9 +164,8 @@ public class Game extends BasicGame {
         //spawnPOINT
         for (int i = 0; i < map.getObjectCount(8); i++) {
             spawn = new SpawnPoint(map.getObjectX(8, i), map.getObjectY(8, i), map.getObjectWidth(8, i), map.getObjectHeight(8, i));
-            xOffset = spawn.getRect().getX() - 500f;
         }
-        
+
         //spawnBLOCK
         for (int i = 0; i < map.getObjectCount(9); i++) {
             GameObject spawnblock = new SpawnBlock(map.getObjectX(9, i), map.getObjectY(9, i), map.getObjectWidth(9, i), map.getObjectHeight(9, i));
@@ -183,7 +181,7 @@ public class Game extends BasicGame {
 
         //spikes
         for (int i = 0; i < map.getObjectCount(5); i++) {
-            GameObject spike = new Spike(map.getObjectX(5, i) , map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i));
+            GameObject spike = new Spike(map.getObjectX(5, i), map.getObjectY(5, i), map.getObjectWidth(5, i), map.getObjectHeight(5, i));
             this.gameObjects.add(spike);
         }
 
@@ -242,16 +240,16 @@ public class Game extends BasicGame {
                             }
                         }
                     }
-                    
+
                     // Platform & Points
-                    if (g2 instanceof Platform && g1 instanceof Point){
-                        
+                    if (g2 instanceof Platform && g1 instanceof Point) {
+
                         for (int possibleMatch : g1.getMatches()) {
                             if (g2.getMatches().contains(possibleMatch)) {
                                 System.out.println(g1.toString() + " gekoppeld met " + g2.toString());
                                 g2.addMatchedObject(g1);
                                 g1.addMatchedObject(g2);
-                                
+
                                 this.removableGameObjects.add(g1);
                             }
                         }
@@ -470,12 +468,15 @@ public class Game extends BasicGame {
             long timeDiff = this.endTime - this.startTime;
 
             try {
-                String players = "";
+                StringBuilder buf = new StringBuilder();
+                String players;
 
                 if (isMultiplayer()) {
                     for (String s : this.gameCharacterNames) {
-                        players += s + ", ";
+                        buf.append(s).append(", ");
                     }
+                    
+                    players = buf.toString();
 
                     if (players.endsWith(", ")) {
                         players = players.substring(0, players.length() - 2);
@@ -574,16 +575,16 @@ public class Game extends BasicGame {
     public InGameMessage getInGameMessage() {
         return this.inGameMessage;
     }
-    
-    public void starCollected(){
+
+    public void starCollected() {
         this.starsCollected++;
     }
-    
-    public float getOffsetX(){
+
+    public float getOffsetX() {
         return offsetX;
     }
-    
-    public void setOffsetX(float offsetX){
+
+    public void setOffsetX(float offsetX) {
         this.offsetX = offsetX;
     }
 }

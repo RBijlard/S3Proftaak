@@ -19,7 +19,7 @@ import s3proftaak.Shared.ILobby;
  */
 public class MultiplayerListener extends BasicListener {
 
-    private final Multiplayer multiplayerScreen;
+    transient private final Multiplayer multiplayerScreen;
 
     public MultiplayerListener(Multiplayer multiplayerScreen) throws RemoteException {
         this.multiplayerScreen = multiplayerScreen;

@@ -12,11 +12,6 @@ import org.newdawn.slick.tiled.TiledMap;
 public class Camera {
 
     /**
-     * the map used for our scene
-     */
-    protected TiledMap map;
-
-    /**
      * the number of tiles in x-direction (width)
      */
     protected int numTilesX;
@@ -70,8 +65,6 @@ public class Camera {
      * @param map the TiledMap used for the current scene
      */
     public Camera(GameContainer gc, TiledMap map) {
-        this.map = map;
-
         this.numTilesX = map.getWidth();
         this.numTilesY = map.getHeight();
 

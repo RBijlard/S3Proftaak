@@ -20,7 +20,7 @@ import s3proftaak.Shared.IPlayer;
  */
 public class LobbyListener extends BasicListener {
 
-    private final Lobby lobbyScreen;
+    transient private final Lobby lobbyScreen;
 
     private GameListener gameListener;
     private List<IPlayer> players;
@@ -126,6 +126,9 @@ public class LobbyListener extends BasicListener {
                 break;
             case "Host":
                 this.lobbyScreen.setIsHost(ClientAdministration.getInstance().getAccount().getUsername().equals(evt.getNewValue().toString()));
+                break;
+                
+            default:
                 break;
         }
     }

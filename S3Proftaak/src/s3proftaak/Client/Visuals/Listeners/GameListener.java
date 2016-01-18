@@ -114,6 +114,9 @@ public class GameListener extends BasicListener {
                                 }
 
                                 break;
+                                
+                            default:
+                                break;
                         }
                     }
                 }

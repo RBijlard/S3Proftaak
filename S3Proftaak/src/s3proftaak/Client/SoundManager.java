@@ -87,7 +87,7 @@ public class SoundManager {
         try {
             stopMusic();
 
-            music = new Music(getClass().getResource("/Resources/Music/menu.ogg").getPath().replace("%20", " "));
+            music = new Music(SoundManager.class.getResource("/Resources/Music/menu.ogg").getPath().replace("%20", " "));
             music.loop(1, 0.25f);
         } catch (SlickException ex) {
             Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);

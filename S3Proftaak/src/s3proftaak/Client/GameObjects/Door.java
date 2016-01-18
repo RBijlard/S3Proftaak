@@ -14,7 +14,7 @@ import s3proftaak.Client.ResourceManager;
  */
 public class Door extends GameObject implements IStateChangeable, IRenderable {
 
-    private boolean isActive = false;
+    private boolean isActive;
     private Image sprite;
     private Image sprite1;
     private boolean finished;

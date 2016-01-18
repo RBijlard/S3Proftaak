@@ -66,7 +66,10 @@ public class Register extends BasicScene {
                                 JOptionPane.showMessageDialog(null, "Account Registered!", "Registration Successful", 1);
                                 
                                 changeScreen(ClientAdministration.Screens.Login);
-                                ((Login) ClientAdministration.getInstance().getCurrentScreen()).enterUsername(username);
+                                
+                                if (ClientAdministration.getInstance().getCurrentScreen() instanceof Login){
+                                    ((Login) ClientAdministration.getInstance().getCurrentScreen()).enterUsername(username);
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Account already exists!", "Registration Error", 1);
                             }

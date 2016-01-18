@@ -28,7 +28,7 @@ public class BasicScene {
     
     public BasicScene load(String s) {
         try {
-            this.setScene(new Scene(FXMLLoader.load(new URL(this.getClass().getResource(s).toExternalForm()))));
+            this.setScene(new Scene(FXMLLoader.load(new URL(BasicScene.class.getResource(s).toExternalForm()))));
         } catch (IOException ex) {
             Logger.getLogger(BasicScene.class.getName()).log(Level.SEVERE, null, ex);
         }

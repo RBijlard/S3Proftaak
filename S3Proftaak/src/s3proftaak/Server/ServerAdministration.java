@@ -26,7 +26,7 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         return instance;
     }
     private final List<Lobby> lobbies;
-    private final BasicPublisher publisher;
+    transient private final BasicPublisher publisher;
 
     public ServerAdministration() throws RemoteException {
         instance = (ServerAdministration) this;
