@@ -61,14 +61,14 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         this.controlSet = controlSet;
 
         MLO = new Block(1f, 1f, 1f, 1f);
-        
+
         this.game.getGameObjects().add(MLO);
         for (GameObject go : this.game.getGameObjects()) {
             if (go.getRect().getX() < MLO.getRect().getX()) {
                 MLO.getRect().setX(go.getRect().getX());
             }
         }
-        
+
         this.offSetX = 0 - MLO.getRect().getX();
         marginx = 0 - MLO.getRect().getX();
 
@@ -244,7 +244,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             if (go.getRect().getX() < rect.getX()) {
                                 i = -1;
                             }
-                            
+
                             if (!game.isMultiplayer()) {
                                 ((MoveableBlock) go).setDx(i);
                             } else {
@@ -304,18 +304,27 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         }
                         return true;
                     } else if (go instanceof Lever && gc.getInput().isKeyPressed(Input.KEY_E)) {
-                        if (!((Lever) go).isActive()) {
-                            ((Lever) go).setActive(true);
-                        } else {
-                            ((Lever) go).setActive(false);
+                        if (!game.isMultiplayer()) {
+                            if (!((Lever) go).isActive()) {
+                                ((Lever) go).setActive(true);
+                            } else {
+                                ((Lever) go).setActive(false);
+                            }
                         }
 
                         if (game.isMultiplayer()) {
-                            try {
-                                ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), ((Lever) go).isActive());
-                            } catch (RemoteException ex) {
-                                System.out.println(ex);
-                                ClientAdministration.getInstance().connectionLost();
+                            if (this.name.equalsIgnoreCase(ClientAdministration.getInstance().getAccount().getUsername())) {
+                                try {
+                                    if (!((Lever) go).isActive()) {
+                                        ((Lever) go).setActive(true);
+                                    } else {
+                                        ((Lever) go).setActive(false);
+                                    }
+                                    ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), ((Lever) go).isActive());
+                                } catch (RemoteException ex) {
+                                    System.out.println(ex);
+                                    ClientAdministration.getInstance().connectionLost();
+                                }
                             }
                         }
                     } else if (go instanceof Door) {
