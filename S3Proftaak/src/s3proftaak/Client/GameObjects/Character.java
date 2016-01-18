@@ -258,7 +258,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             if (go.getRect().intersects(rect) || go.getRect().contains(rect)) {
                 if (go != this) {
                     //check what object
-                    if (go instanceof Block || go instanceof Character || go instanceof SpawnBlock) {
+                    if (go instanceof Block || go instanceof Character) {
                         return true;
                     } else if (go instanceof MoveableBlock) {
                         if (go.getRect().getMinY() + 1 < rect.getMaxY()) {
@@ -309,6 +309,8 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                         }
 
                         return true;
+                    } else if (go instanceof SpawnBlock) {
+                        return ((SpawnBlock) go).isActive();
                     } else if (go instanceof Spike) {
                         this.die();
                         return false;
