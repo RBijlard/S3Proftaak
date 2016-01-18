@@ -113,13 +113,15 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         if (game.isMultiplayer() && isControllabe) {
-            PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, oldWalkingDirection, isCrouching, isWalking());
+            if (isWalking()) {
+                PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, oldWalkingDirection, isCrouching, isWalking());
 
-            try {
-                ClientAdministration.getInstance().getHost().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
-            } catch (RemoteException ex) {
-                System.out.println(ex);
-                ClientAdministration.getInstance().connectionLost();
+                try {
+                    ClientAdministration.getInstance().getHost().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
+                } catch (RemoteException ex) {
+                    System.out.println(ex);
+                    ClientAdministration.getInstance().connectionLost();
+                }
             }
         }
 
