@@ -5,7 +5,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
-import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.ResourceManager;
 
 /**
@@ -14,18 +13,21 @@ import s3proftaak.Client.ResourceManager;
  */
 public class SpawnBlock extends GameObject implements IStateChangeable, IRenderable {
 
-    private boolean isActive = false;
+    private boolean isActive;
     private Image sprite;
 
     public SpawnBlock(float x, float y, float width, float height) {
         super(x, y, width, height);
-        this.changeImage(isActive);
+        sprite = ResourceManager.Images.BOXITEM.getImage();
+        this.setActive(false);
     }
 
     @Override
     public void render(GameContainer gc, Graphics g) {
         //render door animation/img
-        sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
+        if (isActive) {
+            sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
+        }
     }
 
     public int calculateOffset() {
@@ -39,18 +41,14 @@ public class SpawnBlock extends GameObject implements IStateChangeable, IRendera
 
     @Override
     public void setActive(boolean active) {
-        this.isActive = active;
-        changeImage(active);
-    }
-
-    private void changeImage(boolean active) {
-        System.out.println("SPAWNBLOCK STATUS: " + active);
-                
-        if (active) {
-            sprite = ResourceManager.Images.DOOR_OPENMID.getImage();
+        if(active){
+            this.getRect().setWidth(70);
+            this.getRect().setHeight(70);
         } else {
-            sprite = ResourceManager.Images.DOOR_CLOSEDMID.getImage();
+            this.getRect().setWidth(0);
+            this.getRect().setHeight(0);            
         }
+        this.isActive = active;
     }
 
     @Override

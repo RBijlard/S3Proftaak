@@ -29,6 +29,7 @@ import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.GameObjects.Lever;
 import s3proftaak.Client.GameObjects.MoveableBlock;
+import s3proftaak.Client.GameObjects.SpawnBlock;
 import s3proftaak.Client.GameObjects.SpawnPoint;
 import s3proftaak.Client.GameObjects.Spike;
 import s3proftaak.Client.GameObjects.Star;
@@ -141,10 +142,17 @@ public class Game extends BasicGame {
         float xOffset = 0;
         SpawnPoint spawn = null;
 
-        //spawn
+        //spawnPOINT
         for (int i = 0; i < map.getObjectCount(8); i++) {
             spawn = new SpawnPoint(map.getObjectX(8, i), map.getObjectY(8, i), map.getObjectWidth(8, i), map.getObjectHeight(8, i));
             xOffset = spawn.getRect().getX() - 500f;
+        }
+        
+        //spawnBLOCK
+        for (int i = 0; i < map.getObjectCount(9); i++) {
+            GameObject spawnblock = new SpawnBlock(map.getObjectX(9, i), map.getObjectY(9, i), map.getObjectWidth(9, i), map.getObjectHeight(9, i));
+            spawnblock.setMatches(this.getProperty(map, 9, i, "spawnblock"));
+            this.gameObjects.add(spawnblock);
         }
 
         //blocks
@@ -325,7 +333,7 @@ public class Game extends BasicGame {
 
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
-            //grphcs.draw(go.getRect());
+            grphcs.draw(go.getRect());
 
             if (go instanceof IRenderable) {
                 ((IRenderable) go).render(gc, grphcs);
