@@ -32,10 +32,6 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
 
     }
 
-    public int calculateOffset() {
-        return (int) (70 - this.getRect().getHeight());
-    }
-
     @Override
     public void setActive(boolean active) {
         if (!this.removed) {

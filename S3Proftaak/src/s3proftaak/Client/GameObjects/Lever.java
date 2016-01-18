@@ -29,10 +29,6 @@ public class Lever extends GameObject implements IPressable, IRenderable {
         sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
     }
 
-    public int calculateOffset() {
-        return (int) (70 - this.getRect().getHeight());
-    }
-
     @Override
     public boolean isActive() {
         return this.isActive;

@@ -5,37 +5,24 @@
  */
 package s3proftaak.Shared.Wrappers;
 
-import java.io.Serializable;
-
 /**
  *
  * @author Stan
  */
-public class PlayerPosition implements Serializable {
-    private final float X;
-    private final float Y;
+public class PlayerPosition extends BasicPosition {
     private final float vY;
     private final int walkingDirection;
     private final int oldWakingDirection;
     private final boolean crouch;
     private final boolean walking;
 
-    public PlayerPosition(float X, float Y, float vY, int walkingDirection, int oldWalkingDirection, boolean crouch, boolean walking) {
-        this.X = X;
-        this.Y = Y;
+    public PlayerPosition(float x, float y, float vY, int walkingDirection, int oldWalkingDirection, boolean crouch, boolean walking) {
+        super(x, y);
         this.vY = vY;
         this.walkingDirection = walkingDirection;
         this.oldWakingDirection = oldWalkingDirection;
         this.crouch = crouch;
         this.walking = walking;
-    }
-
-    public float getX() {
-        return this.X;
-    }
-
-    public float getY() {
-        return this.Y;
     }
 
     public float getvY() {

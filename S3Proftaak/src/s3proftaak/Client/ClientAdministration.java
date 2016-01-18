@@ -44,7 +44,7 @@ public class ClientAdministration extends Application {
                 getInstance().getCurrentScreen().getListener().stopListening();
             }
         }
-        
+
         changeStage(s);
     }
 
@@ -68,6 +68,8 @@ public class ClientAdministration extends Application {
     private IHost host;
 
     private BasicScene currentScreen;
+
+    private boolean isHost;
 
     @Override
     public void start(Stage primarystage) throws IOException {
@@ -121,7 +123,6 @@ public class ClientAdministration extends Application {
         return game;
     }
 
-
     public void setGame(Game game) throws SlickException {
         this.game = game;
         if (this.game != null) {
@@ -167,9 +168,9 @@ public class ClientAdministration extends Application {
                             try {
                                 SoundManager.getInstance().restartSound();
                                 ClientAdministration.getInstance().getApp().reinit();
-                            } catch (SlickException ex) {
+                            } catch (SlickException | RuntimeException ex) {
                             }
-                        }catch (SlickException ex) {
+                        } catch (SlickException ex) {
                         }
                     }
                 }).start();
@@ -200,30 +201,38 @@ public class ClientAdministration extends Application {
         changeScreen(ClientAdministration.Screens.Menu, true);
     }
 
+    public boolean isHost() {
+        return isHost;
+    }
+
+    public void setIsHost(boolean isHost) {
+        this.isHost = isHost;
+    }
+
     public enum Screens {
 
-        Login, 
-        Menu, 
-        Settings, 
-        Singleplayer, 
-        Multiplayer, 
-        CreateLobby, 
-        Lobby, 
-        Highscores, 
-        Register, 
+        Login,
+        Menu,
+        Settings,
+        Singleplayer,
+        Multiplayer,
+        CreateLobby,
+        Lobby,
+        Highscores,
+        Register,
         Gameover;
-        
+
         private BasicScene bs;
-        
+
         public Screens newInstance() {
             bs = new BasicScene().load(this.getPath());
             return this;
         }
-        
+
         private String getPath() {
             return "/Resources/Visuals/" + this.name() + ".fxml";
         }
-        
+
         public Scene getScene() {
             return this.bs.getScene();
         }

@@ -7,6 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 import s3proftaak.Shared.IHost;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
+import s3proftaak.Shared.Wrappers.PlatformPosition;
 import s3proftaak.Shared.Wrappers.PlayerPosition;
 import s3proftaak.fontys.BasicPublisher;
 import s3proftaak.fontys.RemotePropertyListener;
@@ -75,5 +76,10 @@ public class Host extends UnicastRemoteObject implements IHost, ICare {
 
     public void stopGame() {
         publisher.inform(this, "Administrative", "StopGame", null);
+    }
+
+    @Override
+    public void updatePlatform(int id, PlatformPosition pp) {
+        publisher.inform(this, "Objects", id, pp);
     }
 }

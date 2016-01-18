@@ -30,10 +30,6 @@ public final class SpawnBlock extends GameObject implements IStateChangeable, IR
         }
     }
 
-    public int calculateOffset() {
-        return (int) (70 - this.getRect().getHeight());
-    }
-
     @Override
     public boolean isActive() {
         return this.isActive;

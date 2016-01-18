@@ -139,6 +139,10 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
     public void moveHorizontalMap(GameContainer gc) {
         this.offSetX = 0 - MLO.getRect().getX();
+        
+        // Offset X voor Platform.
+        ClientAdministration.getInstance().getGame().setOffsetX(offSetX);
+        
         //Move horizontal with arrow keys
         if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
             //move map right -> x minus speed
@@ -256,7 +260,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             if (go.getRect().intersects(rect) || go.getRect().contains(rect)) {
                 if (go != this) {
                     //check what object
-                    if (go instanceof Block || go instanceof Character) {
+                    if (go instanceof Block || go instanceof Character || go instanceof Platform) {
                         return true;
                     } else if (go instanceof MoveableBlock) {
                         if (go.getRect().getMinY() + 1 < rect.getMaxY()) {

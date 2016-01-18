@@ -90,10 +90,6 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         return false;
     }
 
-    public int calculateOffset() {
-        return (int) (70 - this.getRect().getHeight());
-    }
-
     public void setDx(int dx) {
         this.dx = dx;
     }

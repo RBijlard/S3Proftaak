@@ -30,6 +30,8 @@ import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.GameObjects.Lever;
 import s3proftaak.Client.GameObjects.MoveableBlock;
+import s3proftaak.Client.GameObjects.Platform;
+import s3proftaak.Client.GameObjects.Point;
 import s3proftaak.Client.GameObjects.SpawnBlock;
 import s3proftaak.Client.GameObjects.SpawnPoint;
 import s3proftaak.Client.GameObjects.Spike;
@@ -71,6 +73,8 @@ public class Game extends BasicGame {
 
     private final float baseWidht = 1920;
     private final float baseHight = 1080;
+    
+    private float offsetX;
 
     private boolean gameOver;
 
@@ -144,13 +148,19 @@ public class Game extends BasicGame {
         float xOffset = 0;
         SpawnPoint spawn = null;
         
-        /*
         //platform
         for (int i = 0; i < map.getObjectCount(10); i++) {
-            GameObject spawnblock = new SpawnBlock(map.getObjectX(10, i), map.getObjectY(10, i), map.getObjectWidth(10, i), map.getObjectHeight(10, i));
-            spawnblock.setMatches(this.getProperty(map, 9, i, "platform"));
-            this.gameObjects.add(spawnblock);
-        }*/
+            GameObject platform = new Platform(map.getObjectX(10, i), map.getObjectY(10, i), map.getObjectWidth(10, i), map.getObjectHeight(10, i));
+            platform.setMatches(this.getProperty(map, 10, i, "platform"));
+            this.gameObjects.add(platform);
+        }
+        
+        //points
+        for (int i = 0; i < map.getObjectCount(11); i++) {
+            GameObject point = new Point(map.getObjectX(11, i), map.getObjectY(11, i), map.getObjectWidth(11, i), map.getObjectHeight(11, i));
+            point.setMatches(this.getProperty(map, 11, i, "point"));
+            this.gameObjects.add(point);
+        }
 
         //spawnPOINT
         for (int i = 0; i < map.getObjectCount(8); i++) {
@@ -229,6 +239,20 @@ public class Game extends BasicGame {
                                 System.out.println(g1.toString() + " gekoppeld met " + g2.toString());
                                 g2.addMatchedObject(g1);
                                 g1.addMatchedObject(g2);
+                            }
+                        }
+                    }
+                    
+                    // Platform & Points
+                    if (g2 instanceof Platform && g1 instanceof Point){
+                        
+                        for (int possibleMatch : g1.getMatches()) {
+                            if (g2.getMatches().contains(possibleMatch)) {
+                                System.out.println(g1.toString() + " gekoppeld met " + g2.toString());
+                                g2.addMatchedObject(g1);
+                                g1.addMatchedObject(g2);
+                                
+                                this.removableGameObjects.add(g1);
                             }
                         }
                     }
@@ -553,5 +577,13 @@ public class Game extends BasicGame {
     
     public void starCollected(){
         this.starsCollected++;
+    }
+    
+    public float getOffsetX(){
+        return offsetX;
+    }
+    
+    public void setOffsetX(float offsetX){
+        this.offsetX = offsetX;
     }
 }

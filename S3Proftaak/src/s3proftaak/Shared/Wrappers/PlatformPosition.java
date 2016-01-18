@@ -9,16 +9,10 @@ package s3proftaak.Shared.Wrappers;
  *
  * @author Stan
  */
-public class MoveableBlockPosition extends BasicPosition {
+public class PlatformPosition extends BasicPosition {
 
-    private final int dx;
-
-    public MoveableBlockPosition(float x, float y, int dx) {
+    public PlatformPosition(float x, float y) {
         super(x, y);
-        this.dx = dx;
     }
-
-    public int getDx() {
-        return dx;
-    }
+    
 }

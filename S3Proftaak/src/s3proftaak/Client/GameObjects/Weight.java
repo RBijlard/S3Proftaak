@@ -54,10 +54,6 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
         sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset() - minus);
     }
 
-    public int calculateOffset() {
-        return (int) (70 - height);
-    }
-
     @Override
     public boolean isActive() {
         return this.isActive;

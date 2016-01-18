@@ -39,10 +39,6 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
         sprite1.draw(this.getRect().getX(), this.getRect().getY() + calculateOffset());
     }
 
-    public int calculateOffset() {
-        return (int) (70 - this.getRect().getHeight());
-    }
-
     @Override
     public boolean isActive() {
         return this.isActive;

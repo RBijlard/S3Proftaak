@@ -56,6 +56,10 @@ public abstract class GameObject {
         this.id = id;
     }
     
+    public int calculateOffset() {
+        return (int) (70 - this.getRect().getHeight());
+    }
+    
     @Override
     public String toString(){
         return this.getRect().getX() + "," + this.getRect().getY() + " - " + this.getRect().getWidth() + " x " + this.getRect().getHeight();

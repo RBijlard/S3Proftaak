@@ -57,7 +57,6 @@ public class Lobby extends BasicScene {
     @FXML
     ComboBox cbLevel;
 
-    private boolean isHost;
     private String currentlySelected;
 
     public Lobby() {
@@ -148,7 +147,7 @@ public class Lobby extends BasicScene {
 
     public void btnKickClick(Event e) {
         if (playerList != null) {
-            if (isHost) {
+            if (ClientAdministration.getInstance().isHost()) {
                 if (playerList.getSelectionModel() != null && playerList.getSelectionModel().getSelectedItem() != null) {
                     try {
                         ClientAdministration.getInstance().getCurrentLobby().kickPlayer(((LocalPlayer) playerList.getSelectionModel().getSelectedItem()).getName());
@@ -208,7 +207,7 @@ public class Lobby extends BasicScene {
 
     public void cbLevelClick() {
         if (cbLevel != null && cbLevel.getSelectionModel().getSelectedItem() != null) {
-            if (isHost) {
+            if (ClientAdministration.getInstance().isHost()) {
                 String level = cbLevel.getSelectionModel().getSelectedItem().toString();
                 try {
                     int amount = 1;
@@ -237,7 +236,7 @@ public class Lobby extends BasicScene {
             if (cbLevel != null) {
                 ArrayList<String> list = new ArrayList<>();
                 list.add(s);
-                if (!isHost) {
+                if (!ClientAdministration.getInstance().isHost()) {
                     this.cbLevel.setItems(FXCollections.observableArrayList(list));
                     this.cbLevel.setValue(list.get(0));
                 }
@@ -257,10 +256,10 @@ public class Lobby extends BasicScene {
                 }
 
                 if (cbLevel != null) {
-                    if (b != isHost) {
-                        isHost = b;
+                    if (b != ClientAdministration.getInstance().isHost()) {
+                        ClientAdministration.getInstance().setIsHost(b);
 
-                        if (isHost) {
+                        if (ClientAdministration.getInstance().isHost()) {
                             ArrayList levels = new ArrayList<>();
 
                             for (File f : new File(getClass().getResource("/Resources/Levels/").getPath().replaceAll("%20", " ")).listFiles()) {
