@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="16" tilewidth="70" tileheight="70" backgroundcolor="#87ceeb" nextobjectid="150">
+ <tileset firstgid="1" name="items_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="64">
+  <image source="items_spritesheet.png" width="623" height="576"/>
+ </tileset>
+ <tileset firstgid="65" name="item_persSpriteSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="100">
+  <image source="item_persSpriteSheet.png" width="720" height="720"/>
+ </tileset>
+ <tileset firstgid="165" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
+  <image source="tiles_spritesheet.png" width="914" height="936"/>
+ </tileset>
+ <tileset firstgid="321" name="sheet_buildings" tilewidth="70" tileheight="70" spacing="2" tilecount="78">
+  <image source="sheet_buildings.png" width="980" height="490"/>
+ </tileset>
+ <tileset firstgid="399" name="sky" tilewidth="70" tileheight="70" spacing="2" tilecount="714">
+  <image source="sky.png" width="2448" height="1512"/>
+ </tileset>
+ <tileset firstgid="1113" name="spaceSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="78">
+  <image source="spaceSheet.png" width="980" height="490"/>
+ </tileset>
+ <tileset firstgid="1191" name="items_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="64">
+  <image source="items_spritesheet.png" width="623" height="576"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="16">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+2YSQ6AIAxF8UQewQt7SJcaQwdq7QB9SRcQiP390KitFcV/HNsdvfFqYPqxeWodt6bQmlX9sGK07uWHDzP68ew5VO+JplPbDw190WpkyYz3IzMaflh6R/WhLHDf1ah5b2bxA0L6/eFVi6x+ZMuXi6UfvXNqAVdjBH+z3A9pfu990TRC/x0gT0bH1PO4e0bq39OA6ZGewa+1wXKB8tsrQsXZKiLFBXvItZUAGQAA
+  </data>
+ </layer>
+ <objectgroup name="Object Layer 1" width="350" height="70">
+  <object id="36" x="350" y="350" width="350" height="70"/>
+  <object id="37" x="1" y="910" width="70" height="70"/>
+  <object id="38" x="280" y="910" width="70" height="70"/>
+  <object id="39" x="560" y="910" width="70" height="70"/>
+  <object id="40" x="840" y="910" width="70" height="70"/>
+  <object id="41" x="1400" y="910" width="70" height="70"/>
+  <object id="42" x="1750" y="910" width="70" height="70"/>
+  <object id="43" x="1610" y="770" width="140" height="70"/>
+  <object id="44" x="1820" y="770" width="140" height="70"/>
+  <object id="45" x="1400" y="140" width="210" height="70"/>
+  <object id="46" x="1890" y="140" width="140" height="70"/>
+  <object id="47" x="980" y="350" width="210" height="70"/>
+  <object id="48" x="2310" y="910" width="210" height="70"/>
+  <object id="49" x="2660" y="840" width="140" height="70"/>
+  <object id="50" x="2940" y="700" width="140" height="70"/>
+  <object id="51" x="3220" y="560" width="140" height="70"/>
+  <object id="52" x="2310" y="140" width="70" height="70"/>
+  <object id="53" x="2590" y="140" width="140" height="70"/>
+  <object id="54" x="2940" y="140" width="140" height="70"/>
+  <object id="55" x="3220" y="210" width="70" height="70"/>
+  <object id="56" x="3150" y="910" width="560" height="70"/>
+  <object id="57" x="3640" y="840" width="140" height="70"/>
+  <object id="58" x="3710" y="770" width="280" height="67"/>
+  <object id="59" x="3920" y="840" width="70" height="140"/>
+  <object id="60" x="3990" y="910" width="280" height="70"/>
+  <object id="61" x="3640" y="630" width="207" height="70"/>
+  <object id="62" x="3923" y="630" width="207" height="70"/>
+  <object id="63" x="4060" y="70" width="70" height="560"/>
+  <object id="64" x="3640" y="70" width="70" height="560"/>
+  <object id="68" x="3920" y="70" width="140" height="70"/>
+  <object id="69" x="3710" y="70" width="140" height="70"/>
+  <object id="71" x="6720" y="490" width="210" height="490"/>
+  <object id="72" x="6370" y="910" width="210" height="70"/>
+  <object id="73" x="6440" y="840" width="70" height="70"/>
+  <object id="74" x="6090" y="910" width="70" height="70"/>
+  <object id="75" x="5810" y="910" width="70" height="70"/>
+  <object id="76" x="5530" y="910" width="70" height="70"/>
+  <object id="78" x="4970" y="910" width="70" height="70"/>
+  <object id="79" x="5250" y="910" width="70" height="70"/>
+  <object id="80" x="4410" y="770" width="70" height="70"/>
+  <object id="81" x="4620" y="630" width="70" height="70"/>
+  <object id="82" x="4830" y="490" width="70" height="70"/>
+  <object id="83" x="5040" y="350" width="70" height="70"/>
+  <object id="87" x="6930" y="490" width="70" height="490"/>
+  <object id="149" x="6230" y="350" width="70" height="70"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 2" width="350" height="70">
+  <object id="125" x="6091" y="885" width="69" height="24">
+   <properties>
+    <property name="button" value="9"/>
+   </properties>
+  </object>
+  <object id="126" x="5811" y="887" width="69" height="23">
+   <properties>
+    <property name="button" value="8"/>
+   </properties>
+  </object>
+  <object id="127" x="5531" y="885" width="69" height="26">
+   <properties>
+    <property name="button" value="7"/>
+   </properties>
+  </object>
+  <object id="128" x="5252" y="886" width="68" height="24">
+   <properties>
+    <property name="button" value="6"/>
+   </properties>
+  </object>
+  <object id="129" x="4972" y="885" width="68" height="24">
+   <properties>
+    <property name="button" value="5"/>
+   </properties>
+  </object>
+  <object id="130" x="2381" y="881" width="68" height="27">
+   <properties>
+    <property name="button" value="3"/>
+   </properties>
+  </object>
+  <object id="147" x="6232" y="328" width="68" height="20">
+   <properties>
+    <property name="button" value="9"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 3" width="350" height="70">
+  <object id="124" x="6867" y="390" width="55" height="98">
+   <properties>
+    <property name="door" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 4" width="350" height="70">
+  <object id="88" x="1890" y="70" width="70" height="70">
+   <properties>
+    <property name="lever" value="2"/>
+   </properties>
+  </object>
+  <object id="89" x="1470" y="70" width="70" height="70">
+   <properties>
+    <property name="lever" value="1"/>
+   </properties>
+  </object>
+  <object id="92" x="4060" y="1" width="70" height="70">
+   <properties>
+    <property name="lever" value="4"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 5" width="350" height="70">
+  <object id="90" x="1750" y="0" width="70" height="910">
+   <properties>
+    <property name="weight" value="1"/>
+   </properties>
+  </object>
+  <object id="91" x="3570" y="0" width="70" height="910">
+   <properties>
+    <property name="weight" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="Object Layer 6" width="350" height="70">
+  <object id="35" x="1" y="1108" width="6992" height="1"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 7" width="350" height="70"/>
+ <objectgroup name="Object Layer 8" width="350" height="70">
+  <object id="93" x="1" y="840" width="70" height="70"/>
+  <object id="94" x="3850" y="0" width="70" height="70"/>
+  <object id="96" x="1960" y="70" width="70" height="70"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 9" width="350" height="70">
+  <object id="97" x="475" y="210" width="70" height="70"/>
+ </objectgroup>
+ <objectgroup name="Object Layer 10" width="350" height="70">
+  <object id="98" x="1120" y="910" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="1"/>
+   </properties>
+  </object>
+  <object id="99" x="2100" y="910" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="3"/>
+   </properties>
+  </object>
+  <object id="100" x="3824" y="222" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="9"/>
+   </properties>
+  </object>
+  <object id="103" x="3979" y="501" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="9"/>
+   </properties>
+  </object>
+  <object id="104" x="3870" y="361" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="9"/>
+   </properties>
+  </object>
+  <object id="143" x="5320" y="350" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="5"/>
+   </properties>
+  </object>
+  <object id="144" x="5600" y="350" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="6"/>
+   </properties>
+  </object>
+  <object id="145" x="5880" y="350" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="7"/>
+   </properties>
+  </object>
+  <object id="146" x="6160" y="350" width="70" height="70">
+   <properties>
+    <property name="spawnblock" value="8"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
