@@ -5,12 +5,15 @@
  */
 package s3proftaak.Client;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author S33D
  */
 public class Score {
     private final int time;
+    private final String timeString;
     private final int amountOfStars;
     private final String playerNames;
     private final String gamename;
@@ -18,14 +21,19 @@ public class Score {
 
     public Score(int time, int amountOfStars, String playerNames, String gamename) {
         this.time = time;
+        this.timeString = new SimpleDateFormat("mm:ss:SS").format(time);
         this.amountOfStars = amountOfStars;
         this.gamename = gamename;
         this.playerNames = playerNames;
         this.totalScore = (10000 - (time/100) + (amountOfStars * 100));
     }
-
-    public int getTime() {
+    
+    public int getTime(){
         return time;
+    }
+
+    public String getTimeString() {
+        return timeString;
     }
 
     public int getAmountOfStars() {
@@ -42,10 +50,5 @@ public class Score {
 
     public int getTotalScore() {
         return totalScore;
-    }
-    
-    @Override
-    public String toString(){
-        return getTime() + " " + getAmountOfStars() + " " + getPlayerNames() + " " + this.gamename + " " + this.totalScore;
     }
 }

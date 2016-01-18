@@ -43,7 +43,7 @@ public class RMIClient {
         }
         
         try {
-            serverAdministration = (IServer) LocateRegistry.getRegistry("192.168.1.135", 1099, new XorClientSocketFactory()).lookup(bindingName);
+            serverAdministration = (IServer) LocateRegistry.getRegistry("localhost", 1099, new XorClientSocketFactory()).lookup(bindingName);
         } catch (RemoteException | NotBoundException ex) {
             System.out.println("Client failed to connect to the Server. \n" + ex);
             return;

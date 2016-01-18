@@ -33,7 +33,7 @@ public class Highscores extends BasicScene {
 
     public Highscores() {
         TableColumn timeCol = new TableColumn("Time");
-        timeCol.setCellValueFactory(new PropertyValueFactory<>("time"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<>("timeString"));
 
         TableColumn CollectablesCol = new TableColumn("Collectables");
         CollectablesCol.setCellValueFactory(new PropertyValueFactory<>("amountOfStars"));
