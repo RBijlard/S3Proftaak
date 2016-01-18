@@ -15,8 +15,16 @@ import s3proftaak.util.XorSocketFactory.XorClientSocketFactory;
  */
 public class RMIClient {
 
-    private final String bindingName = "S3Proftaak";
     private static RMIClient instance;
+
+    public static RMIClient getInstance() {
+        return instance;
+    }
+
+    public static void clearInstance() {
+        instance = null;
+    }
+    private final String bindingName = "S3Proftaak";
     private IServer serverAdministration = null;
 
     // Constructor
@@ -55,15 +63,8 @@ public class RMIClient {
         System.out.println("Client started.");
     }
 
-    public static RMIClient getInstance() {
-        return instance;
-    }
-    
-    public static void clearInstance(){
-        instance = null;
-    }
-
     public IServer getServerAdministration() {
         return serverAdministration;
     }
+    
 }

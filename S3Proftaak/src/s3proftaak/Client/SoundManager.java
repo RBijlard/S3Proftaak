@@ -19,17 +19,17 @@ import org.newdawn.slick.Sound;
  */
 public class SoundManager {
 
-    private Music music = null;
-    private boolean playDeathSound;
-
     private static SoundManager instance;
-
-    public SoundManager() {
-        instance = this;
-    }
 
     public static SoundManager getInstance() {
         return instance;
+    }
+
+    private Music music = null;
+    private boolean playDeathSound;
+
+    public SoundManager() {
+        instance = this;
     }
 
     public void playMusic() {
@@ -62,30 +62,6 @@ public class SoundManager {
         }
 
         this.playDeathSound = true;
-    }
-
-    public enum Sounds {
-
-        JUMP("jump"),
-        GAMEOVER("gameOver"),
-        COINPICKUP("coinPickUp"),
-        BLOCKFALL("blockFall"),
-        BUTTONPRESS("buttonPress"),
-        BUTTONRELEASE("buttonRelease"),
-        LEVERPULL("leverPull"),
-        LEVERPUSH("leverPush"),
-        WEIGHTDOWN("weightDown"),
-        WEIGHTUP("weightUp");
-
-        private final String path;
-
-        Sounds(String path) {
-            this.path = path;
-        }
-
-        public String getPath() {
-            return getClass().getResource("/Resources/Music/" + path + ".ogg").getPath().replace("%20", " ");
-        }
     }
 
     public void playSound(Sounds s) {
@@ -123,6 +99,30 @@ public class SoundManager {
             this.playDeathSound = false;
             SoundManager.getInstance().playSound(Sounds.GAMEOVER);
         }
-        
+
+    }
+
+    public enum Sounds {
+
+        JUMP("jump"), 
+        GAMEOVER("gameOver"), 
+        COINPICKUP("coinPickUp"), 
+        BLOCKFALL("blockFall"), 
+        BUTTONPRESS("buttonPress"), 
+        BUTTONRELEASE("buttonRelease"), 
+        LEVERPULL("leverPull"), 
+        LEVERPUSH("leverPush"), 
+        WEIGHTDOWN("weightDown"), 
+        WEIGHTUP("weightUp");
+
+        private final String path;
+
+        Sounds(String path) {
+            this.path = path;
+        }
+
+        public String getPath() {
+            return getClass().getResource("/Resources/Music/" + path + ".ogg").getPath().replace("%20", " ");
+        }
     }
 }

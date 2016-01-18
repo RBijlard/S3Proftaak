@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package s3proftaak.Client.Visuals;
 
 import java.sql.SQLException;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
@@ -36,8 +29,8 @@ public class Settings extends BasicScene {
     ComboBox cbSkin;
 
     private ClientAdministration instance;
-    private SoundManager Soundinstance;
-    private s3proftaak.Client.Settings settings;
+    private final SoundManager Soundinstance;
+    private final s3proftaak.Client.Settings settings;
 
     public Settings() {
         this.instance = ClientAdministration.getInstance();

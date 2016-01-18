@@ -8,8 +8,6 @@ package s3proftaak.Client.Visuals.Listeners;
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.Visuals.Multiplayer;

@@ -7,8 +7,6 @@ package s3proftaak.Client.Visuals.Listeners;
 
 import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.GameObjects.GameObject;

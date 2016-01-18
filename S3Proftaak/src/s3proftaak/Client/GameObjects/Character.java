@@ -1,8 +1,6 @@
 package s3proftaak.Client.GameObjects;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.newdawn.slick.Animation;
@@ -13,10 +11,10 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
+import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
-import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
 import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
@@ -31,18 +29,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private final String name;
     private final boolean isControllabe;
 
-    private float gravity = 0.5f;
-    private float jumpStrength = -12;
-    private float speed = 4;
-    private int interations = 5;
+    private final float gravity = 0.5f;
+    private final float jumpStrength = -12;
+    private final float speed = 4;
+    private final int interations = 5;
     private float vX = 0;
     private float vY = 0;
     private final int controlSet;
 
-    private Game game;
+    private final Game game;
     private SpriteSheet playerSheet;
     private Animation animate;
-    private GameObject MLO;
+    private final GameObject MLO;
     private float offSetX;
 
     private int walkingDirection, oldWalkingDirection;

@@ -16,9 +16,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import s3proftaak.Client.Game;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.Game;
 
 /**
  *
@@ -55,7 +55,7 @@ public class Singleplayer extends BasicScene implements Initializable {
 
         try {
             amountOfPlayers = Integer.parseInt(tfAmount.getText());
-        } catch (Exception ex) {
+        } catch (NumberFormatException ex) {
         }
 
         if (cbLevel.getSelectionModel().getSelectedItem() != null) {

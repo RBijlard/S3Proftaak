@@ -1,7 +1,5 @@
 package s3proftaak.Client.GameObjects;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -17,11 +15,11 @@ import s3proftaak.Client.ResourceManager;
 public class Weight extends GameObject implements IStateChangeable, IRenderable, IUpdateable {
 
     private boolean isActive = false;
-    private Image sprite;
-    private Image sprite1;
+    private final Image sprite;
+    private final Image sprite1;
 
     private int minus = 0;
-    private float height;
+    private final float height;
 
     public Weight(float x, float y, float width, float height) {
         super(x, y, width, height);

@@ -21,6 +21,10 @@ import s3proftaak.fontys.RemotePropertyListener;
 public class ServerAdministration extends UnicastRemoteObject implements IServer {
 
     private static ServerAdministration instance;
+
+    public static ServerAdministration getInstance() {
+        return instance;
+    }
     private final List<Lobby> lobbies;
     private final BasicPublisher publisher;
 
@@ -51,10 +55,6 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
         this.informLobbyListMembers();
     }
 
-    public static ServerAdministration getInstance() {
-        return instance;
-    }
-
     @Override
     public void addListener(String username, RemotePropertyListener listener, String property) throws RemoteException {
         publisher.addListener(username, listener, property);
@@ -80,4 +80,5 @@ public class ServerAdministration extends UnicastRemoteObject implements IServer
     public void informLobbyListMembers() {
         this.publisher.inform(this, "LobbyList", null, getLobbiesInLobby());
     }
+
 }

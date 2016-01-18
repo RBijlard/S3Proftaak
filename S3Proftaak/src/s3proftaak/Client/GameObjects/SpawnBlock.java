@@ -11,10 +11,10 @@ import s3proftaak.Client.ResourceManager;
  *
  * @author Berry-PC
  */
-public class SpawnBlock extends GameObject implements IStateChangeable, IRenderable {
+public final class SpawnBlock extends GameObject implements IStateChangeable, IRenderable {
 
     private boolean isActive;
-    private Image sprite;
+    private final Image sprite;
 
     public SpawnBlock(float x, float y, float width, float height) {
         super(x, y, width, height);

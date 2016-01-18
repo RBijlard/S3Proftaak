@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package s3proftaak.Client.Visuals;
 
 import java.io.File;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.Event;
@@ -29,20 +23,20 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import javax.swing.JOptionPane;
-import s3proftaak.Client.Visuals.Listeners.LobbyListener;
-import s3proftaak.Shared.IMessage;
-import s3proftaak.Client.Message;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.Message;
+import s3proftaak.Client.Visuals.Listeners.LobbyListener;
 import s3proftaak.Client.Visuals.Lobby_Utils.CheckBoxTableCell;
 import s3proftaak.Client.Visuals.Lobby_Utils.LocalPlayer;
+import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.IPlayer;
 
 /**
  *
  * @author Stan
  */
-public final class Lobby extends BasicScene {
+public class Lobby extends BasicScene {
 
     @FXML
     Label lblLobbyName;
@@ -220,7 +214,7 @@ public final class Lobby extends BasicScene {
                     int amount = 1;
 
                     if (!level.isEmpty()) {
-                        amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")")));
+                        amount = Integer.parseInt(level.substring(level.indexOf('(') + 1, level.indexOf(')')));
                     }
 
                     if (amount >= ClientAdministration.getInstance().getCurrentLobby().getPlayers().size()) {

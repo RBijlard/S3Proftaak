@@ -5,12 +5,6 @@
  */
 package s3proftaak.Client;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.util.Enumeration;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 /**
  *
  * @author S33D

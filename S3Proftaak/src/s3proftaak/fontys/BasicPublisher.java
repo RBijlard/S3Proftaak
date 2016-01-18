@@ -1,8 +1,13 @@
 package s3proftaak.fontys;
 
-import java.beans.*;
+import java.beans.PropertyChangeEvent;
 import java.rmi.RemoteException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import s3proftaak.util.ICare;
@@ -186,7 +191,7 @@ public class BasicPublisher {
      * @param property niet de lege string
      */
     public void addProperty(String property) {
-        if (property.equals("")) {
+        if (property.isEmpty()) {
             throw new RuntimeException("a property cannot be an empty string");
         }
 

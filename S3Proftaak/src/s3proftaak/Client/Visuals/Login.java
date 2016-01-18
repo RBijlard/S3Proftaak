@@ -16,9 +16,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import s3proftaak.Client.Account;
-import s3proftaak.Client.DBConnect;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.DBConnect;
 import s3proftaak.Client.SoundManager;
 
 /**

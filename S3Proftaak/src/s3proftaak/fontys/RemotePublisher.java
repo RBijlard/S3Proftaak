@@ -1,6 +1,7 @@
 package s3proftaak.fontys;
 
-import java.rmi.*;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * <p>Title: </p>

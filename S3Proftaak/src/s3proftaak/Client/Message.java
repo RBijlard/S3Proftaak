@@ -31,6 +31,7 @@ public class Message implements IMessage {
         return sender;
     }
     
+    @Override
     public long getTime(){
         return time;
     }

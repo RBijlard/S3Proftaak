@@ -5,10 +5,10 @@
  */
 package s3proftaak.Shared;
 
-import s3proftaak.Shared.Wrappers.PlayerPosition;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
+import s3proftaak.Shared.Wrappers.PlayerPosition;
 import s3proftaak.fontys.RemotePublisher;
 
 /**

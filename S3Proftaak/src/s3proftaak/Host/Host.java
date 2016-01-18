@@ -1,16 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package s3proftaak.Host;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
-import s3proftaak.Server.Player;
 import s3proftaak.Shared.IHost;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
@@ -24,13 +17,18 @@ import s3proftaak.util.ICare;
  * @author Berry-PC
  */
 public class Host extends UnicastRemoteObject implements IHost, ICare {
+    private static Host instance;
 
     private static Remote getInstance() {
         return instance;
     }
 
     private final BasicPublisher publisher;
-    private static Host instance;
+
+    public Host(String ipAddress) throws RemoteException {
+        instance = (Host) this;
+        this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
+    }
 
     @Override
     public void playerLostConnection(String playerName) {
@@ -42,11 +40,6 @@ public class Host extends UnicastRemoteObject implements IHost, ICare {
         //YO, player connection lost: game stopt -> players naar lobby, de player zonder connection wordt gekickt.
         //JA, connection van de server moet opnieuw opgezet worden wanneer de game gefinished wordt..
         stopGame();
-    }
-
-    public Host(String ipAddress) throws RemoteException {
-        instance = (Host) this;
-        this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }
 
     @Override

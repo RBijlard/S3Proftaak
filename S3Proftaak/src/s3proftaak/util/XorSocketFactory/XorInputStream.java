@@ -38,7 +38,9 @@
 
 package s3proftaak.util.XorSocketFactory;
 
-import java.io.*;
+import java.io.FilterInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class XorInputStream extends FilterInputStream {
 
@@ -64,8 +66,9 @@ public class XorInputStream extends FilterInputStream {
     public int read() throws IOException {
         int b = in.read();
         //If not end of file or an error, truncate b to one byte
-        if (b != -1)
-          b = (b ^ pattern) & 0xFF;
+        if (b != -1) {
+            b = (b ^ pattern) & 0xFF;
+        }
 
         return b;
     }
@@ -77,8 +80,9 @@ public class XorInputStream extends FilterInputStream {
     public int read(byte b[], int off, int len) throws IOException {
         int numBytes = in.read(b, off, len);
 
-        if (numBytes <= 0)
+        if (numBytes <= 0) {
             return numBytes;
+        }
 
         for(int i = 0; i < numBytes; i++) {
             b[off + i] = (byte)((b[off + i] ^ pattern) & 0xFF);

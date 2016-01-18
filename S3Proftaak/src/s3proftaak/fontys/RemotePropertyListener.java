@@ -1,8 +1,9 @@
 package s3proftaak.fontys;
 
-import java.beans.*;
-import java.rmi.*;
-import java.util.*;
+import java.beans.PropertyChangeEvent;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+import java.util.EventListener;
 
 /**
  *

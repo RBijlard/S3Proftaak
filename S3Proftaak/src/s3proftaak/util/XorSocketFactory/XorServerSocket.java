@@ -38,8 +38,9 @@
 
 package s3proftaak.util.XorSocketFactory;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class XorServerSocket extends ServerSocket {
 

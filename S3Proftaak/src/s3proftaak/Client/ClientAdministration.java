@@ -34,6 +34,33 @@ public class ClientAdministration extends Application {
 
     private static Stage primaryStage;
 
+    public static void changeScreen(Screens s) {
+        changeScreen(s, false);
+    }
+
+    public static void changeScreen(Screens s, boolean force) {
+        if (!force) {
+            if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null) {
+                getInstance().getCurrentScreen().getListener().stopListening();
+            }
+        }
+        
+        changeStage(s);
+    }
+
+    private static void changeStage(Screens s) {
+        primaryStage.setScene(s.newInstance().getScene());
+        try {
+            primaryStage.getScene().getStylesheets().add(new URL(getInstance().getClass().getResource("/Resources/Visuals/style.css").toExternalForm()).toString());
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static ClientAdministration getInstance() {
+        return instance;
+    }
+
     private AppGameContainer app;
     private Game game;
     private Account account;
@@ -66,29 +93,6 @@ public class ClientAdministration extends Application {
         new SoundManager();
     }
 
-    public static void changeScreen(Screens s) {
-        changeScreen(s, false);
-    }
-
-    public static void changeScreen(Screens s, boolean force) {
-        if (!force) {
-            if (getInstance().getCurrentScreen() != null && getInstance().getCurrentScreen().getListener() != null) {
-                getInstance().getCurrentScreen().getListener().stopListening();
-            }
-        }
-
-        changeStage(s);
-    }
-
-    private static void changeStage(Screens s) {
-        primaryStage.setScene(s.newInstance().getScene());
-        try {
-            primaryStage.getScene().getStylesheets().add(new URL(getInstance().getClass().getResource("/Resources/Visuals/style.css").toExternalForm()).toString());
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
     public IHost getHost() {
         return host;
     }
@@ -105,35 +109,6 @@ public class ClientAdministration extends Application {
         currentScreen = bs;
     }
 
-    public enum Screens {
-
-        Login,
-        Menu,
-        Settings,
-        Singleplayer,
-        Multiplayer,
-        CreateLobby,
-        Lobby,
-        Highscores,
-        Register,
-        Gameover;
-
-        private BasicScene bs;
-
-        public Screens newInstance() {
-            bs = new BasicScene().load(this.getPath());
-            return this;
-        }
-
-        private String getPath() {
-            return "/Resources/Visuals/" + this.name() + ".fxml";
-        }
-
-        public Scene getScene() {
-            return this.bs.getScene();
-        }
-    }
-
     public AppGameContainer getApp() {
         return app;
     }
@@ -145,6 +120,7 @@ public class ClientAdministration extends Application {
     public Game getGame() {
         return game;
     }
+
 
     public void setGame(Game game) throws SlickException {
         this.game = game;
@@ -169,10 +145,6 @@ public class ClientAdministration extends Application {
         currentLobby = currentlobby;
     }
 
-    public static ClientAdministration getInstance() {
-        return instance;
-    }
-
     public void startGame(Game game) {
         if (this.game == null) {
             try {
@@ -180,7 +152,6 @@ public class ClientAdministration extends Application {
             } catch (SlickException ex) {
                 Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
             }
-
             if (game != null) {
                 new Thread(new Runnable() {
                     @Override
@@ -188,20 +159,17 @@ public class ClientAdministration extends Application {
                         GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
                         int width = gd.getDisplayMode().getWidth();
                         int height = gd.getDisplayMode().getHeight();
-
                         try {
                             getApp().setDisplayMode(width, height, getAccount().getSettings().isFullscreen());
                             getApp().setTargetFrameRate(60);
                             getApp().setForceExit(false);
                             getApp().start();
-
                             try {
                                 SoundManager.getInstance().restartSound();
                                 ClientAdministration.getInstance().getApp().reinit();
-                            } catch (Exception ex) {
+                            } catch (SlickException ex) {
                             }
-
-                        } catch (SlickException ex) {
+                        }catch (SlickException ex) {
                         }
                     }
                 }).start();
@@ -230,5 +198,34 @@ public class ClientAdministration extends Application {
         RMIClient.clearInstance();
 
         changeScreen(ClientAdministration.Screens.Menu, true);
+    }
+
+    public enum Screens {
+
+        Login, 
+        Menu, 
+        Settings, 
+        Singleplayer, 
+        Multiplayer, 
+        CreateLobby, 
+        Lobby, 
+        Highscores, 
+        Register, 
+        Gameover;
+        
+        private BasicScene bs;
+        
+        public Screens newInstance() {
+            bs = new BasicScene().load(this.getPath());
+            return this;
+        }
+        
+        private String getPath() {
+            return "/Resources/Visuals/" + this.name() + ".fxml";
+        }
+        
+        public Scene getScene() {
+            return this.bs.getScene();
+        }
     }
 }

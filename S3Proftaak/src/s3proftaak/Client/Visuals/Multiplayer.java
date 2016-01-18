@@ -7,11 +7,8 @@ package s3proftaak.Client.Visuals;
 
 import java.rmi.RemoteException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.embed.swing.JFXPanel;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,12 +18,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javax.swing.JOptionPane;
-import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.ClientAdministration;
 import static s3proftaak.Client.ClientAdministration.changeScreen;
+import s3proftaak.Client.RMIClient;
 import s3proftaak.Client.Visuals.Listeners.MultiplayerListener;
-import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
+import s3proftaak.util.CustomException;
 
 /**
  *

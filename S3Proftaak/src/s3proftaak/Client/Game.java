@@ -4,12 +4,8 @@ import java.awt.Font;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
-import s3proftaak.Client.GameObjects.Button;
-import s3proftaak.Client.GameObjects.Character;
-import s3proftaak.Client.GameObjects.Door;
-import s3proftaak.Client.GameObjects.Block;
-import s3proftaak.Client.GameObjects.GameObject;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +19,11 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.tiled.TiledMap;
+import s3proftaak.Client.GameObjects.Block;
+import s3proftaak.Client.GameObjects.Button;
+import s3proftaak.Client.GameObjects.Character;
+import s3proftaak.Client.GameObjects.Door;
+import s3proftaak.Client.GameObjects.GameObject;
 import s3proftaak.Client.GameObjects.Interfaces.IPressable;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IStateChangeable;
@@ -57,18 +58,19 @@ public class Game extends BasicGame {
     private List<GameObject> removableGameObjects;
 
     private TiledMap map;
-    private float x = 70f, y = 70f;
+    private final float x = 70f;
+    private float y = 70f;
     private String path;
     private int amountOfPlayers = 0;
     private Character main_character;
-    private String mapname;
+    private final String mapname;
 
     private Score score;
     private long startTime, currentTime, endTime;
     private int starsCollected = 0;
 
-    private float baseWidht = 1920;
-    private float baseHight = 1080;
+    private final float baseWidht = 1920;
+    private final float baseHight = 1080;
 
     private boolean gameOver;
 
@@ -375,11 +377,11 @@ public class Game extends BasicGame {
     }
 
     public List<GameObject> getGameObjects() {
-        return this.gameObjects;
+        return Collections.unmodifiableList(this.gameObjects);
     }
 
     public List<Character> getGameCharacters() {
-        return this.gameCharacters;
+        return Collections.unmodifiableList(this.gameCharacters);
     }
 
     private ArrayList<Integer> getProperty(TiledMap map, int layer, int tilenumber, String type) {
@@ -393,7 +395,7 @@ public class Game extends BasicGame {
                 try {
                     int matchNumber = Integer.parseInt(m);
                     matches.add(matchNumber);
-                } catch (Exception ex) {
+                } catch (NumberFormatException ex) {
                     System.out.println(ex.toString());
                 }
 

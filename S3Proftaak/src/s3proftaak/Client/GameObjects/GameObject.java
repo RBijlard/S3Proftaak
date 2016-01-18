@@ -2,6 +2,7 @@ package s3proftaak.Client.GameObjects;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import org.newdawn.slick.geom.Rectangle;
 
@@ -32,7 +33,7 @@ public abstract class GameObject {
     } 
     
     public List<GameObject> getMatchedObjects(){
-        return this.matchedObjects;
+        return Collections.unmodifiableList(this.matchedObjects);
     }
     
     public void setMatches(ArrayList<Integer> matches){

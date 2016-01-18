@@ -5,11 +5,11 @@
  */
 package s3proftaak.Shared;
 
-import s3proftaak.util.CustomException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 import s3proftaak.fontys.RemotePublisher;
+import s3proftaak.util.CustomException;
 
 /**
  *

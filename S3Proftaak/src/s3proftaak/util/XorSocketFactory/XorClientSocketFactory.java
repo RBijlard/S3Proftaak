@@ -5,9 +5,11 @@
  */
 package s3proftaak.util.XorSocketFactory;
 
-import java.io.*;
-import java.net.*;
-import java.rmi.server.*;
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.rmi.server.RMIClientSocketFactory;
 import s3proftaak.util.Constants;
 
 public class XorClientSocketFactory

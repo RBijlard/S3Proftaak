@@ -5,17 +5,17 @@
  */
 package s3proftaak.Server;
 
-import s3proftaak.fontys.BasicPublisher;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
 import s3proftaak.Shared.IHost;
-import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
 import s3proftaak.Shared.IPlayer;
+import s3proftaak.fontys.BasicPublisher;
 import s3proftaak.fontys.RemotePropertyListener;
+import s3proftaak.util.CustomException;
 import s3proftaak.util.ICare;
 
 /**
@@ -32,12 +32,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
     private String currentHost;
     private LobbyState state = LobbyState.Waiting;
 
-    private enum LobbyState {
-
-        Waiting, // Waiting for players to join. (In lobby)
-        Loading, // Waiting for players to load. (In game)
-        Playing; // Playing.
-    }
 
     public Lobby(String lobbyname) throws RemoteException {
         this.name = lobbyname;
@@ -63,7 +57,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
             int amount = 1;
 
             if (!level.isEmpty()) {
-                amount = Integer.parseInt(level.substring(level.indexOf("(") + 1, level.indexOf(")")));
+                amount = Integer.parseInt(level.substring(level.indexOf('(') + 1, level.indexOf(')')));
             }
 
             max = amount;
@@ -333,5 +327,12 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
                 checkHostReceived();
             }
         }
+    }
+
+    private enum LobbyState {
+
+        Waiting, // Waiting for players to join. (In lobby)
+        Loading, // Waiting for players to load. (In game)
+        Playing
     }
 }

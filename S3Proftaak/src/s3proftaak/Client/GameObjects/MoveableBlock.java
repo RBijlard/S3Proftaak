@@ -3,9 +3,9 @@ package s3proftaak.Client.GameObjects;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.GameObjects.Interfaces.IRenderable;
 import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
-import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.ResourceManager;
 
 /**
@@ -15,7 +15,7 @@ import s3proftaak.Client.ResourceManager;
 public class MoveableBlock extends GameObject implements IUpdateable, IRenderable {
 
     private int dx;
-    private Image sprite;
+    private final Image sprite;
     private boolean isFalling;
 
     public MoveableBlock(float x, float y, float width, float height) {

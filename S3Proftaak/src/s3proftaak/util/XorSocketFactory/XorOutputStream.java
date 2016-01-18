@@ -38,7 +38,9 @@
 
 package s3proftaak.util.XorSocketFactory;
 
-import java.io.*;
+import java.io.FilterOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class XorOutputStream extends FilterOutputStream {
 
