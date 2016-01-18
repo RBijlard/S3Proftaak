@@ -20,7 +20,7 @@
    H4sIAAAAAAAAC+2ay27UMBSGPRIPwKVqJRBtJWDVSu2UVWHB/dZWYtodlRBI3EQBcVMLCGhZdcMDIM22b9UXYMU79D/CVk+t2DlxHCcM/qVPzkyc5Mw5f+wkk0ml1GSmM5wYISS61DKLmSO0XY+YNZGoz1gBF3W7UPC5L9xnLPWtOJo+Ps9F08cIXV9VPH8pJR3/uO7rdlW3A92u1Q+nlgblXbI8Wi3vEl3Zf6OjuuNy9l89rdfc/leUKLqlIk+67gMof2OJ42vCf096Sj0Fz8Bz8KJXK0SxJsB5xgW2zq6B/XnC6j/KoprPg7mCZSKlB5vw30v4bQO8Aq/Bm0T+y5KJak5+m3csp/RgE/57C7+9A+/BB/AxwH98LGtjXPrXx8MryPlVcA1cBzfATV0H37M4Pham8GAT/tvE79wCn8Bn8CWPf2pXU1c/hf1uIee3wR1wF9wDS8x/xmdT6qjn5lRaDzbhv6/4nd/Ad7ANdsCPCh5c7ohfTa1/C/r4RL4banZLUBW/D/G1b/71efAyeAAeRmJZdff+lzxIrGgvjtNxsTxo2Juu+u6zPlWuDYz3ZkqgPgtsO1qWPEs/qw59LZX0fzHuyTFr2XjxcSDkvUWV3n9VztdxzzrpPFRFlIuhA4mKfGu253Oe3RbV4FjvLxKFeLBMEn+eq7H/U2w/Es1qKGfmOZurdcmeh4rk8xxXyHlTtj8DndePAqBz2uXfaVXsPWqndAzGb9SaWGwfms82MTy4Z+WD/o877Whp/Z8ISOtYdt0iwa4JXyeNlcPzb38nXS5iGJhLl/cIfp1vt9PqMB7liEkpf8x87I5RK9qfmefM/GbmuzW9fiMCUv/5chsDSaz2NtLrmBBCcun7ffZ1PW9jxRyzHtl/svqa3B8HJ1W8Wsb2X9n9Rxf9tw7OONrU/mv7fcvM//3+advvW2bae//UdbyU759mZbWpA5fXgDwAMgAA
   </data>
  </layer>
- <objectgroup name="hitbox layer 0" width="630" height="157">
+ <objectgroup name="hitbox layer 0" width="70" height="70">
   <object id="2" x="630" y="1" width="70" height="210"/>
   <object id="3" x="647" y="210" width="35" height="700"/>
   <object id="4" x="630" y="910" width="70" height="420"/>
@@ -79,7 +79,7 @@
   <object id="151" x="1190" y="910" width="280" height="70"/>
   <object id="152" x="1260" y="840" width="140" height="70"/>
  </objectgroup>
- <objectgroup name="button" width="630" height="157">
+ <objectgroup name="button" width="70" height="70">
   <properties>
    <property name="button" value="1"/>
   </properties>
@@ -99,24 +99,24 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="door" width="630" height="157"> 
+ <objectgroup name="door" width="70" height="70">
   <properties>
    <property name="door" value="4"/>
   </properties>
-  <object id="127" x="8610" y="910" width="60" height="100">
+  <object id="127" x="8610" y="875" width="60" height="105">
    <properties>
     <property name="door" value="4"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="lever" width="630" height="157">
+ <objectgroup name="lever" width="70" height="70">
   <object id="61" x="3010" y="350" width="70" height="70">
    <properties>
     <property name="lever" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="weight" width="630" height="157">
+ <objectgroup name="weight" width="70" height="70">
   <object id="57" x="4760" y="140" width="70" height="630">
    <properties>
     <property name="weight" value="1"/>
@@ -133,7 +133,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="spikes" width="630" height="157">
+ <objectgroup name="spikes" width="70" height="70">
   <object id="5" x="1680" y="1032" width="630" height="157"/>
   <object id="17" x="2590" y="1015" width="210" height="35"/>
   <object id="20" x="2940" y="1015" width="140" height="35"/>
@@ -150,16 +150,16 @@
   <object id="76" x="6860" y="945" width="420" height="35"/>
   <object id="124" x="8487" y="210" width="35" height="140"/>
  </objectgroup>
- <objectgroup name="movebleblock" width="630" height="157">
+ <objectgroup name="movebleblock" width="70" height="70">
   <object id="102" x="6230" y="630" width="55" height="70"/>
   <object id="103" x="6650" y="630" width="55" height="70"/>
  </objectgroup>
- <objectgroup name="star" width="630" height="157">
+ <objectgroup name="star" width="70" height="70">
   <object id="60" x="2030" y="490" width="70" height="70"/>
   <object id="131" x="3395" y="350" width="70" height="70"/>
   <object id="133" x="7420" y="210" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="spawnpoint" width="630" height="157">
+ <objectgroup name="spawnpoint" width="70" height="70">
   <object id="149" x="787" y="862" width="70" height="70"/>
  </objectgroup>
 </map>
