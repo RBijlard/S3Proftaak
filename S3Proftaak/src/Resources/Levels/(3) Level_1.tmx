@@ -81,7 +81,7 @@
  </objectgroup>
  <objectgroup name="button" width="630" height="157">
   <properties>
-   <property name="button " value="1"/>
+   <property name="button" value="1"/>
   </properties>
   <object id="94" x="6300" y="1015" width="70" height="35">
    <properties>
@@ -90,12 +90,12 @@
   </object>
   <object id="95" x="6720" y="1015" width="70" height="35">
    <properties>
-    <property name="button " value="3"/>
+    <property name="button" value="3"/>
    </properties>
   </object>
   <object id="126" x="8260" y="332" width="70" height="17">
    <properties>
-    <property name="button " value="4"/>
+    <property name="button" value="4"/>
    </properties>
   </object>
  </objectgroup>
@@ -129,7 +129,7 @@
   </object>
   <object id="112" x="7035" y="140" width="70" height="560">
    <properties>
-    <property name="weight " value="3"/>
+    <property name="weight" value="3"/>
    </properties>
   </object>
  </objectgroup>
