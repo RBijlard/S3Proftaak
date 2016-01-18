@@ -321,7 +321,7 @@ public class Game extends BasicGame {
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
 
         //set background color
-        grphcs.setBackground(new Color(0, 191, 255));
+        grphcs.setBackground(new Color(224, 224, 224));
 
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
