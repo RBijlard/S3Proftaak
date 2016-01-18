@@ -155,6 +155,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
             if (!hasStarted()){
                 publisher.inform(this, "Administrative", "Kick", username);
             }
+            
             updatePlayers();
         }
 
@@ -204,6 +205,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
 
                 if (players.isEmpty()) {
                     ServerAdministration.getInstance().removeLobby(this);
+                    publisher.closeCachedThreadPool();
                 }
             }
         }

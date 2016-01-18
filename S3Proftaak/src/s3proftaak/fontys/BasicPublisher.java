@@ -250,4 +250,9 @@ public class BasicPublisher {
     public Iterator<String> getProperties() {
         return listenersTable.keySet().iterator();
     }
+    
+    // Custom methods
+    public void closeCachedThreadPool(){
+        cachedThreadPool.shutdown();
+    }
 }
