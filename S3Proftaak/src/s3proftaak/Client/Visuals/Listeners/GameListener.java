@@ -42,6 +42,8 @@ public class GameListener extends BasicListener {
                                 offset = (int) c.getOffsetX();
                             }
                         }
+                        
+                        offset -= ClientAdministration.marginx;
 
                         switch (evt.getPropertyName()) {
                             case "Rect":

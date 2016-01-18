@@ -34,6 +34,8 @@ public class ClientAdministration extends Application {
 
     private static Stage primaryStage;
 
+    public static float marginx;
+    
     private AppGameContainer app;
     private Game game;
     private Account account;
