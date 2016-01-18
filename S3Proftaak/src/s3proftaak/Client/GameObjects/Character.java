@@ -46,10 +46,13 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     private float offSetX;
 
     private int walkingDirection, oldWalkingDirection;
+    private boolean wasCrouching;
 
     private boolean isCrouching;
     private boolean multicrouch;
     private boolean walking;
+    
+    private float oldX, oldY;
 
     float marginy, marginx;
 
@@ -113,7 +116,11 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         }
 
         if (game.isMultiplayer() && isControllabe) {
-            if (isWalking()) {
+            if (oldX != getRect().getX() || oldY != getRect().getY() || walkingDirection != oldWalkingDirection || isWalking() || isCrouching != wasCrouching) {
+                oldX = getRect().getX();
+                oldY = getRect().getY();
+                wasCrouching = isCrouching;
+                
                 PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, oldWalkingDirection, isCrouching, isWalking());
 
                 try {
