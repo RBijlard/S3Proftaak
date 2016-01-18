@@ -1,17 +1,105 @@
-.button{
+.root{
 
--fx-background-color: #c58f5c;
--fx-text-fill: black;
-
-};
-
-.button:hover{
-	-fx-background-color: #c58f5c;
-	-fx-text-fill: #fff000;
+    -fx-background-color: #3586d3;
+    -fx-background-image: url("menu.png");
+    -fx-background-repeat: stretch; 
+    -fx-background-size: 800 800;
+    -fx-background-position: center center;
 }
 
 .label{
+    -fx-text-fill: #34495e;   
+}
 
--fx-text-fill: #c58f5c;
+.button{
 
-};
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+}
+
+.button:hover{
+    -fx-background-color: #bdc3c7;
+    -fx-text-fill: black;
+}
+
+.button:pressed{
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+}
+
+.toggle-button{
+
+    -fx-background-color: #ecf0f1;
+    -fx-background-radius: 30;
+    -fx-background-insets: 0;
+    -fx-text-fill: black;
+}
+
+.toggle-button:hover{
+    -fx-background-color: #bdc3c7;
+    -fx-text-fill: black;
+}
+
+.toggle-button:pressed{
+    -fx-background-color: #95a5a6;
+    -fx-text-fill: white;
+}
+
+
+
+
+// highscores table
+.table-view {
+    -fx-base: #3498db;
+    -fx-control-inner-background: #ecf0f1;
+    -fx-background-color: #2980b9;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: 
+        transparent
+        transparent
+        derive(-fx-base, 80%) 
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.split-pane:horizontal > * > .split-pane-divider {
+    -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
+    -fx-background-color: transparent, derive(#1d1d1d,20%);
+}
+
+.table-view .scroll-bar:vertical{
+    -fx-background-color: #3498db;
+}
+
+.table-view .scroll-bar:vertical .thumb{
+    -fx-background-color: #2980b9;
+}
+
+#logout:hover{
+    -fx-background-color: #e74c3c;
+}

@@ -65,7 +65,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="btnLogout" mnemonicParsing="false" onAction="#btnLogoutClick" text="Logout" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button id="logout" fx:id="btnLogout" mnemonicParsing="false" onAction="#btnLogoutClick" text="Logout" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
