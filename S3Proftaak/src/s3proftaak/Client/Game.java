@@ -143,6 +143,14 @@ public class Game extends BasicGame {
 
         float xOffset = 0;
         SpawnPoint spawn = null;
+        
+        /*
+        //platform
+        for (int i = 0; i < map.getObjectCount(10); i++) {
+            GameObject spawnblock = new SpawnBlock(map.getObjectX(10, i), map.getObjectY(10, i), map.getObjectWidth(10, i), map.getObjectHeight(10, i));
+            spawnblock.setMatches(this.getProperty(map, 9, i, "platform"));
+            this.gameObjects.add(spawnblock);
+        }*/
 
         //spawnPOINT
         for (int i = 0; i < map.getObjectCount(8); i++) {
@@ -377,7 +385,7 @@ public class Game extends BasicGame {
     }
 
     public List<GameObject> getGameObjects() {
-        return Collections.unmodifiableList(this.gameObjects);
+        return this.gameObjects;
     }
 
     public List<Character> getGameCharacters() {
