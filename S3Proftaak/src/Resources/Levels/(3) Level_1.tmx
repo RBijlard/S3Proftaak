@@ -103,7 +103,7 @@
   <properties>
    <property name="door" value="4"/>
   </properties>
-  <object id="127" x="8610" y="840" width="70" height="140">
+  <object id="127" x="8610" y="910" width="70" height="70">
    <properties>
     <property name="door" value="4"/>
    </properties>
