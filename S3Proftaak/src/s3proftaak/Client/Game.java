@@ -520,7 +520,7 @@ public class Game extends BasicGame {
 
         if (!this.textField.getText().isEmpty()) {
             try {
-                ClientAdministration.getInstance().getHostbackup().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), this.textField.getText()));
+                ClientAdministration.getInstance().getHost().sendMessage(new Message(ClientAdministration.getInstance().getAccount().getUsername(), this.textField.getText()));
                 this.isTextFieldEnabled(false);
             } catch (RemoteException ex) {
                 System.out.println(ex);

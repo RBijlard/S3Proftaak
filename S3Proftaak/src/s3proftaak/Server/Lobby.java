@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
-import s3proftaak.Shared.IHostBackup;
+import s3proftaak.Shared.IHost;
 import s3proftaak.util.CustomException;
 import s3proftaak.Shared.ILobby;
 import s3proftaak.Shared.IMessage;
@@ -315,7 +315,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
     }
 
     @Override
-    public void bindHost(IHostBackup hb1, String ipAddress) {
+    public void bindHost(IHost hb1, String ipAddress) {
         this.publisher.inform(this, "Administrative", "ipAddressForNotHost", hb1);
     }
 

@@ -5,17 +5,39 @@
  */
 package s3proftaak.Shared;
 
+import s3proftaak.Shared.Wrappers.PlayerPosition;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
-import s3proftaak.fontys.RemotePropertyListener;
+import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
 import s3proftaak.fontys.RemotePublisher;
 
 /**
  *
- * @author Berry-PC
+ * @author Stan
  */
-public interface IHost extends RemotePublisher {
+public interface IHost extends Remote, RemotePublisher {
 
     public void sendMessage(IMessage message) throws RemoteException;
+//
+//    public void updatePlayers() throws RemoteException;
 
-    public void askForMove(float vX, float vY, int id, boolean isEntering) throws RemoteException;
+    public void updatePlayer(String username, PlayerPosition pp) throws RemoteException;
+
+    public void updateObject(int id, boolean state) throws RemoteException;
+
+    public void updateMoveableObject(int id, MoveableBlockPosition mb) throws RemoteException;
+//
+//    public void closedGame() throws RemoteException;
+//
+//    public void loadedGame(String username) throws RemoteException;
+//
+    public void stopGame() throws RemoteException;
+//
+//    public void restartGame() throws RemoteException;
+//
+//    public String getCurrentHost() throws RemoteException;
+//
+//    public List<IPlayer> getPlayers() throws RemoteException;
+//
+//    public String getAmountOfPlayers() throws RemoteException;
 }

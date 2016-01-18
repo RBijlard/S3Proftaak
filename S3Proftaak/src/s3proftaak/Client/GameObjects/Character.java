@@ -114,7 +114,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             PlayerPosition pp = new PlayerPosition(this.getOffsetX() + getRect().getX(), getRect().getY(), vY, walkingDirection, oldWalkingDirection, isCrouching, isWalking());
 
             try {
-                ClientAdministration.getInstance().getHostbackup().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
+                ClientAdministration.getInstance().getHost().updatePlayer(ClientAdministration.getInstance().getAccount().getUsername(), pp);
             } catch (RemoteException ex) {
                 System.out.println(ex);
                 ClientAdministration.getInstance().connectionLost();
@@ -251,7 +251,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                 if (this.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
                                     try {
                                         MoveableBlock mb = (MoveableBlock) go;
-                                        ClientAdministration.getInstance().getHostbackup().updateMoveableObject(go.getId(), new MoveableBlockPosition(this.getOffsetX() + mb.getRect().getX(), mb.getRect().getY(), i));
+                                        ClientAdministration.getInstance().getHost().updateMoveableObject(go.getId(), new MoveableBlockPosition(this.getOffsetX() + mb.getRect().getX(), mb.getRect().getY(), i));
                                     } catch (RemoteException ex) {
                                         System.out.println(ex);
                                         ClientAdministration.getInstance().connectionLost();
@@ -294,7 +294,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
 
                                 if (game.isMultiplayer()) {
                                     try {
-                                        ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), true);
+                                        ClientAdministration.getInstance().getHost().updateObject(go.getId(), true);
                                     } catch (RemoteException ex) {
                                         System.out.println(ex);
                                         ClientAdministration.getInstance().connectionLost();
@@ -320,7 +320,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                                     } else {
                                         ((Lever) go).setActive(false);
                                     }
-                                    ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), ((Lever) go).isActive());
+                                    ClientAdministration.getInstance().getHost().updateObject(go.getId(), ((Lever) go).isActive());
                                 } catch (RemoteException ex) {
                                     System.out.println(ex);
                                     ClientAdministration.getInstance().connectionLost();
@@ -347,7 +347,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                             if (game.isMultiplayer()) {
                                 if (this.name.equalsIgnoreCase(ClientAdministration.getInstance().getAccount().getUsername())) {
                                     try {
-                                        ClientAdministration.getInstance().getHostbackup().updateObject(go.getId(), false);
+                                        ClientAdministration.getInstance().getHost().updateObject(go.getId(), false);
                                     } catch (RemoteException ex) {
                                         System.out.println(ex);
                                         ClientAdministration.getInstance().connectionLost();

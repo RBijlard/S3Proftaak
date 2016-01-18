@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
 import s3proftaak.Client.ClientAdministration;
 import s3proftaak.Client.Game;
 import s3proftaak.Client.Visuals.Lobby;
-import s3proftaak.Host.HostBackup;
-import s3proftaak.Shared.IHostBackup;
+import s3proftaak.Host.Host;
+import s3proftaak.Shared.IHost;
 import s3proftaak.Shared.IPlayer;
 
 /**
@@ -55,7 +55,7 @@ public class LobbyListener extends BasicListener {
                     if (hostip.equals(ClientAdministration.getInstance().getAccount().getIp())) {
                         try {
                             //CREATE HOST
-                            IHostBackup hb1 = new HostBackup(hostip);
+                            IHost hb1 = new Host(hostip);
                             ClientAdministration.getInstance().getCurrentLobby().bindHost(hb1, hostip);
                         } catch (RemoteException ex) {
                             System.out.println(ex);
@@ -67,7 +67,7 @@ public class LobbyListener extends BasicListener {
                 if (evt.getOldValue().toString().equals("ipAddressForNotHost")) {
                     // Omdat dit Host verbinding is zou dit anders kunnen afgevangen worden maar normaal RemoteException -> .connectionLost methode.
 
-                    IHostBackup hb = (IHostBackup) evt.getNewValue();
+                    IHost hb = (IHost) evt.getNewValue();
                     if (hb == null) {
                         System.out.println("Client failed to connect to the HOST. (Lookup failed)");
                     } else {

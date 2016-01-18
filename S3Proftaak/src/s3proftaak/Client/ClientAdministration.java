@@ -10,11 +10,9 @@ import java.awt.GraphicsEnvironment;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -23,7 +21,7 @@ import javax.swing.JOptionPane;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.SlickException;
 import s3proftaak.Client.Visuals.BasicScene;
-import s3proftaak.Shared.IHostBackup;
+import s3proftaak.Shared.IHost;
 import s3proftaak.Shared.ILobby;
 
 /**
@@ -40,7 +38,7 @@ public class ClientAdministration extends Application {
     private Game game;
     private Account account;
     private ILobby currentLobby;
-    private IHostBackup hostbackup;
+    private IHost host;
 
     private BasicScene currentScreen;
 
@@ -91,12 +89,12 @@ public class ClientAdministration extends Application {
         }
     }
 
-    public IHostBackup getHostbackup() {
-        return hostbackup;
+    public IHost getHost() {
+        return host;
     }
 
-    public void setHostbackup(IHostBackup hostbackup) {
-        this.hostbackup = hostbackup;
+    public void setHostbackup(IHost host) {
+        this.host = host;
     }
 
     public BasicScene getCurrentScreen() {
