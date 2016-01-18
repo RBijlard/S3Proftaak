@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="15" tilewidth="70" tileheight="70" nextobjectid="43">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="50" height="16" tilewidth="70" tileheight="70" nextobjectid="43">
  <tileset firstgid="1" name="items_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="64">
   <image source="items_spritesheet.png" width="623" height="576"/>
  </tileset>
@@ -9,9 +9,9 @@
  <tileset firstgid="143" name="tiles_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
   <image source="tiles_spritesheet.png" width="914" height="936"/>
  </tileset>
- <layer name="Tile Layer 1" width="50" height="15">
+ <layer name="Tile Layer 1" width="50" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWDFQgzDrQLKAM3gfgGEB8caIcAwVwgngjFCmjhuhKHWnR1AwHQ3TZYAK64HUxxPlwBpWFMSfoeTHljIAA5YU+OHmrl++1UMmcgASz8sGFaljODtewd7AC5riVU36KHMSE+MWrR0wtyGmEEuuUrlIZhZD6I/RWPOmSMLEdvDAB/9webuAsAAA==
+   H4sIAAAAAAAAC2NgGAWDFQgzDrQLKAM3gfgGEB8caIcAwVwgngjFCmjhuhKHWnR1AwHQ3TZYAK64HUxxPlwBpWFMSfoeTHljIAA5YU+OHmrl++1UMmcgASz8sGFaljODtewd7AC5riVU36KHMSE+MWrR0wtyGmEEuuUrlIZhZD6I/RWPOmSMLEdvvItheGAAn0IwwoAMAAA=
   </data>
  </layer>
  <objectgroup name="Object Layer 1" width="210" height="70">
