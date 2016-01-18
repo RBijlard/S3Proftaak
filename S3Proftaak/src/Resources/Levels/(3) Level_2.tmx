@@ -94,7 +94,7 @@
   </object>
  </objectgroup>
  <objectgroup name="Object Layer 6" width="210" height="70">
-  <object id="27" x="1" y="980" width="3500" height="70"/>
+  <object id="27" x="1" y="1042" width="3500" height="70"/>
  </objectgroup>
  <objectgroup name="Object Layer 7" width="210" height="70"/>
  <objectgroup name="Object Layer 8" width="210" height="70">
