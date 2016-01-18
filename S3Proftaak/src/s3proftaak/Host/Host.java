@@ -29,7 +29,6 @@ public class Host extends UnicastRemoteObject implements IHost, ICare {
         return instance;
     }
 
-    private final List<Player> players = new ArrayList<>();
     private final BasicPublisher publisher;
     private static Host instance;
 
@@ -82,10 +81,6 @@ public class Host extends UnicastRemoteObject implements IHost, ICare {
     }
 
     public void stopGame() {
-        for (Player p : players) {
-            p.setReady(false);
-        }
-
         publisher.inform(this, "Administrative", "StopGame", null);
     }
 }

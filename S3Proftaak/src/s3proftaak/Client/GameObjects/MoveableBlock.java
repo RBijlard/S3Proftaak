@@ -31,7 +31,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
             if (dx != 0) {
                 if (!this.isColliding()) {
                     this.getRect().setX(this.getRect().getX() + (dx));
-                    if (this.isColliding()){
+                    if (this.isColliding()) {
                         this.getRect().setX(this.getRect().getX() - (dx));
                     }
                 }
@@ -64,10 +64,10 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         }
     }
 
-    public boolean isFalling(){
+    public boolean isFalling() {
         return this.isFalling;
     }
-    
+
     @Override
     public void render(GameContainer gc, Graphics g) {
         sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
@@ -97,15 +97,13 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
     public void setDx(int dx) {
         this.dx = dx;
     }
-    
+
     public boolean safeMoveTo(float x, float y) {
-        GameObject tempGo = new Block(x+3, y, getRect().getWidth()-3, getRect().getHeight());
-        
+        GameObject tempGo = new Block(x, y, getRect().getWidth(), getRect().getHeight());
+
         for (GameObject go : ClientAdministration.getInstance().getGame().getGameObjects()) {
             //check if colliding
-            
-            GameObject tempGo2 = new Block(go.getRect().getX(), go.getRect().getY(), go.getRect().getWidth(), go.getRect().getHeight());
-            if (tempGo2.getRect().intersects(tempGo.getRect()) || tempGo2.getRect().contains(tempGo.getRect())) {
+            if (go.getRect().intersects(tempGo.getRect()) || go.getRect().contains(tempGo.getRect())) {
                 if (go != this) {
                     //check what object
                     if (go instanceof MoveableBlock || go instanceof Character) {
@@ -114,7 +112,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
                 }
             }
         }
-        
+
         return true;
     }
 

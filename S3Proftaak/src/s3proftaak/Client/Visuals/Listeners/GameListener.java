@@ -78,7 +78,7 @@ public class GameListener extends BasicListener {
                                         MoveableBlockPosition mbp = (MoveableBlockPosition) evt.getNewValue();
                                         MoveableBlock mb = (MoveableBlock) go;
 
-                                        if (mb.safeMoveTo(mbp.getX() - offset, mbp.getY())) {
+                                        //if (mb.safeMoveTo(mbp.getX() - offset, mbp.getY())) {
                                             //mb.setDx(mbp.getDx());
                                             /*if (mbp.getDx() < 0){
                                                 mb.getRect().setX(mbp.getX() - offset);
@@ -89,7 +89,7 @@ public class GameListener extends BasicListener {
                                             }*/
                                             
                                             mb.setDx(mbp.getDx());
-                                        }
+                                        //}
 
                                         //((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));
 
