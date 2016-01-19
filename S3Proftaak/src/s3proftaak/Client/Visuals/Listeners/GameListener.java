@@ -89,7 +89,8 @@ public class GameListener extends BasicListener {
                                          mb.getRect().setX(mbp.getX() - offset + 3);
                                          mb.getRect().setY(mbp.getY());
                                          }*/
-                                        mb.setDx(mbp.getDx());
+                                        //mb.setDx(mbp.getDx());
+                                        mb.getRect().setX(mbp.getX() - offset + mbp.getDx());
                                         //}
 
                                         //((MoveableBlock) go).setDx(Integer.parseInt(evt.getNewValue().toString()));

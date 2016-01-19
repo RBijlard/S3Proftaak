@@ -69,7 +69,7 @@ public class Game extends BasicGame {
 
     private Score score;
     private long startTime, currentTime, endTime;
-    private int starsCollected = 0;
+    private int starsCollected;
 
     private final float baseWidht = 1920;
     private final float baseHight = 1080;

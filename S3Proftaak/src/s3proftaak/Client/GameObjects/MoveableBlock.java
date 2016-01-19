@@ -42,7 +42,7 @@ public class MoveableBlock extends GameObject implements IUpdateable, IRenderabl
         boolean verticalCollision = false;
         for (GameObject go : ClientAdministration.getInstance().getGame().getGameObjects()) {
             if (go != this) {
-                if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && !((go instanceof Spike) || (go instanceof Button))) {
+                if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && !((go instanceof Spike) || (go instanceof Button) || (go instanceof SpawnBlock))) {
                     verticalCollision = true;
                 } else if ((go.getRect().intersects(this.getRect()) || go.getRect().contains(this.getRect())) && (go instanceof Button)) {
                     if (!((Button) go).isActive()) {

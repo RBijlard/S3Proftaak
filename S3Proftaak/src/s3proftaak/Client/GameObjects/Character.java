@@ -60,7 +60,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
         this.game = game;
         this.controlSet = controlSet;
 
-        MLO = new Block(1f, 1f, 1f, 1f);
+        MLO = new Block(0f, 0f, 0f, 0f);
 
         this.game.getGameObjects().add(MLO);
         for (GameObject go : this.game.getGameObjects()) {
@@ -372,14 +372,6 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                     } else if (go instanceof Star) {
                         if (!((Star) go).isRemoved()) {
                             ((Star) go).setActive(false);
-                            if (game.isMultiplayer() && isControllabe) {
-                                try {
-                                    ClientAdministration.getInstance().getHost().updateObject(go.getId(), false);
-                                } catch (RemoteException ex) {
-                                    System.out.println(ex);
-                                    ClientAdministration.getInstance().connectionLost();
-                                }
-                            }
                         }
                     } else if (go instanceof Weight) {
                         if (getRect().getMinX() < go.getRect().getMaxX() && getRect().getMaxX() > go.getRect().getMinX()) {
