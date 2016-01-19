@@ -24,18 +24,20 @@ import s3proftaak.util.ICare;
  */
 public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
 
-    private final List<Player> players = new ArrayList<>();
+    transient private final BasicPublisher publisher;
+    private final List<Player> players;
     private final String name;
     private int max;
-    transient private final BasicPublisher publisher;
-    private String level = "";
+    private String level;
     private String currentHost;
-    private LobbyState state = LobbyState.Waiting;
-
+    private LobbyState state;
 
     public Lobby(String lobbyname) throws RemoteException {
         this.name = lobbyname;
+        this.players = new ArrayList<>();
         this.max = 1;
+        this.level = "";
+        this.state = LobbyState.Waiting;
         this.publisher = new BasicPublisher(this, new String[]{"Administrative", "Chat", "Level", "Players", "Rect", "Host", "Objects"});
     }
 
@@ -145,11 +147,11 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         Player p = getPlayer(username);
         if (p != null) {
             this.removePlayer(username);
-            
-            if (!hasStarted()){
+
+            if (!hasStarted()) {
                 publisher.inform(this, "Administrative", "Kick", username);
             }
-            
+
             updatePlayers();
         }
 
@@ -167,7 +169,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
                     if (!getNames().contains(username)) {
                         Player tempPlayer = new Player(username, ipAddress);
                         if (players.add(tempPlayer)) {
-                            tempPlayer.setCurrentLobby(this);
                             updatePlayers();
                         } else {
                             throw new CustomException("Failed to join this lobby.");
@@ -193,7 +194,6 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
             Player tempPlayer = getPlayer(username);
             if (tempPlayer != null) {
                 if (players.remove(tempPlayer)) {
-                    tempPlayer.setCurrentLobby(null);
                     updatePlayers();
                 }
 
@@ -247,7 +247,7 @@ public class Lobby extends UnicastRemoteObject implements ILobby, ICare {
         }
     }
 
-    private boolean allReady() {
+    synchronized private boolean allReady() {
         boolean allReady = true;
 
         for (Player p : players) {

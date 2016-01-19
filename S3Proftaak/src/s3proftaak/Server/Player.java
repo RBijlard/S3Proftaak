@@ -17,7 +17,6 @@ public class Player extends UnicastRemoteObject implements IPlayer {
     
     private final String name, ipAddress;
     private boolean ready;
-    private Lobby currentLobby;
 
     public Player(String name, String ipAddress) throws RemoteException {
         this.name = name;
@@ -45,13 +44,5 @@ public class Player extends UnicastRemoteObject implements IPlayer {
     
     public void setReady(boolean ready){
         this.ready = ready;
-    }
-    
-    public Lobby getCurrentLobby(){
-        return this.currentLobby;
-    }
-    
-    public void setCurrentLobby(Lobby currentLobby){
-        this.currentLobby = currentLobby;
     }
 }

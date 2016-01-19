@@ -1,19 +1,16 @@
 package s3proftaak.Client;
 
-import java.net.InetAddress;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
-import java.util.Enumeration;
 import s3proftaak.Shared.IServer;
+import s3proftaak.util.RMIBase;
 import s3proftaak.util.XorSocketFactory.XorClientSocketFactory;
 
 /**
  * @author S33D
  */
-public class RMIClient {
+public class RMIClient extends RMIBase {
 
     private static RMIClient instance;
 
@@ -24,39 +21,31 @@ public class RMIClient {
     public static void clearInstance() {
         instance = null;
     }
+    
+    private final String hostAddress = "192.168.1.135";
     private final String bindingName = "S3Proftaak";
     private IServer serverAdministration = null;
 
     // Constructor
     public RMIClient() {
         System.out.println("Starting client.");
-        
-        try {
-            Enumeration e = NetworkInterface.getNetworkInterfaces();
-            while (e.hasMoreElements()) {
-                NetworkInterface n = (NetworkInterface) e.nextElement();
-                if (n.getDisplayName().contains("Wireless")) {
-                    Enumeration ee = n.getInetAddresses();
-                    while (ee.hasMoreElements()) {
-                        InetAddress i = (InetAddress) ee.nextElement();
-                        System.setProperty("java.rmi.server.hostname", i.getHostAddress());
-                        ClientAdministration.getInstance().getAccount().setIp(i.getHostAddress());
-                        break;
-                    }
-                }
-            }
-        } catch (SocketException ex) {
-            System.out.println("Client failed to connect to the Server. \n" + ex);
+
+        String ip = this.getWirelessIpAddress();
+
+        if (ip == null) {
+            System.out.println("Failed to start the Client. (IP lookup)");
             return;
         }
-        
+
+        ClientAdministration.getInstance().getAccount().setIp(ip);
+
         try {
-            serverAdministration = (IServer) LocateRegistry.getRegistry("192.168.1.135", 1099, new XorClientSocketFactory()).lookup(bindingName);
+            serverAdministration = (IServer) LocateRegistry.getRegistry(hostAddress, 1099, new XorClientSocketFactory()).lookup(bindingName);
         } catch (RemoteException | NotBoundException ex) {
             System.out.println("Client failed to connect to the Server. \n" + ex);
             return;
         }
-        
+
         instance = (RMIClient) this;
         System.out.println("Client started.");
     }
@@ -64,5 +53,5 @@ public class RMIClient {
     public IServer getServerAdministration() {
         return serverAdministration;
     }
-    
+
 }

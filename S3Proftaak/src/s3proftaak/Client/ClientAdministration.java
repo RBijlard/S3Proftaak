@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -49,12 +50,18 @@ public class ClientAdministration extends Application {
     }
 
     private static void changeStage(Screens s) {
-        primaryStage.setScene(s.newInstance().getScene());
-        try {
-            primaryStage.getScene().getStylesheets().add(new URL(getInstance().getClass().getResource("/Resources/Visuals/style.css").toExternalForm()).toString());
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                primaryStage.setScene(s.newInstance().getScene());
+                try {
+                    primaryStage.getScene().getStylesheets().add(new URL(getInstance().getClass().getResource("/Resources/Visuals/style.css").toExternalForm()).toString());
+                } catch (MalformedURLException ex) {
+                    Logger.getLogger(ClientAdministration.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
     }
 
     public static ClientAdministration getInstance() {

@@ -35,11 +35,11 @@ public class GameListener extends BasicListener {
             if (evt.getOldValue() != null) {
                 if (!evt.getOldValue().toString().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
 
-                    int offset = 0;
+                    float offset = 0;
                     if (game.getGameCharacters() != null) {
                         for (s3proftaak.Client.GameObjects.Character c : game.getGameCharacters()) {
                             if (c.getName().equals(ClientAdministration.getInstance().getAccount().getUsername())) {
-                                offset = (int) c.getOffsetX();
+                                offset = c.getOffsetX();
                             }
                         }
 
@@ -50,12 +50,14 @@ public class GameListener extends BasicListener {
                                     if (c.getName().equals(evt.getOldValue().toString())) {
 
                                         PlayerPosition pp = (PlayerPosition) evt.getNewValue();
-
-                                        if (c.safeMoveTo(pp.getX() - offset, pp.getY())) {
-                                            c.getRect().setX(pp.getX() - offset);
-                                            c.getRect().setY(pp.getY());
-                                        } else {
-                                            c.setvY(pp.getvY());
+                                        
+                                        if (c.getRect().getX() + offset != pp.getX() || c.getRect().getY() != pp.getY()) {
+                                            if (c.safeMoveTo(pp.getX() - offset, pp.getY())) {
+                                                c.getRect().setX(pp.getX() - offset);
+                                                c.getRect().setY(pp.getY());
+                                            } else {
+                                                c.setvY(1);
+                                            }
                                         }
 
                                         c.setWalking(pp.isWalking());
@@ -114,7 +116,7 @@ public class GameListener extends BasicListener {
                                 }
 
                                 break;
-                                
+
                             default:
                                 break;
                         }

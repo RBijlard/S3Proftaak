@@ -5,7 +5,6 @@
  */
 package s3proftaak.Shared;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import s3proftaak.fontys.RemotePublisher;
 
@@ -13,6 +12,6 @@ import s3proftaak.fontys.RemotePublisher;
  *
  * @author Stan
  */
-public interface IChat extends Remote, RemotePublisher {
+public interface IChat extends RemotePublisher {
     public void sendMessage(IMessage message) throws RemoteException;
 }

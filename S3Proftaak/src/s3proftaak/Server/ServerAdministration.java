@@ -20,12 +20,15 @@ import s3proftaak.fontys.RemotePropertyListener;
  */
 public class ServerAdministration extends UnicastRemoteObject implements IServer {
 
-    private static ServerAdministration instance;
+    // Test if possible
+    transient private static ServerAdministration instance;
 
     public static ServerAdministration getInstance() {
         return instance;
     }
-    private final List<Lobby> lobbies;
+    
+    // Test if possible
+    transient private final List<Lobby> lobbies;
     transient private final BasicPublisher publisher;
 
     public ServerAdministration() throws RemoteException {

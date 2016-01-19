@@ -5,20 +5,16 @@
  */
 package s3proftaak.Shared;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
 import s3proftaak.Shared.Wrappers.PlatformPosition;
 import s3proftaak.Shared.Wrappers.PlayerPosition;
-import s3proftaak.fontys.RemotePublisher;
 
 /**
  *
  * @author Stan
  */
-public interface IHost extends Remote, RemotePublisher {
-
-    public void sendMessage(IMessage message) throws RemoteException;
+public interface IHost extends IChat {
 //
 //    public void updatePlayers() throws RemoteException;
 
