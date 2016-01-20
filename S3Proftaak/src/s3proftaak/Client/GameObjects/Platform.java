@@ -15,14 +15,15 @@ import s3proftaak.Shared.Wrappers.PlatformPosition;
  *
  * @author Stan
  */
-public class Platform extends GameObject implements IUpdateable, IRenderable {
+public class Platform extends MoveableGameObject implements IUpdateable, IRenderable {
 
     private final Image sprite;
     private int currentTarget;
     private final int speed = 2;
+    private boolean goingDown;
 
     public Platform(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, true);
         this.sprite = ResourceManager.Images.BOXITEM.getImage();
 
         // Return position
@@ -55,13 +56,53 @@ public class Platform extends GameObject implements IUpdateable, IRenderable {
                         diffY = speed;
                     }
 
+                    goingDown = diffY > 0;
+
+                    if (diffX != 0) {
+                        if (diffX > 0) {
+                            for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
+                                // Right side
+                                if (character.getRect().getMinX() <= this.getRect().getMaxX() + speed && character.getRect().getMinX() >= this.getRect().getMinX()) {
+                                    if (character.getRect().getMaxY() >= this.getRect().getMinY() && character.getRect().getMinY() <= this.getRect().getMaxY()) {
+                                        character.move(diffX < 0 ? speed : -speed);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (diffX < 0) {
+                            for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
+                                // Left side
+                                if (character.getRect().getMaxX() >= this.getRect().getMinX() - speed && character.getRect().getMaxX() <= this.getRect().getMaxX()) {
+                                    if (character.getRect().getMaxY() >= this.getRect().getMinY() && character.getRect().getMinY() <= this.getRect().getMaxY()) {
+                                        character.move(diffX < 0 ? speed : -speed);
+                                    }
+                                }
+                            }
+                        }
+                    }
+
                     this.getRect().setX(this.getRect().getX() + diffX);
 
                     if (diffY != 0) {
-                        for (GameObject character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
+                        for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
+                            // Top side
                             if (getRect().getMinX() <= character.getRect().getMaxX() && getRect().getMaxX() >= character.getRect().getMinX()) {
-                                if (getRect().getMinY() - 23 <= character.getRect().getMaxY() && getRect().getMaxY() > character.getRect().getMaxY()) {
+                                if (getRect().getMinY() - speed <= character.getRect().getMaxY() && getRect().getMaxY() >= character.getRect().getMaxY()) {
                                     character.getRect().setY(character.getRect().getY() - (diffY < 0 ? speed : -speed));
+                                }
+                            }
+
+                            // Bottom side
+                            if (getRect().getMinX() + 2 <= character.getRect().getMaxX() && getRect().getMaxX() - 2 >= character.getRect().getMinX()) {
+                                if (getRect().getMaxY() + speed >= character.getRect().getMinY() && getRect().getMinY() <= character.getRect().getMinY()) {
+                                    if (character.isOnGround()) {
+                                        if (this.isGoingDown()) {
+                                            character.die();
+                                        }
+                                    } else {
+                                        character.getRect().setY(character.getRect().getY() - (diffY < 0 ? speed : -speed));
+                                    }
                                 }
                             }
                         }
@@ -88,6 +129,10 @@ public class Platform extends GameObject implements IUpdateable, IRenderable {
     @Override
     public void render(GameContainer gc, Graphics g) {
         sprite.draw(this.getRect().getX(), this.getRect().getY() - calculateOffset());
+    }
+
+    public boolean isGoingDown() {
+        return this.goingDown;
     }
 
     public void updateY(float y) {

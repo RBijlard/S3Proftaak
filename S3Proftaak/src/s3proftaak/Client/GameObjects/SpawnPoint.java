@@ -12,7 +12,7 @@ package s3proftaak.Client.GameObjects;
 public class SpawnPoint extends GameObject{
 
     public SpawnPoint(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, false);
     }
         
     @Override

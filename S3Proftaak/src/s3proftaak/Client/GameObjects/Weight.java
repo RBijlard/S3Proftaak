@@ -22,7 +22,7 @@ public class Weight extends GameObject implements IStateChangeable, IRenderable,
     private final float height;
 
     public Weight(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, true);
 
         this.height = height;
         sprite = ResourceManager.Images.WEIGHTCHAINED.getImage();

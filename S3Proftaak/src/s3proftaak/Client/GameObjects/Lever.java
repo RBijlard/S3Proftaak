@@ -20,7 +20,7 @@ public class Lever extends GameObject implements IPressable, IRenderable {
     private Image sprite;
 
     public Lever(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, false);
         this.changeImage(isActive);
     }
 

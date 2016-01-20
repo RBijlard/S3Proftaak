@@ -17,7 +17,7 @@ public final class SpawnBlock extends GameObject implements IStateChangeable, IR
     private final Image sprite;
 
     public SpawnBlock(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, true);
         sprite = ResourceManager.Images.BOXITEM.getImage();
         this.setActive(false);
     }

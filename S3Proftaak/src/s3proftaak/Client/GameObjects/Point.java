@@ -7,7 +7,7 @@ package s3proftaak.Client.GameObjects;
 public class Point extends GameObject {
 
     public Point(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, false);
     }
 
     @Override

@@ -7,7 +7,7 @@ package s3proftaak.Client.GameObjects;
 public class Spike extends GameObject {
 
     public Spike(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, true);
     }
     
     @Override

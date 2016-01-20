@@ -435,10 +435,12 @@ public class Game extends BasicGame {
     }
 
     public void checkMatchedObjects(GameObject go) {
-        if (((IPressable) go).isActive()) {
-            ((IPressable) go).setActive(false);
-            for (GameObject mo : ((IPressable) go).getMatchedObjects()) {
-                this.checkMatchedObject(mo);
+        if (go instanceof IPressable) {
+            if (((IPressable) go).isActive()) {
+                ((IPressable) go).setActive(false);
+                for (GameObject mo : ((IPressable) go).getMatchedObjects()) {
+                    this.checkMatchedObject(mo);
+                }
             }
         }
     }
@@ -475,7 +477,7 @@ public class Game extends BasicGame {
                     for (String s : this.gameCharacterNames) {
                         buf.append(s).append(", ");
                     }
-                    
+
                     players = buf.toString();
 
                     if (players.endsWith(", ")) {

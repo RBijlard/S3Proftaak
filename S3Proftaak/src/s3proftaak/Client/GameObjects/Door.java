@@ -20,7 +20,8 @@ public class Door extends GameObject implements IStateChangeable, IRenderable {
     private boolean finished;
 
     public Door(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, false);
+        isActive = false;
         this.changeImage(isActive);
         finished = false;
     }

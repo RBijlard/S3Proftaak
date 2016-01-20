@@ -12,14 +12,14 @@ import s3proftaak.Client.ResourceManager;
  *
  * @author Stan
  */
-public class MoveableBlock extends GameObject implements IUpdateable, IRenderable {
+public class MoveableBlock extends MoveableGameObject implements IUpdateable, IRenderable {
 
     private int dx;
     private final Image sprite;
     private boolean isFalling;
 
     public MoveableBlock(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, true);
         this.sprite = ResourceManager.Images.BOXITEM.getImage();
         this.isFalling = false;
     }

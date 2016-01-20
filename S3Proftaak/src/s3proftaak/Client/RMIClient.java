@@ -22,7 +22,7 @@ public class RMIClient extends RMIBase {
         instance = null;
     }
     
-    private final String hostAddress = "192.168.1.135";
+    private final String hostAddress = "localhost";
     private final String bindingName = "S3Proftaak";
     private IServer serverAdministration = null;
 

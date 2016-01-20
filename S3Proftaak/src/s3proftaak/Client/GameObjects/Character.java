@@ -24,7 +24,7 @@ import s3proftaak.Shared.Wrappers.PlayerPosition;
  *
  * @author Berry-PC
  */
-public class Character extends GameObject implements IRenderable, IUpdateable {
+public class Character extends MoveableGameObject implements IRenderable, IUpdateable {
 
     private final String name;
     private final boolean isControllabe;
@@ -52,7 +52,7 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
     float marginy, marginx;
 
     public Character(Game game, float x, float y, float width, float height, int controlSet, String name) throws SlickException {
-        super(x, y, width, height);
+        super(x, y, width, height, true);
         this.name = name;
 
         this.isControllabe = this.name.equals(ClientAdministration.getInstance().getAccount().getUsername());
@@ -261,7 +261,9 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
             if (go.getRect().intersects(rect) || go.getRect().contains(rect)) {
                 if (go != this) {
                     //check what object
-                    if (go instanceof Block || go instanceof Character || go instanceof Platform) {
+                    if (go instanceof Block || go instanceof Character) {
+                        return true;
+                    } else if (go instanceof Platform) {
                         return true;
                     } else if (go instanceof MoveableBlock) {
                         if (go.getRect().getMinY() + 1 < rect.getMaxY()) {
@@ -451,6 +453,18 @@ public class Character extends GameObject implements IRenderable, IUpdateable {
                 this.getRect().setY(this.getRect().getY() - vYtemp);
                 this.vY = 0;
             }
+        }
+    }
+
+    public void move(float delta) {
+        if ((game.isMultiplayer() && isControllabe) || (!game.isMultiplayer() && this.controlSet == 0)) {
+            for (GameObject go : game.getGameObjects()) {
+                if (go != this) {
+                    go.getRect().setX(go.getRect().getX() + delta);
+                }
+            }
+        } else {
+            this.getRect().setX(this.getRect().getX() + delta);
         }
     }
 

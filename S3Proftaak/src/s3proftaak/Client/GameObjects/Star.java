@@ -19,7 +19,7 @@ public class Star extends GameObject implements IRemoteUpdatable, IRenderable {
     private boolean removed;
 
     public Star(float x, float y, float width, float height) {
-        super(x, y, width, height);
+        super(x, y, width, height, false);
         this.sprite = ResourceManager.Images.STAR.getImage();
     }
 
