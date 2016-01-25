@@ -319,7 +319,8 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
                         try {
                             ClientAdministration.getInstance().getHost().updateObject(go.getId(), ((SpawnBlock) go).isActive());
                         } catch (RemoteException ex) {
-                            Logger.getLogger(Character.class.getName()).log(Level.SEVERE, null, ex);
+                            System.out.println(ex);
+                            ClientAdministration.getInstance().connectionLost();
                         }
                         return ((SpawnBlock) go).isActive();
                     } else if (go instanceof Spike) {
