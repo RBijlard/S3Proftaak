@@ -106,8 +106,7 @@ public class GameListener extends BasicListener {
                                         if (!ClientAdministration.getInstance().isHost()) {
                                             Platform plat = (Platform) go;
                                             PlatformPosition pp = (PlatformPosition) evt.getNewValue();
-                                            go.getRect().setX(pp.getX() - ClientAdministration.getInstance().getGame().getOffsetX());
-                                            plat.updateY(pp.getY());
+                                            plat.updatePosition(pp.getX() - ClientAdministration.getInstance().getGame().getOffsetX(), pp.getY());
                                         }
                                     }
 

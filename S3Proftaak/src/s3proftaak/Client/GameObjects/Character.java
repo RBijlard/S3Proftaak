@@ -27,7 +27,7 @@ import s3proftaak.Shared.Wrappers.PlayerPosition;
 public class Character extends MoveableGameObject implements IRenderable, IUpdateable {
 
     private final String name;
-    private final boolean isControllabe;
+    private final boolean isControllabe, isMainCharacter;
 
     private final float gravity = 0.5f;
     private final float jumpStrength = -12;
@@ -56,6 +56,7 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
         this.name = name;
 
         this.isControllabe = this.name.equals(ClientAdministration.getInstance().getAccount().getUsername());
+        this.isMainCharacter = controlSet == 0;
 
         this.game = game;
         this.controlSet = controlSet;
@@ -457,14 +458,14 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
     }
 
     public void move(float delta) {
-        if ((game.isMultiplayer() && isControllabe) || (!game.isMultiplayer() && this.controlSet == 0)) {
+        if ((game.isMultiplayer() && isControllabe) || (!game.isMultiplayer() && isMainCharacter)) {
             for (GameObject go : game.getGameObjects()) {
                 if (go != this) {
                     go.getRect().setX(go.getRect().getX() + delta);
                 }
             }
         } else {
-            this.getRect().setX(this.getRect().getX() + delta);
+            this.getRect().setX(this.getRect().getX() - delta);
         }
     }
 
@@ -601,6 +602,6 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
     }
 
     private boolean isLeft() {
-        return walkingDirection > 0;
+        return (isMainCharacter && walkingDirection > 0) || (!isMainCharacter && walkingDirection < 0);
     }
 }
