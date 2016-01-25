@@ -607,6 +607,6 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
     }
 
     private boolean isLeft() {
-        return (isMainCharacter && walkingDirection > 0) || (!isMainCharacter && walkingDirection < 0);
+        return (game.isMultiplayer() && walkingDirection > 0) || (!game.isMultiplayer() && isMainCharacter && walkingDirection > 0) || (!isMainCharacter && walkingDirection < 0);
     }
 }
