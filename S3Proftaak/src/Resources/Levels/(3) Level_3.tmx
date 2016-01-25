@@ -17,12 +17,12 @@
  </tileset>
  <layer name="Tile Layer 1" width="300" height="16" opacity="0.9">
   <data encoding="base64" compression="gzip">
-   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
+   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
   </data>
  </layer>
  <layer name="Tile Layer 2" width="300" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3UsQnAIAAEQHWY7D+Gg9i5hK0EE1AsRO6a/1/gQwAAAADYK8f/DQDAnBLHHeAEtf+l9NEBAFj2vBIAAAAAAAAAAG7RAOxIZKEASwAA
+   H4sIAAAAAAAAC+3ZsQ2AIBQEUGAY4v5TOAgdS9ASAxqIhSbvNXd/gd9cCAAAAADvOuP9DQDAmhLHHeALav+X0qQDALAtXxIAAIB/OOx6AAAAAACPGhW1yPwASwAA
   </data>
  </layer>
  <objectgroup name="hitbox layer 0" width="280" height="70">
@@ -69,7 +69,7 @@
   <object id="285" x="6125" y="700" width="140" height="420"/>
   <object id="286" x="6037" y="770" width="87" height="350"/>
   <object id="287" x="5880" y="840" width="157" height="280"/>
-  <object id="288" x="5880" y="875" height="157"/>
+  <object id="288" x="5880" y="875" width="1" height="157"/>
   <object id="289" x="5827" y="875" width="52" height="245"/>
   <object id="291" x="5460" y="980" width="367" height="140"/>
   <object id="296" x="5250" y="1" width="70" height="560"/>
@@ -111,14 +111,14 @@
   <object id="410" x="12040" y="1050" width="420" height="70"/>
   <object id="412" x="12390" y="1" width="70" height="1050"/>
   <object id="415" x="9100" y="630" width="70" height="70"/>
-  <object id="416" x="5460" y="350" width="3"/>
+  <object id="416" x="5460" y="350" width="3" height="1"/>
   <object id="424" x="3500" y="805" width="140" height="35"/>
   <object id="425" x="3710" y="735" width="140" height="35"/>
   <object id="426" x="3920" y="665" width="140" height="35"/>
   <object id="427" x="3850" y="945" width="70" height="35"/>
   <object id="438" x="1540" y="280" width="332" height="35"/>
  </objectgroup>
- <objectgroup name="button" width="280" height="70">
+ <objectgroup name="button" width="332" height="35">
   <properties>
    <property name="button" value="1"/>
   </properties>
@@ -138,7 +138,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="door" width="280" height="70">
+ <objectgroup name="door" width="332" height="35">
   <properties>
    <property name="door" value="4"/>
   </properties>
@@ -148,7 +148,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="lever" width="280" height="70">
+ <objectgroup name="lever" width="332" height="35">
   <object id="432" x="8120" y="122" width="70" height="17">
    <properties>
     <property name="lever" value="1"/>
@@ -160,7 +160,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="weight" width="280" height="70">
+ <objectgroup name="weight" width="332" height="35">
   <object id="370" x="10500" y="210" width="70" height="490">
    <properties>
     <property name="weight" value="1"/>
@@ -172,7 +172,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="spikes" width="280" height="70">
+ <objectgroup name="spikes" width="332" height="35">
   <object id="210" x="3290" y="1050" width="630" height="70"/>
   <object id="258" x="4200" y="945" width="140" height="35"/>
   <object id="260" x="4410" y="945" width="210" height="35"/>
@@ -199,16 +199,16 @@
   <object id="397" x="12337" y="997" width="35" height="52"/>
   <object id="398" x="12687" y="857" width="35" height="52"/>
  </objectgroup>
- <objectgroup name="movebleblock" width="280" height="70"/>
+ <objectgroup name="movebleblock" width="332" height="35"/>
  <objectgroup name="star" width="280" height="70">
   <object id="303" x="5950" y="70" width="70" height="70"/>
   <object id="323" x="1050" y="560" width="70" height="70"/>
   <object id="356" x="7980" y="70" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="spawnpoint" width="280" height="70">
+ <objectgroup name="spawnpoint" width="332" height="35">
   <object id="205" x="840" y="840" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="spawnblocks" width="280" height="70">
+ <objectgroup name="spawnblocks" width="332" height="35">
   <object id="441" x="3290" y="840" width="70" height="70">
    <properties>
     <property name="spawnblock" value="4"/>
