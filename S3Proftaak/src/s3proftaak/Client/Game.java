@@ -39,13 +39,7 @@ import s3proftaak.Client.GameObjects.Star;
 import s3proftaak.Client.GameObjects.Weight;
 import s3proftaak.Client.SoundManager.Sounds;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 /**
- *
  * @author Berry-PC
  */
 public class Game extends BasicGame {
@@ -361,7 +355,11 @@ public class Game extends BasicGame {
         grphcs.scale(Display.getWidth() / this.baseWidht, Display.getHeight() / this.baseHight);
 
         //set background color
-        grphcs.setBackground(new Color(224, 224, 224));
+        if (this.mapname.equals("(3) Level_1.tmx")) {
+            grphcs.setBackground(new Color(10, 60, 77));
+        } else {
+            grphcs.setBackground(new Color(135, 206, 250));
+        }
 
         for (GameObject go : this.gameObjects) {
             // Teken hitboxes, moet keer weg
