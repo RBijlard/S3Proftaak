@@ -143,9 +143,9 @@ public class BasicPublisher {
         }
 
         // DEBUG PURPOSES
-        String debug = alertable.toString();
         List<RemotePropertyListener> debugg = new ArrayList<>();
         debugg.addAll(alertable);
+        String debug = debugg.toString();
 
         try {
             for (RemotePropertyListener listener : alertable) {
