@@ -141,62 +141,65 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
 
     public void moveHorizontalMap(GameContainer gc) {
 
-        // Offset X voor Platform.
-        ClientAdministration.getInstance().getGame().setOffsetX(offSetX);
+        if (ClientAdministration.getInstance().getGame() != null) {
 
-        //Move horizontal with arrow keys
-        if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
-            //move map right -> x minus speed
-            this.setvX(this.speed);
-        } else if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
-            //move map left -> x plus speed
-            this.setvX(-this.speed);
-        } else {
-            //dont move the map
-            this.setvX(0);
-        }
+            // Offset X voor Platform.
+            ClientAdministration.getInstance().getGame().setOffsetX(offSetX);
 
-        //check collisions
-        float vXtemp = this.vX / this.interations;
-        for (int i = 0; i < this.interations; i++) {
-            /*
-             boolean collision = false;
-
-             for (GameObject go : game.getGameObjects()) {
-             if (go != this) {
-             if (go instanceof Block || go instanceof MoveableBlock || go instanceof Weight || go instanceof Character || go instanceof Button || go instanceof Spike) {
-             Rectangle rect = new Rectangle(go.getRect().getX() + vXtemp, go.getRect().getY(), go.getRect().getWidth(), go.getRect().getHeight());
-             if (this.getRect().contains(rect) || this.getRect().intersects(rect)) {
-             collision = true;
-             break;
-             }
-             }
-             }
-             }
-
-             if (!collision) {
-             for (GameObject go : game.getGameObjects()) {
-             if (go != this) {
-             go.getRect().setX(go.getRect().getX() + vXtemp);
-             }
-             }
-             }*/
-
-            for (GameObject go : game.getGameObjects()) {
-                if (go != this) {
-                    go.getRect().setX(go.getRect().getX() + vXtemp);
-                }
+            //Move horizontal with arrow keys
+            if (gc.getInput().isKeyDown(Input.KEY_LEFT)) {
+                //move map right -> x minus speed
+                this.setvX(this.speed);
+            } else if (gc.getInput().isKeyDown(Input.KEY_RIGHT)) {
+                //move map left -> x plus speed
+                this.setvX(-this.speed);
+            } else {
+                //dont move the map
+                this.setvX(0);
             }
-            if (this.isColliding(gc)) {
+
+            //check collisions
+            float vXtemp = this.vX / this.interations;
+            for (int i = 0; i < this.interations; i++) {
+                /*
+                 boolean collision = false;
+
+                 for (GameObject go : game.getGameObjects()) {
+                 if (go != this) {
+                 if (go instanceof Block || go instanceof MoveableBlock || go instanceof Weight || go instanceof Character || go instanceof Button || go instanceof Spike) {
+                 Rectangle rect = new Rectangle(go.getRect().getX() + vXtemp, go.getRect().getY(), go.getRect().getWidth(), go.getRect().getHeight());
+                 if (this.getRect().contains(rect) || this.getRect().intersects(rect)) {
+                 collision = true;
+                 break;
+                 }
+                 }
+                 }
+                 }
+
+                 if (!collision) {
+                 for (GameObject go : game.getGameObjects()) {
+                 if (go != this) {
+                 go.getRect().setX(go.getRect().getX() + vXtemp);
+                 }
+                 }
+                 }*/
+
                 for (GameObject go : game.getGameObjects()) {
                     if (go != this) {
-                        go.getRect().setX(go.getRect().getX() - vXtemp);
+                        go.getRect().setX(go.getRect().getX() + vXtemp);
+                    }
+                }
+                if (this.isColliding(gc)) {
+                    for (GameObject go : game.getGameObjects()) {
+                        if (go != this) {
+                            go.getRect().setX(go.getRect().getX() - vXtemp);
+                        }
                     }
                 }
             }
-        }
 
-        this.offSetX = 0 - MLO.getRect().getX();
+            this.offSetX = 0 - MLO.getRect().getX();
+        }
     }
 
     public float getOffsetX() {
@@ -477,7 +480,7 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
         } else {
             this.getRect().setX(this.getRect().getX() - deltaX);
         }
-        
+
         this.getRect().setY(this.getRect().getY() - deltaY);
     }
 
