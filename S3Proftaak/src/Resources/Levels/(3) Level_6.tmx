@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="16" tilewidth="70" tileheight="70" backgroundcolor="#87ceeb" nextobjectid="150">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="16" tilewidth="70" tileheight="70" backgroundcolor="#87ceeb" nextobjectid="151">
  <tileset firstgid="1" name="items_spritesheet" tilewidth="70" tileheight="70" spacing="2" tilecount="64">
   <image source="items_spritesheet.png" width="623" height="576"/>
  </tileset>
@@ -20,10 +20,10 @@
  </tileset>
  <layer name="Tile Layer 1" width="100" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2YSw7AIAhEPV7v3iN4mW6bhp8WEZCXzEKDKTDa1LZWFOvoL0Hj06Dqp+a5OGlPsZhT/bBitO/lxx4y+tEBUTGe0PZDoz5vPbIk4/mIjIYflt5x76EoSL/VuPndZPEDY/b+sasXUf2Ilq8USz+gfWqBtEYP/kY5H7P5fdd5qxH774B5MjrmniddM9J/qAaqntk9+Lc3VC5YfnfJla6SKz31TLYBABkAAA==
+   H4sIAAAAAAAAC+2YSw7AIAhEPV7v3iN4mW6bhq9FBOUls9BgCoyatq0VxTz6S9D4NKj6qXkuTtpTLOZUP7zQ9r38WMOOfnRAVEwkrP2wqC9ajzzZ8XxkxsIPT++4eygL0nc1bn41u/iBMfr9saoXWf3Ilq8UTz+gfeqBtEbNfTeLLOdjNL/vumg1Yv8dME+0Y+550jWa/kM1UPWM7sG/vaFywfK7S6F0lULpAYV8JnoAGQAA
   </data>
  </layer>
- <objectgroup name="Object Layer 1" width="980" height="490">
+ <objectgroup name="Object Layer 1" width="914" height="936">
   <object id="36" x="350" y="350" width="350" height="70"/>
   <object id="37" x="1" y="910" width="70" height="70"/>
   <object id="38" x="280" y="910" width="70" height="70"/>
@@ -69,8 +69,9 @@
   <object id="83" x="5040" y="350" width="70" height="70"/>
   <object id="87" x="6930" y="490" width="70" height="490"/>
   <object id="149" x="6230" y="350" width="70" height="70"/>
+  <object id="150" x="4760" y="770" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="Object Layer 2" width="980" height="490">
+ <objectgroup name="Object Layer 2" width="914" height="936">
   <object id="125" x="6091" y="885" width="69" height="24">
    <properties>
     <property name="button" value="9"/>
@@ -107,14 +108,14 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 3" width="980" height="490">
+ <objectgroup name="Object Layer 3" width="914" height="936">
   <object id="124" x="6867" y="390" width="55" height="98">
    <properties>
     <property name="door" value="4"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 4" width="980" height="490">
+ <objectgroup name="Object Layer 4" width="914" height="936">
   <object id="88" x="1890" y="70" width="70" height="70">
    <properties>
     <property name="lever" value="2"/>
@@ -131,7 +132,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 5" width="980" height="490">
+ <objectgroup name="Object Layer 5" width="914" height="936">
   <object id="90" x="1750" y="0" width="70" height="910">
    <properties>
     <property name="weight" value="1"/>
@@ -143,19 +144,19 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="Object Layer 6" width="980" height="490">
+ <objectgroup name="Object Layer 6" width="914" height="936">
   <object id="35" x="1" y="1108" width="6992" height="1"/>
  </objectgroup>
- <objectgroup name="Object Layer 7" width="980" height="490"/>
- <objectgroup name="Object Layer 8" width="980" height="490">
+ <objectgroup name="Object Layer 7" width="914" height="936"/>
+ <objectgroup name="Object Layer 8" width="914" height="936">
   <object id="93" x="1" y="840" width="70" height="70"/>
   <object id="94" x="3850" y="0" width="70" height="70"/>
   <object id="96" x="1960" y="70" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="Object Layer 9" width="980" height="490">
+ <objectgroup name="Object Layer 9" width="914" height="936">
   <object id="97" x="475" y="210" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="Object Layer 10" width="980" height="490">
+ <objectgroup name="Object Layer 10" width="914" height="936">
   <object id="98" x="1120" y="910" width="70" height="70">
    <properties>
     <property name="spawnblock" value="1"/>

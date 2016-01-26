@@ -78,7 +78,7 @@ public class SoundManager {
                 }
             }
 
-        } catch (SlickException ex) {
+        } catch (Exception ex) {
             System.out.println(ex.toString());
         }
     }
@@ -104,15 +104,15 @@ public class SoundManager {
 
     public enum Sounds {
 
-        JUMP("jump"), 
-        GAMEOVER("gameOver"), 
-        COINPICKUP("coinPickUp"), 
-        BLOCKFALL("blockFall"), 
-        BUTTONPRESS("buttonPress"), 
-        BUTTONRELEASE("buttonRelease"), 
-        LEVERPULL("leverPull"), 
-        LEVERPUSH("leverPush"), 
-        WEIGHTDOWN("weightDown"), 
+        JUMP("jump"),
+        GAMEOVER("gameOver"),
+        COINPICKUP("coinPickUp"),
+        BLOCKFALL("blockFall"),
+        BUTTONPRESS("buttonPress"),
+        BUTTONRELEASE("buttonRelease"),
+        LEVERPULL("leverPull"),
+        LEVERPUSH("leverPush"),
+        WEIGHTDOWN("weightDown"),
         WEIGHTUP("weightUp");
 
         private final String path;
