@@ -30,7 +30,7 @@ public class Platform extends MoveableGameObject implements IUpdateable, IRender
         this.addMatchedObject(new Point(x, y, width, height));
     }
 
-     @Override
+    @Override
     public void update(GameContainer gc) {
         if (!this.getMatchedObjects().isEmpty()) {
             if (!ClientAdministration.getInstance().getGame().isMultiplayer() || (ClientAdministration.getInstance().getGame().isMultiplayer() && ClientAdministration.getInstance().isHost())) {
@@ -58,56 +58,9 @@ public class Platform extends MoveableGameObject implements IUpdateable, IRender
 
                     goingDown = diffY > 0;
 
-                    if (diffX != 0) {
-                        if (diffX > 0) {
-                            for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
-                                // Right side
-                                if (character.getRect().getMinX() <= this.getRect().getMaxX() + speed && character.getRect().getMinX() >= this.getRect().getMinX()) {
-                                    if (character.getRect().getMaxY() >= this.getRect().getMinY() && character.getRect().getMinY() <= this.getRect().getMaxY()) {
-                                        character.move(diffX < 0 ? speed : -speed);
-                                    }
-                                }
-                            }
-                        }
-
-                        if (diffX < 0) {
-                            for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
-                                // Left side
-                                if (character.getRect().getMaxX() >= this.getRect().getMinX() - speed && character.getRect().getMaxX() <= this.getRect().getMaxX()) {
-                                    if (character.getRect().getMaxY() >= this.getRect().getMinY() && character.getRect().getMinY() <= this.getRect().getMaxY()) {
-                                        character.move(diffX < 0 ? speed : -speed);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    this.pushNearbyCharacters(new PlatformPosition(0, 0, diffX, diffY, speed, this.isGoingDown()), null);
 
                     this.getRect().setX(this.getRect().getX() + diffX);
-
-                    if (diffY != 0) {
-                        for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
-                            // Top side
-                            if (getRect().getMinX() <= character.getRect().getMaxX() && getRect().getMaxX() >= character.getRect().getMinX()) {
-                                if (getRect().getMinY() - speed <= character.getRect().getMaxY() && getRect().getMaxY() >= character.getRect().getMaxY()) {
-                                    character.getRect().setY(character.getRect().getY() - (diffY < 0 ? speed : -speed));
-                                }
-                            }
-
-                            // Bottom side
-                            if (getRect().getMinX() + 2 <= character.getRect().getMaxX() && getRect().getMaxX() - 2 >= character.getRect().getMinX()) {
-                                if (getRect().getMaxY() + speed >= character.getRect().getMinY() && getRect().getMinY() <= character.getRect().getMinY()) {
-                                    if (character.isOnGround()) {
-                                        if (this.isGoingDown()) {
-                                            character.die();
-                                        }
-                                    } else {
-                                        character.getRect().setY(character.getRect().getY() - (diffY < 0 ? speed : -speed));
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                     this.getRect().setY(this.getRect().getY() + diffY);
 
                     if (ClientAdministration.getInstance().getGame().isMultiplayer()) {
@@ -116,6 +69,7 @@ public class Platform extends MoveableGameObject implements IUpdateable, IRender
                                 ClientAdministration.getInstance().getHost().updatePlatform(this.getId(), new PlatformPosition(this.getRect().getX() + offsetX, this.getRect().getY()));
                             } catch (RemoteException ex) {
                                 // Alleen host mag updaten. Lijkt me sterk dat host lokaal een error krijgt ..
+                                System.out.println(ex);
                             }
                         }
                     }
@@ -135,13 +89,13 @@ public class Platform extends MoveableGameObject implements IUpdateable, IRender
         return this.goingDown;
     }
 
-    public void updatePosition(float x, float y) {
-        //float diffX = x - this.getRect().getX();
-        //float diffY = y - this.getRect().getY();
+    public void updatePosition(PlatformPosition pp) {
+        float x = pp.getX() - ClientAdministration.getInstance().getGame().getOffsetX();
+        float y = pp.getY();
 
         float diffX = 0;
         float diffY = 0;
-        
+
         float speedX = this.getRect().getX() - x;
         float speedY = this.getRect().getY() - y;
 
@@ -162,57 +116,9 @@ public class Platform extends MoveableGameObject implements IUpdateable, IRender
         }
 
         goingDown = diffY > 0;
-
-        if (true) {
-            if (diffX > 0) {
-                for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
-                    // Right side
-                    if (character.getRect().getMinX() <= this.getRect().getMaxX() - speedX && character.getRect().getMinX() >= this.getRect().getMinX()) {
-                        if (character.getRect().getMaxY() >= this.getRect().getMinY() && character.getRect().getMinY() <= this.getRect().getMaxY()) {
-                            character.move(diffX < 0 ? speedX : -speedX);
-                        }
-                    }
-                }
-            }
-
-            if (diffX < 0) {
-                for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
-                    // Left side
-                    if (character.getRect().getMaxX() >= this.getRect().getMinX() - speedX && character.getRect().getMaxX() <= this.getRect().getMaxX()) {
-                        if (character.getRect().getMaxY() >= this.getRect().getMinY() && character.getRect().getMinY() <= this.getRect().getMaxY()) {
-                            character.move(diffX < 0 ? speedX : -speedX);
-                        }
-                    }
-                }
-            }
-        }
+        this.pushNearbyCharacters(new PlatformPosition(x, y, diffX, diffY, -1, this.isGoingDown()), null);
 
         this.getRect().setX(x);
-
-        if (true) {
-            for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
-                // Top side
-                if (getRect().getMinX() <= character.getRect().getMaxX() && getRect().getMaxX() >= character.getRect().getMinX()) {
-                    if (getRect().getMinY() - speedY <= character.getRect().getMaxY() && getRect().getMaxY() >= character.getRect().getMaxY()) {
-                        character.getRect().setY(character.getRect().getY() - (diffY < 0 ? speedY : -speedY));
-                    }
-                }
-
-                // Bottom side
-                if (getRect().getMinX() + 2 <= character.getRect().getMaxX() && getRect().getMaxX() - 2 >= character.getRect().getMinX()) {
-                    if (getRect().getMaxY() + speedY >= character.getRect().getMinY() && getRect().getMinY() <= character.getRect().getMinY()) {
-                        if (character.isOnGround()) {
-                            if (this.isGoingDown()) {
-                                character.die();
-                            }
-                        } else {
-                            character.getRect().setY(character.getRect().getY() - (diffY < 0 ? speedY : -speedY));
-                        }
-                    }
-                }
-            }
-        }
-
         this.getRect().setY(y);
     }
 

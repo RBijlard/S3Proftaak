@@ -18,6 +18,7 @@ import s3proftaak.Client.GameObjects.Interfaces.IUpdateable;
 import s3proftaak.Client.SoundManager;
 import s3proftaak.Client.SoundManager.Sounds;
 import s3proftaak.Shared.Wrappers.MoveableBlockPosition;
+import s3proftaak.Shared.Wrappers.PlatformPosition;
 import s3proftaak.Shared.Wrappers.PlayerPosition;
 
 /**
@@ -316,11 +317,13 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
 
                         return true;
                     } else if (go instanceof SpawnBlock) {
-                        try {
-                            ClientAdministration.getInstance().getHost().updateObject(go.getId(), ((SpawnBlock) go).isActive());
-                        } catch (RemoteException ex) {
-                            System.out.println(ex);
-                            ClientAdministration.getInstance().connectionLost();
+                        if (game.isMultiplayer()) {
+                            try {
+                                ClientAdministration.getInstance().getHost().updateObject(go.getId(), ((SpawnBlock) go).isActive());
+                            } catch (RemoteException ex) {
+                                System.out.println(ex);
+                                ClientAdministration.getInstance().connectionLost();
+                            }
                         }
                         return ((SpawnBlock) go).isActive();
                     } else if (go instanceof Spike) {
@@ -463,16 +466,19 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
         }
     }
 
-    public void move(float delta) {
+    public void move(float deltaX, float deltaY, PlatformPosition pp, MoveableGameObject pusher) {
+        this.pushNearbyCharacters(pp, pusher);
         if ((game.isMultiplayer() && isControllabe) || (!game.isMultiplayer() && isMainCharacter)) {
             for (GameObject go : game.getGameObjects()) {
                 if (go != this) {
-                    go.getRect().setX(go.getRect().getX() + delta);
+                    go.getRect().setX(go.getRect().getX() + deltaX);
                 }
             }
         } else {
-            this.getRect().setX(this.getRect().getX() - delta);
+            this.getRect().setX(this.getRect().getX() - deltaX);
         }
+        
+        this.getRect().setY(this.getRect().getY() - deltaY);
     }
 
     private void checkCrouch(boolean crouching) {
@@ -608,12 +614,12 @@ public class Character extends MoveableGameObject implements IRenderable, IUpdat
     }
 
     private boolean isLeft() {
-        if (game.isMultiplayer()){
+        if (game.isMultiplayer()) {
             return walkingDirection > 0;
-        }else{
-            if (isMainCharacter){
+        } else {
+            if (isMainCharacter) {
                 return walkingDirection > 0;
-            }else{
+            } else {
                 return walkingDirection < 0;
             }
         }
