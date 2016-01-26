@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="16" tilewidth="70" tileheight="70" nextobjectid="460">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="16" tilewidth="70" tileheight="70" nextobjectid="461">
  <tileset firstgid="1" name="BaseTileSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
   <image source="tiles_spritesheet.png" width="914" height="936"/>
  </tileset>
@@ -22,7 +22,7 @@
  </layer>
  <layer name="Tile Layer 2" width="300" height="16">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3ZsQ2AIBQEUGAY4v5TOAgdS9ASAxqIhSbvNXd/gd9cCAAAAADvOuP9DQDAmhLHHeALav+X0qQDALAtXxIAAIB/OOx6AAAAAACPGhW1yPwASwAA
+   H4sIAAAAAAAAC+3ZsQ2AIBAFUHAYg/sv4SB0LkFriJpgSFDyXnP/d1ddcyEAAAAA9LXH5w4AQJscrzPAFxznu7TcZAAAXlurCQAAwD8kfz0AmNY2egEAAICJFHNZ4JMASwAA
   </data>
  </layer>
  <objectgroup name="hitbox layer 0" width="280" height="70">
@@ -125,12 +125,12 @@
     <property name="button" value="5"/>
    </properties>
   </object>
-  <object id="433" x="9310" y="752" width="70" height="17">
+  <object id="433" x="9380" y="752" width="70" height="17">
    <properties>
     <property name="button" value="4"/>
    </properties>
   </object>
-  <object id="437" x="9450" y="752" width="70" height="17">
+  <object id="437" x="9520" y="752" width="70" height="17">
    <properties>
     <property name="button" value="4"/>
    </properties>
@@ -163,7 +163,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="weight" width="280" height="70"> 
+ <objectgroup name="weight" width="280" height="70">
   <object id="435" x="9870" y="1" width="70" height="770">
    <properties>
     <property name="weight" value="4"/>
@@ -212,7 +212,7 @@
   <object id="205" x="840" y="840" width="70" height="70"/>
  </objectgroup>
  <objectgroup name="spawnblocks" width="280" height="70">
-  <object id="441" x="3290" y="840" width="70" height="70">
+  <object id="441" x="3360" y="910" width="70" height="70">
    <properties>
     <property name="spawnblock" value="2"/>
    </properties>
