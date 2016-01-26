@@ -23,13 +23,9 @@ public abstract class MoveableGameObject extends GameObject {
     public void pushNearbyCharacters(PlatformPosition pp, MoveableGameObject pusher) {
         float diffX = pp.getDiffX();
         float diffY = pp.getDiffY();
-        
+
         float speedX = pp.getSpeed() == -1 ? this.getRect().getX() - pp.getX() : pp.getSpeed();
         float speedY = pp.getSpeed() == -1 ? this.getRect().getY() - pp.getY() : pp.getSpeed();
-        
-        if (this instanceof Platform){
-            System.out.println(speedY);
-        }
 
         if (diffX != 0) {
             if (diffX > 0) {
@@ -59,8 +55,6 @@ public abstract class MoveableGameObject extends GameObject {
             }
         }
 
-        
-
         if (diffY != 0) {
             for (Character character : ClientAdministration.getInstance().getGame().getGameCharacters()) {
                 if (this instanceof Platform || (this != character && pusher != character)) {
@@ -74,7 +68,7 @@ public abstract class MoveableGameObject extends GameObject {
                     // Bottom side
                     if (getRect().getMinX() + 2 <= character.getRect().getMaxX() && getRect().getMaxX() - 2 >= character.getRect().getMinX()) {
                         if (getRect().getMaxY() + speedY >= character.getRect().getMinY() && getRect().getMinY() <= character.getRect().getMinY()) {
-                            if (character.isOnGround()) {
+                            if (character.isOnGround(speedY)) {
                                 if (pp.isGoingDown()) {
                                     character.die();
                                 }
@@ -88,7 +82,7 @@ public abstract class MoveableGameObject extends GameObject {
         }
     }
 
-    public boolean isOnGround() {
+    public boolean isOnGround(float range) {
         for (GameObject go : this.getGameObjectsBelow(2)) {
             if (go.hasCollision()) {
                 return true;

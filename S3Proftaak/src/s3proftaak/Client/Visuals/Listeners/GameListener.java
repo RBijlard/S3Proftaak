@@ -103,7 +103,6 @@ public class GameListener extends BasicListener {
                                     }
 
                                     if (go instanceof Platform) {
-                                        System.out.println("RECEIVED");
                                         if (!ClientAdministration.getInstance().isHost()) {
                                             ((Platform) go).updatePosition((PlatformPosition) evt.getNewValue());
                                         }

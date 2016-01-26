@@ -66,7 +66,6 @@ public class Platform extends MoveableGameObject implements IUpdateable, IRender
                     if (ClientAdministration.getInstance().getGame().isMultiplayer()) {
                         if (ClientAdministration.getInstance().isHost()) {
                             try {
-                                System.out.println("SENT");
                                 ClientAdministration.getInstance().getHost().updatePlatform(this.getId(), new PlatformPosition(this.getRect().getX() + offsetX, this.getRect().getY()));
                             } catch (RemoteException ex) {
                                 // Alleen host mag updaten. Lijkt me sterk dat host lokaal een error krijgt ..
@@ -117,10 +116,10 @@ public class Platform extends MoveableGameObject implements IUpdateable, IRender
         }
 
         goingDown = diffY > 0;
-
         this.pushNearbyCharacters(new PlatformPosition(x, y, diffX, diffY, -1, this.isGoingDown()), null);
 
         this.getRect().setX(x);
+        this.getRect().setY(y);
     }
 
     private void setNextTarget() {
