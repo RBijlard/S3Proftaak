@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="16" tilewidth="70" tileheight="70" nextobjectid="448">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="300" height="16" tilewidth="70" tileheight="70" nextobjectid="449">
  <tileset firstgid="1" name="BaseTileSheet" tilewidth="70" tileheight="70" spacing="2" tilecount="156">
   <image source="tiles_spritesheet.png" width="914" height="936"/>
  </tileset>
@@ -17,7 +17,7 @@
  </tileset>
  <layer name="Tile Layer 1" width="300" height="16" opacity="0.9">
   <data encoding="base64" compression="gzip">
-   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
+   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
   </data>
  </layer>
  <layer name="Tile Layer 2" width="300" height="16">
@@ -122,17 +122,17 @@
   </properties>
   <object id="371" x="11270" y="665" width="70" height="35">
    <properties>
+    <property name="button" value="4"/>
+   </properties>
+  </object>
+  <object id="433" x="9310" y="752" width="70" height="17">
+   <properties>
     <property name="button" value="3"/>
    </properties>
   </object>
-  <object id="433" x="9380" y="752" width="70" height="17">
+  <object id="437" x="9450" y="752" width="70" height="17">
    <properties>
-    <property name="button" value="2"/>
-   </properties>
-  </object>
-  <object id="437" x="10010" y="735" width="70" height="35">
-   <properties>
-    <property name="button" value="2"/>
+    <property name="button" value="3"/>
    </properties>
   </object>
  </objectgroup>
@@ -142,31 +142,26 @@
   </properties>
   <object id="374" x="11760" y="682" width="52" height="87">
    <properties>
-    <property name="door" value="3"/>
+    <property name="door" value="4"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="lever" width="280" height="70">
-  <object id="432" x="8120" y="122" width="70" height="17">
+  <object id="440" x="1610" y="210" width="70" height="70">
    <properties>
     <property name="lever" value="1"/>
    </properties>
   </object>
-  <object id="440" x="1610" y="210" width="70" height="70">
+  <object id="448" x="10080" y="700" width="70" height="70">
    <properties>
-    <property name="lever" value="4"/>
+    <property name="lever" value="3"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="weight" width="280" height="70">
-  <object id="370" x="10500" y="210" width="70" height="490">
-   <properties>
-    <property name="weight" value="1"/>
-   </properties>
-  </object>
   <object id="435" x="9870" y="1" width="70" height="770">
    <properties>
-    <property name="weight" value="2"/>
+    <property name="weight" value="3"/>
    </properties>
   </object>
  </objectgroup>
@@ -209,21 +204,21 @@
  <objectgroup name="spawnblocks" width="280" height="70">
   <object id="441" x="3290" y="840" width="70" height="70">
    <properties>
-    <property name="spawnblock" value="4"/>
+    <property name="spawnblock" value="1"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="platformMove" width="280" height="70">
   <object id="445" x="7630" y="560" width="70" height="70">
    <properties>
-    <property name="platform" value="5"/>
+    <property name="platform" value="2"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="movepoint" width="280" height="70">
   <object id="446" x="8190" y="560" width="70" height="70">
    <properties>
-    <property name="point" value="5"/>
+    <property name="point" value="2"/>
    </properties>
   </object>
  </objectgroup>
