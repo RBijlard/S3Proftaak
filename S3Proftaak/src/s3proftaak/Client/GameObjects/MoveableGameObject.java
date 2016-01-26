@@ -14,7 +14,7 @@ import s3proftaak.Shared.Wrappers.PlatformPosition;
  *
  * @author Stan
  */
-public class MoveableGameObject extends GameObject {
+public abstract class MoveableGameObject extends GameObject {
 
     public MoveableGameObject(float x, float y, float width, float height, boolean collision) {
         super(x, y, width, height, collision);
