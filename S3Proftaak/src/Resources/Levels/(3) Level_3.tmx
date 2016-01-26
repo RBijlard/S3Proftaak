@@ -25,7 +25,7 @@
    H4sIAAAAAAAAC+3ZsQ2AIBQEUGAY4v5TOAgdS9ASAxqIhSbvNXd/gd9cCAAAAADvOuP9DQDAmhLHHeALav+X0qQDALAtXxIAAIB/OOx6AAAAAACPGhW1yPwASwAA
   </data>
  </layer>
- <objectgroup name="hitbox layer 0">
+ <objectgroup name="hitbox layer 0" width="280" height="70">
   <object id="216" x="2625" y="840" width="280" height="70"/>
   <object id="217" x="2275" y="910" width="700" height="70"/>
   <object id="218" x="1" y="980" width="1890" height="140"/>
@@ -116,7 +116,7 @@
   <object id="438" x="1540" y="280" width="350" height="35"/>
   <object id="447" x="8330" y="560" width="140" height="35"/>
  </objectgroup>
- <objectgroup name="button">
+ <objectgroup name="button" width="280" height="70">
   <properties>
    <property name="button" value="1"/>
   </properties>
@@ -146,7 +146,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="door">
+ <objectgroup name="door" width="280" height="70">
   <properties>
    <property name="door" value="4"/>
   </properties>
@@ -156,14 +156,14 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="lever">
+ <objectgroup name="lever" width="280" height="70">
   <object id="451" x="1610" y="210" width="70" height="70">
    <properties>
     <property name="lever" value="1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="weight">
+ <objectgroup name="weight" width="280" height="70"> 
   <object id="435" x="9870" y="1" width="70" height="770">
    <properties>
     <property name="weight" value="4"/>
@@ -175,7 +175,7 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="spikes">
+ <objectgroup name="spikes" width="280" height="70">
   <object id="210" x="3290" y="1050" width="630" height="70"/>
   <object id="258" x="4200" y="945" width="140" height="35"/>
   <object id="260" x="4410" y="945" width="210" height="35"/>
@@ -202,16 +202,16 @@
   <object id="397" x="12337" y="997" width="35" height="52"/>
   <object id="398" x="12687" y="857" width="35" height="52"/>
  </objectgroup>
- <objectgroup name="movebleblock"/>
- <objectgroup name="star">
+ <objectgroup name="movebleblock" width="280" height="70"/>
+ <objectgroup name="star" width="280" height="70">
   <object id="303" x="5950" y="70" width="70" height="70"/>
   <object id="323" x="1050" y="560" width="70" height="70"/>
   <object id="356" x="7980" y="70" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="spawnpoint">
+ <objectgroup name="spawnpoint" width="280" height="70">
   <object id="205" x="840" y="840" width="70" height="70"/>
  </objectgroup>
- <objectgroup name="spawnblocks">
+ <objectgroup name="spawnblocks" width="280" height="70">
   <object id="441" x="3290" y="840" width="70" height="70">
    <properties>
     <property name="spawnblock" value="2"/>
@@ -233,6 +233,6 @@
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="platformMove"/>
- <objectgroup name="movepoint"/>
+ <objectgroup name="platformMove" width="280" height="70"/>
+ <objectgroup name="movepoint" width="280" height="70"/>
 </map>
