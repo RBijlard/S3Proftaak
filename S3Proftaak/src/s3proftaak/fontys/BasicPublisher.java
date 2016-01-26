@@ -142,11 +142,6 @@ public class BasicPublisher {
             }
         }
 
-        // DEBUG PURPOSES
-        List<RemotePropertyListener> debugg = new ArrayList<>();
-        debugg.addAll(alertable);
-        String debug = debugg.toString();
-
         try {
             for (RemotePropertyListener listener : alertable) {
 
@@ -180,7 +175,6 @@ public class BasicPublisher {
             }
         } catch (Exception ex) {
             System.out.println("Wow, usefull catch:");
-            System.out.println("Original: " + debugg.size() + "\n" + debug);
             System.out.println("Current: " + alertable.size() + "\n" + alertable.toString());
         }
     }
