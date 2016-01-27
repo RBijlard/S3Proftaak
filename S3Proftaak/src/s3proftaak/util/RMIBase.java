@@ -34,6 +34,8 @@ public class RMIBase {
             }
         } catch (SocketException ex) {
         }
+        
+        System.setProperty("java.rmi.server.hostname", ip = "169.254.164.158");
 
         return ip;
     }

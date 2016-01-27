@@ -44,8 +44,8 @@ public class DBConnect {
         if (conn != null) {
             conn.close();
         }
-        conn = DriverManager.getConnection("jdbc:mysql://86.94.182.242:3306/S3proftaak", "S3proftaak", "P@ssword");
-        //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/proftaak", "root", "usbw");
+        //conn = DriverManager.getConnection("jdbc:mysql://86.94.182.242:3306/S3proftaak", "S3proftaak", "P@ssword");
+        conn = DriverManager.getConnection("jdbc:mysql://169.254.164.158:3306/proftaak", "Stan", "123");
     }
 
     // <editor-fold defaultstate="collapsed" desc="Settings - getSettings / updateSettings"> 
